@@ -8,7 +8,7 @@ Bienvenue dans la documentation de notre `API RESTful` pour notre base de donné
 
 **Utilisateurs :**
 
-- Récupérer toutes les utilisateurs : `GET /users`
+- Récupérer touts les utilisateurs : `GET /users`
 - Récupérer un utilisateur par ID : `GET /users/:id`
 - Créer un utilisateur : `POST /users`
 - Mettre à jour un utilisateur : `PUT /users/:id`
@@ -59,7 +59,7 @@ Bienvenue dans la documentation de notre `API RESTful` pour notre base de donné
 - Récupérer toutes les régions : `GET /locations`
 - Récupérer une région par ID : `GET /locations/:id`
 - Créer une région : `POST /locations`
-- Mettre à jour une régions : `PUT /locations/:id`
+- Mettre à jour une région : `PUT /locations/:id`
 - Supprimer une région : `DELETE /locations/:id`
 
 **Emplois :**
