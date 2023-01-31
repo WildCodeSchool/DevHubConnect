@@ -17,7 +17,7 @@ CREATE TABLE location (
 );
 
 CREATE TABLE user (
-  id int(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id int(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   cp varchar(8) NOT NULL,
   firstname varchar(60) NOT NULL,
   lastname varchar(60) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE user (
   biography varchar(140),
   about varchar(600),
   user_image blob,
-  user_password password NOT NULL,
+  user_password varchar(60) NOT NULL,
   github_page varchar(255),
   experience int,
   user_role_id int,
@@ -36,14 +36,15 @@ CREATE TABLE user (
   FOREIGN KEY (location_id) REFERENCES location (id)
 );
 
+
 CREATE TABLE skill (
   id int PRIMARY KEY,
   skill_name varchar(60)
 );
 
 CREATE TABLE user_skill (
-  user_id int,
-  skill_id int,
+  user_id int(11) UNSIGNED NOT NULL,
+  skill_id int NOT NULL,
   PRIMARY KEY (user_id, skill_id),
   FOREIGN KEY (user_id) REFERENCES user (id),
   FOREIGN KEY (skill_id) REFERENCES skill (id)
@@ -71,7 +72,7 @@ CREATE TABLE project_skill (
 );
 
 CREATE TABLE candidacy (
-  user_id int,
+  user_id int(11) UNSIGNED,
   project_id int,
   apply_date datetime,
   user_status int,
