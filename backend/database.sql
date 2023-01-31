@@ -81,3 +81,4 @@ CREATE TABLE candidacy (
   FOREIGN KEY (user_id) REFERENCES user (id),
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
+
