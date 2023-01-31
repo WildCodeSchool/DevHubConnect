@@ -8,75 +8,75 @@ Bienvenue dans la documentation de notre API RESTful pour notre base de données
 
 **Utilisateurs :**
 
-- Récupérer toutes les utilisateurs : **_GET /users_**
-- Récupérer un utilisateur par ID : **_GET /users/:id_**
-- Créer un utilisateur : **_POST /users_**
-- Mettre à jour un utilisateur : **_PUT /users/:id_**
-- Supprimer un utilisateur : **_DELETE /users/:id_**
+- Récupérer toutes les utilisateurs : `GET /users`
+- Récupérer un utilisateur par ID : `GET /users/:id`
+- Créer un utilisateur : `POST /users`
+- Mettre à jour un utilisateur : `PUT /users/:id`
+- Supprimer un utilisateur : `DELETE /users/:id`
 
 **Candidatures :**
 
-- Récupérer toutes les candidatures : **_GET /candidacies_**
-- Récupérer une candidature par ID : **_GET /candidacies/:id_**
-- Créer une candidature : **_POST /candidacies_**
-- Mettre à jour une candidature : **_PUT /candidacies/:id_**
-- Supprimer une candidature : **_DELETE /candidacies/:id_**
+- Récupérer toutes les candidatures : `GET /candidacies`
+- Récupérer une candidature par ID : `GET /candidacies/:id`
+- Créer une candidature : `POST /candidacies`
+- Mettre à jour une candidature : `PUT /candidacies/:id`
+- Supprimer une candidature : `DELETE /candidacies/:id`
 
 **Projets :**
 
-- Récupérer tous les projets : **_GET /projects_**
-- Récupérer un projet par ID : **_GET /projects/:id_**
-- Créer un projet : **_POST /projects_**
-- Mettre à jour un projet : **_PUT /projects/:id_**
-- Supprimer un projet : **_DELETE /projects/:id_**
+- Récupérer tous les projets : `GET /projects`
+- Récupérer un projet par ID : `GET /projects/:id`
+- Créer un projet : `POST /projects`
+- Mettre à jour un projet : `PUT /projects/:id`
+- Supprimer un projet : `DELETE /projects/:id`
 
 **Compétences utilisateur :**
 
-- Récupérer toutes les compétences utilisateur : **_GET /user_skills_**
-- Récupérer une compétence utilisateur par ID : **_GET /user_skills/:id_**
-- Créer une compétence utilisateur : **_POST /user_skills_**
-- Mettre à jour une compétence utilisateur : **_PUT /user_skills/:id_**
-- Supprimer une compétence utilisateur : **_DELETE /user_skills/:id_**
+- Récupérer toutes les compétences utilisateur : `GET /user_skills`
+- Récupérer une compétence utilisateur par ID : `GET /user_skills/:id`
+- Créer une compétence utilisateur : `POST /user_skills`
+- Mettre à jour une compétence utilisateur : `PUT /user_skills/:id`
+- Supprimer une compétence utilisateur : `DELETE /user_skills/:id`
 
 **Compétences projet :**
 
-- Récupérer toutes les compétences projet : **_GET /project_skills_**
-- Récupérer une compétence projet par ID : **_GET /project_skills/:id_**
-- Créer une compétence projet : **_POST /project_skills_**
-- Mettre à jour une compétence projet : **_PUT /project_skills/:id_**
-- Supprimer une compétence projet : **_DELETE /project_skills/:id_**
+- Récupérer toutes les compétences projet : `GET /project_skills`
+- Récupérer une compétence projet par ID : `GET /project_skills/:id`
+- Créer une compétence projet : `POST /project_skills`
+- Mettre à jour une compétence projet : `PUT /project_skills/:id`
+- Supprimer une compétence projet : `DELETE /project_skills/:id`
 
 **Compétences :**
 
-- Récupérer toutes les compétences : **_GET /skills_**
-- Récupérer une compétence par ID : **_GET /skills/:id_**
-- Créer une compétence : **_POST /skills_**
-- Mettre à jour une compétence : **_PUT /skills/:id_**
-- Supprimer une compétence : **_DELETE /skills/:id_**
+- Récupérer toutes les compétences : `GET /skills`
+- Récupérer une compétence par ID : `GET /skills/:id`
+- Créer une compétence : `POST /skills`
+- Mettre à jour une compétence : `PUT /skills/:id`
+- Supprimer une compétence : `DELETE /skills/:id`
 
 **Regions SNCF :**
 
-- Récupérer toutes les régions : **_GET /locations_**
-- Récupérer une région par ID : **_GET /locations/:id_**
-- Créer une région : **_POST /locations_**
-- Mettre à jour une régions : **_PUT /locations/:id_**
-- Supprimer une région : **_DELETE /locations/:id_**
+- Récupérer toutes les régions : `GET /locations`
+- Récupérer une région par ID : `GET /locations/:id`
+- Créer une région : `POST /locations`
+- Mettre à jour une régions : `PUT /locations/:id`
+- Supprimer une région : `DELETE /locations/:id`
 
 **Emplois :**
 
-- Récupérer tous les emplois : **_GET /jobs_**
-- Récupérer un emploi par ID : **_GET /jobs/:id_**
-- Créer un emploi : **_POST /jobs_**
-- Mettre à jour un emploi : **_PUT /jobs/:id_**
-- Supprimer un emploi : **_DELETE /jobs/:id_**
+- Récupérer tous les emplois : `GET /jobs`
+- Récupérer un emploi par ID : `GET /jobs/:id`
+- Créer un emploi : `POST /jobs`
+- Mettre à jour un emploi : `PUT /jobs/:id`
+- Supprimer un emploi : `DELETE /jobs/:id`
 
 **Rôles utilisateur :**
 
-- Récupérer tous les rôles utilisateur : **_GET /user_roles_**
-- Récupérer un rôle utilisateur par ID : **_GET /user_roles/:id_**
-- Créer un rôle utilisateur : **_POST /user_roles_**
-- Mettre à jour un rôle utilisateur : **_PUT /user_roles_**
-- Supprimer un rôle utilisateur :**_DELETE /user_roles_**
+- Récupérer tous les rôles utilisateur : `GET /user_roles`
+- Récupérer un rôle utilisateur par ID : `GET /user_roles/:id`
+- Créer un rôle utilisateur : `POST /user_roles`
+- Mettre à jour un rôle utilisateur : `PUT /user_roles`
+- Supprimer un rôle utilisateur :`DELETE /user_roles`
 
 ## Exemple Utilisateurs
 
