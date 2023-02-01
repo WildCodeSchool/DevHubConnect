@@ -166,6 +166,8 @@ INSERT INTO job (id, job_name) VALUES
 (22, 'Analyste Agile'),
 (23, 'Designer Agile');
 
+
+
 INSERT INTO project (id, project_name, project_start_date, project_end_date, project_image, project_description, project_state, project_remote, region_id)
 VALUES 
 (1, 'Facebook', '2004-02-04', '2021-01-01', 'facebook.jpg', 'Projet de création d''un réseau social', 1, 0, 1),
@@ -185,6 +187,27 @@ VALUES
 (15, 'Twitter', '2006-03-21', '2022-12-12', 'twitter.jpg', 'Twitter est un réseau social en ligne qui permet aux utilisateurs de partager de courtes messages appelés "tweets" avec leur public.', 1, 0, 1),
 (16, 'Mars Colonization', '2022-06-01', '2022-12-12', 'mars.jpg', 'Le projet Mars Colonization vise à coloniser la planète Mars avec des humains pour en faire une nouvelle colonie viable.', 1, 0, 2),
 (17, 'Hyperloop', '2013-08-12', '2022-12-12', 'hyperloop.jpg', 'Hyperloop est un système de transport à grande vitesse qui utilise des capsules de transport en position déprimée pour permettre des vitesses élevées tout en réduisant les coûts.', 1, 0, 2);
+
+INSERT INTO project_skill (project_id, skill_id)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 1),
+(5, 4),
+(6, 5),
+(7, 2),
+(8, 5),
+(9, 6),
+(10, 3),
+(11, 4),
+(12, 6),
+(13, 1),
+(14, 4),
+(15, 7),
+(16, 2),
+(17, 5),
+(17, 7);
 
 INSERT INTO user_role (role_name) VALUES
 ('Administrator'),
@@ -243,3 +266,4 @@ VALUES
 (3, 15, '2023-01-03 12:00:00', 3, 'Intéressé par les réseaux sociaux'),
 (2, 16, '2023-01-04 12:00:00', 2, 'Passionné par l exploration spatiale'),
 (1, 17, '2023-01-05 12:00:00', 1, 'Intéressé par les transports à grande vitesse');
+
