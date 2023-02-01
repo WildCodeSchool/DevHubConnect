@@ -1,4 +1,6 @@
-/* CREATE DATABASE devhub_connect;*/
+DROP DATABASE IF EXISTS devhub_connect;
+CREATE DATABASE devhub_connect;
+
 USE devhub_connect;
 
 DROP TABLE IF EXISTS user_role;
