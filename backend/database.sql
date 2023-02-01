@@ -1,4 +1,4 @@
-CREATE DATABASE devhub_connect;
+//
 USE devhub_connect;
 
 CREATE TABLE user_role (
