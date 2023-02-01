@@ -83,6 +83,7 @@ CREATE TABLE project_skill (
 
 DROP TABLE IF EXISTS candidacy;
 CREATE TABLE candidacy (
+  id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   project_id int,
   apply_date datetime,
@@ -165,8 +166,6 @@ INSERT INTO job (id, job_name) VALUES
 (21, 'Testeur Agile'),
 (22, 'Analyste Agile'),
 (23, 'Designer Agile');
-
-
 
 INSERT INTO project (id, project_name, project_start_date, project_end_date, project_image, project_description, project_state, project_remote, region_id)
 VALUES 
