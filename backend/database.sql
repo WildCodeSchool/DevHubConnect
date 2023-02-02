@@ -89,7 +89,6 @@ CREATE TABLE candidacy (
   apply_date datetime,
   user_status int,
   user_motivation varchar(240),
-  PRIMARY KEY (user_id, project_id),
   FOREIGN KEY (user_id) REFERENCES user (id),
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
