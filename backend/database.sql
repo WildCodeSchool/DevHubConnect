@@ -66,7 +66,6 @@ CREATE TABLE project (
 
 DROP TABLE IF EXISTS user_skill;
 CREATE TABLE user_skill (
-  id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   skill_id int UNSIGNED,
   FOREIGN KEY (user_id) REFERENCES user (id),
@@ -84,6 +83,7 @@ CREATE TABLE project_skill (
 
 DROP TABLE IF EXISTS candidacy;
 CREATE TABLE candidacy (
+  id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   project_id int,
   apply_date datetime,
@@ -264,4 +264,3 @@ VALUES
 (3, 15, '2023-01-03', 3, 'Intéressé par les réseaux sociaux'),
 (2, 16, '2023-01-04', 2, 'Passionné par l exploration spatiale'),
 (1, 17, '2023-01-05', 1, 'Intéressé par les transports à grande vitesse');
-

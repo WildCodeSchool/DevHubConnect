@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 class AbstractManager {
   constructor({ table }) {
     this.table = table;

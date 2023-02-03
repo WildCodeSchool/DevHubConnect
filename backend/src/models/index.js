@@ -34,11 +34,13 @@ const ItemManager = require("./ItemManager");
 models.item = new ItemManager();
 models.item.setDatabase(pool);
 
+// Skill
 const SkillManager = require("./SkillManager");
 
 models.skill = new SkillManager();
 models.skill.setDatabase(pool);
 
+// Candidacy
 const CandidacyManager = require("./CandidacyManager");
 
 models.candidacy = new CandidacyManager();
@@ -62,6 +64,11 @@ const UserSkillManager = require("./UserSkilManager");
 models.userSkill = new UserSkillManager();
 models.userSkill.setDatabase(pool);
 
+// Job
+const JobManager = require("./JobManager");
+
+models.job = new JobManager();
+models.job.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
