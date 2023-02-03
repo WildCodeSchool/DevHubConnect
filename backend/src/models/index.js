@@ -39,6 +39,11 @@ const SkillManager = require("./SkillManager");
 models.skill = new SkillManager();
 models.skill.setDatabase(pool);
 
+const CandidacyManager = require("./CandidacyManager");
+
+models.candidacy = new CandidacyManager();
+models.candidacy.setDatabase(pool);
+
 // Projects
 const ProjectManager = require("./ProjectManager");
 
