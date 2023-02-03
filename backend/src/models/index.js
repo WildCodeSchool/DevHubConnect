@@ -25,7 +25,7 @@ pool.getConnection().catch(() => {
   );
 });
 
-// declare and fill models: that's where you should register your own managers
+// declare and fill models : that's where you should register your own managers
 
 const models = {};
 
