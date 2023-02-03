@@ -34,16 +34,47 @@ const ItemManager = require("./ItemManager");
 models.item = new ItemManager();
 models.item.setDatabase(pool);
 
+// user
 const UserManager = require("./UserManager");
 
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
+// Skill
 const SkillManager = require("./SkillManager");
 
 models.skill = new SkillManager();
 models.skill.setDatabase(pool);
 
+// Candidacy
+const CandidacyManager = require("./CandidacyManager");
+
+models.candidacy = new CandidacyManager();
+models.candidacy.setDatabase(pool);
+
+// Projects
+const ProjectManager = require("./ProjectManager");
+
+models.project = new ProjectManager();
+models.project.setDatabase(pool);
+
+// UserRole
+const UserRoleManager = require("./UserRoleManager");
+
+models.userRole = new UserRoleManager();
+models.userRole.setDatabase(pool);
+
+// UserSkill
+const UserSkillManager = require("./UserSkilManager");
+
+models.userSkill = new UserSkillManager();
+models.userSkill.setDatabase(pool);
+
+// Job
+const JobManager = require("./JobManager");
+
+models.job = new JobManager();
+models.job.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
