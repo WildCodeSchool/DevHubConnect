@@ -40,6 +40,18 @@ const ProjectManager = require("./ProjectManager");
 models.project = new ProjectManager();
 models.project.setDatabase(pool);
 
+// UserRole
+const UserRoleManager = require("./UserRoleManager");
+
+models.userRole = new UserRoleManager();
+models.userRole.setDatabase(pool);
+
+// UserSkill
+const UserSkillManager = require("./UserSkilManager");
+
+models.userSkill = new UserSkillManager();
+models.userSkill.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
