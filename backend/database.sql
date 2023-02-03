@@ -94,6 +94,7 @@ CREATE TABLE candidacy (
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
+
 /* INSERT INTO */
 
 INSERT INTO region (id, region_name)

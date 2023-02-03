@@ -65,7 +65,7 @@ models.userRole = new UserRoleManager();
 models.userRole.setDatabase(pool);
 
 // UserSkill
-const UserSkillManager = require("./UserSkilManager");
+const UserSkillManager = require("./UserSkillManager");
 
 models.userSkill = new UserSkillManager();
 models.userSkill.setDatabase(pool);

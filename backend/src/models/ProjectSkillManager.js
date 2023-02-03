@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const AbstractManager = require("./AbstractManager");
 
-class projectSkillManager extends AbstractManager {
+class ProjectSkillManager extends AbstractManager {
   constructor() {
     super({ table: "project_skill" });
   }
@@ -21,4 +21,4 @@ class projectSkillManager extends AbstractManager {
   }
 }
 
-module.exports = projectSkillManager;
+module.exports = ProjectSkillManager;

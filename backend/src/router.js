@@ -63,11 +63,11 @@ router.delete("/skills/:id", skillControllers.destroy);
 
 const regionControllers = require("./controllers/regionControllers");
 
-router.get("/region", regionControllers.browse);
-router.get("/region/:id", regionControllers.read);
-router.put("/region/:id", regionControllers.edit);
-router.post("/region", regionControllers.add);
-router.delete("/region/:id", regionControllers.destroy);
+router.get("/regions", regionControllers.browse);
+router.get("/regions/:id", regionControllers.read);
+router.put("/regions/:id", regionControllers.edit);
+router.post("/regions", regionControllers.add);
+router.delete("/regions/:id", regionControllers.destroy);
 
 const projectSkillControllers = require("./controllers/projectSkillControllers");
 
