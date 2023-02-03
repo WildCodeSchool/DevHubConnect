@@ -34,6 +34,11 @@ const ItemManager = require("./ItemManager");
 models.item = new ItemManager();
 models.item.setDatabase(pool);
 
+const SkillManager = require("./SkillManager");
+
+models.skill = new SkillManager();
+models.skill.setDatabase(pool);
+
 // Projects
 const ProjectManager = require("./ProjectManager");
 

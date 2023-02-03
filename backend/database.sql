@@ -88,7 +88,6 @@ CREATE TABLE candidacy (
   apply_date datetime,
   user_status int,
   user_motivation varchar(240),
-  PRIMARY KEY (user_id, project_id),
   FOREIGN KEY (user_id) REFERENCES user (id),
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
@@ -247,21 +246,21 @@ INSERT INTO user_skill (user_id, skill_id) VALUES
 
 INSERT INTO candidacy (user_id, project_id, apply_date, user_status, user_motivation)
 VALUES
-(1, 1, '2022-01-01 12:00:00', 2, 'Intéressé par la création de réseaux sociaux'),
-(1, 2, '2022-02-01 12:00:00', 3, 'Intéressé par la réalité virtuelle'),
-(2, 3, '2022-03-01 12:00:00', 2, 'Expérience en développement d IA'),
-(3, 4, '2022-04-01 12:00:00', 1, 'Passionné par l espace'),
-(4, 5, '2022-05-01 12:00:00', 3, 'Intéressé par les voitures électriques'),
-(3, 6, '2022-06-01 12:00:00', 1, 'Expérience en connectivité cerveau-machine'),
-(2, 7, '2022-07-01 12:00:00', 3, 'Intéressé par l histoire de l ordinateur personnel'),
-(1, 8, '2022-08-01 12:00:00', 2, 'Expérience en développement de produits Apple'),
-(3, 9, '2022-09-01 12:00:00', 1, 'Passionné par les smartphones'),
-(4, 10, '2022-10-01 12:00:00', 2, 'Intéressé par les logiciels pour ordinateurs'),
-(1, 11, '2022-11-01 12:00:00', 3, 'Expérience en développement de systèmes d exploitation'),
-(2, 12, '2022-12-01 12:00:00', 1, 'Passionné par les jeux vidéo'),
-(4, 13, '2023-01-01 12:00:00', 2, 'Intéressé par les moteurs de recherche'),
-(1, 14, '2023-01-02 12:00:00', 1, 'Expérience en développement d IA'),
-(3, 15, '2023-01-03 12:00:00', 3, 'Intéressé par les réseaux sociaux'),
-(2, 16, '2023-01-04 12:00:00', 2, 'Passionné par l exploration spatiale'),
-(1, 17, '2023-01-05 12:00:00', 1, 'Intéressé par les transports à grande vitesse');
+(1, 1, '2022-01-01', 2, 'Intéressé par la création de réseaux sociaux'),
+(1, 2, '2022-02-01', 3, 'Intéressé par la réalité virtuelle'),
+(2, 3, '2022-03-01', 2, 'Expérience en développement d IA'),
+(3, 4, '2022-04-01', 1, 'Passionné par l espace'),
+(4, 5, '2022-05-01', 3, 'Intéressé par les voitures électriques'),
+(3, 6, '2022-06-01', 1, 'Expérience en connectivité cerveau-machine'),
+(2, 7, '2022-07-01', 3, 'Intéressé par l histoire de l ordinateur personnel'),
+(1, 8, '2022-08-01', 2, 'Expérience en développement de produits Apple'),
+(3, 9, '2022-09-01', 1, 'Passionné par les smartphones'),
+(4, 10, '2022-10-01', 2, 'Intéressé par les logiciels pour ordinateurs'),
+(1, 11, '2022-11-01', 3, 'Expérience en développement de systèmes d exploitation'),
+(2, 12, '2022-12-01', 1, 'Passionné par les jeux vidéo'),
+(4, 13, '2023-01-01', 2, 'Intéressé par les moteurs de recherche'),
+(1, 14, '2023-01-02', 1, 'Expérience en développement d IA'),
+(3, 15, '2023-01-03', 3, 'Intéressé par les réseaux sociaux'),
+(2, 16, '2023-01-04', 2, 'Passionné par l exploration spatiale'),
+(1, 17, '2023-01-05', 1, 'Intéressé par les transports à grande vitesse');
 
