@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 require("dotenv").config();
 
 const mysql = require("mysql2/promise");
@@ -34,6 +35,10 @@ const ItemManager = require("./ItemManager");
 models.item = new ItemManager();
 models.item.setDatabase(pool);
 
+const JobManager = require("./JobManager");
+
+models.job = new JobManager();
+models.job.setDatabase(pool);
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
