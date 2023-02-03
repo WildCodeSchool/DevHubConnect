@@ -19,5 +19,4 @@ router.put("/jobs/:id", jobControllers.edit);
 router.post("/jobs", jobControllers.add);
 router.delete("/jobs/:id", jobControllers.destroy);
 
-
 module.exports = router;

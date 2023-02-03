@@ -7,9 +7,10 @@ class JobManager extends AbstractManager {
   }
 
   insert(job) {
-    return this.database.query(`insert into ${this.table} (job_name) values (?)`, [
-      job.job_name,
-    ]);
+    return this.database.query(
+      `insert into ${this.table} (job_name) values (?)`,
+      [job.job_name]
+    );
   }
 
   update(job) {
