@@ -27,6 +27,14 @@ router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
 router.delete("/skills/:id", skillControllers.destroy);
 
+const userControllers = require("./controllers/userControllers");
+
+router.get("/users", userControllers.browse);
+router.get("/users/:id", userControllers.read);
+router.put("/users/:id", userControllers.edit);
+router.post("/users", userControllers.add);
+router.delete("/users/:id", userControllers.destroy);
+
 const candidacyControllers = require("./controllers/candidacyControllers");
 
 router.get("/candidacies", candidacyControllers.browse);
