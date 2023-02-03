@@ -83,7 +83,6 @@ CREATE TABLE project_skill (
 
 DROP TABLE IF EXISTS candidacy;
 CREATE TABLE candidacy (
-  id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   project_id int,
   apply_date datetime,
