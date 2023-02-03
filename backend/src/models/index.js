@@ -39,6 +39,11 @@ const UserManager = require("./UserManager");
 models.user = new UserManager();
 models.user.setDatabase(pool);
 
+const SkillManager = require("./SkillManager");
+
+models.skill = new SkillManager();
+models.skill.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
