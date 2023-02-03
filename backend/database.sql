@@ -87,7 +87,7 @@ CREATE TABLE candidacy (
   id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   project_id int,
-  apply_date datetime,
+  apply_date date,
   user_status int,
   user_motivation varchar(240),
   FOREIGN KEY (user_id) REFERENCES user (id),
