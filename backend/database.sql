@@ -81,6 +81,18 @@ CREATE TABLE project_skill (
   FOREIGN KEY (skill_id) REFERENCES skill (id)
 );
 
+DROP TABLE IF EXISTS candidacy;
+CREATE TABLE candidacy (
+  id int PRIMARY KEY AUTO_INCREMENT,
+  user_id int(11) UNSIGNED,
+  project_id int,
+  apply_date datetime,
+  user_status int,
+  user_motivation varchar(240),
+  PRIMARY KEY (user_id, project_id),
+  FOREIGN KEY (user_id) REFERENCES user (id),
+  FOREIGN KEY (project_id) REFERENCES project (id)
+);
 
 /* INSERT INTO */
 
@@ -253,3 +265,4 @@ VALUES
 (3, 15, '2023-01-03 12:00:00', 3, 'Intéressé par les réseaux sociaux'),
 (2, 16, '2023-01-04 12:00:00', 2, 'Passionné par l exploration spatiale'),
 (1, 17, '2023-01-05 12:00:00', 1, 'Intéressé par les transports à grande vitesse');
+
