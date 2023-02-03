@@ -39,6 +39,11 @@ const SkillManager = require("./SkillManager");
 models.skill = new SkillManager();
 models.skill.setDatabase(pool);
 
+const CandidacyManager = require("./CandidacyManager");
+
+models.candidacy = new CandidacyManager();
+models.candidacy.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 

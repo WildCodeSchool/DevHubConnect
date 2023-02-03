@@ -18,4 +18,12 @@ router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
 router.delete("/skills/:id", skillControllers.destroy);
 
+const candidacyControllers = require("./controllers/candidacyControllers");
+
+router.get("/candidacies", candidacyControllers.browse);
+router.get("/candidacies/:id", candidacyControllers.read);
+router.put("/candidacies/:id", candidacyControllers.edit);
+router.post("/candidacies", candidacyControllers.add);
+router.delete("/candidacies/:id", candidacyControllers.destroy);
+
 module.exports = router;
