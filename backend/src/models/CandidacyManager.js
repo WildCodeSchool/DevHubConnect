@@ -27,6 +27,7 @@ class CandidacyManager extends AbstractManager {
         candidacy.apply_date,
         candidacy.user_status,
         candidacy.user_motivation,
+        candidacy.id,
       ]
     );
   }

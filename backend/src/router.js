@@ -3,13 +3,15 @@ const express = require("express");
 
 const router = express.Router();
 
-const itemControllers = require("./controllers/itemControllers");
+// VERIFIE
 
-router.get("/items", itemControllers.browse);
-router.get("/items/:id", itemControllers.read);
-router.put("/items/:id", itemControllers.edit);
-router.post("/items", itemControllers.add);
-router.delete("/items/:id", itemControllers.destroy);
+const userRoleControllers = require("./controllers/userRoleControllers");
+
+router.get("/user_roles", userRoleControllers.browse);
+router.get("/user_roles/:id", userRoleControllers.read);
+router.put("/user_roles/:id", userRoleControllers.edit);
+router.post("/user_roles", userRoleControllers.add);
+router.delete("/user_roles/:id", userRoleControllers.destroy);
 
 const jobControllers = require("./controllers/jobControllers");
 
@@ -18,14 +20,6 @@ router.get("/jobs/:id", jobControllers.read);
 router.put("/jobs/:id", jobControllers.edit);
 router.post("/jobs", jobControllers.add);
 router.delete("/jobs/:id", jobControllers.destroy);
-
-const skillControllers = require("./controllers/skillControllers");
-
-router.get("/skills", skillControllers.browse);
-router.get("/skills/:id", skillControllers.read);
-router.put("/skills/:id", skillControllers.edit);
-router.post("/skills", skillControllers.add);
-router.delete("/skills/:id", skillControllers.destroy);
 
 const userControllers = require("./controllers/userControllers");
 
@@ -43,6 +37,14 @@ router.put("/candidacies/:id", candidacyControllers.edit);
 router.post("/candidacies", candidacyControllers.add);
 router.delete("/candidacies/:id", candidacyControllers.destroy);
 
+const userSkillControllers = require("./controllers/userSkillControllers");
+
+router.get("/user_skills", userSkillControllers.browse);
+router.get("/user_skills/:id", userSkillControllers.read);
+router.put("/user_skills/:id", userSkillControllers.edit);
+router.post("/user_skills", userSkillControllers.add);
+router.delete("/user_skills/:id", userSkillControllers.destroy);
+
 const projectControllers = require("./controllers/projectControllers");
 
 router.get("/projects", projectControllers.browse);
@@ -51,20 +53,30 @@ router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
-const userRoleControllers = require("./controllers/userRoleControllers");
+const skillControllers = require("./controllers/skillControllers");
 
-router.get("/user_roles", userRoleControllers.browse);
-router.get("/user_roles/:id", userRoleControllers.read);
-router.put("/user_roles/:id", userRoleControllers.edit);
-router.post("/user_roles", userRoleControllers.add);
-router.delete("/user_roles/:id", userRoleControllers.destroy);
+router.get("/skills", skillControllers.browse);
+router.get("/skills/:id", skillControllers.read);
+router.put("/skills/:id", skillControllers.edit);
+router.post("/skills", skillControllers.add);
+router.delete("/skills/:id", skillControllers.destroy);
 
-const userSkillControllers = require("./controllers/userSkillControllers");
+const regionControllers = require("./controllers/regionControllers");
 
-router.get("/user_skills", userSkillControllers.browse);
-router.get("/user_skills/:id", userSkillControllers.read);
-router.put("/user_skills/:id", userSkillControllers.edit);
-router.post("/user_skills", userSkillControllers.add);
-router.delete("/user_skills/:id", userSkillControllers.destroy);
+router.get("/region", regionControllers.browse);
+router.get("/region/:id", regionControllers.read);
+router.put("/region/:id", regionControllers.edit);
+router.post("/region", regionControllers.add);
+router.delete("/region/:id", regionControllers.destroy);
+
+const projectSkillControllers = require("./controllers/projectSkillControllers");
+
+router.get("/project_skills", projectSkillControllers.browse);
+router.get("/project_skills/:id", projectSkillControllers.read);
+router.put("/project_skills/:id", projectSkillControllers.edit);
+router.post("/project_skills", projectSkillControllers.add);
+router.delete("/project_skills/:id", projectSkillControllers.destroy);
+
+// END
 
 module.exports = router;

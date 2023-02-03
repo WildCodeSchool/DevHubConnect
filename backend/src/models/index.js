@@ -75,6 +75,19 @@ const JobManager = require("./JobManager");
 
 models.job = new JobManager();
 models.job.setDatabase(pool);
+
+// Region
+const RegionManager = require("./RegionManager");
+
+models.region = new RegionManager();
+models.region.setDatabase(pool);
+
+// Project Skill
+const ProjectSkillManager = require("./ProjectSkillManager");
+
+models.projectSkill = new ProjectSkillManager();
+models.projectSkill.setDatabase(pool);
+
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
 
