@@ -10,4 +10,12 @@ router.put("/items/:id", itemControllers.edit);
 router.post("/items", itemControllers.add);
 router.delete("/items/:id", itemControllers.destroy);
 
+const skillControllers = require("./controllers/skillControllers");
+
+router.get("/skills", skillControllers.browse);
+router.get("/skills/:id", skillControllers.read);
+router.put("/skills/:id", skillControllers.edit);
+router.post("/skills", skillControllers.add);
+router.delete("/skills/:id", skillControllers.destroy);
+
 module.exports = router;
