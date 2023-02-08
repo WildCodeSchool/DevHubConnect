@@ -52,18 +52,34 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const user = req.body;
-
   // TODO validations (length, format...)
 
   models.user
     .insert(user)
     .then(([result]) => {
-      res.location(`/users/${result.insertId}`).sendStatus(201);
+      const userId = result.insertId;
+      models.userSkill
+        .insert({ userId, skillId: req.body.skill_id })
+        .then(() => {
+          res.location(`/users/${result.insertId}`).sendStatus(201);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
+      // eslint-disable-next-line no-restricted-syntax
+      console.log("result : ", result);
+      // eslint-disable-next-line no-restricted-syntax
+      console.log("userId : ", userId);
+      // eslint-disable-next-line no-restricted-syntax
+      console.log("req.body.skill_id : ", req.body.skill_id);
     })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
     });
+  // eslint-disable-next-line no-restricted-syntax
+  console.log("user : ", user);
 };
 
 const destroy = (req, res) => {
