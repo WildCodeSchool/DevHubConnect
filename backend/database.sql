@@ -1,3 +1,4 @@
+-- SQLBook: Code
 DROP DATABASE IF EXISTS devhub_connect;
 CREATE DATABASE devhub_connect;
 

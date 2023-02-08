@@ -1,3 +1,4 @@
+/* eslint-disable spaced-comment */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -31,8 +32,6 @@ const read = (req, res) => {
 const edit = (req, res) => {
   const user = req.body;
 
-  // TODO validations (length, format...)
-
   user.id = parseInt(req.params.id, 10);
 
   models.user
@@ -57,9 +56,11 @@ const add = (req, res) => {
   models.user
     .insert(user)
     .then(([result]) => {
-      const userId = result.insertId;
+      user.id = result.insertId;
+      const userId = user.id;
+      const skillId = req.body.skill_id || 2;
       models.userSkill
-        .insert({ userId, skillId: req.body.skill_id })
+        .insert({ userId, skillId })
         .then(() => {
           res.location(`/users/${result.insertId}`).sendStatus(201);
         })
@@ -70,9 +71,9 @@ const add = (req, res) => {
       // eslint-disable-next-line no-restricted-syntax
       console.log("result : ", result);
       // eslint-disable-next-line no-restricted-syntax
-      console.log("userId : ", userId);
+      console.log("CONTROLEUR userId : ", userId);
       // eslint-disable-next-line no-restricted-syntax
-      console.log("req.body.skill_id : ", req.body.skill_id);
+      console.log("CONTROLEUR skillId : ", skillId);
     })
     .catch((err) => {
       console.error(err);
