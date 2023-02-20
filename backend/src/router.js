@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const express = require("express");
 
 const router = express.Router();
@@ -26,7 +25,6 @@ router.post(
 router.use(verifyToken); // authentication wall : verifyToken is activated for each route after this line
 // -----POST, PUT et DELETE-------
 router.put("/users/:id", verifyId, hashPassword, userControllers.edit);
-// router.post("/users", userControllers.add);
 router.delete("/users/:id", verifyId, userControllers.destroy);
 const userRoleControllers = require("./controllers/userRoleControllers");
 

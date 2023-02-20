@@ -22,7 +22,6 @@ const hashPassword = (req, res, next) => {
       res.sendStatus(500);
     });
 };
-// quest 8
 const verifyPassword = (req, res) => {
   argon2
     .verify(req.user.hashedPassword, req.body.password)
@@ -82,7 +81,6 @@ const verifyId = (req, res, next) => {
   }
 };
 
-// quest 8
 module.exports = {
   hashPassword,
   verifyPassword,

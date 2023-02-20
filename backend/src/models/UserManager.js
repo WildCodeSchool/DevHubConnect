@@ -1,3 +1,5 @@
+// Ce code définit la classe UserManager qui étend la classe AbstractManager. La classe UserManager a un constructeur qui prend un objet avec une propriété "table" et appelle le constructeur de la classe parente. La classe UserManager a ensuite trois méthodes: insert, update et findUser. La méthode insert prend un objet user en paramètre et insère ses données dans la table user. La méthode update fait la même chose, mais met à jour les données existantes. Enfin, la méthode findUser prend un email en paramètre et retourne les données correspondantes de l'utilisateur dans la table user
+
 const AbstractManager = require("./AbstractManager");
 
 class UserManager extends AbstractManager {

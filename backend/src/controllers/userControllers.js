@@ -1,3 +1,5 @@
+// La fonction getUserByEmailWithPasswordAndPassToNext() permet de trouver un utilisateur spécifique en fonction de son adresse e-mail et d'envoyer une réponse 401 si l'utilisateur n'est pas trouvé ou une erreur 500 si une erreur survient lors du traitement des données.
+
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -66,18 +68,15 @@ const add = (req, res) => {
     });
 };
 
-// -----------------Quest 8----------------
+// La fonction getUserByEmailWithPasswordAndPassToNext() permet de trouver un utilisateur spécifique en fonction de son adresse e-mail et d'envoyer une réponse 401 si l'utilisateur n'est pas trouvé ou une erreur 500 si une erreur survient lors du traitement des données.
 const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
   models.user
-    // .query("select * from user where email = ?", [email])
     .findUser(email)
     .then(([users]) => {
       if (users[0] != null) {
         const [firstUser] = users;
         req.user = firstUser;
-        // req.user = users[0];
-        // console.log(users[0]);
         next();
       } else {
         res.sendStatus(401);

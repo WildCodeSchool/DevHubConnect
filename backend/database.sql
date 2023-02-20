@@ -33,11 +33,11 @@ CREATE TABLE user (
   cp varchar(8) NOT NULL,
   firstname varchar(60) NOT NULL,
   lastname varchar(60) NOT NULL,
-  email varchar(254) UNIQUE NOT NULL,
+  email varchar(254) UNIQUE NOT NULL, -- UNIQUE pour login
   biography varchar(140),
   about varchar(1000),
   user_image blob,
-  hashedPassword varchar(255) NOT NULL,
+  hashedPassword varchar(255) NOT NULL, -- 255 pour le hachage
   github_page varchar(255),
   experience int,
   user_role_id int,
@@ -69,8 +69,8 @@ CREATE TABLE user_skill (
   id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   skill_id int UNSIGNED,
-  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
-  FOREIGN KEY (skill_id) REFERENCES skill (id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES user (id), -- ON DELETE CASCADE,
+  FOREIGN KEY (skill_id) REFERENCES skill (id) -- ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS project_skill;
@@ -90,8 +90,8 @@ CREATE TABLE candidacy (
   apply_date date,
   user_status int,
   user_motivation varchar(240),
-  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
-  FOREIGN KEY (project_id) REFERENCES project (id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES user (id), -- ON DELETE CASCADE,
+  FOREIGN KEY (project_id) REFERENCES project (id) -- ON DELETE CASCADE
 );
 
 
