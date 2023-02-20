@@ -1,3 +1,4 @@
+-- SQLBook: Code
 DROP DATABASE IF EXISTS devhub_connect;
 CREATE DATABASE devhub_connect;
 
@@ -45,7 +46,7 @@ CREATE TABLE user (
   region_id int UNSIGNED,
   FOREIGN KEY (region_id) REFERENCES region (id) ON DELETE CASCADE,
   FOREIGN KEY (user_role_id) REFERENCES user_role (id) ON DELETE CASCADE,
-  FOREIGN KEY (job_id) REFERENCES job (id) ON DELETE CASCADE
+  FOREIGN KEY (job_id) REFERENCES job (id) ON DELETE CASCADE,
 );
 
 DROP TABLE IF EXISTS project;
@@ -68,9 +69,9 @@ DROP TABLE IF EXISTS user_skill;
 CREATE TABLE user_skill (
   id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
-  skill_id int UNSIGNED,
+  skill_id int UNSIGNED ,
   FOREIGN KEY (user_id) REFERENCES user (id),
-  FOREIGN KEY (skill_id) REFERENCES skill (id)
+  FOREIGN KEY (skill_id) REFERENCES skill (id) ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS project_skill;

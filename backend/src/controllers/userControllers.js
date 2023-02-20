@@ -29,7 +29,6 @@ const read = (req, res) => {
 };
 
 // modification d'un utilisateur
-
 const edit = (req, res) => {
   const user = req.body; // récupère les données de l'utilisateur à partir du corps de la requête HTTP
 
