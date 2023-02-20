@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-const-assign */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable spaced-comment */
 const models = require("../models");
 
@@ -29,19 +32,41 @@ const read = (req, res) => {
     });
 };
 
+// @FRED L => il faut arriver a détruire les tuples qui comprennent l'id de l'USER modifié et créer les nouveaux tuples avec l'attribut "skillIds" : [3,4]
 const edit = (req, res) => {
   const user = req.body;
-
-  user.id = parseInt(req.params.id, 10);
-
   models.user
     .update(user)
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        res.sendStatus(204);
-      }
+      user.id = result.insertId;
+      const skillIds = user.skill_Ids;
+      console.log("skillIds : ", skillIds);
+      console.log("user.id : ", user.id);
+      models.userSkill
+        .delete({
+          user_id: user.id,
+        })
+        .then(() => {
+          Promise.all(
+            skillIds.map((skillId) => {
+              return models.userSkill.insert({
+                userId: user.id,
+                skill_id: skillId,
+              });
+            })
+          )
+            .then(() => {
+              res.location(`/users/${user.id}`).sendStatus(201);
+            })
+            .catch((err) => {
+              console.error(err);
+              res.sendStatus(500);
+            });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
@@ -51,16 +76,19 @@ const edit = (req, res) => {
 
 const add = (req, res) => {
   const user = req.body;
-  // TODO validations (length, format...)
 
   models.user
     .insert(user)
     .then(([result]) => {
       user.id = result.insertId;
       const userId = user.id;
-      const skillId = req.body.skill_id || 2;
-      models.userSkill
-        .insert({ userId, skillId })
+      const skillIds = user.skill_Ids;
+      console.log("CONTROLEUR skillIds : ", skillIds);
+      Promise.all(
+        skillIds.map((skillId) => {
+          return models.userSkill.insert({ userId, skillId });
+        })
+      )
         .then(() => {
           res.location(`/users/${result.insertId}`).sendStatus(201);
         })
@@ -72,8 +100,6 @@ const add = (req, res) => {
       console.log("result : ", result);
       // eslint-disable-next-line no-restricted-syntax
       console.log("CONTROLEUR userId : ", userId);
-      // eslint-disable-next-line no-restricted-syntax
-      console.log("CONTROLEUR skillId : ", skillId);
     })
     .catch((err) => {
       console.error(err);
