@@ -66,6 +66,29 @@ const add = (req, res) => {
     });
 };
 
+// -----------------Quest 8----------------
+const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
+  const { email } = req.body;
+  models.user
+    // .query("select * from user where email = ?", [email])
+    .findUser(email)
+    .then(([users]) => {
+      if (users[0] != null) {
+        const [firstUser] = users;
+        req.user = firstUser;
+        // req.user = users[0];
+        // console.log(users[0]);
+        next();
+      } else {
+        res.sendStatus(401);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error retrieving data from database");
+    });
+};
+
 const destroy = (req, res) => {
   models.user
     .delete(req.params.id)
@@ -88,4 +111,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  getUserByEmailWithPasswordAndPassToNext,
 };

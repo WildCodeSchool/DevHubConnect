@@ -33,11 +33,11 @@ CREATE TABLE user (
   cp varchar(8) NOT NULL,
   firstname varchar(60) NOT NULL,
   lastname varchar(60) NOT NULL,
-  email varchar(254) NOT NULL,
+  email varchar(254) UNIQUE NOT NULL,
   biography varchar(140),
   about varchar(1000),
   user_image blob,
-  user_password varchar(60) NOT NULL,
+  hashedPassword varchar(255) NOT NULL,
   github_page varchar(255),
   experience int,
   user_role_id int,
@@ -69,8 +69,8 @@ CREATE TABLE user_skill (
   id int PRIMARY KEY AUTO_INCREMENT,
   user_id int(11) UNSIGNED,
   skill_id int UNSIGNED,
-  FOREIGN KEY (user_id) REFERENCES user (id),
-  FOREIGN KEY (skill_id) REFERENCES skill (id)
+  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+  FOREIGN KEY (skill_id) REFERENCES skill (id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS project_skill;
@@ -90,8 +90,8 @@ CREATE TABLE candidacy (
   apply_date date,
   user_status int,
   user_motivation varchar(240),
-  FOREIGN KEY (user_id) REFERENCES user (id),
-  FOREIGN KEY (project_id) REFERENCES project (id)
+  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+  FOREIGN KEY (project_id) REFERENCES project (id) ON DELETE CASCADE
 );
 
 
@@ -215,20 +215,22 @@ INSERT INTO user_role (role_name) VALUES
 ('Member'),
 ('Guest');
 
-INSERT INTO user (id, cp, firstname, lastname, email, biography, about, user_password, github_page, experience, user_role_id, job_id, region_id) VALUES 
+INSERT INTO user (id, cp, firstname, lastname, email, biography, about, hashedPassword, github_page, experience, user_role_id, job_id, region_id) VALUES 
 ('1','9400000A', 'Mark', 'Zuckerberg', 'mark.zuckerberg@facebook.com', 'Co-fondateur de Facebook', ' Bonjour, je suis Mark Zuckerberg, fondateur de Facebook. J ai grandi en banlieue de New York et j ai découvert ma passion pour la technologie et la connectivité sociale pendant mes études à Harvard. Après avoir lancé Facebook en 2004, j ai travaillé sans relâche pour construire la plus grande plateforme de médias sociaux au monde.
 Aujourd hui, je continue de diriger Facebook en utilisant la technologie pour connecter des personnes et favoriser la communication et la collaboration à l échelle mondiale. Je suis également impliqué dans de nombreux projets philanthropiques, notamment la fondation Chan Zuckerberg Initiative, qui vise à aider à résoudre les plus grands défis mondiaux à travers la science et la technologie.
-', 'password1', 'https://github.com/markzuckerberg', 10, 1, 1, 1), 
+', '$argon2id$v=19$m=65536,t=5,p=1$NJJuWXB2avclJ+7N+ccowQ$nDIEriUSE99xq5e1sXJ3OoBbbsJViyi19bccI/W69QY', 'https://github.com/markzuckerberg', 10, 1, 1, 1), 
 ('2','9402200B', 'Elon', 'Musk', 'elon.musk@spacex.com', 'PDG de SpaceX et Tesla', ' Bonjour, je suis Elon Musk, entrepreneur et ingénieur technologique. J ai fondé plusieurs entreprises de pointe, notamment Tesla, SpaceX et The Boring Company, avec pour objectif de rendre la vie meilleure pour tous les êtres humains.
 Mon parcours a commencé par la fondation de Zip2, une entreprise de publication en ligne, vendue plus tard à Compaq pour 307 millions de dollars. Depuis, j ai continué de développer des entreprises qui utilisent la technologie pour résoudre les défis les plus importants de notre temps, notamment la transition vers des sources d énergie propres et la colonisation de Mars.
 Je suis convaincu que nous avons la capacité de faire une réelle différence dans le monde et je travaille sans relâche pour atteindre cet objectif. Je suis enthousiaste à l idée de voir ce que nous pourrons accomplir ensemble dans les années à venir.
-.', 'password2', 'https://github.com/elonmusk', 20, 2, 2, 2),
- ('3','1000100C', 'Steve', 'Jobs', 'steve.jobs@apple.com', 'Co-fondateur d Apple', 'Je suis Steve Jobs, co-fondateur et ancien PDG d Apple Inc. J ai également fondé NeXT et Pixar. Mon parcours a été marqué par une passion pour la simplicité et la créativité, ainsi que par un amour pour les produits étonnants qui touchent les gens de manière profonde. Je suis persuadé que la technologie peut changer le monde pour le mieux et je me suis consacré à ce but tout au long de ma carrière. Mon engagement en faveur de la simplicité, de l excellence design et de la pertinence a aidé à façonner l industrie de la technologie telle que nous la connaissons aujourd hui. ', 'password3', 'https://github.com/stevejobs', 15, 2, 3, 3), 
-('4','1000200D', 'Bill', 'Gates', 'bill.gates@microsoft.com', 'Co-fondateur de Microsoft', 'Je suis Bill Gates, co-fondateur de Microsoft et fondateur de la fondation Bill et Melinda Gates. J ai passé de nombreuses années à développer et à commercialiser des logiciels pour les ordinateurs personnels, ce qui a contribué à changer le monde en fournissant une technologie accessible à tous. Aujourd hui, je me concentre sur l utilisation de la philanthropie pour faire une différence dans le monde en matière de santé, d éducation et de développement économique.', 'password4', 'https://github.com/billgates', 25, 2, 4, 4),
-('5','1000300A', 'Larry', 'Page', 'larry.page@google.com', 'Co-fondateur de Google', 'Je suis Larry Page, co-fondateur de Google. Mon objectif est de rendre l information accessible à tous et de créer un monde plus connecté grâce à la technologie. En tant que PDG de Alphabet Inc., la société mère de Google, je continue de diriger l entreprise en explorant de nouvelles opportunités pour améliorer la vie des gens à travers la technologie. ', 'password5', 'https://github.com/larrypage', 20, 2, 5, 5),
-('6','3333330D', 'Jack', 'Dorsey', 'jack.dorsey@twitter.com', 'Co-founder of Twitter', ' Je suis Jack Dorsey, co-fondateur de Twitter et fondateur de Square. Je suis passionné par la création de produits simples et puissants qui connectent les gens et les aident à communiquer de manière plus efficace. Twitter a été fondé sur cette idée et depuis, il a évolué pour devenir un moyen de communication incroyablement puissant pour les individus, les organisations et les gouvernements à travers le monde. Avec Square, j ai voulu fournir aux petites entreprises une technologie simple et accessible pour gérer leurs finances et atteindre leur plein potentiel. ', 'password6', 'https://github.com/jackdorsey', 15, 1, 1, 1),
-('7','4443567M', 'Jeff', 'Bezos', 'jeff.bezos@amazon.com', 'Co-fondateur de Amazon','Bonjour, je suis Jeff Bezos, fondateur et CEO d Amazon.com. J ai fondé Amazon en 1994 en tant qu entreprise de commerce électronique en ligne et nous avons rapidement grandi pour devenir l un des plus grands détaillants en ligne du monde. Je suis également investisseur dans d autres entreprises telles que Blue Origin, une entreprise de tourisme spatial, et The Washington Post. Mon objectif est de toujours améliorer la vie des gens en utilisant la technologie pour résoudre les défis les plus complexes.', 'password65','https://github.com/jeffbezos', 15, 2, 4, 4),
-('8','4568964J','Tim', 'Cook','tim.cook@apple.com', 'CEO de Apple', 'Bonjour, je suis Tim Cook, CEO d Apple. J ai rejoint Apple en 1998 et j ai été nommé CEO en 2011, succédant à Steve Jobs. Sous ma direction, Apple a continué à se concentrer sur la conception d un matériel et d un logiciel de qualité supérieure pour ses clients. J ai également mis en œuvre des initiatives en matière de responsabilité sociale, telles que l utilisation d énergies renouvelables pour alimenter nos centres de données. Je suis passionné par le pouvoir de la technologie pour améliorer la vie des gens.', 'password85','https://github.com/timcook', 11, 4, 1, 1);
+.', '$argon2id$v=19$m=65536,t=5,p=1$fyx9xPZ2shUbiWj47fxoHg$2/FWCO4U8da5+TvcroQ8h8LhjpHQ6EjIitMUUGgpavw', 'https://github.com/elonmusk', 20, 2, 2, 2),
+ ('3','1000100C', 'Steve', 'Jobs', 'steve.jobs@apple.com', 'Co-fondateur d Apple', 'Je suis Steve Jobs, co-fondateur et ancien PDG d Apple Inc. J ai également fondé NeXT et Pixar. Mon parcours a été marqué par une passion pour la simplicité et la créativité, ainsi que par un amour pour les produits étonnants qui touchent les gens de manière profonde. Je suis persuadé que la technologie peut changer le monde pour le mieux et je me suis consacré à ce but tout au long de ma carrière. Mon engagement en faveur de la simplicité, de l excellence design et de la pertinence a aidé à façonner l industrie de la technologie telle que nous la connaissons aujourd hui. ', '$argon2id$v=19$m=65536,t=5,p=1$daK6iuI3+n/IpmIA6PaiRA$bZTkHFu4o+/ZXxdRDPJRlNtYJcXEFZt9khjsYKj//KI', 'https://github.com/stevejobs', 15, 2, 3, 3), 
+('4','1000200D', 'Bill', 'Gates', 'bill.gates@microsoft.com', 'Co-fondateur de Microsoft', 'Je suis Bill Gates, co-fondateur de Microsoft et fondateur de la fondation Bill et Melinda Gates. J ai passé de nombreuses années à développer et à commercialiser des logiciels pour les ordinateurs personnels, ce qui a contribué à changer le monde en fournissant une technologie accessible à tous. Aujourd hui, je me concentre sur l utilisation de la philanthropie pour faire une différence dans le monde en matière de santé, d éducation et de développement économique.', '$argon2id$v=19$m=65536,t=5,p=1$YtmAuT6EiCjEUzjdQRFdCw$VGJGbRJR7OYIUkd8bp4EH7Kb5nWjwY32fKFT5JB/DEg', 'https://github.com/billgates', 25, 2, 4, 4),
+('5','1000300A', 'Larry', 'Page', 'larry.page@google.com', 'Co-fondateur de Google', 'Je suis Larry Page, co-fondateur de Google. Mon objectif est de rendre l information accessible à tous et de créer un monde plus connecté grâce à la technologie. En tant que PDG de Alphabet Inc., la société mère de Google, je continue de diriger l entreprise en explorant de nouvelles opportunités pour améliorer la vie des gens à travers la technologie. ', '$argon2id$v=19$m=65536,t=5,p=1$AkAkScpU6cJSUuT/vq0RQA$naKpOcbyYPjSeAxf6xQIWI/6XymcKNpWKGJGroSScGA', 'https://github.com/larrypage', 20, 2, 5, 5),
+('6','3333330D', 'Jack', 'Dorsey', 'jack.dorsey@twitter.com', 'Co-founder of Twitter', ' Je suis Jack Dorsey, co-fondateur de Twitter et fondateur de Square. Je suis passionné par la création de produits simples et puissants qui connectent les gens et les aident à communiquer de manière plus efficace. Twitter a été fondé sur cette idée et depuis, il a évolué pour devenir un moyen de communication incroyablement puissant pour les individus, les organisations et les gouvernements à travers le monde. Avec Square, j ai voulu fournir aux petites entreprises une technologie simple et accessible pour gérer leurs finances et atteindre leur plein potentiel. ', '$argon2id$v=19$m=65536,t=5,p=1$8N3amcYoGFZnDDCEjZz56w$ynEmaJob+XB7Em+sMnCkPwzC6jZVub89eB57EbkMVuY', 'https://github.com/jackdorsey', 15, 1, 1, 1),
+('7','4443567M', 'Jeff', 'Bezos', 'jeff.bezos@amazon.com', 'Co-fondateur de Amazon','Bonjour, je suis Jeff Bezos, fondateur et CEO d Amazon.com. J ai fondé Amazon en 1994 en tant qu entreprise de commerce électronique en ligne et nous avons rapidement grandi pour devenir l un des plus grands détaillants en ligne du monde. Je suis également investisseur dans d autres entreprises telles que Blue Origin, une entreprise de tourisme spatial, et The Washington Post. Mon objectif est de toujours améliorer la vie des gens en utilisant la technologie pour résoudre les défis les plus complexes.', '$argon2id$v=19$m=65536,t=5,p=1$ncifmFKmxjAQqhm8kddQ/A$ZHkEH7vg98rRlrr1++v2fDdwzquEQs7NqVZUknpO6no','https://github.com/jeffbezos', 15, 2, 4, 4),
+('8','4568964J','Tim', 'Cook','tim.cook@apple.com', 'CEO de Apple', 'Bonjour, je suis Tim Cook, CEO d Apple. J ai rejoint Apple en 1998 et j ai été nommé CEO en 2011, succédant à Steve Jobs. Sous ma direction, Apple a continué à se concentrer sur la conception d un matériel et d un logiciel de qualité supérieure pour ses clients. J ai également mis en œuvre des initiatives en matière de responsabilité sociale, telles que l utilisation d énergies renouvelables pour alimenter nos centres de données. Je suis passionné par le pouvoir de la technologie pour améliorer la vie des gens.', '$argon2id$v=19$m=65536,t=5,p=1$9zYHLw+OTfiGldaYFoKN/w$tE8gyB09bEHgw/alOnRJLIaXhzKSNXRUP9v19R2yoxY','https://github.com/timcook', 11, 4, 1, 1);
+
+
 
 INSERT INTO user_skill (user_id, skill_id) VALUES
 (1, 1),
