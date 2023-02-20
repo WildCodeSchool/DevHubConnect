@@ -9,15 +9,21 @@ class UserSkillManager extends AbstractManager {
   insert(user_skill) {
     return this.database.query(
       `insert into ${this.table} (user_id, skill_id) values (?,?)`,
-      [user_skill.user_id, user_skill.skill_id]
+      [user_skill.userId, user_skill.skillId]
     );
   }
 
   update(user_skill) {
     return this.database.query(
       `update ${this.table} set user_id = ?, skill_id = ? where id = ?`,
-      [user_skill.user_id, user_skill.skill_id, user_skill.id]
+      [user_skill.userId, user_skill.skillId, user_skill.id]
     );
+  }
+
+  delete(userId) {
+    return this.database.query(`delete from ${this.table} where user_id = ?`, [
+      userId,
+    ]);
   }
 }
 

@@ -58,7 +58,24 @@ const add = (req, res) => {
   models.project
     .insert(project)
     .then(([result]) => {
-      res.location(`/projects/${result.insertId}`).sendStatus(201);
+      const projectId = result.insertId; // récupération de l'ID du nouveau projet
+      const { skillIds } = project; // récupération de la propriété skillIds de l'objet project (destructuration de l'objet)
+
+      Promise.all(
+        // utilisation de la méthode promise.all() qui attend que toutes les insertions soient terminées avant de poursuivre
+        skillIds.map((skillId) => {
+          // insertion de chaque skillID dans la table de jointure
+          return models.projectSkill.insert({ projectId, skillId });
+        })
+      )
+        .then(() => {
+          // réponse HTTP 201 et route du nouveau projet
+          res.location(`/projects/${result.insertId}`).sendStatus(201);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(500);
+        });
     })
     .catch((err) => {
       console.error(err);
