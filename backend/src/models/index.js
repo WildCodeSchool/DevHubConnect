@@ -53,7 +53,7 @@ models.candidacy = new CandidacyManager();
 models.candidacy.setDatabase(pool);
 
 // Projects
-const ProjectManager = require("./projectManager");
+const ProjectManager = require("./ProjectManager");
 
 models.project = new ProjectManager();
 models.project.setDatabase(pool);
