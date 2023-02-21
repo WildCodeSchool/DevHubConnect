@@ -2,7 +2,7 @@ const models = require("../models");
 
 const browse = (req, res) => {
   models.user
-    .findAll()
+    .findAllUser()
     .then(([rows]) => {
       res.send(rows);
     })
@@ -14,7 +14,7 @@ const browse = (req, res) => {
 
 const read = (req, res) => {
   models.user
-    .find(req.params.id)
+    .findUser(req.params.id)
     .then(([rows]) => {
       if (rows[0] == null) {
         res.sendStatus(404);
@@ -109,7 +109,7 @@ const add = (req, res) => {
 const getUserByEmailWithPasswordAndPassToNext = (req, res, next) => {
   const { email } = req.body;
   models.user
-    .findUser(email)
+    .findUserByEmail(email)
     .then(([users]) => {
       if (users[0] != null) {
         const [firstUser] = users;

@@ -50,10 +50,25 @@ class UserManager extends AbstractManager {
     );
   }
 
-  findUser(email) {
+  findUserByEmail(email) {
     return this.database.query(`select * from  ${this.table} where email = ?`, [
       email,
     ]);
+  }
+
+  // Sélection de all user sans le hachedpassword
+  findAllUser() {
+    return this.database.query(
+      `select id, cp, firstname, lastname, email, biography, about, user_image, github_page, experience, user_role_id, job_id, region_id from user`
+    );
+  }
+
+  // Sélection d'un user sans le hachedpassword
+  findUser(id) {
+    return this.database.query(
+      `select id, cp, firstname, lastname, email, biography, about, user_image, github_page, experience, user_role_id, job_id, region_id from user where id = ?`,
+      [id]
+    );
   }
 }
 
