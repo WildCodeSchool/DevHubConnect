@@ -46,7 +46,7 @@ CREATE TABLE user (
   region_id int UNSIGNED,
   FOREIGN KEY (region_id) REFERENCES region (id) ON DELETE CASCADE,
   FOREIGN KEY (user_role_id) REFERENCES user_role (id) ON DELETE CASCADE,
-  FOREIGN KEY (job_id) REFERENCES job (id) ON DELETE CASCADE,
+  FOREIGN KEY (job_id) REFERENCES job (id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS project;
