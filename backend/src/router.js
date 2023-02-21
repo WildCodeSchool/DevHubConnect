@@ -1,10 +1,31 @@
-/* eslint-disable prettier/prettier */
 const express = require("express");
 
 const router = express.Router();
 
+const {
+  hashPassword,
+  verifyPassword,
+  verifyToken,
+  verifyId,
+} = require("./auth");
+
 // VERIFIE
 
+const userControllers = require("./controllers/userControllers");
+// ------GET-------
+router.get("/users", userControllers.browse);
+router.get("/users/:id", userControllers.read);
+// -----REGISTER-------
+router.post("/users", hashPassword, userControllers.add);
+router.post(
+  "/users/login",
+  userControllers.getUserByEmailWithPasswordAndPassToNext,
+  verifyPassword
+);
+router.use(verifyToken); // authentication wall : verifyToken is activated for each route after this line
+// -----POST, PUT et DELETE-------
+router.put("/users/:id", verifyId, hashPassword, userControllers.edit);
+router.delete("/users/:id", verifyId, userControllers.destroy);
 const userRoleControllers = require("./controllers/userRoleControllers");
 
 router.get("/user_roles", userRoleControllers.browse);
@@ -20,14 +41,6 @@ router.get("/jobs/:id", jobControllers.read);
 router.put("/jobs/:id", jobControllers.edit);
 router.post("/jobs", jobControllers.add);
 router.delete("/jobs/:id", jobControllers.destroy);
-
-const userControllers = require("./controllers/userControllers");
-
-router.get("/users", userControllers.browse);
-router.get("/users/:id", userControllers.read);
-router.put("/users/:id", userControllers.edit);
-router.post("/users", userControllers.add);
-router.delete("/users/:id", userControllers.destroy);
 
 const candidacyControllers = require("./controllers/candidacyControllers");
 

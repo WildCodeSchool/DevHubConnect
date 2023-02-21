@@ -1,3 +1,5 @@
+// Ce code définit la classe UserManager qui étend la classe AbstractManager. La classe UserManager a un constructeur qui prend un objet avec une propriété "table" et appelle le constructeur de la classe parente. La classe UserManager a ensuite trois méthodes: insert, update et findUser. La méthode insert prend un objet user en paramètre et insère ses données dans la table user. La méthode update fait la même chose, mais met à jour les données existantes. Enfin, la méthode findUser prend un email en paramètre et retourne les données correspondantes de l'utilisateur dans la table user
+
 const AbstractManager = require("./AbstractManager");
 
 class UserManager extends AbstractManager {
@@ -7,7 +9,7 @@ class UserManager extends AbstractManager {
 
   insert(user) {
     return this.database.query(
-      `insert into ${this.table} (cp, firstname, lastname, email, biography, about, user_image, user_password, github_page, experience, user_role_id, job_id, region_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (cp, firstname, lastname, email, biography, about, user_image, hashedPassword, github_page, experience, user_role_id, job_id, region_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user.cp,
         user.firstname,
@@ -16,7 +18,7 @@ class UserManager extends AbstractManager {
         user.biography,
         user.about,
         user.user_image,
-        user.user_password,
+        user.hashedPassword,
         user.github_page,
         user.experience,
         user.user_role_id,
@@ -28,7 +30,7 @@ class UserManager extends AbstractManager {
 
   update(user) {
     return this.database.query(
-      `update ${this.table} set cp = ?, firstname = ?, lastname = ?, email = ?, biography = ?, about = ?, user_image = ?, user_password = ?, github_page = ?, experience = ?, user_role_id = ?, job_id = ?, region_id = ? where id = ?`,
+      `update ${this.table} set cp = ?, firstname = ?, lastname = ?, email = ?, biography = ?, about = ?, user_image = ?, hashedPassword = ?, github_page = ?, experience = ?, user_role_id = ?, job_id = ?, region_id = ? where id = ?`,
       [
         user.cp,
         user.firstname,
@@ -37,7 +39,7 @@ class UserManager extends AbstractManager {
         user.biography,
         user.about,
         user.user_image,
-        user.user_password,
+        user.hashedPassword,
         user.github_page,
         user.experience,
         user.user_role_id,
@@ -46,6 +48,12 @@ class UserManager extends AbstractManager {
         user.id,
       ]
     );
+  }
+
+  findUser(email) {
+    return this.database.query(`select * from  ${this.table} where email = ?`, [
+      email,
+    ]);
   }
 }
 
