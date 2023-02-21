@@ -91,8 +91,8 @@ CREATE TABLE candidacy (
   apply_date date,
   user_status int,
   user_motivation varchar(240),
-  FOREIGN KEY (user_id) REFERENCES user (id), -- ON DELETE CASCADE,
-  FOREIGN KEY (project_id) REFERENCES project (id) -- ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+  FOREIGN KEY (project_id) REFERENCES project (id) ON DELETE CASCADE
 );
 
 
