@@ -1,5 +1,5 @@
 import * as React from "react";
-import UserFormSetting from "../../User/UserFormSetting/UserFormSetting";
+import UserFormSetting from "../components/User/UserFormSetting/UserFormSetting";
 
 export default function SignUp() {
   return (
