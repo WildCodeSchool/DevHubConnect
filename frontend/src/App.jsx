@@ -1,11 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Toolbar from "@mui/material/Toolbar";
 
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -26,9 +23,7 @@ import ProjectForm from "./pages/ProjectForm";
 import ProjectCalendar from "./pages/ProjectCalendar";
 import Sidebar from "./components/Sidebar/Sidebar";
 
-const drawerWidth = 240;
-
-function App(props) {
+function App() {
   return (
     <div className="App">
       <Router>
