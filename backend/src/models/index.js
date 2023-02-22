@@ -25,7 +25,7 @@ pool.getConnection().catch(() => {
   );
 });
 
-// declare and fill models: that's where you should register your own managers
+// declare and fill models : that's where you should register your own managers
 
 const models = {};
 
@@ -33,6 +33,60 @@ const ItemManager = require("./ItemManager");
 
 models.item = new ItemManager();
 models.item.setDatabase(pool);
+
+// user
+const UserManager = require("./UserManager");
+
+models.user = new UserManager();
+models.user.setDatabase(pool);
+
+// Skill
+const SkillManager = require("./SkillManager");
+
+models.skill = new SkillManager();
+models.skill.setDatabase(pool);
+
+// Candidacy
+const CandidacyManager = require("./CandidacyManager");
+
+models.candidacy = new CandidacyManager();
+models.candidacy.setDatabase(pool);
+
+// Projects
+const ProjectManager = require("./ProjectManager");
+
+models.project = new ProjectManager();
+models.project.setDatabase(pool);
+
+// UserRole
+const UserRoleManager = require("./UserRoleManager");
+
+models.userRole = new UserRoleManager();
+models.userRole.setDatabase(pool);
+
+// UserSkill
+const UserSkillManager = require("./UserSkillManager");
+
+models.userSkill = new UserSkillManager();
+models.userSkill.setDatabase(pool);
+
+// Job
+const JobManager = require("./JobManager");
+
+models.job = new JobManager();
+models.job.setDatabase(pool);
+
+// Region
+const RegionManager = require("./RegionManager");
+
+models.region = new RegionManager();
+models.region.setDatabase(pool);
+
+// Project Skill
+const ProjectSkillManager = require("./ProjectSkillManager");
+
+models.projectSkill = new ProjectSkillManager();
+models.projectSkill.setDatabase(pool);
 
 // bonus: use a proxy to personalize error message,
 // when asking for a non existing model
