@@ -12,9 +12,6 @@ const {
 // VERIFIE
 
 const userControllers = require("./controllers/userControllers");
-// ------GET-------
-router.get("/users", userControllers.browse);
-router.get("/users/:id", userControllers.read);
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
 router.post(
@@ -22,8 +19,12 @@ router.post(
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
-router.use(verifyToken); // authentication wall : verifyToken is activated for each route after this line
-// -----POST, PUT et DELETE-------
+// authentication wall : verifyToken is activated for each route after this line
+router.use(verifyToken);
+// ------GET users-------
+router.get("/users", userControllers.browse);
+router.get("/users/:id", userControllers.read);
+// -----POST, PUT, DELETE et autres GET -------
 router.put("/users/:id", verifyId, hashPassword, userControllers.edit);
 router.delete("/users/:id", verifyId, userControllers.destroy);
 const userRoleControllers = require("./controllers/userRoleControllers");
