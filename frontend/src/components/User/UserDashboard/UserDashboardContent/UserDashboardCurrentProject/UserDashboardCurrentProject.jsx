@@ -11,10 +11,10 @@ export default function UserDashboardCurrentProject() {
   return (
     <Paper sx={{ width: 1 }}>
       <Stack
-        direction="row"
+        direction={{ sm: "column", md: "row" }}
+        spacing={{ sm: 1, md: 2 }}
         justifyContent="space-between"
         alignItems="center"
-        spacing={2}
         p={2}
       >
         <PublishedWithChangesIcon fontSize="large" />
@@ -24,7 +24,7 @@ export default function UserDashboardCurrentProject() {
           alignItems="flex-start"
           spacing={0.5}
         >
-          <Typography component="div" variant="h5">
+          <Typography component="div" variant="h2">
             Super projet
           </Typography>
           <Typography variant="body1" gutterBottom>

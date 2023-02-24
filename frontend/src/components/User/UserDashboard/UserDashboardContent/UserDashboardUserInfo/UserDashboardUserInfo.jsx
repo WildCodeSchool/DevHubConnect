@@ -10,10 +10,10 @@ export default function UserDashboardUserInfo() {
   return (
     <Paper>
       <Stack
-        direction="row"
+        direction={{ sm: "column", md: "row" }}
+        spacing={{ sm: 1, md: 2 }}
         justifyContent="space-between"
         alignItems="center"
-        spacing={2}
         p={2}
       >
         <Avatar
@@ -38,7 +38,7 @@ export default function UserDashboardUserInfo() {
             </Typography>
             <CreateOutlinedIcon fontSize="small" />
           </Stack>
-          <Typography component="div" variant="h5">
+          <Typography component="div" variant="h2">
             Michel Drucker
           </Typography>
           <Typography variant="body1" gutterBottom>

@@ -3,14 +3,15 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import UserDashboardUserInfo from "./UserDashboardUserInfo/UserDashboardUserInfo";
 import UserDashboardCurrentProject from "./UserDashboardCurrentProject/UserDashboardCurrentProject";
+import UserDashboardCalendar from "./UserDashboardCalendar/UserDashboardCalendar";
 
 export default function UserDashboardContent() {
   return (
     <Stack
-      direction="row"
+      direction={{ sm: "column", md: "row" }}
+      spacing={{ sm: 1, md: 2 }}
       justifyContent="flex-start"
       alignItems="flex-start"
-      spacing={2}
     >
       <Stack
         direction="column"
@@ -34,6 +35,7 @@ export default function UserDashboardContent() {
         alignItems="flex-start"
         spacing={2}
       >
+        <UserDashboardCalendar />
         <UserDashboardUserInfo />
       </Stack>
     </Stack>
