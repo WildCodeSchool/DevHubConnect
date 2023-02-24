@@ -33,5 +33,7 @@
     "eslint-plugin-import": "^2.27.5",
     "husky": "^8.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+
+  }
 }
