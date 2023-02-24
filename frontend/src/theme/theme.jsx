@@ -40,8 +40,17 @@ const Theme = createTheme({
     },
   },
   typography: {
+    h1: {
+      fontSize: 40,
+      color: "#000000",
+    },
+    h2: {
+      fontSize: 24,
+      color: "#000000",
+    },
     subtitle1: {
-      fontSize: 12,
+      margin: 0,
+      fontSize: "1.4rem",
       color: "#AE8E5F",
     },
     galeryH2: {
@@ -53,6 +62,11 @@ const Theme = createTheme({
       color: "#060403",
     },
     body1: {
+      fontSize: "1rem",
+      fontWeight: 500,
+    },
+    body2: {
+      fontSize: "1rem",
       fontWeight: 500,
     },
     h2article: {

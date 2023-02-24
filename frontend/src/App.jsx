@@ -223,6 +223,7 @@ function ResponsiveDrawer(props) {
           <Box
             component="main"
             sx={{
+              background: "#f5f2f0",
               flexGrow: 1,
               p: 3,
               width: { sm: `calc(100% - ${drawerWidth}px)` },
