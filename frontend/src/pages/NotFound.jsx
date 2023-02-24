@@ -1,9 +1,10 @@
 import * as React from "react";
+import PageNotFound from "../components/Policy/NotFound/NotFound";
 
 export default function NotFound() {
   return (
     <div>
-      <h1>404 Not Found</h1>
+      <PageNotFound />
     </div>
   );
 }
