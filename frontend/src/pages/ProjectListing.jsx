@@ -1,12 +1,8 @@
 import React from "react";
+import ProjectListingContainer from "../components/Project/ProjectListing/ProjectContainer/ProjectListingContainer";
 
 function ProjectListing() {
-  return (
-    <>
-      <h1>ProjectListing</h1>
-      <p>ajouter les cartes en flex</p>
-    </>
-  );
+  return <ProjectListingContainer />;
 }
 
 export default ProjectListing;

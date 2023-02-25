@@ -1,7 +1,7 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 
-function ProjectListingHeader() {
+function ProjectSingleHeader() {
   return (
     <>
       <Typography gutterBottom variant="h1" component="div">
@@ -15,4 +15,4 @@ function ProjectListingHeader() {
     </>
   );
 }
-export default ProjectListingHeader;
+export default ProjectSingleHeader;
