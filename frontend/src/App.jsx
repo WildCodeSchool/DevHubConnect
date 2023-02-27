@@ -7,34 +7,19 @@ import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
+
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-
 import MenuIcon from "@mui/icons-material/Menu";
-import HomeIcon from "@mui/icons-material/Home";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import SettingsIcon from "@mui/icons-material/Settings";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import Diversity3Icon from "@mui/icons-material/Diversity3";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import Stack from "@mui/material/Stack";
 
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import PasswordIcon from "@mui/icons-material/Password";
-import GavelIcon from "@mui/icons-material/Gavel";
-import PestControlRodentIcon from "@mui/icons-material/PestControlRodent";
-import DoNotTouchIcon from "@mui/icons-material/DoNotTouch";
 import Theme from "./theme/theme";
+
+import LogoConnect from "./components/Sidebar/Logo";
+import Footer from "./components/Sidebar/Footer";
+import NavItems from "./components/Sidebar/Navigation/NavItems";
 
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -53,6 +38,7 @@ import ProjectSingle from "./pages/ProjectSingle";
 import TalentSingle from "./pages/TalentSingle";
 import ProjectForm from "./pages/ProjectForm";
 import ProjectCalendar from "./pages/ProjectCalendar";
+import Charte from "./pages/Charte";
 
 const drawerWidth = 240;
 
@@ -64,92 +50,17 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const itemsMenu = [
-    { text: "Home", icon: <HomeIcon />, url: "/" },
-    { text: "Dashboard", icon: <DashboardIcon />, url: "/dashboard" },
-    {
-      text: "My Project",
-      icon: <AccountTreeIcon />,
-      url: "/dashboard/my-project",
-    },
-    {
-      text: "My Setting",
-      icon: <SettingsIcon />,
-      url: "/dashboard/my-setting",
-    },
-    {
-      text: "My Calendar",
-      icon: <CalendarMonthIcon />,
-      url: "/dashboard/my-calendar",
-    },
-    {
-      text: "Bourse aux talents",
-      icon: <Diversity3Icon />,
-      url: "/talent",
-    },
-    {
-      text: "Bourse aux projets",
-      icon: <AssuredWorkloadIcon />,
-      url: "/project",
-    },
-    {
-      text: "Ajout de projet",
-      icon: <AddBoxIcon />,
-      url: "/add-project",
-    },
-  ];
-
-  const itemsMenuGost = [
-    { text: "login", icon: <PowerSettingsNewIcon />, url: "/login" },
-    { text: "Register", icon: <HowToRegIcon />, url: "/Register" },
-    {
-      text: "MDP oublié",
-      icon: <PasswordIcon />,
-      url: "/forgot-password",
-    },
-    {
-      text: "Terms",
-      icon: <GavelIcon />,
-      url: "/terms",
-    },
-    {
-      text: "CGU",
-      icon: <PestControlRodentIcon />,
-      url: "/cgu",
-    },
-    {
-      text: "404",
-      icon: <DoNotTouchIcon />,
-      url: "Ohohoh",
-    },
-  ];
-
   const drawer = (
-    <div>
-      <Toolbar />
-      <Divider />
-      <List>
-        {itemsMenu.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton href={item.url}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {itemsMenuGost.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton href={item.url}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    <Stack
+      direction="column"
+      justifyContent="space-between"
+      alignItems="flex-start"
+      spacing={1}
+    >
+      <LogoConnect />
+      <NavItems />
+      <Footer />
+    </Stack>
   );
 
   const container =
@@ -163,6 +74,7 @@ function ResponsiveDrawer(props) {
           <AppBar
             position="fixed"
             sx={{
+              backgroundColor: "BgSidebar.main",
               width: { sm: `calc(100% - ${drawerWidth}px)` },
               ml: { sm: `${drawerWidth}px` },
             }}
@@ -184,10 +96,13 @@ function ResponsiveDrawer(props) {
           </AppBar>
           <Box
             component="nav"
-            sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+            sx={{
+              backgroundColor: "primary.dark",
+              width: { sm: drawerWidth },
+              flexShrink: { sm: 0 },
+            }}
             aria-label="mailbox folders"
           >
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Drawer
               container={container}
               variant="temporary"
@@ -213,6 +128,17 @@ function ResponsiveDrawer(props) {
                 "& .MuiDrawer-paper": {
                   boxSizing: "border-box",
                   width: drawerWidth,
+                  height: "100%",
+                },
+              }}
+              PaperProps={{
+                sx: {
+                  background:
+                    "linear-gradient(to right bottom, #0A3752, #056CA4)",
+                  color: "#eff3f7",
+                  "&:hover": {
+                    a: "#FFF",
+                  },
                 },
               }}
               open
@@ -220,9 +146,11 @@ function ResponsiveDrawer(props) {
               {drawer}
             </Drawer>
           </Box>
+          {/* Content */}
           <Box
             component="main"
             sx={{
+              backgroundColor: "BgContent.main",
               flexGrow: 1,
               p: 3,
               width: { sm: `calc(100% - ${drawerWidth}px)` },
@@ -247,6 +175,7 @@ function ResponsiveDrawer(props) {
               <Route path="/calendar" element={<ProjectCalendar />} />
               <Route path="/talent" element={<TalentListing />} />
               <Route path="/talent/:id" element={<TalentSingle />} />
+              <Route path="/charte" element={<Charte />} />
             </Routes>
           </Box>
         </Box>

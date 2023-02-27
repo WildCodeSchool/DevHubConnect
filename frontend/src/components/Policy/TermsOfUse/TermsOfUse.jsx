@@ -21,31 +21,31 @@ export default function TermsOfUse() {
         2. Inscription et utilisation de la plateforme
       </Typography>
 
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         2.1. Pour pouvoir utiliser la plateforme, vous devez vous inscrire en
         créant un compte en remplissant le formulaire d'inscription.
       </Typography>
 
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         2.2. L'inscription est gratuite.{" "}
       </Typography>
 
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         2.3. Vous devez fournir des informations exactes, complètes et à jour
         lors de votre inscription.{" "}
       </Typography>
 
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         2.4. Vous devez maintenir la confidentialité de votre mot de passe et
         être responsable de toutes les activités qui ont lieu sous votre compte.
       </Typography>
 
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         2.5. Vous devez signaler immédiatement tout usage non autorisé de votre
         compte ou toute violation de sécurité à HUB Connect.{" "}
       </Typography>
 
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         2.6. Vous devez respecter toutes les lois et règlements applicables lors
         de l'utilisation de la plateforme.
       </Typography>
