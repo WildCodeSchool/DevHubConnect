@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 
 export default function UserDashboardCalendar() {
   return (
-    <Paper sx={{ width: 1, padding: 2 }}>
+    <Paper sx={{ width: 1, p: 2 }}>
       <Box component="span" sx={{ width: 1 }}>
         <FullCalendar
           plugins={[dayGridPlugin]}
