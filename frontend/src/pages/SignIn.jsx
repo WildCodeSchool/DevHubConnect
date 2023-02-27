@@ -8,7 +8,10 @@ export default function SignIn() {
   return (
     <Stack direction="row" justifyContent="center">
       <Box>
-        <Stack direction="coluwn" alignItems="center">
+        <Stack
+          direction={{ xs: "column", sm: "column", md: "row" }}
+          alignItems="center"
+        >
           <Box sx={{ width: "50%" }}>
             <SignInImage />
           </Box>

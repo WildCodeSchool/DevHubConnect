@@ -90,7 +90,7 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container justifyContent="center">
-              <Grid item>
+              <Grid item lg>
                 <Link to="/forgot-password" variant="body2">
                   Forgot password?
                 </Link>
