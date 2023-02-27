@@ -20,7 +20,7 @@ export default function UserDashboardContent() {
         spacing={2}
       >
         <UserDashboardUserInfo />
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="subtitle2" gutterBottom>
           Mes projets
         </Typography>
         <UserDashboardCurrentProject />
@@ -35,7 +35,7 @@ export default function UserDashboardContent() {
         alignItems="flex-start"
         spacing={2}
       >
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="subtitle2" gutterBottom>
           Nouveaux projets
         </Typography>
 
