@@ -1,3 +1,12 @@
-// import * as React from "react";
+import React from "react";
+import ProjectSingleContainer from "../components/Project/ProjectSingle/ProjectSingleContainer/ProjectSingleContainer";
 
-// export default function ProjectSingle() {}
+function ProjectSingle() {
+  return (
+    <div>
+      <ProjectSingleContainer />
+    </div>
+  );
+}
+
+export default ProjectSingle;
