@@ -1,9 +1,10 @@
 import * as React from "react";
+import TalentContainer from "../components/Talent/TalentListingContainer/TalentContainer";
 
 export default function TalentListing() {
   return (
     <div>
-      <h1>Talents listing</h1>
+      <TalentContainer />
     </div>
   );
 }
