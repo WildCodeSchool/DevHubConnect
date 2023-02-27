@@ -1,9 +1,6 @@
 import * as React from "react";
+import MyCalendar from "../components/User/UserCalendar/UserCalendar";
 
 export default function UserCalendar() {
-  return (
-    <div>
-      <h1>User Calendar</h1>
-    </div>
-  );
+  return <MyCalendar />;
 }
