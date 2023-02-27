@@ -1,18 +1,17 @@
 import * as React from "react";
-// import Box from "@mui/material/Box";
-// import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import TalentCard from "./TalentCard/TalentCard";
 
 function TalentCardGallery() {
   return (
-    <div>
+    <Box sx={{ mt: 2 }}>
       <Stack
         direction={{ xs: "column", sm: "row" }}
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={{ xs: 1, sm: 2, md: 4 }}
-        sx={{ mt: 1, mb: 1, backgroundColor: "pink" }}
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        mt="2"
+        sx={{ flexWrap: "wrap", gap: 2 }}
       >
         <TalentCard />
         <TalentCard />
@@ -22,7 +21,7 @@ function TalentCardGallery() {
         <TalentCard />
         <TalentCard />
       </Stack>
-    </div>
+    </Box>
   );
 }
 
