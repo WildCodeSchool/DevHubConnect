@@ -24,7 +24,11 @@ export default function UserProjectCurrentProject() {
           <Typography>Projets en cours</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction="row" spacing={2} p={1}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            p={1}
+          >
             <div>
               <Typography>Projet N°235 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
@@ -87,6 +91,36 @@ export default function UserProjectCurrentProject() {
             </div>
             <div>
               <Typography>Projet N°237 .</Typography>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                  component="img"
+                  alt="green iguana"
+                  height="150"
+                  image="https://picsum.photos/500/300"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Projet Application web
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Lizards are a widespread group of squamate reptiles, with
+                    over 6,000 species, ranging across all continents except
+                    Antarctica
+                  </Typography>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://xsgames.co/randomusers/avatar.php?g=male"
+                    sx={{ width: 100, height: 100, ml: 10, mt: 2 }}
+                  />
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Partager</Button>
+                  <Button size="small">+ d'infos</Button>
+                </CardActions>
+              </Card>
+            </div>
+            <div>
+              <Typography>Projet N°238 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -127,9 +161,13 @@ export default function UserProjectCurrentProject() {
           <Typography>Projets à venir</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction="row" spacing={2} p={1}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            p={1}
+          >
             <div>
-              <Typography>Projet N°235 .</Typography>
+              <Typography>Projet N°239 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -159,7 +197,7 @@ export default function UserProjectCurrentProject() {
               </Card>
             </div>
             <div>
-              <Typography>Projet N°236 .</Typography>
+              <Typography>Projet N°240 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -189,7 +227,7 @@ export default function UserProjectCurrentProject() {
               </Card>
             </div>
             <div>
-              <Typography>Projet N°237 .</Typography>
+              <Typography>Projet N°241 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -231,9 +269,13 @@ export default function UserProjectCurrentProject() {
           <Typography>Projets non retenus</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction="row" spacing={2} p={1}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            p={1}
+          >
             <div>
-              <Typography>Projet N°235 .</Typography>
+              <Typography>Projet N°201 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -263,7 +305,7 @@ export default function UserProjectCurrentProject() {
               </Card>
             </div>
             <div>
-              <Typography>Projet N°236 .</Typography>
+              <Typography>Projet N°220 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -293,7 +335,7 @@ export default function UserProjectCurrentProject() {
               </Card>
             </div>
             <div>
-              <Typography>Projet N°237 .</Typography>
+              <Typography>Projet N°215 .</Typography>
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
                   component="img"
@@ -335,26 +377,36 @@ export default function UserProjectCurrentProject() {
           <Typography>Tous les projets</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Retrouvez ici l'ensemble de vos projets.</Typography>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+            p={1}
+          />
+          <Typography>Projet n°248</Typography>
           <Card sx={{ maxWidth: 345 }}>
             <CardMedia
               component="img"
               alt="green iguana"
-              height="140"
+              height="150"
               image="https://picsum.photos/500/300"
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                Lizard
+                Projet Creation BDD
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Lizards are a widespread group of squamate reptiles, with over
                 6,000 species, ranging across all continents except Antarctica
               </Typography>
+              <Avatar
+                alt="Remy Sharp"
+                src="https://xsgames.co/randomusers/avatar.php?g=male"
+                sx={{ width: 100, height: 100, ml: 10, mt: 2 }}
+              />
             </CardContent>
             <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
+              <Button size="small">Partager</Button>
+              <Button size="small">+ d'infos</Button>
             </CardActions>
           </Card>
         </AccordionDetails>
