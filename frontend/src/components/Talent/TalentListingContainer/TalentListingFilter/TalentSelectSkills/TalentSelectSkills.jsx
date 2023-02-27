@@ -45,7 +45,7 @@ function TalentSelectSkills() {
 
   return (
     <div>
-      <FormControl sx={{ m: 2, width: 300 }}>
+      <FormControl sx={{ minWidth: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Compétences</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
@@ -70,4 +70,3 @@ function TalentSelectSkills() {
 }
 
 export default TalentSelectSkills;
-// MuiSelectCheckmarks
