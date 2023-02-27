@@ -1,10 +1,12 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -17,7 +19,7 @@ const MenuProps = {
   },
 };
 
-const regions = [
+const jobs = [
   "Ile-de-France",
   "Nord-Pas-de-Calais",
   "Champagne-Ardenne",
@@ -41,53 +43,43 @@ const regions = [
   "Auvergne",
 ];
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-export default function TalentSelectRegion() {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+function TalentSelectRegions() {
+  const [userRegions, setUserRegions] = React.useState([]);
 
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setUserRegions(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
 
   return (
-    <div>
-      <FormControl sx={{ minWidth: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Région</InputLabel>
+    <Stack>
+      <FormControl sx={{ width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
         <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
           multiple
-          value={personName}
+          value={userRegions}
           onChange={handleChange}
-          input={<OutlinedInput label="Région" />}
+          input={<OutlinedInput label="Régions" />}
+          renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {regions.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
+          {jobs.map((region) => (
+            <MenuItem key={region} value={region}>
+              <Checkbox checked={userRegions.indexOf(region) > -1} />
+              <ListItemText primary={region} />
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Stack>
   );
 }
+
+export default TalentSelectRegions;

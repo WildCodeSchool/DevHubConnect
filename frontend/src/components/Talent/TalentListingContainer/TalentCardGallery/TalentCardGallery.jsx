@@ -1,35 +1,28 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+// import Box from "@mui/material/Box";
+// import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
 import TalentCard from "./TalentCard/TalentCard";
 
 function TalentCardGallery() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={4}>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-        <Grid item xs>
-          <TalentCard />
-        </Grid>
-      </Grid>
-    </Box>
+    <div>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+        sx={{ mt: 1, mb: 1, backgroundColor: "pink" }}
+      >
+        <TalentCard />
+        <TalentCard />
+        <TalentCard />
+        <TalentCard />
+        <TalentCard />
+        <TalentCard />
+        <TalentCard />
+      </Stack>
+    </div>
   );
 }
 

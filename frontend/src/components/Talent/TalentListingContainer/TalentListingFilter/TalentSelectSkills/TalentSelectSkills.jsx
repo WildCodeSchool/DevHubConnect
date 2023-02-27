@@ -70,4 +70,3 @@ function TalentSelectSkills() {
 }
 
 export default TalentSelectSkills;
-// MuiSelectCheckmarks

@@ -74,4 +74,3 @@ function TalentSelectJob() {
 }
 
 export default TalentSelectJob;
-// MuiSelectCheckmarks

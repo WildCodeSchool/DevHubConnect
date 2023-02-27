@@ -13,8 +13,13 @@ function TalentListingFilter() {
         sm: "column",
         md: "row",
       }}
-      justifyContent={{ xs: "center", sm: "flex-start" }}
+      justifyContent={{
+        xs: "center",
+        sm: "center",
+        md: "flex-start",
+      }}
       spacing={{ xs: 1, sm: 2 }}
+      size={{ xs: "100%", sm: "33%", md: "20%" }}
       sx={{ mt: 1, mb: 1, backgroundColor: "#FFFFCC" }}
     >
       <TalentSelectJob />
