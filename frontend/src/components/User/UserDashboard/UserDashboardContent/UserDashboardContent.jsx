@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import UserDashboardUserInfo from "./UserDashboardUserInfo/UserDashboardUserInfo";
 import UserDashboardCurrentProject from "./UserDashboardCurrentProject/UserDashboardCurrentProject";
 import UserDashboardProjectSuggest from "./UserDashboardProjectSuggest/UserDashboardProjectSuggest";
-import UserDashboardCalendar from "./UserDashboardCalendar/UserDashboardCalendar";
 
 export default function UserDashboardContent() {
   return (
@@ -39,7 +38,7 @@ export default function UserDashboardContent() {
         <Typography variant="h5" gutterBottom>
           Nouveaux projets
         </Typography>
-        <UserDashboardCalendar />
+
         <UserDashboardProjectSuggest />
         <UserDashboardProjectSuggest />
       </Stack>
