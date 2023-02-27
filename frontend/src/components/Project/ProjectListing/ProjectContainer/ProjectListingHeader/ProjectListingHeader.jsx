@@ -8,7 +8,6 @@ function ProjectListingHeader() {
     <Paper
       elevation={3}
       sx={{
-        
         flexGrow: 1,
         borderRadius: 2,
       }}

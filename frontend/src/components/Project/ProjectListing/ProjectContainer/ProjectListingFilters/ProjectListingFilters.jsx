@@ -1,6 +1,2 @@
-import * as React from "react";
-
-function ProjectListingFilters() {
-  return ;
-}
+function ProjectListingFilters() {}
 export default ProjectListingFilters;

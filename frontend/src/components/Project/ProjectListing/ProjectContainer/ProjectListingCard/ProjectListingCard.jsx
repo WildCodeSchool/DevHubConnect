@@ -27,33 +27,31 @@ export default function ProjectListingCard() {
           alignItems="flex-start"
         >
           {/* <item sx={{ height: "100%", width: "100%" }}> */}
-            <img alt="projet" src="https://picsum.photos/400/300" />
+          <img alt="projet" src="https://picsum.photos/400/300" />
           {/* </item> */}
 
-          <item direction="column" spacing={2} p={2}>
-         
-              <Typography gutterBottom variant="h3" component="div">
-                Project
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Eligendi cum dolores accusantium quod aut distinctio fuga
-                ducimus a ab rerum molestiae, id, adipisci, numquam laboriosam
-                saepe ullam. Impedit, quis! Hic aliquid ullam vero ab commodi,
-                iure tenetur odit aut aperiam voluptatum esse minima minus ipsum
-                quia a iste nisi impedit.
-              </Typography>
+          <item direction="column" spacing={2}>
+            <Typography gutterBottom variant="h3" component="div">
+              Project
+            </Typography>
+            <Typography variant="body2" gutterBottom>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
+              cum dolores accusantium quod aut distinctio fuga ducimus a ab
+              rerum molestiae, id, adipisci, numquam laboriosam saepe ullam.
+              Impedit, quis! Hic aliquid ullam vero ab commodi, iure tenetur
+              odit aut aperiam voluptatum esse minima minus ipsum quia a iste
+              nisi impedit.
+            </Typography>
 
-              <Typography variant="body2" gutterBottom>
-                <Stack direction="row" spacing={2} p={3}>
-                  <Chip label="Html" size="small" color="primary" />
-                  <Chip label="React" size="small" color="primary" />
-                  <Chip label="Javascript" size="small" color="primary" />
-                  <Chip label="Css" size="small" color="primary" />
-                </Stack>
-              </Typography>
-            </item>
-       
+            <Typography variant="body2" gutterBottom>
+              <Stack direction="row" spacing={2} p={3}>
+                <Chip label="Html" size="small" color="primary" />
+                <Chip label="React" size="small" color="primary" />
+                <Chip label="Javascript" size="small" color="primary" />
+                <Chip label="Css" size="small" color="primary" />
+              </Stack>
+            </Typography>
+          </item>
 
           <Stack
             direction={{ xs: "row", sm: "row", md: "column" }}
