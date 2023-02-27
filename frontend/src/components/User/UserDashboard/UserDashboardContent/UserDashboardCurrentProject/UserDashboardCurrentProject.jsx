@@ -4,7 +4,6 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import Stack from "@mui/material/Stack";
 import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
 import Paper from "@mui/material/Paper";
-
 import Typography from "@mui/material/Typography";
 
 export default function UserDashboardCurrentProject() {
