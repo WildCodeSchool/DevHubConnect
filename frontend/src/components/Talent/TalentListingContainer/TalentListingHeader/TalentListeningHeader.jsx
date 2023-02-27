@@ -1,18 +1,17 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 
 function TalentListeningHeader() {
   return (
-    <box>
-      {/* Voir pour le style sx */}
-      <Typography gutterBottom variant="h2" component="div">
-        TALENT SCHOLARSHIP
-      </Typography>
-      <Typography variant="h3" color="text.secondary">
+    <Box sx={{ backgroundColor: "#cfe8fc" }}>
+      <Typography variant="h1">Bourse aux talents</Typography>
+
+      <Typography component="h2">
         Easily and quickly find your future collaborators according to the
-        skills sought, in your region or elsewhere...
+        skills sought, in your region or elsewhere ...
       </Typography>
-    </box>
+    </Box>
   );
 }
 

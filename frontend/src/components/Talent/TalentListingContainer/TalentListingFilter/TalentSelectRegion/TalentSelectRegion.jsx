@@ -66,15 +66,15 @@ export default function TalentSelectRegion() {
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+      <FormControl sx={{ minWidth: 300 }}>
+        <InputLabel id="demo-multiple-name-label">Région</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
           value={personName}
           onChange={handleChange}
-          input={<OutlinedInput label="Name" />}
+          input={<OutlinedInput label="Région" />}
           MenuProps={MenuProps}
         >
           {regions.map((name) => (
