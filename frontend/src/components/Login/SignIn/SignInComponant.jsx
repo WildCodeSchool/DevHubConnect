@@ -39,7 +39,7 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            // marginTop: 8, // pour aligner sur l'image
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -89,8 +89,8 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
+            <Grid container justifyContent="center">
+              <Grid item>
                 <Link to="/forgot-password" variant="body2">
                   Forgot password?
                 </Link>

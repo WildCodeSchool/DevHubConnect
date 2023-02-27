@@ -1,15 +1,13 @@
-// import React from "react";
+import React from "react";
+import Image from "mui-image";
+import ComposantLoginImage from "../../../../assets/composantLoginImage.png";
 
-// function SignInImage() {
-//   return (
-//     <div>
-//       <Image
-//         src="https://i.ytimg.com/vi/yaqe1qesQ8c/maxresdefault.jpg"
-//         aspectRatio={16 / 9}
-//         disableSpinner
-//       />
-//     </div>
-//   );
-// }
+function SignInImage() {
+  return (
+    <div>
+      <Image src={ComposantLoginImage} aspectRatio={16 / 9} disableSpinner />
+    </div>
+  );
+}
 
-// export default SignInImage;
+export default SignInImage;
