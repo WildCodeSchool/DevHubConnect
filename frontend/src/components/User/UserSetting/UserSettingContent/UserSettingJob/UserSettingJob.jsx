@@ -60,7 +60,7 @@ export default function UserSettingJob() {
       }}
     >
       <Typography variant="fieldBoxTitle" gutterBottom>
-        Votre job actuel
+        Le job qui te fait sauter du lit chaque matin
       </Typography>
       <FormControl sx={{ m: 0, mt: 2, width: 1 }}>
         <InputLabel id="demo-multiple-job-label">job</InputLabel>

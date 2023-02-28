@@ -8,7 +8,9 @@ export default function UserSettingSaveButton() {
       direction={{ xs: "column", sm: "row" }}
       spacing={{ xs: 1, sm: 2, md: 4 }}
     >
-      <Button variant="contained">Enregistrer</Button>
+      <Button variant="contained" size="large" color="secondary">
+        Enregistrer
+      </Button>
     </Stack>
   );
 }

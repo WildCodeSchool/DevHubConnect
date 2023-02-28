@@ -16,7 +16,7 @@ export default function UserSettingField() {
     >
       <Stack direction="column" spacing={3}>
         <Typography variant="fieldBoxTitle" gutterBottom>
-          Vos informations
+          Qui es-tu ? Les champs obligatoires ne mentent pas
         </Typography>
         <Stack
           direction={{ sm: "column", md: "row" }}

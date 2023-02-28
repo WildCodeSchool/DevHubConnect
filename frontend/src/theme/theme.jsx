@@ -11,8 +11,8 @@ const breakpoints = {
   },
 };
 const palette = {
-  primary: { main: "#AE8E5F", contrastText: "#fff" },
-  secondary: { main: "#E8DBCB", contrastText: "#000" },
+  primary: { main: "#0088CD", contrastText: "#fff" },
+  secondary: { main: "#E05205", contrastText: "#FFFFFF" },
   BgContent: { main: "#eaeff2", contrastText: "#000" },
   BgSidebar: { main: "#1C2536", contrastText: "#000" },
   NavLink: { main: "#E9F3FA", contrastText: "#000", Hover: "#FFF" },
@@ -69,7 +69,7 @@ const palette = {
     spacing: [0, 2, 3, 5, 8],
   },
   searhSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (search -> searh)
-  myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)  												   // added comma here for better readability.
+  myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)
 };
 
 const typography = {

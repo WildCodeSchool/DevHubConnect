@@ -4,7 +4,6 @@ import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 
@@ -28,20 +27,24 @@ export default function UserSettingSkills() {
     <Paper
       elevation={4}
       sx={{
-        color: "UserDashboardCard.color",
+        color: "UserSetting.color",
         p: 3,
         backgroundColor: "UserSetting.Background",
       }}
     >
       <Typography variant="fieldBoxTitle" gutterBottom>
-        Votre job actuel
+        La checklist ultime de tes compétences
       </Typography>
       <FormControl
-        sx={{ m: 0, mt: 2, width: 1 }}
+        sx={{
+          m: 0,
+          mt: 2,
+          width: 1,
+        }}
         component="fieldset"
         variant="standard"
       >
-        <FormLabel component="legend">Assign responsibility</FormLabel>
+        <FormLabel component="legend">Coche et conquiers !</FormLabel>
         <FormGroup>
           <FormControlLabel
             control={
@@ -66,7 +69,6 @@ export default function UserSettingSkills() {
             label="Angular"
           />
         </FormGroup>
-        <FormHelperText>Be careful</FormHelperText>
       </FormControl>
     </Paper>
   );
