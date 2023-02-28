@@ -1,9 +1,13 @@
 import * as React from "react";
+import Stack from "@mui/material/Stack";
+import UserSettingHeader from "../components/User/UserSetting/UserSettingHeader/UserSettingHeader";
+import UserSettingContent from "../components/User/UserSetting/UserSettingContent/UserSettingContent";
 
 export default function UserSetting() {
   return (
-    <div>
-      <h1>User setting</h1>
-    </div>
+    <Stack spacing={2}>
+      <UserSettingHeader />
+      <UserSettingContent />
+    </Stack>
   );
 }
