@@ -8,12 +8,21 @@ import Typography from "@mui/material/Typography";
 
 export default function UserDashboardUserInfo() {
   return (
-    <Paper>
+    <Paper
+      elevation={4}
+      sx={{
+        color: "UserDashboardCard.color",
+        backgroundColor: "UserDashboardCard.Background",
+        "&:hover": {
+          backgroundColor: "UserDashboardCard.Bghover",
+        },
+      }}
+    >
       <Stack
-        direction="row"
+        direction={{ sm: "column", md: "row" }}
+        spacing={{ sm: 1, md: 2 }}
         justifyContent="space-between"
         alignItems="center"
-        spacing={2}
         p={2}
       >
         <Avatar
@@ -33,12 +42,24 @@ export default function UserDashboardUserInfo() {
             alignItems="flex-start"
             spacing={0.5}
           >
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography
+              variant="UserDashboardSkill"
+              sx={{
+                color: "UserDashboardCard.color",
+              }}
+              gutterBottom
+            >
               Immortel
             </Typography>
             <CreateOutlinedIcon fontSize="small" />
           </Stack>
-          <Typography component="div" variant="h5">
+          <Typography
+            component="div"
+            variant="h2"
+            sx={{
+              color: "UserDashboardCard.color",
+            }}
+          >
             Michel Drucker
           </Typography>
           <Typography variant="body1" gutterBottom>
