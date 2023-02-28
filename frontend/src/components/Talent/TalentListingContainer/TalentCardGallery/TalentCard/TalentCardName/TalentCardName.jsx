@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 function TalentCardName() {
   return (
-    <Stack direction="column">
+    <Stack direction="column" textAlign={{ xs: "flex-start", md: "center" }}>
       <Typography gutterBottom variant="body1" color="text.secondary">
         Métier (job_id)
       </Typography>

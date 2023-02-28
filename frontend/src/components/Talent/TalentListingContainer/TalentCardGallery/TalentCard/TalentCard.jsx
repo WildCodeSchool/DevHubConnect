@@ -19,8 +19,8 @@ function TalentCard() {
         >
           <Stack
             direction={{ xs: "row", sm: "row", md: "column" }}
-            alignItems={{ xs: "flex-start", sm: "center" }}
-            // justifyContent="flex-start"
+            justifyContent="center"
+            alignItems="center"
             spacing={2}
           >
             <TalentAvatar />
