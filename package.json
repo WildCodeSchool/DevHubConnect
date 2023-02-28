@@ -40,6 +40,7 @@
     "@fullcalendar/react": "^6.1.4",
     "@mui/material": "^5.11.10",
     "@mui/styled-engine-sc": "^5.11.9",
-     "styled-components": "^5.3.6"
+    "mui-image": "^1.0.7",
+    "styled-components": "^5.3.6"
   }
 }

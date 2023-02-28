@@ -16,7 +16,7 @@ function ProjectSingleHeader() {
       <Stack
         direction={{ xs: "column", sm: "column", md: "row" }}
         spacing={{ sm: 1, md: 2 }}
-        justifyContent="space-between"
+        justifyContent="flex-start"
         alignItems="center"
         p={2}
       >
@@ -27,7 +27,14 @@ function ProjectSingleHeader() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Typography>
-        <br />
+      </Stack>
+      <Stack
+        direction={{ xs: "column", sm: "column", md: "row" }}
+        spacing={{ sm: 1, md: 2 }}
+        justifyContent="flex-end"
+        alignItems="center"
+        p={2}
+      >
         <ProjectSingleButtonPostuler />
       </Stack>
     </Paper>

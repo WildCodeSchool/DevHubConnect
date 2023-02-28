@@ -5,7 +5,12 @@ import ProjectSingleHeader from "./ProjectSingleHeader/ProjectSingleHeader";
 
 function ProjectSingleContainer() {
   return (
-    <Stack spacing={2}>
+    <Stack
+      direction={{ xs: "column", sm: "column", md: "column" }}
+      spacing={{ xs: 1, sm: 1, md: 2 }}
+      justifyContent="flex-start"
+      alignItems="space-between"
+    >
       <ProjectSingleHeader />
       <ProjectSingleDescriptionContent />
     </Stack>
