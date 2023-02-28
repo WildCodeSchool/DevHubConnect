@@ -1,34 +1,36 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 
-function MuiCard() {
+import Typography from "@mui/material/Typography";
+import { CardActionArea } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
+
+function TalentCard() {
   return (
-    <div>
-      <Card sx={{ maxWidth: 345, bgcolor: "pink" }}>
-        <Avatar
-          alt="Mark Zuckerberg"
-          src="/static/images/avatar/1.jpg"
-          sx={{ width: 90, height: 90 }}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            Mark Zuckerberg
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Co-fondateur de Facebook
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      </Card>
-    </div>
+    <Paper>
+      <CardActionArea sx={{ maxWidth: 500 }}>
+        <Stack alignItems="center" direction={{ sm: "row", md: "column" }}>
+          <Avatar
+            alt="Remy Sharp"
+            src="http://pngimg.com/uploads/mark_zuckerberg/mark_zuckerberg_PNG35.png"
+            sx={{ width: 90, height: 90 }}
+          />
+          <Stack>
+            <Typography variant="body1" color="text.secondary">
+              Métier (job_id)
+            </Typography>
+            <Typography gutterBottom variant="h2" component="div">
+              Mark Zuckerberg
+            </Typography>
+          </Stack>
+        </Stack>
+        <Typography variant="body1" color="text.secondary">
+          Co-fondateur de Facebook (biography)
+        </Typography>
+      </CardActionArea>
+    </Paper>
   );
 }
 
-export default MuiCard;
+export default TalentCard;
