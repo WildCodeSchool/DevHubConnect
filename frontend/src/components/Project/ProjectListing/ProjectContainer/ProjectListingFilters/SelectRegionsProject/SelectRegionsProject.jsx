@@ -1,24 +1,23 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
+import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 
-const ITEM_HEIGHT = 20;
+const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 150,
+      width: 250,
     },
   },
 };
-
 const regions = [
   "Ile-de-France",
   "Nord-Pas-de-Calais",
@@ -42,61 +41,40 @@ const regions = [
   "Limousin",
   "Auvergne",
 ];
-
-function getStyles(region, regionName, theme) {
-  return {
-    fontWeight:
-      regionName.indexOf(region) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-export default function SelectRegionsProject() {
-  const theme = useTheme();
-  const [regionName, setRegionName] = React.useState([]);
-
+function SelectRegionsProject() {
+  const [selectRegionsProject, setSelectRegionsProject] = React.useState([]);
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setRegionName(
+    setSelectRegionsProject(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
-
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Region</InputLabel>
+    <Stack>
+      <FormControl sx={{ width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
           multiple
-          value={regionName}
+          value={selectRegionsProject}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="region" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
+          input={<OutlinedInput label="Régions" />}
+          renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
           {regions.map((region) => (
-            <MenuItem
-              key={region}
-              value={region}
-              style={getStyles(region, regionName, theme)}
-            >
-              {region}
+            <MenuItem key={region} value={region}>
+              <Checkbox checked={selectRegionsProject.indexOf(region) > -1} />
+              <ListItemText primary={region} />
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Stack>
   );
 }
+export default SelectRegionsProject;

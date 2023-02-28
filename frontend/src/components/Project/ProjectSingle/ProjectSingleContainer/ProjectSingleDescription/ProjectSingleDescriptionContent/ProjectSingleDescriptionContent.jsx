@@ -11,7 +11,7 @@ export default function ProjectSingleDescriptionContent() {
       direction={{ xs: "column", sm: "column", md: "row" }}
       spacing={{ sm: 1, md: 2 }}
       justifyContent="flex-start"
-      alignItems="center"
+      alignItems="flex-start"
     >
       <Paper
         elevation={3}
@@ -57,7 +57,7 @@ export default function ProjectSingleDescriptionContent() {
         <Stack
           direction={{ xs: "column", sm: "column", md: "column" }}
           spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
           p={2}
         >
@@ -72,7 +72,7 @@ export default function ProjectSingleDescriptionContent() {
           spacing={{ xs: 1, sm: 1, md: 2 }}
           justifyContent="space-between"
           alignItems="center"
-          p={1}
+          p={2}
         >
           <Typography variant="h6" gutterBottom>
             Pierre Perrin
@@ -115,6 +115,7 @@ export default function ProjectSingleDescriptionContent() {
             </Stack>
           </Typography>
         </Paper>
+
         <Stack
           direction={{ xs: "column", sm: "column", md: "column" }}
           spacing={{ xs: 1, sm: 1, md: 2 }}
@@ -129,12 +130,7 @@ export default function ProjectSingleDescriptionContent() {
               borderRadius: 2,
             }}
           >
-            <image
-            // sx={{
-            //   height: "100%",
-            //   width: "100%",
-            // }}
-            >
+            <image>
               <img alt="projet" src="https://picsum.photos/300/200" />
             </image>
           </Paper>
