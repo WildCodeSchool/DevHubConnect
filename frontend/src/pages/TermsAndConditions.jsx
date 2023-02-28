@@ -1,9 +1,10 @@
 import * as React from "react";
+import Terms from "../components/Policy/TermsAndCondition/TermsAndConditions";
 
-export default function Terms() {
+export default function TermsAndCondition() {
   return (
     <div>
-      <h1>Terms and conditions</h1>
+      <Terms />
     </div>
   );
 }
