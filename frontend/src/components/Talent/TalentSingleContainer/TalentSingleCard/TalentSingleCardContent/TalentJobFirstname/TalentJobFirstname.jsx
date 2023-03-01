@@ -1,7 +1,7 @@
 import React from "react";
 
 function TalentJobFirstname() {
-  return <div></div>;
+  return <div />;
 }
 
 export default TalentJobFirstname;

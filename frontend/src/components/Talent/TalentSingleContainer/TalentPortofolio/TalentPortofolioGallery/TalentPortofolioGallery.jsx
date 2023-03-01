@@ -1,12 +1,26 @@
 import React from "react";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import PortofolioCard from "./PortofolioCard/PortofolioCard";
-// import Stack from "@mui/material/Stack";
 
 function TalentPortofolioGallery() {
   return (
-    <div>
-      <PortofolioCard />
-    </div>
+    <Box sx={{ mt: 2 }}>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        mt="2"
+        sx={{ flexWrap: "wrap", gap: 2 }}
+      >
+        <PortofolioCard />
+        <PortofolioCard />
+        <PortofolioCard />
+        <PortofolioCard />
+        <PortofolioCard />
+        <PortofolioCard />
+      </Stack>
+    </Box>
   );
 }
 

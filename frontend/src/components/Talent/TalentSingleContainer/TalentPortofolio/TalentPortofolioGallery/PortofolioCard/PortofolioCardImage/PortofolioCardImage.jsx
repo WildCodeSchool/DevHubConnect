@@ -7,7 +7,7 @@ function PortofolioCardImage() {
       <CardMedia
         component="img"
         alt="green iguana"
-        height="150"
+        // height="150"
         image="https://picsum.photos/500/300"
       />
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 function TalentBio() {
-  return <div></div>;
+  return <div />;
 }
 
 export default TalentBio;

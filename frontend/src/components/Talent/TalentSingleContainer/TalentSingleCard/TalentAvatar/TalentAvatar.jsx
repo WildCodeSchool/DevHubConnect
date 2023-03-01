@@ -1,7 +1,7 @@
 import React from "react";
 
 function TalentAvatar() {
-  return <div></div>;
+  return <div />;
 }
 
 export default TalentAvatar;

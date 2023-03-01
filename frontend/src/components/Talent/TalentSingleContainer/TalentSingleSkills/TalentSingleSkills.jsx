@@ -15,7 +15,17 @@ function TalentSingleSkills() {
         >
           COMPETENCES
         </Typography>
-        <Stack direction="row" justifyContent="center" spacing={3}>
+        <Stack
+          // direction="row"
+          // justifyContent="center" // {{ xs: "center", sm: "center", md: "space-around" }}
+          // alignItems="center"
+          // spacing={3}
+          direction="row"
+          justifyContent="center"
+          alignItems="flex-start"
+          spacing={1}
+          p={2}
+        >
           <Chip label="JavaScript" size="Medium" />
           <Chip label="CSS" size="Medium" />
           <Chip label="React.js" size="small" />
