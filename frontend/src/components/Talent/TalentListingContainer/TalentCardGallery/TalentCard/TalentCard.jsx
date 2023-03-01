@@ -1,6 +1,4 @@
 import * as React from "react";
-
-// import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
@@ -10,7 +8,7 @@ import TalentCardDescription from "./TalentCardDescription/TalentCardDescription
 
 function TalentCard() {
   return (
-    <Paper>
+    <Paper elevation={3} p={2}>
       <CardActionArea>
         <Stack
           alignItems="center"

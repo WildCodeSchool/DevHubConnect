@@ -1,20 +1,29 @@
-import React from "react";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
+import Chip from "@mui/material/Chip";
+import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 
 function TalentSingleSkills() {
   return (
-    <Box sx={{ backgroundColor: "#cfe8fc" }}>
-      <Typography component="h4" variant="h3" sx={{ p: 1 }}>
-        COMPETENCES
-      </Typography>
-      <Grid>
-        <Typography component="h1" variant="body1" sx={{ p: 1, color: "grey" }}>
-          bouton 1 et les autres
+    <Paper elevation={3} p={2}>
+      <Stack sx={{ backgroundColor: "#e0f2f1" }}>
+        <Typography
+          component="h4"
+          variant="h3"
+          sx={{ p: 1, textAlign: "center" }}
+        >
+          COMPETENCES
         </Typography>
-      </Grid>
-    </Box>
+        <Stack direction="row" justifyContent="center" spacing={3}>
+          <Chip label="JavaScript" size="Medium" />
+          <Chip label="CSS" size="Medium" />
+          <Chip label="React.js" size="small" />
+          <Chip label="Angular" size="small" />
+          <Chip label="SEO" size="small" />
+        </Stack>
+      </Stack>
+    </Paper>
   );
 }
 
