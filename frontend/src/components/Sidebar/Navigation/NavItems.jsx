@@ -68,9 +68,9 @@ export default function NavItems() {
           },
         }}
       >
-        {itemsMenu.map((item) => (
+        {itemsMenu.map((item, index) => (
           <ListItem
-            key={item.id}
+            key={item.text}
             disablePadding
             sx={{
               color: "NavLink.main",
@@ -102,9 +102,9 @@ export default function NavItems() {
       </List>
       <Divider />
       <List>
-        {itemsMenuGost.map((item) => (
+        {itemsMenuGost.map((item, index) => (
           <ListItem
-            key={item.id}
+            key={item.text}
             sx={{
               color: "NavLink.main",
               "&:hover": {

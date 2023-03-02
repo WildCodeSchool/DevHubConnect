@@ -23,6 +23,7 @@ export default function UserDashboardProjectSuggest() {
       .then((projectsData) => {
         // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
         setProjectListing(projectsData);
+        console.log(projectsData);
       });
   };
 
@@ -43,7 +44,7 @@ export default function UserDashboardProjectSuggest() {
       {projectListing.slice(-5).map((project) => {
         return (
           <Paper
-            key={project.project_id}
+            key={project.id}
             sx={{ width: 1 }}
             variant="UserDashboardProjectSuggest.background"
           >
@@ -73,7 +74,10 @@ export default function UserDashboardProjectSuggest() {
                     width: "100%",
                   }}
                 >
-                  <Stack direction={{ sm: "column", md: "column" }} p={0}>
+                  <Stack
+                    direction={{ sm: "column", md: "column", width: 1 }}
+                    p={0}
+                  >
                     <Typography component="div" variant="h2">
                       {project.project_name}
                     </Typography>
