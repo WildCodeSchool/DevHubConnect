@@ -38,8 +38,6 @@ export default function UserDashboardContent() {
         <Typography variant="h5" gutterBottom>
           Nouveaux projets
         </Typography>
-
-        <UserDashboardProjectSuggest />
         <UserDashboardProjectSuggest />
       </Stack>
     </Stack>
