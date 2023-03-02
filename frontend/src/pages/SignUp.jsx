@@ -1,27 +1,27 @@
 import * as React from "react";
-import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
+import { Stack, Box } from "@mui/material";
 import SignUpImage from "@components/Login/SignUp/SignUpImage/SignUpImage";
 import LinkToSignInPage from "@components/Login/SignUp/LinkToSignInPage/LinkToSignInPage";
-import SignUpForm from "../components/Login/SignUp/SignUpForm/SignUpForm";
+// import SignUpForm from "../components/Login/SignUp/SignUpForm/SignUpForm";
+import FormTest from "../components/Login/SignUp/SignUpForm/formTest";
 
 export default function SignUp() {
   return (
-    <Paper sx={{ width: 1 }}>
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        spacing={2}
-      >
-        <Stack>
-          <SignUpImage />
+    <Stack direction="row" justifyContent="center">
+      <Box>
+        <Stack
+          direction={{ xs: "column", sm: "column", md: "row" }}
+          alignItems="center"
+        >
+          <Box sx={{ width: "50%" }}>
+            <SignUpImage />
+          </Box>
+          <Box sx={{ width: "50%" }}>
+            <LinkToSignInPage />
+            <FormTest />
+          </Box>
         </Stack>
-        <Stack spacing={2}>
-          <LinkToSignInPage />
-          <SignUpForm />
-        </Stack>
-      </Stack>
-    </Paper>
+      </Box>
+    </Stack>
   );
 }

@@ -12,29 +12,26 @@ import SignUpSkills from "./SignUpSkills/SignUpSkills";
 import SignUpConfirmation from "./SignUpConfirmation/SignUpConfirmation";
 import SignUpCompleted from "./SignUpCompleted/SignUpCompleted";
 
-// Step titles
-const labels = ["Identity", "About you", "Skills", "Confirmation"];
-
-function handleSteps(step) {
-  switch (step) {
-    case 0:
-      return <SignUpidentity />;
-    case 1:
-      return <SignUpAboutYou />;
-    case 2:
-      return <SignUpSkills />;
-    case 3:
-      return <SignUpConfirmation />;
-    case 4:
-      return <SignUpCompleted />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 function StepForm() {
+  const labels = ["Identity", "About you", "Skills", "Confirmation"];
   const { activeStep } = useContext(SignUpContext);
-
+  // console.log("form activestep", activeStep);
+  function handleSteps(step) {
+    switch (step) {
+      case 0:
+        return <SignUpidentity />;
+      case 1:
+        return <SignUpAboutYou />;
+      case 2:
+        return <SignUpSkills />;
+      case 3:
+        return <SignUpConfirmation />;
+      case 4:
+        return <SignUpCompleted />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
   return (
     <Paper>
       {activeStep === labels.length ? (

@@ -1,18 +1,26 @@
-import React, { useContext } from "react";
+import React, { useCallback, useContext } from "react";
 import { TextField, Button, Box, Grid } from "@mui/material";
 import { Field, Formik } from "formik";
 import { object, string } from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
 
 export default function SignUpidentity() {
-  const { formValues, handleNext } = useContext(SignUpContext);
+  const { formValues, setFormValues, handleNext } = useContext(SignUpContext);
   const { lastName, firstName, CP, email, password } = formValues;
+  // console.log("identity formvalues", formValues);
+  const handleSubmit = useCallback(
+    (newValues) => {
+      setFormValues((prevValues) => ({ ...prevValues, ...newValues }));
+    },
+    [setFormValues]
+  );
   return (
     <div>
       <Formik
         initialValues={formValues}
-        onSubmit={(values, formikHelpers) => {
-          formikHelpers.resetForm();
+        onSubmit={(values) => {
+          // console.log("values", values);
+          handleSubmit(values);
         }}
         validationSchema={object({
           lastName: string()
@@ -109,7 +117,14 @@ export default function SignUpidentity() {
                 variant="contained"
                 color="primary"
                 disabled={!isValid || !dirty}
-                onClick={isValid ? handleNext() : () => null}
+                onClick={
+                  isValid
+                    ? () => {
+                        handleNext();
+                        handleSubmit();
+                      }
+                    : () => null
+                }
               >
                 Next
               </Button>
