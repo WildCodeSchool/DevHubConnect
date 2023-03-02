@@ -9,6 +9,7 @@ function PortofolioCardImage() {
         alt="green iguana"
         // height="150"
         image="https://picsum.photos/500/300"
+        sx={{ width: "100%" }}
       />
     </div>
   );

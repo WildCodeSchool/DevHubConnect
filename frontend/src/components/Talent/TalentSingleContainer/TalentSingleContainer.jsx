@@ -6,7 +6,7 @@ import TalentSingleSkills from "./TalentSingleSkills/TalentSingleSkills";
 import TalentAbout from "./TalentAbout/TalentAbout";
 import TalentPortofolio from "./TalentPortofolio/TalentPortofolio";
 import TalentSingleCard from "./TalentSingleCard/TalentSingleCard";
-import TalentCard from "../TalentListingContainer/TalentCardGallery/TalentCard/TalentCard";
+// import TalentCard from "../TalentListingContainer/TalentCardGallery/TalentCard/TalentCard";
 
 function TalentSingleContainer() {
   return (
@@ -15,11 +15,11 @@ function TalentSingleContainer() {
       <Stack
         direction={{ xs: "column", sm: "column", md: "row" }}
         justifyContent="space-between"
-        alignItems={{ xs: "center", sm: "center", md: "flex-start" }}
-        spacing={2}
+        // alignItems={{ xs: "center", sm: "center", md: "flex-start" }}
+        spacing={3}
       >
         <TalentSingleCard />
-        <TalentCard />
+
         <TalentSingleSkills />
       </Stack>
       <TalentAbout />

@@ -8,8 +8,8 @@ function TalentPortofolioGallery() {
     <Box sx={{ mt: 2 }}>
       <Stack
         direction={{ xs: "column", sm: "row" }}
-        justifyContent="flex-start"
-        alignItems="flex-start"
+        justifyContent="space-between"
+        alignItems="space-between"
         mt="2"
         sx={{ flexWrap: "wrap", gap: 2 }}
       >

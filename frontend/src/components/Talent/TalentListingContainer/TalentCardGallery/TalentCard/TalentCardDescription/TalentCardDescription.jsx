@@ -3,7 +3,12 @@ import Typography from "@mui/material/Typography";
 
 function TalentCardDescription() {
   return (
-    <Typography gutterBottom variant="body1" color="text.secondary" width={200}>
+    <Typography
+      gutterBottom
+      variant="body1"
+      color="text.secondary"
+      minWidth={300}
+    >
       Co-fondateur de Facebook (biography) Lorem ipsum dolor sit amet.
     </Typography>
   );

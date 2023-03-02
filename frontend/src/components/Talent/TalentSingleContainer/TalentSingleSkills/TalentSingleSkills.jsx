@@ -16,21 +16,28 @@ function TalentSingleSkills() {
           COMPETENCES
         </Typography>
         <Stack
-          // direction="row"
           // justifyContent="center" // {{ xs: "center", sm: "center", md: "space-around" }}
           // alignItems="center"
           // spacing={3}
           direction="row"
+          display="flex"
           justifyContent="center"
           alignItems="flex-start"
-          spacing={1}
-          p={2}
+          spacing={2}
+          sx={{
+            p: 2,
+          }}
+          flexWrap="wrap"
         >
           <Chip label="JavaScript" size="Medium" />
           <Chip label="CSS" size="Medium" />
-          <Chip label="React.js" size="small" />
-          <Chip label="Angular" size="small" />
-          <Chip label="SEO" size="small" />
+          <Chip label="React.js" size="Medium" />
+          <Chip label="AngularJS" size="Medium" />
+          <Chip label="PHP" size="Medium" />
+          <Chip label="Python" size="Medium" />
+          <Chip label="C#" size="Medium" />
+          <Chip label="Node.js" size="Medium" />
+          <Chip label="SQL" size="Medium" />
         </Stack>
       </Stack>
     </Paper>
