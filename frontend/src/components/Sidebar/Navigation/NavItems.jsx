@@ -68,7 +68,7 @@ export default function NavItems() {
           },
         }}
       >
-        {itemsMenu.map((item, index) => (
+        {itemsMenu.map((item) => (
           <ListItem
             key={item.text}
             disablePadding
@@ -102,7 +102,7 @@ export default function NavItems() {
       </List>
       <Divider />
       <List>
-        {itemsMenuGost.map((item, index) => (
+        {itemsMenuGost.map((item) => (
           <ListItem
             key={item.text}
             sx={{
