@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable camelcase */
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -7,22 +9,23 @@ import CardMedia from "@mui/material/CardMedia";
 import Avatar from "@mui/material/Avatar";
 import { Chip } from "@mui/material";
 
-function UserProjectCard() {
+function UserProjectCard(props) {
+  const { project_name, project_description } = props;
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt={project_name}
         height="150"
-        image="https://picsum.photos/500/300"
+        image="https://picsum.photos/300/200"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Projet Application web
+          {project_name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {project_description}
         </Typography>
         <Avatar
           alt="Remy Sharp"

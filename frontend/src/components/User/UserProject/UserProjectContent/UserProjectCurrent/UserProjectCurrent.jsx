@@ -1,14 +1,56 @@
-// import React, { useState, useEffect } from "react";
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable no-restricted-syntax */
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Stack from "@mui/material/Stack";
-// import axios from "axios";
+import axios from "axios";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-export default function UserProjectCurrent() {
+function UserProjects() {
+  const [projects, setProjects] = useState([]);
+
+  const getProjects = () => {
+    axios
+      .get("http://localhost:5000/projects")
+      .then((response) => response.data)
+      .then((data) => {
+        setProjects(data);
+        console.log(data);
+      });
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  return (
+    <div>
+      <Stack
+        direction="row"
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+        p={1}
+        flexWrap="wrap"
+      >
+        {projects.map((project) => {
+          return (
+            <UserProjectCard
+              key={project.id}
+              project_image={project.project_image}
+              project_name={project.project_name}
+              project_description={project.project_description}
+            />
+          );
+        })}
+      </Stack>
+    </div>
+  );
+}
+
+function UserProjectCurrent() {
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
@@ -24,32 +66,11 @@ export default function UserProjectCurrent() {
           spacing={{ xs: 1, sm: 2, md: 4 }}
           p={1}
         >
-          <UserProjectCard />
-          <UserProjectCard />
-          <UserProjectCard />
-          <UserProjectCard />
+          <UserProjects />
         </Stack>
       </AccordionDetails>
     </Accordion>
   );
 }
 
-// function UserProjects() {
-//   const [project, setProject] = useState();
-
-//   const getProjects = () => {
-//     axios
-//       .get("https://localhosthttp://127.0.0.1:5173/")
-//       .then((response) => response.data)
-//       .then((data) => {
-//         console.log(data);
-//         setProject(data.results[0]);
-//       });
-//   };
-
-//   useEffect(() => {
-//     getProjects();
-//   }, []);
-// }
-
-// export default UserProjectCurrent;
+export default UserProjectCurrent;
