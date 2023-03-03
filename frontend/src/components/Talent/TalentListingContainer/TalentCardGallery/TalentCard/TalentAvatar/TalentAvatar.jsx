@@ -4,11 +4,16 @@ import Avatar from "@mui/material/Avatar";
 function TalentAvatar() {
   return (
     <Avatar
-      alt="Remy Sharp"
-      src="http://pngimg.com/uploads/mark_zuckerberg/mark_zuckerberg_PNG35.png"
-      sx={{ width: 90, height: 90, alignItems: "center" }}
+      alt="avatar"
+      src="https://xsgames.co/randomusers/avatar.php?g=male"
+      sx={{ width: 90, height: 90, m: 2, alignItems: "center" }}
     />
   );
 }
 
 export default TalentAvatar;
+
+// en props: { firstname, lastname, image }
+// ds le alt={`${firstname} ${lastname}`}
+// eslint-disable-next-line prettier/prettier
+// ds src={image}

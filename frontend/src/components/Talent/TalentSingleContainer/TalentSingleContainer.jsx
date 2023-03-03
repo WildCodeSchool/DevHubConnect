@@ -19,7 +19,6 @@ function TalentSingleContainer() {
         spacing={3}
       >
         <TalentSingleCard />
-
         <TalentSingleSkills />
       </Stack>
       <TalentAbout />

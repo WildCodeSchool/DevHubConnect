@@ -1,7 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 
-function TalentCardDescription() {
+function TalentCardDescription(biography) {
   return (
     <Typography
       gutterBottom
@@ -9,7 +9,7 @@ function TalentCardDescription() {
       color="text.secondary"
       minWidth={300}
     >
-      Co-fondateur de Facebook (biography) Lorem ipsum dolor sit amet.
+      {biography}
     </Typography>
   );
 }

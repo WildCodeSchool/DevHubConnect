@@ -11,13 +11,12 @@ function PortofolioCard() {
   return (
     <Paper elevation={3} p={2}>
       <Stack
-        sx={{ maxWidth: 500 }}
+        maxWidth="300"
         direction="column"
         display="flex"
         justifyContent="center"
         alignItems="center"
-
-        // sx={{ p: 2, sm: "center", md: "25%" }}
+        sx={{ sm: "center", md: "25%" }}
       >
         <PortofolioCardImage />
         <PortofolioCardText />
