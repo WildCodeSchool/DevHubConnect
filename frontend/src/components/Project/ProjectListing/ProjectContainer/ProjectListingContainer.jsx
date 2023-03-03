@@ -1,43 +1,61 @@
-import * as React from "react";
-import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import ProjectListingCard from "./ProjectListingCard/ProjectListingCard";
-import ProjectListingHeader from "./ProjectListingHeader/ProjectListingHeader";
-import ProjectListingFilters from "./ProjectListingFilters/ProjectListingFilters";
 
 function ProjectListingContainer() {
+  const [projectListing, setProjectListing] = useState([]);
+  const [userListing, setUserListing] = useState([]);
+
+  const getProjects = () => {
+    axios
+      .get("http://localhost:5007/projects")
+      .then((response) => response.data)
+      .then((projectsData) => {
+        setProjectListing(projectsData);
+        console.info(projectsData);
+      });
+  };
+
+  const getUsers = () => {
+    axios
+      .get("http://localhost:5007/users")
+      .then((response) => response.data)
+      .then((usersData) => {
+        setUserListing(usersData);
+        console.info(usersData);
+      });
+  };
+
+  useEffect(() => {
+    getProjects();
+    getUsers();
+  }, []);
+
   return (
     <>
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
-        justifyContent="flex-start"
-        alignItems="center"
-      >
-        <ProjectListingHeader />
-      </Stack>
-
-      <Paper>
-        <Stack
-          direction={{ xs: "column", sm: "row", md: "row" }}
-          spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <ProjectListingFilters />
-        </Stack>
-      </Paper>
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "column" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
-        justifyContent="space-between"
-        alignItems="flex-start"
-      >
-        <ProjectListingCard />
-        <ProjectListingCard />
-        <ProjectListingCard />
-      </Stack>
+      {projectListing.map((project) => {
+        const projectOwner = userListing.find(
+          (user) => user.id === project.owner_id
+        );
+        return (
+          <ProjectListingCard
+            key={project.id}
+            id={project.id}
+            projectImage={project.project_image}
+            projectName={project.project_name}
+            projectDescription={project.project_description}
+            firstname={
+              projectOwner && userListing.length ? projectOwner.firstname : ""
+            }
+            lastname={
+              projectOwner && userListing.length ? projectOwner.lastname : ""
+            }
+            jobId={projectOwner && userListing.length ? projectOwner.job : ""}
+          />
+        );
+      })}
     </>
   );
 }
+
 export default ProjectListingContainer;

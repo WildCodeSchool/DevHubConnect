@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -40,16 +41,16 @@ function SelectSkillsProject() {
     );
   };
   return (
-    <div>
-      <FormControl sx={{ minWidth: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Compétences</InputLabel>
+    <Stack>
+      <FormControl sx={{ width: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Skills</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
           value={skillsProject}
           onChange={handleChange}
-          input={<OutlinedInput label="Compétences" />}
+          input={<OutlinedInput label="skill" />}
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
@@ -61,7 +62,7 @@ function SelectSkillsProject() {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Stack>
   );
 }
 export default SelectSkillsProject;

@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,8 +36,8 @@ function SelectDatesProject() {
     );
   };
   return (
-    <div>
-      <FormControl sx={{ minWidth: 300 }}>
+    <Stack>
+      <FormControl sx={{ width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Dates</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
@@ -56,7 +57,7 @@ function SelectDatesProject() {
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Stack>
   );
 }
 export default SelectDatesProject;

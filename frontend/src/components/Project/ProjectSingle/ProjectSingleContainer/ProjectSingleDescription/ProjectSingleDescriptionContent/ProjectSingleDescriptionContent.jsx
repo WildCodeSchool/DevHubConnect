@@ -10,6 +10,7 @@ export default function ProjectSingleDescriptionContent() {
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}
       spacing={{ sm: 1, md: 2 }}
+      sx={{ mt: 1, mb: 1 }}
       justifyContent="flex-start"
       alignItems="flex-start"
     >
@@ -23,7 +24,7 @@ export default function ProjectSingleDescriptionContent() {
         <Stack
           direction={{ xs: "column", sm: "column", md: "column" }}
           spacing={{ sm: 1, md: 2 }}
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
           p={2}
         >
@@ -52,6 +53,8 @@ export default function ProjectSingleDescriptionContent() {
         sx={{
           flexGrow: 1,
           borderRadius: 2,
+          mt: 1,
+          mb: 1,
         }}
       >
         <Stack
@@ -74,10 +77,10 @@ export default function ProjectSingleDescriptionContent() {
           alignItems="center"
           p={2}
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Pierre Perrin
           </Typography>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="body1" gutterBottom>
             Chef de projets
           </Typography>
           <Typography variant="body1" gutterBottom>
@@ -88,8 +91,10 @@ export default function ProjectSingleDescriptionContent() {
           </Typography>
         </Stack>
       </Paper>
+
       <Stack
         direction={{ xs: "column", sm: "column", md: "column" }}
+        // display="flex"
         spacing={{ xs: 1, sm: 1, md: 2 }}
         justifyContent="flex-start"
         alignItems="center"
@@ -97,7 +102,6 @@ export default function ProjectSingleDescriptionContent() {
       >
         <Paper
           elevation={3}
-          p={2}
           sx={{
             flexGrow: 1,
             borderRadius: 2,
@@ -116,26 +120,26 @@ export default function ProjectSingleDescriptionContent() {
           </Typography>
         </Paper>
 
-        <Stack
-          direction={{ xs: "column", sm: "column", md: "column" }}
-          spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="flex-start"
-          alignItems="center"
+        {/* <Stack
+        direction={{ xs: "column", sm: "column", md: "row" }}
+        spacing={{ xs: 1, sm: 1, md: 2 }}
+        justifyContent="flex-start"
+        alignItems="center"
+      > */}
+        <Paper
+          elevation={3}
+          p={2}
+          sx={{
+            flexGrow: 1,
+            borderRadius: 2,
+          }}
         >
-          <Paper
-            elevation={3}
-            p={2}
-            sx={{
-              flexGrow: 1,
-              borderRadius: 2,
-            }}
-          >
-            <image>
-              <img alt="projet" src="https://picsum.photos/300/200" />
-            </image>
-          </Paper>
-        </Stack>
+          <image>
+            <img alt="projet" src="https://picsum.photos/300/200" />
+          </image>
+        </Paper>
       </Stack>
     </Stack>
+    //  </Stack>
   );
 }

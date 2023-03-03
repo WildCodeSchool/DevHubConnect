@@ -14,16 +14,16 @@ function ProjectSingleHeader() {
       }}
     >
       <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
+        direction={{ xs: "column", sm: "column", md: "column" }}
         spacing={{ sm: 1, md: 2 }}
         justifyContent="flex-start"
-        alignItems="center"
+        alignItems="flex-start"
         p={2}
       >
         <Typography gutterBottom variant="h1" component="div">
           Project
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body1">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </Typography>
