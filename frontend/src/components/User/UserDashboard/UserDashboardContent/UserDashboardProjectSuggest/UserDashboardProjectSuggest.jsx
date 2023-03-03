@@ -14,6 +14,7 @@ export default function UserDashboardProjectSuggest() {
   const [projectListing, setProjectListing] = useState([]);
   const [projectSkillListing, setProjectSkillListing] = useState([]);
   const [skillListing, setSkillListing] = useState([]);
+  const [user, setUser] = useState([]);
 
   // Définition de la fonction getProjects pour récupérer les projets à partir de l'API REST
   const getProjects = () => {
@@ -58,10 +59,26 @@ export default function UserDashboardProjectSuggest() {
       });
   };
 
+  const getUser = () => {
+    axios
+      .get("http://localhost:5006/users", {
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
+        },
+      })
+      .then((response) => response.data)
+      .then((userData) => {
+        // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
+        setUser(userData);
+        console.log(userData);
+      });
+  };
+
   useEffect(() => {
     getProjects();
     getSkill();
     getProjectSkill();
+    getUser();
   }, []);
 
   const formatDate = (dateString) => {
