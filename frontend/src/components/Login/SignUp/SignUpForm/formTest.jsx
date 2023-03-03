@@ -1,5 +1,5 @@
-import React, { useRef /* , useEffect,  useState */ } from "react";
-// import axios from "axios";
+import React, { useRef, useEffect, useState } from "react";
+import axios from "axios";
 import {
   TextField,
   Button,
@@ -20,10 +20,10 @@ import * as Yup from "yup";
 import SignUpInitialValues from "./SignUpInitialValues/SignUpInitialValues";
 
 export default function FormTest() {
-  /* const [jobList, setJobList] = useState([]);
+  const [jobList, setJobList] = useState([]);
   const [regionList, setRegionList] = useState([]);
 
-   const getJobList = () => {
+  const getJobList = () => {
     axios
       .get("http://localhost:5000/jobs", {
         headers: {
@@ -34,12 +34,11 @@ export default function FormTest() {
       .then((jobsData) => {
         setJobList(jobsData);
       });
-    console.log(jobList);
   };
 
   const getRegionList = () => {
     axios
-      .get("http://localhost:5000/regions", {
+      .get("http://127.0.0.1:5000/regions", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -48,13 +47,12 @@ export default function FormTest() {
       .then((regionsData) => {
         setRegionList(regionsData);
       });
-    console.log(regionList);
   };
 
   useEffect(() => {
     getJobList();
     getRegionList();
-  }, []); */
+  }, []);
 
   const inputRef = useRef(null);
   const cpRegex = /^[0-9]{7}[a-zA-Z]{1}$/;
@@ -211,22 +209,13 @@ export default function FormTest() {
                   error={Boolean(errors.job) && Boolean(touched.job)}
                   helperText={Boolean(touched.job) && errors.job}
                 >
-                  {/* jobList.map((job, index) => {
+                  {jobList.map((job, index) => {
                     return (
-                      <MenuItem value={job} index={index}>
-                        {job}
+                      <MenuItem value={job.job_name} index={index}>
+                        {job.job_name}
                       </MenuItem>
                     );
-                  }) */}
-                  <MenuItem value="developpeur">Développeur</MenuItem>
-                  <MenuItem value="integrateur">Intégrateur</MenuItem>
-                  <MenuItem value="chef de projet">Chef de Projet</MenuItem>
-                  <MenuItem value="analyste">Analyste</MenuItem>
-                  <MenuItem value="expert SEO">Expert SEO</MenuItem>
-                  <MenuItem value="scrum master">Scrum Master</MenuItem>
-                  <MenuItem value="testeur">Testeur</MenuItem>
-                  <MenuItem value="product owner">Product Owner</MenuItem>
-                  <MenuItem value="coach agile">Coach Agile</MenuItem>
+                  })}
                 </Select>
               </FormControl>
             </Grid>
@@ -259,14 +248,14 @@ export default function FormTest() {
                   error={Boolean(errors.region) && Boolean(touched.region)}
                   helperText={Boolean(touched.region) && errors.region}
                 >
-                  {/* regionList.map((region, index) => {
+                  {regionList.map((region, index) => {
                     return (
-                      <MenuItem value={region} index={index}>
-                        {region}
+                      <MenuItem value={region.region_name} index={index}>
+                        {region.region_name}
                       </MenuItem>
                     );
-                  }) */}
-                  <MenuItem value="Nord-Pas-de-Calais">
+                  })}
+                  {/* <MenuItem value="Nord-Pas-de-Calais">
                     Nord-Pas-de-Calais
                   </MenuItem>
                   <MenuItem value="Ile-de-France">Ile-de-France</MenuItem>
@@ -278,7 +267,7 @@ export default function FormTest() {
                   <MenuItem value="Basse-Normandie">Basse-Normandie</MenuItem>
                   <MenuItem value="Bourgogne">Bourgogne</MenuItem>
                   <MenuItem value="Franche-Comté">Franche-Comté</MenuItem>
-                  <MenuItem value="Alsace">Alsace</MenuItem>
+                <MenuItem value="Alsace">Alsace</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
