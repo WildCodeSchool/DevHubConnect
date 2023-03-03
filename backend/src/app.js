@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 // import some node modules for later
 
 const fs = require("node:fs");

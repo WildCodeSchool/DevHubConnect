@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef /* , useEffect,  useState */ } from "react";
+// import axios from "axios";
 import {
   TextField,
   Button,
@@ -19,6 +20,42 @@ import * as Yup from "yup";
 import SignUpInitialValues from "./SignUpInitialValues/SignUpInitialValues";
 
 export default function FormTest() {
+  /* const [jobList, setJobList] = useState([]);
+  const [regionList, setRegionList] = useState([]);
+
+   const getJobList = () => {
+    axios
+      .get("http://localhost:5000/jobs", {
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+        },
+      })
+      .then((response) => response.data)
+      .then((jobsData) => {
+        setJobList(jobsData);
+      });
+    console.log(jobList);
+  };
+
+  const getRegionList = () => {
+    axios
+      .get("http://localhost:5000/regions", {
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+        },
+      })
+      .then((response) => response.data)
+      .then((regionsData) => {
+        setRegionList(regionsData);
+      });
+    console.log(regionList);
+  };
+
+  useEffect(() => {
+    getJobList();
+    getRegionList();
+  }, []); */
+
   const inputRef = useRef(null);
   const cpRegex = /^[0-9]{7}[a-zA-Z]{1}$/;
 
@@ -174,6 +211,13 @@ export default function FormTest() {
                   error={Boolean(errors.job) && Boolean(touched.job)}
                   helperText={Boolean(touched.job) && errors.job}
                 >
+                  {/* jobList.map((job, index) => {
+                    return (
+                      <MenuItem value={job} index={index}>
+                        {job}
+                      </MenuItem>
+                    );
+                  }) */}
                   <MenuItem value="developpeur">Développeur</MenuItem>
                   <MenuItem value="integrateur">Intégrateur</MenuItem>
                   <MenuItem value="chef de projet">Chef de Projet</MenuItem>
@@ -215,6 +259,13 @@ export default function FormTest() {
                   error={Boolean(errors.region) && Boolean(touched.region)}
                   helperText={Boolean(touched.region) && errors.region}
                 >
+                  {/* regionList.map((region, index) => {
+                    return (
+                      <MenuItem value={region} index={index}>
+                        {region}
+                      </MenuItem>
+                    );
+                  }) */}
                   <MenuItem value="Nord-Pas-de-Calais">
                     Nord-Pas-de-Calais
                   </MenuItem>
