@@ -22,6 +22,7 @@ import SignUpInitialValues from "./SignUpInitialValues/SignUpInitialValues";
 export default function FormTest() {
   const [jobList, setJobList] = useState([]);
   const [regionList, setRegionList] = useState([]);
+  const [skillList, setSkillList] = useState([]);
 
   const getJobList = () => {
     axios
@@ -49,9 +50,23 @@ export default function FormTest() {
       });
   };
 
+  const getSkillList = () => {
+    axios
+      .get("http://localhost:5000/skills", {
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+        },
+      })
+      .then((response) => response.data)
+      .then((skillsData) => {
+        setSkillList(skillsData);
+      });
+  };
+
   useEffect(() => {
     getJobList();
     getRegionList();
+    getSkillList();
   }, []);
 
   const inputRef = useRef(null);
@@ -255,19 +270,6 @@ export default function FormTest() {
                       </MenuItem>
                     );
                   })}
-                  {/* <MenuItem value="Nord-Pas-de-Calais">
-                    Nord-Pas-de-Calais
-                  </MenuItem>
-                  <MenuItem value="Ile-de-France">Ile-de-France</MenuItem>
-                  <MenuItem value="Champagne-Ardenne">
-                    Champagne-Ardenne
-                  </MenuItem>
-                  <MenuItem value="Picardie">Picardie</MenuItem>
-                  <MenuItem value="Haute-Normandie">Haute-Normandie</MenuItem>
-                  <MenuItem value="Basse-Normandie">Basse-Normandie</MenuItem>
-                  <MenuItem value="Bourgogne">Bourgogne</MenuItem>
-                  <MenuItem value="Franche-Comté">Franche-Comté</MenuItem>
-                <MenuItem value="Alsace">Alsace</MenuItem> */}
                 </Select>
               </FormControl>
             </Grid>
@@ -332,86 +334,16 @@ export default function FormTest() {
                 error={Boolean(errors.skills) && Boolean(touched.skills)}
                 helperText={Boolean(touched.skills) && errors.skills}
               >
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="HTML/CSS"
-                  label="HTML/CSS"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="JavaScript"
-                  label="JavaScript"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="C#"
-                  label="C#"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="PHP"
-                  label="PHP"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="SQL"
-                  label="SQL"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="Ruby on Rails"
-                  label="Ruby on Rails"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="Java"
-                  label="Java"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="Python"
-                  label="Python"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="HTML/CSS"
-                  label="HTML/CSS"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="JavaScript"
-                  label="JavaScript"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="C#"
-                  label="C#"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="PHP"
-                  label="PHP"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="SQL"
-                  label="SQL"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="Ruby on Rails"
-                  label="Ruby on Rails"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="Java"
-                  label="Java"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  value="Python"
-                  label="Python"
-                />
+                {skillList.map((skill, index) => {
+                  return (
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      value={skill.skill_name}
+                      label={skill.skill_name}
+                      index={index}
+                    />
+                  );
+                })}
               </FormGroup>
             </FormControl>
           </Grid>
