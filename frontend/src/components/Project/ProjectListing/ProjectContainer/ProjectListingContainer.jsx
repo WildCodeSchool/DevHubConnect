@@ -7,6 +7,7 @@ function ProjectListingContainer() {
   const [userListing, setUserListing] = useState([]);
   const [projectSkillListing, setProjectSkillListing] = useState([]);
   const [skillListing, setSkillListing] = useState([]);
+  const [projectRegionListing, setProjectRegionListing] = useState([]);
 
   const getProjects = () => {
     axios
@@ -49,12 +50,22 @@ function ProjectListingContainer() {
         console.info(skillData);
       });
   };
+  const getRegion = () => {
+    axios
+      .get("http://localhost:5007/regions")
+      .then((response) => response.data)
+      .then((regionData) => {
+        setProjectRegionListing(regionData);
+        console.info(regionData);
+      });
+  };
 
   useEffect(() => {
     getProjects();
     getUsers();
     getProjectSkill();
     getSkill();
+    getRegion();
   }, []);
 
   return (
@@ -73,6 +84,9 @@ function ProjectListingContainer() {
             );
             return skillItem ? skillItem.skill_name : "";
           });
+        const regions = projectRegionListing
+          .filter((projectRegion) => projectRegion.id === project.region_id)
+          .map((projectRegion) => projectRegion.region_name);
 
         return (
           <ProjectListingCard
@@ -85,6 +99,9 @@ function ProjectListingContainer() {
             lastname={projectOwner ? projectOwner.lastname : ""}
             jobId={projectOwner ? projectOwner.job : ""}
             skillName={skills}
+            projectStartDate={project.project_start_date}
+            projectEndtDate={project.project_start_date}
+            regionName={regions}
           />
         );
       })}
