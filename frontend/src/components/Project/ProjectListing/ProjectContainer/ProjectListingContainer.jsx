@@ -5,6 +5,8 @@ import ProjectListingCard from "./ProjectListingCard/ProjectListingCard";
 function ProjectListingContainer() {
   const [projectListing, setProjectListing] = useState([]);
   const [userListing, setUserListing] = useState([]);
+  const [projectSkillListing, setProjectSkillListing] = useState([]);
+  const [skillListing, setSkillListing] = useState([]);
 
   const getProjects = () => {
     axios
@@ -26,9 +28,33 @@ function ProjectListingContainer() {
       });
   };
 
+  const getProjectSkill = () => {
+    axios
+      .get("http://localhost:5007/project_skills")
+      .then((response) => response.data)
+      .then((projectsSkillData) => {
+        // Utilisation de setProjectSkillListing pour mettre à jour le state projectSkillListing avec les données de l'API
+        setProjectSkillListing(projectsSkillData);
+        console.info(projectsSkillData);
+      });
+  };
+
+  const getSkill = () => {
+    axios
+      .get("http://localhost:5007/skills")
+      .then((response) => response.data)
+      .then((skillData) => {
+        // Utilisation de setSkillListing pour mettre à jour le state skillListing avec les données de l'API
+        setSkillListing(skillData);
+        console.info(skillData);
+      });
+  };
+
   useEffect(() => {
     getProjects();
     getUsers();
+    getProjectSkill();
+    getSkill();
   }, []);
 
   return (
@@ -37,6 +63,17 @@ function ProjectListingContainer() {
         const projectOwner = userListing.find(
           (user) => user.id === project.owner_id
         );
+
+        // Création d'un tableau de compétences pour chaque projet
+        const skills = projectSkillListing
+          .filter((projectSkill) => projectSkill.project_id === project.id)
+          .map((projectSkill) => {
+            const skillItem = skillListing.find(
+              (skill) => skill.id === projectSkill.skill_id
+            );
+            return skillItem ? skillItem.skill_name : "";
+          });
+
         return (
           <ProjectListingCard
             key={project.id}
@@ -44,13 +81,10 @@ function ProjectListingContainer() {
             projectImage={project.project_image}
             projectName={project.project_name}
             projectDescription={project.project_description}
-            firstname={
-              projectOwner && userListing.length ? projectOwner.firstname : ""
-            }
-            lastname={
-              projectOwner && userListing.length ? projectOwner.lastname : ""
-            }
-            jobId={projectOwner && userListing.length ? projectOwner.job : ""}
+            firstname={projectOwner ? projectOwner.firstname : ""}
+            lastname={projectOwner ? projectOwner.lastname : ""}
+            jobId={projectOwner ? projectOwner.job : ""}
+            skillName={skills}
           />
         );
       })}
