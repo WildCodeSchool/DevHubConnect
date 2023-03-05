@@ -8,25 +8,22 @@ import Stack from "@mui/material/Stack";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectUpComing() {
-  console.info("UserProjectUpComing");
   return (
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls="panel2a-content"
+        id="panel2a-header"
       >
-        <Typography variant="subtitle2">Projets à venir</Typography>
+        <Typography variant="subtitle2">Projets à venir </Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-          p={1}
+          direction="row"
+          spacing={{ xs: 1, sm: 2, md: 4, mt: 2 }}
+          flexWrap="wrap"
+          width={1000}
         >
-          <UserProjectCard />
-          <UserProjectCard />
-          <UserProjectCard />
           <UserProjectCard />
         </Stack>
       </AccordionDetails>

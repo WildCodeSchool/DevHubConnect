@@ -7,29 +7,28 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Stack from "@mui/material/Stack";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-export default function UserProjectNotSelected() {
-  console.error("UserProjectNotSelected");
+function UserProjectNotSelected() {
   return (
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls="panel3a-content"
+        id="panel3a-header"
       >
         <Typography variant="subtitle2">Projets non retenus</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Stack
-          direction={{ xs: "column", sm: "row" }}
+          direction="row"
           spacing={{ xs: 1, sm: 2, md: 4 }}
-          p={1}
+          flexWrap="wrap"
+          width={1000}
         >
-          <UserProjectCard />
-          <UserProjectCard />
-          <UserProjectCard />
           <UserProjectCard />
         </Stack>
       </AccordionDetails>
     </Accordion>
   );
 }
+
+export default UserProjectNotSelected;
