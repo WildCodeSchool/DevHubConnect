@@ -1,12 +1,17 @@
+// External dependencies
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
-import Chip from "@mui/material/Chip";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import Box from "@mui/material/Box";
+
+// Material-UI components
+import {
+  Avatar,
+  Stack,
+  Paper,
+  Chip,
+  Typography,
+  Link,
+  Box,
+} from "@mui/material";
 
 // Définition du composant fonctionnel UserDashboardProjectSuggest
 export default function UserDashboardProjectSuggest() {
@@ -19,7 +24,7 @@ export default function UserDashboardProjectSuggest() {
   // Définition de la fonction getProjects pour récupérer les projets à partir de l'API REST
   const getProjects = () => {
     axios
-      .get("http://localhost:5006/projects", {
+      .get("http://localhost:5007/projects", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
         },
@@ -33,7 +38,7 @@ export default function UserDashboardProjectSuggest() {
 
   const getProjectSkill = () => {
     axios
-      .get("http://localhost:5006/project_skills", {
+      .get("http://localhost:5007/project_skills", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
         },
@@ -47,7 +52,7 @@ export default function UserDashboardProjectSuggest() {
 
   const getSkill = () => {
     axios
-      .get("http://localhost:5006/skills", {
+      .get("http://localhost:5007/skills", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
         },
@@ -61,7 +66,7 @@ export default function UserDashboardProjectSuggest() {
 
   const getUser = () => {
     axios
-      .get("http://localhost:5006/users", {
+      .get("http://localhost:5007/users", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
         },
@@ -70,7 +75,7 @@ export default function UserDashboardProjectSuggest() {
       .then((userData) => {
         // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
         setUser(userData);
-        console.log(userData);
+        // console.info(userData);
       });
   };
 
@@ -92,13 +97,20 @@ export default function UserDashboardProjectSuggest() {
     <>
       {projectListing.slice(-5).map((project) => {
         return (
-          <Link href={`/project/${project.id}`} underline="none">
+          <Box sx={{ width: "100%" }}>
             <Paper
               key={project.id}
-              sx={{ width: "100%" }}
               variant="UserDashboardProjectSuggest.background"
+              sx={{
+                width: 1,
+                color: "UserDashboardProjectSuggest.color",
+                backgroundColor: "UserDashboardProjectSuggest.Background",
+                "&:hover": {
+                  backgroundColor: "UserDashboardProjectSuggest.bghover",
+                },
+              }}
             >
-              <Box sx={{ width: 500 }}>
+              <Link href={`/project/${project.id}`} underline="none">
                 <Stack
                   direction={{ sm: "column", md: "row" }}
                   spacing={{ sm: 1, md: 2 }}
@@ -116,44 +128,36 @@ export default function UserDashboardProjectSuggest() {
                     alignItems="flex-start"
                     spacing={0.5}
                   >
-                    <Stack
-                      direction={{ sm: "column", md: "row" }}
-                      spacing={{ sm: 1, md: 2 }}
-                      justifyContent="space-between"
-                      alignItems="center"
-                      sx={{
-                        width: 1,
-                      }}
-                    >
+                    <Box sx={{ width: "100%" }}>
                       <Stack
-                        direction={{ sm: "column", md: "column", width: 1 }}
-                        p={0}
+                        spacing={{ sm: 1, md: 2 }}
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="flex-start"
                       >
-                        <Typography component="div" variant="h2">
-                          {project.project_name}
-                        </Typography>
-                        <Typography
-                          component="div"
-                          variant="UserDaskboardSuggestDate"
-                        >
-                          Du {formatDate(project.project_start_date)} au{" "}
-                          {formatDate(project.project_end_date)}
-                        </Typography>
+                        <Stack direction={{ sm: "column", md: "column" }} p={0}>
+                          <Typography component="div" variant="h2">
+                            {project.project_name}
+                          </Typography>
+                          <Typography
+                            component="div"
+                            variant="UserDaskboardSuggestDate"
+                          >
+                            Du {formatDate(project.project_start_date)} au{" "}
+                            {formatDate(project.project_end_date)}
+                          </Typography>
+                        </Stack>
+                        <Avatar
+                          alt={user}
+                          src="https://xsgames.co/randomusers/avatar.php?g=male"
+                        />
                       </Stack>
-                      <Avatar
-                        alt="Remy Sharp"
-                        src="https://xsgames.co/randomusers/avatar.php?g=male"
-                      />
-                    </Stack>
-                    <Typography
-                      variant="body1"
-                      gutterBottom
-                      sx={{
-                        width: 460,
-                      }}
-                    >
-                      {project.project_description}
-                    </Typography>
+                    </Box>
+                    <Box sx={{ width: 1 }}>
+                      <Typography variant="body1" gutterBottom>
+                        {project.project_description}
+                      </Typography>
+                    </Box>
 
                     <Stack
                       direction="row"
@@ -182,9 +186,9 @@ export default function UserDashboardProjectSuggest() {
                     </Stack>
                   </Stack>
                 </Stack>
-              </Box>
+              </Link>
             </Paper>
-          </Link>
+          </Box>
         );
       })}
     </>
