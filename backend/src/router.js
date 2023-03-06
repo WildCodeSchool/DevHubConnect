@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   hashPassword,
   verifyPassword,
-  verifyToken,
+  // verifyToken,
   verifyId,
 } = require("./auth");
 
@@ -20,7 +20,7 @@ router.post(
   verifyPassword
 );
 // authentication wall : verifyToken is activated for each route after this line
-router.use(verifyToken);
+// router.use(verifyToken);
 // ------GET users-------
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);

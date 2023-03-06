@@ -1,14 +1,18 @@
 import * as React from "react";
-
-// import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
+import PropTypes from "prop-types";
 import TalentAvatar from "./TalentAvatar/TalentAvatar";
 import TalentCardName from "./TalentCardName/TalentCardName";
 import TalentCardDescription from "./TalentCardDescription/TalentCardDescription";
 
-function TalentCard() {
+export default function TalentCard({
+  firstname,
+  lastname,
+  jobName,
+  biography,
+}) {
   return (
     <Paper>
       <CardActionArea>
@@ -24,14 +28,29 @@ function TalentCard() {
             spacing={2}
           >
             <TalentAvatar />
-            <TalentCardName />
+            <TalentCardName
+              jobName={jobName}
+              firstname={firstname}
+              lastname={lastname}
+            />
           </Stack>
 
-          <TalentCardDescription />
+          <TalentCardDescription biography={biography} />
         </Stack>
       </CardActionArea>
     </Paper>
   );
 }
+TalentCard.propTypes = {
+  jobName: PropTypes.string,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  biography: PropTypes.string,
+};
 
-export default TalentCard;
+TalentCard.defaultProps = {
+  jobName: "",
+  firstname: "",
+  lastname: "",
+  biography: "",
+};

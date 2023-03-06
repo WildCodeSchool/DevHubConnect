@@ -1,14 +1,23 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
+import PropTypes from "prop-types";
 
-function TalentAvatar() {
+export default function TalentAvatar({ firstname, lastname }) {
   return (
     <Avatar
-      alt="Remy Sharp"
+      alt={{ firstname, lastname }}
       src="http://pngimg.com/uploads/mark_zuckerberg/mark_zuckerberg_PNG35.png"
       sx={{ width: 90, height: 90, alignItems: "center" }}
     />
   );
 }
 
-export default TalentAvatar;
+TalentAvatar.propTypes = {
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+};
+
+TalentAvatar.defaultProps = {
+  firstname: "",
+  lastname: "",
+};

@@ -1,12 +1,18 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
 
-function TalentCardDescription() {
+export default function TalentCardDescription({ biography }) {
   return (
     <Typography gutterBottom variant="body1" color="text.secondary" width={200}>
-      Co-fondateur de Facebook (biography) Lorem ipsum dolor sit amet.
+      {biography}
     </Typography>
   );
 }
+TalentCardDescription.propTypes = {
+  biography: PropTypes.string,
+};
 
-export default TalentCardDescription;
+TalentCardDescription.defaultProps = {
+  biography: "",
+};
