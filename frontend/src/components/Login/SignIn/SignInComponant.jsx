@@ -36,7 +36,7 @@ export default function Login() {
   // Utilisation de useState pour gérer les états de l'email, du mot de passe et de l'erreur de connexion
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [err, setErr] = useState("");
+  const [err, setErr] = useState("");
   const navigate = useNavigate();
   // Fonction qui s'exécute lorsque le formulaire est soumis
   const handleSubmit = async (event) => {
@@ -62,16 +62,16 @@ export default function Login() {
       );
       // Stockage du jeton d'authentification dans le stockage local de l'application
       localStorage.setItem("token", response.data.token);
-      // console.log(response.data);
+      console.info(response.data);
       // Redirection vers le tableau de bord
       navigate("/dashboard");
     } catch (error) {
       // Affichage d'un message d'erreur si la connexion échoue
-      // setErr("Invalid username or password");
+      setErr("Invalid email or password");
       console.error(error.message);
     }
   };
-  // console.log(err);
+  console.info(err);
   // Rendu de l'élément HTML pour la page de connexion
   return (
     <ThemeProvider theme={theme}>
