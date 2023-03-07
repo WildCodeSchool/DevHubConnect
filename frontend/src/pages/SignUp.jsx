@@ -2,8 +2,7 @@ import * as React from "react";
 import { Stack, Box } from "@mui/material";
 import SignUpImage from "@components/Login/SignUp/SignUpImage/SignUpImage";
 import LinkToSignInPage from "@components/Login/SignUp/LinkToSignInPage/LinkToSignInPage";
-// import SignUpForm from "../components/Login/SignUp/SignUpForm/SignUpForm";
-import FormTest from "../components/Login/SignUp/SignUpForm/formTest";
+import SignUpForm from "../components/Login/SignUp/SignUpForm/SignUpForm";
 
 export default function SignUp() {
   return (
@@ -18,7 +17,7 @@ export default function SignUp() {
           </Box>
           <Box sx={{ width: "50%" }}>
             <LinkToSignInPage />
-            <FormTest />
+            <SignUpForm />
           </Box>
         </Stack>
       </Box>

@@ -4,7 +4,12 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
-import { Paper } from "@mui/material";
+import {
+  Container,
+  createTheme,
+  ThemeProvider,
+  CssBaseline,
+} from "@mui/material";
 import SignUpContext from "../../../../Contexts/SignUpContext";
 import SignUpidentity from "./SignUpIdentity/SignUpIdentity";
 import SignUpAboutYou from "./SignUpAboutYou/SignUpAboutYou";
@@ -13,6 +18,7 @@ import SignUpConfirmation from "./SignUpConfirmation/SignUpConfirmation";
 import SignUpCompleted from "./SignUpCompleted/SignUpCompleted";
 
 function StepForm() {
+  const theme = createTheme();
   const labels = ["Identity", "About you", "Skills", "Confirmation"];
   const { activeStep } = useContext(SignUpContext);
   // console.log("form activestep", activeStep);
@@ -33,37 +39,42 @@ function StepForm() {
     }
   }
   return (
-    <Paper>
-      {activeStep === labels.length ? (
-        <SignUpCompleted />
-      ) : (
-        <>
-          <Box style={{ marginTop: "5rem" }}>
-            <Typography variant="h1">User Sign Up</Typography>
-            <Typography
-              variant="subtitle2"
-              align="center"
-              style={{ marginTop: "2rem" }}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        {activeStep === labels.length ? (
+          <SignUpCompleted />
+        ) : (
+          <>
+            <Box justifyContent="center" style={{ paddingTop: "2rem" }}>
+              <Typography component="h1" variant="h2" align="center">
+                User Sign Up
+              </Typography>
+              <Typography
+                variant="h5"
+                align="center"
+                style={{ marginTop: "1rem" }}
+              >
+                Fill the form to sign up.
+              </Typography>
+            </Box>
+            <Stepper
+              activeStep={activeStep}
+              style={{ paddingTop: "2rem" }}
+              alternativeLabel
             >
-              Fill the form to sign up.
-            </Typography>
-          </Box>
-          <Stepper
-            activeStep={activeStep}
-            style={{ paddingTop: "3rem" }}
-            alternativeLabel
-          >
-            {labels.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+              {labels.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
 
-          {handleSteps(activeStep)}
-        </>
-      )}
-    </Paper>
+            {handleSteps(activeStep)}
+          </>
+        )}
+      </Container>
+    </ThemeProvider>
   );
 }
 

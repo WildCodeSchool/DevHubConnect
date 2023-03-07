@@ -1,48 +1,87 @@
-import React, { useCallback, useContext } from "react";
+import React, { useContext } from "react";
 import { TextField, Button, Box, Grid } from "@mui/material";
-import { Field, Formik } from "formik";
-import { object, string } from "yup";
+import { Field, Formik, Form } from "formik";
+import * as yup from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
 
 export default function SignUpidentity() {
-  const { formValues, setFormValues, handleNext } = useContext(SignUpContext);
+  const { formValues, setFormValues, activeStep, setActiveStep } =
+    useContext(SignUpContext);
   const { lastName, firstName, CP, email, password } = formValues;
-  // console.log("identity formvalues", formValues);
-  const handleSubmit = useCallback(
-    (newValues) => {
-      setFormValues((prevValues) => ({ ...prevValues, ...newValues }));
-    },
-    [setFormValues]
-  );
+
+  const checkRequiredFields = (values) => {
+    const messages = {};
+    if (!values.lastName) {
+      messages.lastName = "Please enter last name";
+    }
+    if (!values.firstName) {
+      messages.firstName = "Please enter first name";
+    }
+    if (!values.CP) {
+      messages.CP = "Please enter CP";
+    }
+    if (!values.email) {
+      messages.email = "Please enter email";
+    }
+    if (!values.password) {
+      messages.password = "Please enter password";
+    }
+    return messages;
+  };
+
+  const handleNext = (values) => {
+    const messages = checkRequiredFields(values);
+    if (Object.keys(messages).length === 0) {
+      setActiveStep(activeStep + 1);
+      setFormValues((prevValues) => ({ ...prevValues, ...values }));
+    }
+  };
+
   return (
     <div>
       <Formik
-        initialValues={formValues}
-        onSubmit={(values) => {
-          // console.log("values", values);
-          handleSubmit(values);
+        initialValues={{
+          // Utilisation de initialValues avec les valeurs stockées dans le state
+          lastName,
+          firstName,
+          CP,
+          email,
+          password,
         }}
-        validationSchema={object({
-          lastName: string()
+        // schéma de validation contenant les contraintes pour chaque valeur
+        validationSchema={yup.object({
+          lastName: yup
+            .string()
             .required("Please enter last name")
             .min(2, "last name too short")
             .max(60, "last name too long"),
-          firstName: string()
+          firstName: yup
+            .string()
             .required("Please enter first name")
             .min(2, "first name too short")
             .max(60, "first name too long"),
-          CP: string()
+          CP: yup
+            .string()
             .required("Please enter CP")
-            .min(8, "CP too short")
-            .max(8, "CP too long"),
-          email: string().required("Please enter email").email("Invalid email"),
-          password: string()
+            .matches(
+              /^[0-9]{7}[a-zA-Z]{1}$/,
+              "CP should be 7 numbers and 1 letter"
+            ),
+          email: yup
+            .string()
+            .required("Please enter email")
+            .email("Invalid email"),
+          password: yup
+            .string()
             .required("Please enter password")
-            .min(7, "Password should be minimum 7 characters"),
+            .matches(
+              /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
+              "Password should contain at least one digit and one uppercase letter, and be at least 6 characters long"
+            ),
         })}
       >
-        {({ errors, isValid, touched, dirty }) => (
-          <>
+        {({ errors, isValid, touched, values }) => (
+          <Form>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Field
@@ -52,7 +91,6 @@ export default function SignUpidentity() {
                   variant="standard"
                   color="primary"
                   label="Last Name"
-                  value={lastName.value}
                   error={Boolean(errors.lastName) && Boolean(touched.lastName)}
                   helperText={Boolean(touched.lastName) && errors.lastName}
                 />
@@ -65,7 +103,6 @@ export default function SignUpidentity() {
                   variant="standard"
                   color="primary"
                   label="First Name"
-                  value={firstName.value}
                   error={
                     Boolean(errors.firstName) && Boolean(touched.firstName)
                   }
@@ -80,7 +117,6 @@ export default function SignUpidentity() {
                   variant="standard"
                   color="primary"
                   label="CP"
-                  value={CP.value}
                   error={Boolean(errors.CP) && Boolean(touched.CP)}
                   helperText={Boolean(touched.CP) && errors.CP}
                 />
@@ -92,7 +128,6 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   label="Email"
-                  value={email.value}
                   error={Boolean(errors.email) && Boolean(touched.email)}
                   helperText={Boolean(touched.email) && errors.email}
                 />
@@ -105,7 +140,6 @@ export default function SignUpidentity() {
                   variant="standard"
                   color="primary"
                   label="Password"
-                  value={password.value}
                   error={Boolean(errors.password) && Boolean(touched.password)}
                   helperText={Boolean(touched.password) && errors.password}
                 />
@@ -116,12 +150,11 @@ export default function SignUpidentity() {
                 type="submit"
                 variant="contained"
                 color="primary"
-                disabled={!isValid || !dirty}
+                disabled={!isValid}
                 onClick={
                   isValid
                     ? () => {
-                        handleNext();
-                        handleSubmit();
+                        handleNext(values);
                       }
                     : () => null
                 }
@@ -129,7 +162,7 @@ export default function SignUpidentity() {
                 Next
               </Button>
             </Box>
-          </>
+          </Form>
         )}
       </Formik>
     </div>
