@@ -11,8 +11,8 @@ const breakpoints = {
   },
 };
 const palette = {
-  primary: { main: "#AE8E5F", contrastText: "#fff" },
-  secondary: { main: "#E8DBCB", contrastText: "#000" },
+  primary: { main: "#0088CD", contrastText: "#fff" },
+  secondary: { main: "#E05205", contrastText: "#FFFFFF" },
   BgContent: { main: "#eaeff2", contrastText: "#000" },
   BgSidebar: { main: "#1C2536", contrastText: "#000" },
   NavLink: { main: "#E9F3FA", contrastText: "#000", Hover: "#FFF" },
@@ -54,8 +54,22 @@ const palette = {
     contrastText: "#fff",
     spacing: [0, 2, 3, 5, 8],
   },
+  UserSetting: {
+    main: "#FFF",
+    color: "#82929b",
+    background: "#FFF",
+    bghover: "#F3F7CD",
+    border: "#E6A410",
+    InProgress: "#a8b30a",
+    Pending: "#E6A410",
+    Paused: "#827e7f",
+    Completed: "#028B96",
+    Abandoned: "#B90231",
+    contrastText: "#fff",
+    spacing: [0, 2, 3, 5, 8],
+  },
   searhSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (search -> searh)
-  myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)  												   // added comma here for better readability.
+  myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)
 };
 
 const typography = {
@@ -93,6 +107,14 @@ const typography = {
     margin: 0,
     fontSize: "1.4rem",
     color: "#5698C7",
+    marginBottom: 40,
+    fontWeight: 400,
+  },
+
+  fieldBoxTitle: {
+    margin: 0,
+    fontSize: "1.2rem",
+    color: "#7998ab",
     marginBottom: 40,
     fontWeight: 400,
   },
