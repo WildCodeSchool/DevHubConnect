@@ -62,7 +62,8 @@ export default function Login() {
       );
       // Stockage du jeton d'authentification dans le stockage local de l'application
       localStorage.setItem("token", response.data.token);
-      console.info(response.data);
+      localStorage.setItem("userId", response.data.userId.toString());
+      // console.info(response.data);
       // Redirection vers le tableau de bord
       navigate("/dashboard");
     } catch (error) {
@@ -71,7 +72,18 @@ export default function Login() {
       console.error(error.message);
     }
   };
-  console.info(err);
+  const handleEmailChange = (event) => {
+    event.preventDefault();
+    setEmail(event.target.value);
+    setErr("");
+  };
+  const handlePasswordChange = (event) => {
+    event.preventDefault();
+    setPassword(event.target.value);
+    setErr("");
+  };
+
+  // console.info(err);
   // Rendu de l'élément HTML pour la page de connexion
   return (
     <ThemeProvider theme={theme}>
@@ -106,7 +118,11 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={handleEmailChange}
+              error={err}
+              helperText={err ? "Erreur : Invalid email or password" : ""}
+              variant="outlined"
+              style={{ color: err ? "red" : "" }}
             />
             <TextField
               margin="normal"
@@ -117,7 +133,11 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={handlePasswordChange}
+              error={err}
+              helperText={err ? "Erreur : Invalid email or password" : ""}
+              variant="outlined"
+              style={{ color: err ? "red" : "" }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
