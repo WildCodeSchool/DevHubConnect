@@ -12,21 +12,15 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Avatar from "@mui/material/Avatar";
 import { Chip } from "@mui/material";
 import PropTypes from "prop-types";
 
-export default function UserProjectCard({
-  projectName,
-  projectDescription,
-  firstName,
-  lastName,
-}) {
+export default function UserProjectCard({ projectName, projectDescription }) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 215 }}>
       <CardMedia
         component="img"
-        // alt={}
+        // alt= {}
         height="150"
         image="https://picsum.photos/300/200"
       />
@@ -35,15 +29,14 @@ export default function UserProjectCard({
         {projectName}
         <Typography variant="body2" color="text.secondary" />
         {projectDescription}
-        <Avatar
-          alt={{ firstName, lastName }}
-          src="https://xsgames.co/randomusers/avatar.php?g=male"
-          sx={{ width: 100, height: 100, ml: 10, mt: 2 }}
-        />
       </CardContent>
       <CardActions>
-        <Chip label="Partager" size="medium" color="primary" sx={{ ml: 8 }} />
-        <Chip label="+ d'infos" size="medium" color="primary" />
+        <Chip
+          label="Voir le descriptif"
+          size="medium"
+          color="primary"
+          sx={{ ml: 4 }}
+        />
       </CardActions>
     </Card>
   );
@@ -52,13 +45,9 @@ export default function UserProjectCard({
 UserProjectCard.propTypes = {
   projectName: PropTypes.string,
   projectDescription: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
 };
 
 UserProjectCard.defaultProps = {
   projectName: "",
   projectDescription: "",
-  firstName: "",
-  lastName: "",
 };

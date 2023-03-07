@@ -37,6 +37,12 @@ class ProjectManager extends AbstractManager {
       ]
     );
   }
+
+  findCurrent() {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE project_start_date <= curdate() AND project_end_date >= curdate()`
+    );
+  }
 }
 
 module.exports = ProjectManager;

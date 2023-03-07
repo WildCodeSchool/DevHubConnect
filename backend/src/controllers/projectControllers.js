@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const models = require("../models");
 
 const browse = (req, res) => {
@@ -128,10 +129,25 @@ const destroy = (req, res) => {
     });
 };
 
+// Filtrer un projet
+
+const filterCurrent = (req, res) => {
+  models.project
+    .findCurrent()
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
   edit,
   add,
   destroy,
+  filterCurrent,
 };

@@ -1,9 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -14,13 +18,13 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectCurrent({ currentProjects }) {
   return (
-    <Accordion>
+    <Accordion defaultExpanded>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel3a-content"
         id="panel3a-header"
       >
-        <Typography variant="subtitle2">Projets en cours </Typography>
+        <Typography variant="subtitle2">Projets en cours</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Stack
