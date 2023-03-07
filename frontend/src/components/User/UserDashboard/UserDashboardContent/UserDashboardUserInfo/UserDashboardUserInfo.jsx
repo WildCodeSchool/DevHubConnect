@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 
 export default function UserDashboardUserInfo() {
   return (
-    <Link href="/my-setting">
+    <Link href="/dashboard/my-setting">
       <Paper
         elevation={4}
         sx={{
