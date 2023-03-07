@@ -2,7 +2,7 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import ProjectListingContainer from "../components/Project/ProjectListing/ProjectContainer/ProjectListingContainer";
 import ProjectListingHeader from "../components/Project/ProjectListing/ProjectContainer/ProjectListingHeader/ProjectListingHeader";
-import ProjectListingFilters from "../components/Project/ProjectListing/ProjectContainer/ProjectListingFilters/ProjectListingFilters";
+//  import ProjectListingFilters from "../components/Project/ProjectListing/ProjectContainer/ProjectListingFilters/ProjectListingFilters";
 
 function ProjectListing() {
   return (
@@ -14,7 +14,7 @@ function ProjectListing() {
       p={2}
     >
       <ProjectListingHeader />
-      <ProjectListingFilters />
+      {/* <ProjectListingFilters />  */}
       <ProjectListingContainer />
     </Stack>
   );

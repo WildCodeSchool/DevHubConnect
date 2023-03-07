@@ -4,8 +4,23 @@ import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
+import PropTypes from "prop-types";
 
-export default function ProjectSingleDescriptionContent() {
+export default function ProjectSingleDescriptionContent({
+  projectName,
+  projectDescription,
+  firstname,
+  lastname,
+  jobId,
+  skillName,
+  projectStartDate,
+  projectEndDate,
+  regionName,
+}) {
+  // if (id !== 1) {
+  //   return null;
+  // }
+
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}
@@ -29,21 +44,17 @@ export default function ProjectSingleDescriptionContent() {
           p={2}
         >
           <Typography variant="h3" gutterBottom>
-            Project Detail
+            {projectName}
           </Typography>
 
           <Typography variant="body1" gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-            blanditiis tenetur unde suscipit, quam beatae rerum inventore
-            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-            fugiat deleniti? Eum quasi quidem quibusdam. Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit. Quos blanditiis tenetur unde
-            suscipit, quam beatae rerum inventore consectetur, neque doloribus,
-            cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi
-            quidem quibusdam.
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Du 01/06/2023 au 31/12/2023
+            {projectDescription}
+            <Typography variant="body1" gutterBottom>
+              Du {projectStartDate} au {projectEndDate}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              {regionName}
+            </Typography>
           </Typography>
         </Stack>
       </Paper>
@@ -78,10 +89,10 @@ export default function ProjectSingleDescriptionContent() {
           p={2}
         >
           <Typography variant="body1" gutterBottom>
-            Pierre Perrin
+            {firstname} {lastname}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Chef de projets
+            {jobId}
           </Typography>
           <Typography variant="body1" gutterBottom>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
@@ -112,10 +123,7 @@ export default function ProjectSingleDescriptionContent() {
           </Typography>
           <Typography variant="body2" gutterBottom>
             <Stack direction="row" spacing={2} p={2}>
-              <Chip label="Html" size="small" color="primary" />
-              <Chip label="React" size="small" color="primary" />
-              <Chip label="Javascript" size="small" color="primary" />
-              <Chip label="Css" size="small" color="primary" />
+              <Chip label={skillName} size="small" color="primary" />
             </Stack>
           </Typography>
         </Paper>
@@ -143,3 +151,26 @@ export default function ProjectSingleDescriptionContent() {
     //  </Stack>
   );
 }
+ProjectSingleDescriptionContent.propTypes = {
+  projectName: PropTypes.string,
+  projectDescription: PropTypes.string,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  jobId: PropTypes.string,
+  skillName: PropTypes.string,
+  projectStartDate: PropTypes.instanceOf(Date),
+  projectEndDate: PropTypes.instanceOf(Date),
+  regionName: PropTypes.string,
+};
+
+ProjectSingleDescriptionContent.defaultProps = {
+  projectName: "",
+  projectDescription: "",
+  firstname: "",
+  lastname: "",
+  jobId: "",
+  skillName: "",
+  projectStartDate: [],
+  projectEndDate: [],
+  regionName: "",
+};

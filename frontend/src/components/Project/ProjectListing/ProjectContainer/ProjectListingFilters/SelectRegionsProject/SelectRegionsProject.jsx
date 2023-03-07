@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,9 +7,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
+import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
 const MenuProps = {
   PaperProps: {
     style: {
@@ -18,40 +20,23 @@ const MenuProps = {
     },
   },
 };
-const regions = [
-  "Ile-de-France",
-  "Nord-Pas-de-Calais",
-  "Champagne-Ardenne",
-  "Picardie",
-  "Haute-Normandie",
-  "Basse-Normandie",
-  "Bourgogne",
-  "Franche-Comté",
-  "Alsace",
-  "Lorraine",
-  "Languedoc-Roussillon",
-  "Provence-Alpes-Côte d Azur",
-  "Rhône-Alpes",
-  "Aquitaine",
-  "Midi-Pyrénées",
-  "Poitou-Charentes",
-  "Centre",
-  "Bretagne",
-  "Pays de la Loire",
-  "Limousin",
-  "Auvergne",
-];
-function SelectRegionsProject() {
-  const [selectRegionsProject, setSelectRegionsProject] = React.useState([]);
+
+function SelectRegionsProject({
+  regions,
+  selectedRegions,
+  handleRegionsChange,
+}) {
+  const [selectRegionsProject, setSelectRegionsProject] =
+    React.useState(selectedRegions);
+
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setSelectRegionsProject(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setSelectRegionsProject(value);
+    handleRegionsChange(value);
   };
+
   return (
     <Stack>
       <FormControl sx={{ width: 300 }}>
@@ -67,9 +52,11 @@ function SelectRegionsProject() {
           MenuProps={MenuProps}
         >
           {regions.map((region) => (
-            <MenuItem key={region} value={region}>
-              <Checkbox checked={selectRegionsProject.indexOf(region) > -1} />
-              <ListItemText primary={region} />
+            <MenuItem key={region.region_name} value={region.region_name}>
+              <Checkbox
+                checked={selectRegionsProject.indexOf(region.region_name) > -1}
+              />
+              <ListItemText primary={region.region_name} />
             </MenuItem>
           ))}
         </Select>
@@ -77,4 +64,17 @@ function SelectRegionsProject() {
     </Stack>
   );
 }
+
+SelectRegionsProject.propTypes = {
+  regions: PropTypes.string,
+  selectedRegions: PropTypes.string,
+  handleRegionsChange: PropTypes.func,
+};
+
+SelectRegionsProject.defaultProps = {
+  regions: "",
+  selectedRegions: "",
+  handleRegionsChange: () => {},
+};
+
 export default SelectRegionsProject;

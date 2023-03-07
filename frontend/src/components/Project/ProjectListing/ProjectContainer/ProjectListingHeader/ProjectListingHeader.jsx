@@ -12,11 +12,11 @@ function ProjectListingHeader() {
       p={2}
     >
       <Typography gutterBottom variant="h1" component="div">
-        Project
+        Projets
       </Typography>
       <Typography variant="body1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        Découvrez mes projets passionnants et innovants qui témoignent de ma
+        créativité et de mon expertise dans divers domaines !"
       </Typography>
     </Stack>
   );

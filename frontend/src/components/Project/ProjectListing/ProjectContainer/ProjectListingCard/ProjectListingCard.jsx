@@ -17,11 +17,12 @@ export default function ProjectListingCard({
   id,
   skillName,
   projectStartDate,
-  projectEndtDate,
+  projectEndDate,
   regionName,
 }) {
   return (
     <Link href={`/project/${id}`} underline="none">
+      {/* {console.info(id, "id:")} */}
       <Paper elevation={3} p={2}>
         <Box sx={{ width: "100% " }}>
           <Stack
@@ -58,7 +59,7 @@ export default function ProjectListingCard({
               </Typography>
 
               <Typography component="div" variant="body1">
-                Du {projectStartDate} au {projectEndtDate}
+                Du {projectStartDate} au {projectEndDate}
               </Typography>
               <Typography variant="body1" gutterBottom>
                 {regionName}
@@ -103,10 +104,10 @@ ProjectListingCard.propTypes = {
   lastname: PropTypes.string,
   jobId: PropTypes.string,
   id: PropTypes.number,
-  skillName: PropTypes.arrayOf(PropTypes.string), // Ajout de la variable skills
-  projectStartDate: PropTypes.string,
-  projectEndtDate: PropTypes.string,
-  regionName: PropTypes.arrayOf(PropTypes.string),
+  skillName: PropTypes.string,
+  projectStartDate: PropTypes.instanceOf(Date),
+  projectEndDate: PropTypes.instanceOf(Date),
+  regionName: PropTypes.string,
 };
 
 ProjectListingCard.defaultProps = {
@@ -115,9 +116,9 @@ ProjectListingCard.defaultProps = {
   firstname: "",
   lastname: "",
   jobId: "",
-  id: 0,
+  id: "",
   skillName: "",
-  projectStartDate: "",
-  projectEndtDate: "",
+  projectStartDate: [],
+  projectEndDate: [],
   regionName: "",
 };
