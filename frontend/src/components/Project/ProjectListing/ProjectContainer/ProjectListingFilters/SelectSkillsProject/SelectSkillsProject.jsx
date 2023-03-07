@@ -1,97 +1,62 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
+import Checkbox from "@mui/material/Checkbox";
 
-const ITEM_HEIGHT = 20;
+const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 150,
+      width: 250,
     },
   },
 };
-
 const skills = [
-  "HTML/CSS",
+  "React",
   "JavaScript",
-  "PHP",
-  "SQL",
-  "Ruby on Rails",
-  "Java",
-  "Python",
-  "C#",
-  "AngularJS",
-  "ReactJS",
-  "Vue.js",
-  "Node.js",
-  "Express",
-  "Django",
-  "Flask",
-  "ASP.NET",
-  "Laravel",
-  "Spring",
-  "MongoDB",
-  "Firebase",
+  "CSS",
+  "HTML",
+  "MUI",
+  "Bootstrap",
+  "MySQL",
+  "ExpressJS",
+  "NodeJS",
 ];
-
-function getStyles(skill, skillName, theme) {
-  return {
-    fontWeight:
-      skillName.indexOf(skill) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-export default function SelectSkillsProject() {
-  const theme = useTheme();
-  const [skillName, setSkillName] = React.useState([]);
-
+function SelectSkillsProject() {
+  const [skillsProject, setSkillsProject] = React.useState([]);
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setSkillName(
+    setSkillsProject(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
-
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Skills</InputLabel>
+      <FormControl sx={{ minWidth: 300 }}>
+        <InputLabel id="demo-multiple-checkbox-label">Compétences</InputLabel>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
+          labelId="demo-multiple-checkbox-label"
+          id="demo-multiple-checkbox"
           multiple
-          value={skillName}
+          value={skillsProject}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Skill" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
+          input={<OutlinedInput label="Compétences" />}
+          renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
           {skills.map((skill) => (
-            <MenuItem
-              key={skill}
-              value={skill}
-              style={getStyles(skill, skillName, theme)}
-            >
-              {skill}
+            <MenuItem key={skill} value={skill}>
+              <Checkbox checked={skillsProject.indexOf(skill) > -1} />
+              <ListItemText primary={skill} />
             </MenuItem>
           ))}
         </Select>
@@ -99,3 +64,4 @@ export default function SelectSkillsProject() {
     </div>
   );
 }
+export default SelectSkillsProject;
