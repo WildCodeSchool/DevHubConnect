@@ -7,6 +7,7 @@ const {
   verifyPassword,
   verifyToken,
   verifyId,
+  validateForm,
 } = require("./auth");
 
 // VERIFIE
@@ -23,6 +24,7 @@ router.get("/jobs", jobControllers.browse);
 router.post("/users", hashPassword, userControllers.add);
 router.post(
   "/users/login",
+  validateForm,
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
