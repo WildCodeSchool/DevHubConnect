@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import {
   TextField,
@@ -16,7 +16,6 @@ export default function SignUpAboutYou() {
   const { formValues, setFormValues, activeStep, setActiveStep } =
     useContext(SignUpContext);
   const { picture, job, experience, region, bio, about, gitHub } = formValues;
-  const inputRef = useRef(null);
 
   const [jobList, setJobList] = useState([]);
   const [regionList, setRegionList] = useState([]);
@@ -89,7 +88,6 @@ export default function SignUpAboutYou() {
     <div>
       <Formik
         initialValues={{
-          // Utilisation de initialValues avec les valeurs stockées dans le state
           picture,
           job,
           experience,
@@ -99,6 +97,9 @@ export default function SignUpAboutYou() {
           gitHub,
         }}
         validationSchema={object({
+          picture: string()
+            .url()
+            .max(255, "Picture link should be at most 255 characters"),
           job: string().required("Please select a job"),
           experience: number()
             .required("Please enter experience")
@@ -124,12 +125,12 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="picture"
-                  type="file"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Upload my picture"
-                  inputRef={inputRef}
+                  label="Link to my picture"
+                  error={Boolean(errors.picture) && Boolean(touched.picture)}
+                  helperText={Boolean(touched.picture) && errors.picture}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>

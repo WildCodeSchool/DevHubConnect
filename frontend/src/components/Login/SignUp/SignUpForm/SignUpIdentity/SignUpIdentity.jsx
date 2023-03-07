@@ -1,5 +1,13 @@
-import React, { useContext } from "react";
-import { TextField, Button, Box, Grid } from "@mui/material";
+import React, { useContext, useState } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  Grid,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Field, Formik, Form } from "formik";
 import * as yup from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
@@ -8,6 +16,8 @@ export default function SignUpidentity() {
   const { formValues, setFormValues, activeStep, setActiveStep } =
     useContext(SignUpContext);
   const { lastName, firstName, CP, email, password } = formValues;
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const checkRequiredFields = (values) => {
     const messages = {};
@@ -78,6 +88,10 @@ export default function SignUpidentity() {
               /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
               "Password should contain at least one digit and one uppercase letter, and be at least 6 characters long"
             ),
+          confirmPassword: yup
+            .string()
+            .oneOf([yup.ref("password"), null], "Passwords must match")
+            .required("Please confirm password"),
         })}
       >
         {({ errors, isValid, touched, values }) => (
@@ -135,13 +149,58 @@ export default function SignUpidentity() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   as={TextField}
                   variant="standard"
                   color="primary"
                   label="Password"
                   error={Boolean(errors.password) && Boolean(touched.password)}
                   helperText={Boolean(touched.password) && errors.password}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onMouseDown={() => setShowPassword(true)}
+                          onMouseUp={() => setShowPassword(false)}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  name="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  as={TextField}
+                  variant="standard"
+                  color="primary"
+                  label="Confirm Password"
+                  error={
+                    Boolean(errors.confirmPassword) &&
+                    Boolean(touched.confirmPassword)
+                  }
+                  helperText={
+                    Boolean(touched.confirmPassword) && errors.confirmPassword
+                  }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onMouseDown={() => setShowConfirmPassword(true)}
+                          onMouseUp={() => setShowConfirmPassword(false)}
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Grid>
             </Grid>
