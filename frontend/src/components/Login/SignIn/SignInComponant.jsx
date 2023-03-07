@@ -1,5 +1,4 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -11,9 +10,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import ContainedButtons from "./SignInOAuth/SignInOAuth";
 import LogoConnect from "../../Sidebar/Logo";
 
+// Fonction qui renvoie l'élément HTML pour le texte de droits d'auteur
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -26,13 +28,51 @@ function Copyright() {
   );
 }
 
+// Création du thème Material UI
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+// Composant de la page de connexion
+export default function Login() {
+  // Utilisation de useState pour gérer les états de l'email, du mot de passe et de l'erreur de connexion
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [err, setErr] = useState("");
+  const navigate = useNavigate();
+  // Fonction qui s'exécute lorsque le formulaire est soumis
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    try {
+      // Requête POST vers l'API pour se connecter avec les informations d'identification
+      const response = await axios.post(
+        "http://localhost:5000/users/login",
+        {
+          email,
+          password,
+        }
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Access-Control-Allow-Origin": "http://localhost:5173",
+        //     "Authorization": "Bearer" + Token,
+        //   },
+        // },
+        // {
+        //   withCredentials: true,
+        // }
+      );
+      // Stockage du jeton d'authentification dans le stockage local de l'application
+      localStorage.setItem("token", response.data.token);
+      // console.log(response.data);
+      // Redirection vers le tableau de bord
+      navigate("/dashboard");
+    } catch (error) {
+      // Affichage d'un message d'erreur si la connexion échoue
+      // setErr("Invalid username or password");
+      console.error(error.message);
+    }
   };
 
+  // Rendu de l'élément HTML pour la page de connexion
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -66,6 +106,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(event) => setEmail(event.target.value)}
             />
             <TextField
               margin="normal"
@@ -76,6 +117,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => setPassword(event.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
