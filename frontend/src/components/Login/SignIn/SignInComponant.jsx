@@ -71,7 +71,7 @@ export default function Login() {
       console.error(error.message);
     }
   };
-
+  // console.log(err);
   // Rendu de l'élément HTML pour la page de connexion
   return (
     <ThemeProvider theme={theme}>

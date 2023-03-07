@@ -16,14 +16,15 @@ app.use(express.json());
 
 const cors = require("cors");
 
-// désactivation provisoire du CORS 
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
-//     optionsSuccessStatus: 200,
-//   })
-// );
+// Cross-origin resource sharing (CORS) Accéder à des ressources d'un serveur situé sur une autre origine que le site courant
+app.use(
+  cors({
+    origin: [
+      process.env.FRONTEND_URL ?? "http://localhost:3000",
+      "http://localhost:5173",
+    ],
+  })
+);
 
 // import and mount the API routes
 
