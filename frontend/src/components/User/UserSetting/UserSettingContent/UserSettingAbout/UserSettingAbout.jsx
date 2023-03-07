@@ -1,9 +1,28 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import PropTypes from "prop-types";
 
-export default function UserSettingAbout() {
+export default function UserSettingAbout({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function fetchDataAbout() {
+      try {
+        const response = await axios.get(
+          `http://localhost:5007/users/${userId}`
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.error(error);
+        setUser(null);
+      }
+    }
+    fetchDataAbout();
+  }, [userId]);
+
   return (
     <Paper
       elevation={2}
@@ -16,15 +35,23 @@ export default function UserSettingAbout() {
       <Typography variant="subtitle1" gutterBottom>
         Résume de ta vie en quelques mots : fais-moi rêver
       </Typography>
-      <TextField
-        fullWidth
-        id="outlined-multiline-static"
-        label="A propos de vous"
-        multiline
-        rows={20}
-        sx={{ mt: 2 }}
-        defaultValue="Default Value"
-      />
+      {user ? (
+        <TextField
+          fullWidth
+          id="outlined-multiline-static"
+          label="A propos de vous"
+          multiline
+          value={user.about}
+          rows={20}
+          sx={{ mt: 2 }}
+        />
+      ) : (
+        <Typography>Chargement...</Typography>
+      )}
     </Paper>
   );
 }
+
+UserSettingAbout.propTypes = {
+  userId: PropTypes.number.isRequired,
+};
