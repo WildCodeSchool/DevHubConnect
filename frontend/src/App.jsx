@@ -68,7 +68,7 @@ function ResponsiveDrawer(props) {
 
   return (
     <Router>
-      <ThemeProvider theme={Theme} pb={2}>
+      <ThemeProvider theme={Theme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar
