@@ -27,7 +27,7 @@ export default function ProjectListingCard() {
               alt="projet"
               src="https://picsum.photos/500/300"
               width={500}
-              height="43vh"
+              height="40vh"
             />
 
             <Stack
