@@ -16,6 +16,7 @@ app.use(express.json());
 
 const cors = require("cors");
 
+// Cross-origin resource sharing (CORS) Accéder à des ressources d'un serveur situé sur une autre origine que le site courant
 app.use(
   cors({
     origin: [

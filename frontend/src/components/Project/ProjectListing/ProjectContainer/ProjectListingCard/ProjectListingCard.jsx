@@ -1,66 +1,78 @@
 import * as React from "react";
-
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Image from "mui-image";
 import { Link, Chip } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
+import PropTypes from "prop-types";
 
-export default function ProjectListingCard() {
+export default function ProjectListingCard({
+  projectName,
+  projectDescription,
+  firstname,
+  lastname,
+  jobId,
+  id,
+  skillName,
+  projectStartDate,
+  projectEndDate,
+  regionName,
+}) {
   return (
-    <Link href="/project/1" underline="none">
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
-        spacing={{ sm: 1, md: 2 }}
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      >
-        <Paper elevation={3} p={2}>
+    <Link href={`/project/${id}`} underline="none">
+      {/* {console.info(id, "id:")} */}
+      <Paper elevation={3} p={2}>
+        <Box sx={{ width: "100% " }}>
           <Stack
-            direction={{ xs: "column", sm: "column", md: "row" }}
-            spacing={{ xs: 1, sm: 1, md: 2 }}
-            justifyContent="flex-start"
+            direction={{ sm: "column", md: "row" }}
+            spacing={{ sm: 1, md: 2 }}
+            justifyContent="space-between"
             alignItems="center"
+            sx={{
+              width: "100%",
+            }}
           >
-            <Image
-              alt="projet"
-              src="https://picsum.photos/500/300"
-              width={500}
-              height="43vh"
-            />
-
+            <Stack
+              direction={{ xs: "column", sm: "column", md: "row" }}
+              justifyContent="flex-start"
+              alignItems="space-between"
+            >
+              <Image
+                sx={{ minHeight: 122, maxWidth: 300 }}
+                src="https://picsum.photos/300/200"
+              />
+            </Stack>
             <Stack
               direction={{ xs: "column", sm: "column", md: "column" }}
               spacing={{ xs: 1, sm: 1, md: 2 }}
               justifyContent="flex-start"
-              alignItems="center"
+              alignItems="flex-start"
               p={2}
             >
               <Typography gutterBottom variant="h3" component="div">
-                Project
+                {projectName}
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Eligendi cum dolores accusantium quod aut distinctio fuga
-                ducimus a ab rerum molestiae, id, adipisci, numquam laboriosam
-                saepe ullam. Impedit, quis! Hic aliquid ullam vero ab commodi,
-                iure tenetur odit aut aperiam voluptatum esse minima minus ipsum
-                quia a iste nisi impedit.
+              <Typography variant="body1" gutterBottom>
+                {projectDescription}
               </Typography>
 
-              <Typography variant="body2" gutterBottom>
-                <Stack direction="row" spacing={2} p={3}>
-                  <Chip label="Html" size="small" color="primary" />
-                  <Chip label="React" size="small" color="primary" />
-                  <Chip label="Javascript" size="small" color="primary" />
-                  <Chip label="Css" size="small" color="primary" />
+              <Typography component="div" variant="body1">
+                Du {projectStartDate} au {projectEndDate}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                {regionName}
+              </Typography>
+              <Typography variant="body1" gutterBottom>
+                <Stack direction="row" spacing={2}>
+                  <Chip label={skillName} size="small" color="primary" />
                 </Stack>
               </Typography>
             </Stack>
 
             <Stack
-              direction={{ xs: "column", sm: "row", md: "column" }}
+              direction={{ xs: "row", sm: "row", md: "column" }}
               spacing={{ sm: 1, md: 2 }}
               justifyContent="flex-start"
               alignItems="flex-start"
@@ -69,19 +81,44 @@ export default function ProjectListingCard() {
               <Avatar
                 src="https://xsgames.co/randomusers/avatar.php?g=male"
                 sx={{ width: 90, height: 90 }}
-                alt="Pierre Perrin"
+                alt=""
               />
 
-              <Typography variant="h6" gutterBottom>
-                Pierre Perrin
+              <Typography variant="body1" gutterBottom>
+                {firstname} {lastname}
               </Typography>
-              <Typography variant="h6" gutterBottom>
-                Chef de projets
+              <Typography variant="body1" gutterBottom>
+                {jobId}
               </Typography>
             </Stack>
           </Stack>
-        </Paper>
-      </Stack>
+        </Box>
+      </Paper>
     </Link>
   );
 }
+ProjectListingCard.propTypes = {
+  projectName: PropTypes.string,
+  projectDescription: PropTypes.string,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  jobId: PropTypes.string,
+  id: PropTypes.number,
+  skillName: PropTypes.string,
+  projectStartDate: PropTypes.instanceOf(Date),
+  projectEndDate: PropTypes.instanceOf(Date),
+  regionName: PropTypes.string,
+};
+
+ProjectListingCard.defaultProps = {
+  projectName: "",
+  projectDescription: "",
+  firstname: "",
+  lastname: "",
+  jobId: "",
+  id: "",
+  skillName: "",
+  projectStartDate: [],
+  projectEndDate: [],
+  regionName: "",
+};

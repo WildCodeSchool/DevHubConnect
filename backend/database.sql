@@ -60,7 +60,7 @@ CREATE TABLE project (
   project_state boolean,
   project_remote boolean,
   region_id int UNSIGNED,
-  creator_id int(11) UNSIGNED,
+  creator_id int UNSIGNED NOT NULL,
   FOREIGN KEY (region_id) REFERENCES region (id),
   FOREIGN KEY (creator_id) REFERENCES user (id) ON DELETE CASCADE
 );
@@ -235,8 +235,6 @@ VALUES
 (16, 2),
 (17, 5),
 (17, 7);
-
-
 
 INSERT INTO user_skill (user_id, skill_id) VALUES
 (1, 1),
