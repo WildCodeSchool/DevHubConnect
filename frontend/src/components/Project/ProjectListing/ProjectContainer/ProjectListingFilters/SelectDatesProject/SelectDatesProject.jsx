@@ -6,6 +6,8 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
+import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -17,13 +19,8 @@ const MenuProps = {
     },
   },
 };
-const dates = [
-  "2022-01-01 au 2022-04-01",
-  "2022-04-01 au 2022-06-01",
-  "2022-06-01 au 2022-09-01",
-  "2022-09-01 au 2022-12-01",
-];
-function SelectDatesProject() {
+
+function SelectDatesProject({ dates }) {
   const [selectDatesProject, setSelectDatesProject] = React.useState([]);
   const handleChange = (event) => {
     const {
@@ -35,8 +32,8 @@ function SelectDatesProject() {
     );
   };
   return (
-    <div>
-      <FormControl sx={{ minWidth: 300 }}>
+    <Stack>
+      <FormControl sx={{ width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Dates</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
@@ -49,14 +46,26 @@ function SelectDatesProject() {
           MenuProps={MenuProps}
         >
           {dates.map((date) => (
-            <MenuItem key={date} value={date}>
+            <MenuItem key={date} value={dates}>
               <Checkbox checked={selectDatesProject.indexOf(date) > -1} />
               <ListItemText primary={date} />
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Stack>
   );
 }
+SelectDatesProject.propTypes = {
+  dates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  // projectStartDate: PropTypes.instanceOf(Date),
+  // projectEndDate: PropTypes.instanceOf(Date),
+};
+
+SelectDatesProject.defaultProps = {
+  dates: [],
+  // projectStartDate: null,
+  // projectEndDate: null,
+};
+
 export default SelectDatesProject;

@@ -19,7 +19,7 @@ const MenuProps = {
   },
 };
 
-const jobs = [
+const regions = [
   "Ile-de-France",
   "Nord-Pas-de-Calais",
   "Champagne-Ardenne",
@@ -70,7 +70,7 @@ function TalentSelectRegions() {
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {jobs.map((region) => (
+          {regions.map((region) => (
             <MenuItem key={region} value={region}>
               <Checkbox checked={userRegions.indexOf(region) > -1} />
               <ListItemText primary={region} />

@@ -5,8 +5,7 @@ const router = express.Router();
 const {
   hashPassword,
   verifyPassword,
-  // eslint-disable-next-line no-unused-vars
-  verifyToken,
+  // verifyToken,
   verifyId,
   validateForm,
 } = require("./auth");
