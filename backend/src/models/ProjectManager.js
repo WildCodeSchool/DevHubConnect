@@ -38,11 +38,32 @@ class ProjectManager extends AbstractManager {
     );
   }
 
-  filterProjectCurrent(project) {
+  findCurrentProjects(project) {
     return this.database.query(
-      `SELECT * FROM ${this.table} WHERE project_start_date <= CURDATE() AND project_end_date >= CURDATE() AND project_state = 1`,
+      `SELECT * FROM ${this.table} WHERE project_start_date <= CURDATE() AND project_end_date >= CURDATE() `,
       [
-        project.project_name,
+        project.project_start_date,
+        project.project_end_date,
+        project.project_state,
+      ]
+    );
+  }
+
+  findUpgoingProjects(project) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE project_start_date >= CURDATE()`,
+      [
+        project.project_start_date,
+        project.project_end_date,
+        project.project_state,
+      ]
+    );
+  }
+
+  findNotselectedProjects(project) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE project_end_date <= CURDATE()`,
+      [
         project.project_start_date,
         project.project_end_date,
         project.project_state,

@@ -131,11 +131,39 @@ const destroy = (req, res) => {
     });
 };
 
-// Filtrer un projet
+// Filtrer les projets en cours
 
 const filterProjectCurrent = (req, res) => {
   models.project
-    .filterProjectCurrent(req)
+    .findCurrentProjects(req)
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+// Filtrer les projets à venir
+
+const filterProjectUpgoing = (req, res) => {
+  models.project
+    .findUpgoingProjects(req)
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+// Filtrer les projets non retenus
+
+const filterProjectNotselected = (req, res) => {
+  models.project
+    .findNotselectedProjects(req)
     .then((rows) => {
       res.send(rows);
     })
@@ -152,4 +180,6 @@ module.exports = {
   add,
   destroy,
   filterProjectCurrent,
+  filterProjectUpgoing,
+  filterProjectNotselected,
 };

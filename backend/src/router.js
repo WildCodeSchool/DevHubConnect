@@ -64,10 +64,12 @@ const projectControllers = require("./controllers/projectControllers");
 
 router.get("/projects", projectControllers.browse);
 router.get("/projects/:id", projectControllers.read);
-
-router.get("/current_projects", projectControllers.filterProjectCurrent); // filtre les projects en cours
-// router.get("/projects/upgoing", projectControllers.filterProjectUpgoing); // filtre les projects à venir
-// router.get("/projects/notselected", projectControllers.filterProjectNotselected);// filtre les projets non retenus
+router.get("/projects_current", projectControllers.filterProjectCurrent); // filtre les projects en cours
+router.get("/projects_upgoing", projectControllers.filterProjectUpgoing); // filtre les projects à venir
+router.get(
+  "/projects_notselected",
+  projectControllers.filterProjectNotselected
+);
 router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
