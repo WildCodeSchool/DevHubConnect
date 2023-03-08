@@ -26,7 +26,7 @@ export default function UserDashboardProjectSuggest() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    // const userId = parseInt(localStorage.getItem("userId"));
+    // const userId = parseInt(localStorage.getItem("userId"), 10);
 
     if (!token) {
       navigate("/login");

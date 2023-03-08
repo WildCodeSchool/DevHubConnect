@@ -1,4 +1,6 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
@@ -7,6 +9,56 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
 export default function UserDashboardUserInfo() {
+  const [user, setUser] = useState({});
+  const [job, setJob] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+
+    if (!token) {
+      navigate("/login");
+    } else {
+      const getUser = () => {
+        axios
+          .get(`http://localhost:5007/users/${userId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => response.data)
+          .then((userData) => {
+            setUser(userData);
+            console.info(userData);
+          })
+          .catch((error) => {
+            console.error(error);
+            navigate("/login");
+          });
+      };
+      const getJobs = () => {
+        axios
+          .get("http://localhost:5007/jobs", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => response.data)
+          .then((jobData) => {
+            setJob(jobData);
+            console.info(jobData);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error(error);
+            setIsLoading(false);
+          });
+      };
+
+      getUser();
+      getJobs();
+    }
+  }, []);
+
   return (
     <Link href="/dashboard/my-setting">
       <Paper
@@ -28,7 +80,7 @@ export default function UserDashboardUserInfo() {
         >
           <Avatar
             alt="Remy Sharp"
-            src="https://xsgames.co/randomusers/avatar.php?g=male"
+            src={user.user_image}
             sx={{ width: 100, height: 100 }}
           />
           <Stack
@@ -43,15 +95,27 @@ export default function UserDashboardUserInfo() {
               alignItems="flex-start"
               spacing={0.5}
             >
-              <Typography
-                variant="UserDashboardSkill"
-                sx={{
-                  color: "UserDashboardCard.color",
-                }}
-                gutterBottom
-              >
-                Immortel
-              </Typography>
+              {isLoading ? (
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: "UserDashboardCard.color",
+                  }}
+                  gutterBottom
+                >
+                  Chargement...
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: "UserDashboardCard.color",
+                  }}
+                  gutterBottom
+                >
+                  {job.find((j) => j.id === user.job_id)?.job_name}
+                </Typography>
+              )}
               <CreateOutlinedIcon fontSize="small" />
             </Stack>
             <Typography
@@ -61,13 +125,10 @@ export default function UserDashboardUserInfo() {
                 color: "UserDashboardCard.color",
               }}
             >
-              Michel Drucker
+              {user.firstname} {user.lastname}
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-              blanditiis tenetur unde suscipit, quam beatae rerum inventore
-              consectetur, neque doloribus, cupiditate numquam dignissimos
-              laborum fugiat deleniti? Eum quasi quidem quibusdam.
+              {user.biography}
             </Typography>
           </Stack>
         </Stack>
