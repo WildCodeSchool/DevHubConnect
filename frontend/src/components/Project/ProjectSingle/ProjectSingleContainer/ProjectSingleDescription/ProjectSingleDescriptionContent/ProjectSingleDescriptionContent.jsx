@@ -4,14 +4,30 @@ import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
+import PropTypes from "prop-types";
 
-export default function ProjectSingleDescriptionContent() {
+export default function ProjectSingleDescriptionContent({
+  projectName,
+  projectDescription,
+  firstname,
+  lastname,
+  jobId,
+  skillName,
+  projectStartDate,
+  projectEndDate,
+  regionName,
+}) {
+  // if (id !== 1) {
+  //   return null;
+  // }
+
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}
       spacing={{ sm: 1, md: 2 }}
+      sx={{ mt: 1, mb: 1 }}
       justifyContent="flex-start"
-      alignItems="center"
+      alignItems="flex-start"
     >
       <Paper
         elevation={3}
@@ -23,26 +39,22 @@ export default function ProjectSingleDescriptionContent() {
         <Stack
           direction={{ xs: "column", sm: "column", md: "column" }}
           spacing={{ sm: 1, md: 2 }}
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
           p={2}
         >
           <Typography variant="h3" gutterBottom>
-            Project Detail
+            {projectName}
           </Typography>
 
           <Typography variant="body1" gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-            blanditiis tenetur unde suscipit, quam beatae rerum inventore
-            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-            fugiat deleniti? Eum quasi quidem quibusdam. Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit. Quos blanditiis tenetur unde
-            suscipit, quam beatae rerum inventore consectetur, neque doloribus,
-            cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi
-            quidem quibusdam.
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Du 01/06/2023 au 31/12/2023
+            {projectDescription}
+            <Typography variant="body1" gutterBottom>
+              Du {projectStartDate} au {projectEndDate}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              {regionName}
+            </Typography>
           </Typography>
         </Stack>
       </Paper>
@@ -52,12 +64,14 @@ export default function ProjectSingleDescriptionContent() {
         sx={{
           flexGrow: 1,
           borderRadius: 2,
+          mt: 1,
+          mb: 1,
         }}
       >
         <Stack
           direction={{ xs: "column", sm: "column", md: "column" }}
           spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
           p={2}
         >
@@ -72,13 +86,13 @@ export default function ProjectSingleDescriptionContent() {
           spacing={{ xs: 1, sm: 1, md: 2 }}
           justifyContent="space-between"
           alignItems="center"
-          p={1}
+          p={2}
         >
-          <Typography variant="h6" gutterBottom>
-            Pierre Perrin
+          <Typography variant="body1" gutterBottom>
+            {firstname} {lastname}
           </Typography>
-          <Typography variant="h6" gutterBottom>
-            Chef de projets
+          <Typography variant="body1" gutterBottom>
+            {jobId}
           </Typography>
           <Typography variant="body1" gutterBottom>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
@@ -88,8 +102,10 @@ export default function ProjectSingleDescriptionContent() {
           </Typography>
         </Stack>
       </Paper>
+
       <Stack
         direction={{ xs: "column", sm: "column", md: "column" }}
+        // display="flex"
         spacing={{ xs: 1, sm: 1, md: 2 }}
         justifyContent="flex-start"
         alignItems="center"
@@ -97,7 +113,6 @@ export default function ProjectSingleDescriptionContent() {
       >
         <Paper
           elevation={3}
-          p={2}
           sx={{
             flexGrow: 1,
             borderRadius: 2,
@@ -108,38 +123,54 @@ export default function ProjectSingleDescriptionContent() {
           </Typography>
           <Typography variant="body2" gutterBottom>
             <Stack direction="row" spacing={2} p={2}>
-              <Chip label="Html" size="small" color="primary" />
-              <Chip label="React" size="small" color="primary" />
-              <Chip label="Javascript" size="small" color="primary" />
-              <Chip label="Css" size="small" color="primary" />
+              <Chip label={skillName} size="small" color="primary" />
             </Stack>
           </Typography>
         </Paper>
-        <Stack
-          direction={{ xs: "column", sm: "column", md: "column" }}
-          spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="flex-start"
-          alignItems="center"
+
+        {/* <Stack
+        direction={{ xs: "column", sm: "column", md: "row" }}
+        spacing={{ xs: 1, sm: 1, md: 2 }}
+        justifyContent="flex-start"
+        alignItems="center"
+      > */}
+        <Paper
+          elevation={3}
+          p={2}
+          sx={{
+            flexGrow: 1,
+            borderRadius: 2,
+          }}
         >
-          <Paper
-            elevation={3}
-            p={2}
-            sx={{
-              flexGrow: 1,
-              borderRadius: 2,
-            }}
-          >
-            <image
-            // sx={{
-            //   height: "100%",
-            //   width: "100%",
-            // }}
-            >
-              <img alt="projet" src="https://picsum.photos/300/200" />
-            </image>
-          </Paper>
-        </Stack>
+          <image>
+            <img alt="projet" src="https://picsum.photos/300/200" />
+          </image>
+        </Paper>
       </Stack>
     </Stack>
+    //  </Stack>
   );
 }
+ProjectSingleDescriptionContent.propTypes = {
+  projectName: PropTypes.string,
+  projectDescription: PropTypes.string,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  jobId: PropTypes.string,
+  skillName: PropTypes.string,
+  projectStartDate: PropTypes.instanceOf(Date),
+  projectEndDate: PropTypes.instanceOf(Date),
+  regionName: PropTypes.string,
+};
+
+ProjectSingleDescriptionContent.defaultProps = {
+  projectName: "",
+  projectDescription: "",
+  firstname: "",
+  lastname: "",
+  jobId: "",
+  skillName: "",
+  projectStartDate: [],
+  projectEndDate: [],
+  regionName: "",
+};
