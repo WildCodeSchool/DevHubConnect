@@ -43,7 +43,7 @@ export default function Login() {
     let isTokenValid = false;
     if (token) {
       axios
-        .get(`http://localhost:5000/users/${userId}`, {
+        .get(`http://localhost:5007/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
@@ -77,7 +77,7 @@ export default function Login() {
     try {
       // Requête POST vers l'API pour se connecter avec les informations d'identification
       const response = await axios.post(
-        "http://localhost:5000/users/login",
+        "http://localhost:5007/users/login",
         {
           email,
           password,
