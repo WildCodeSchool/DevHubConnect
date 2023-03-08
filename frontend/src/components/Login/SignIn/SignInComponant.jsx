@@ -15,7 +15,6 @@ import { useNavigate, Link } from "react-router-dom";
 import ContainedButtons from "./SignInOAuth/SignInOAuth";
 import LogoConnect from "../../Sidebar/Logo";
 
-const navigate = useNavigate();
 // Fonction qui renvoie l'élément HTML pour le texte de droits d'auteur
 function Copyright() {
   return (
@@ -35,6 +34,7 @@ const theme = createTheme();
 // Composant de la page de connexion
 export default function Login() {
   const [tokenIsValid, setTokenIsValid] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Vérification de la validité du token
