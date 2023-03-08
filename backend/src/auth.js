@@ -30,7 +30,7 @@ const verifyPassword = (req, res) => {
         const payload = { sub: req.user.id };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: "4h",
+          expiresIn: process.env.JWT_EXPIRESIN,
         });
 
         delete req.user.hashedPassword;
@@ -86,7 +86,7 @@ const validateForm = (req, res, next) => {
   const errors = [];
 
   const emailRegex = /[a-z0-9._]+@[a-z0-9-]+\.[a-z]{2,3}/;
-  const passwordRegex = /^(?=.*?[0-9]).{9,}$/;
+  const passwordRegex = /^(?=.*?[0-9]).{9,}$/; //  /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{6,}$/ (Fanny)
 
   if (!email?.length || email == null) {
     errors.push({ field: "email", message: "This field is required" });

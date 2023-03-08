@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -15,6 +15,7 @@ import { useNavigate, Link } from "react-router-dom";
 import ContainedButtons from "./SignInOAuth/SignInOAuth";
 import LogoConnect from "../../Sidebar/Logo";
 
+const navigate = useNavigate();
 // Fonction qui renvoie l'élément HTML pour le texte de droits d'auteur
 function Copyright() {
   return (
@@ -33,11 +34,43 @@ const theme = createTheme();
 
 // Composant de la page de connexion
 export default function Login() {
+  const [tokenIsValid, setTokenIsValid] = useState(false);
+
+  useEffect(() => {
+    // Vérification de la validité du token
+    const token = localStorage.getItem("token");
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+    let isTokenValid = false;
+    if (token) {
+      axios
+        .get(`http://localhost:5000/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          // Traitement de la réponse
+          //  response ? (isTokenValid = true) : false; // Remplacez cela par votre propre vérification de validité du token
+          if (response.request.status === 200) {
+            isTokenValid = true;
+          }
+        });
+      // .catch((error) => {
+      //   // Traitement de l'erreur
+      // })
+      if (isTokenValid) {
+        setTokenIsValid(true);
+      }
+    }
+  }, []);
+  if (tokenIsValid) {
+    navigate("/dashboard");
+  } else {
+    localStorage.removeItem("token"); // Supprimez le token si invalide
+    localStorage.removeItem("userId");
+  }
   // Utilisation de useState pour gérer les états de l'email, du mot de passe et de l'erreur de connexion
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
-  const navigate = useNavigate();
   // Fonction qui s'exécute lorsque le formulaire est soumis
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -119,6 +152,7 @@ export default function Login() {
               autoComplete="email"
               autoFocus
               onChange={handleEmailChange}
+              value={err ? "" : TextField.value}
               error={err}
               helperText={err ? "Erreur : Invalid email or password" : ""}
               variant="outlined"
@@ -134,6 +168,7 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               onChange={handlePasswordChange}
+              value={err ? "" : TextField.value}
               error={err}
               helperText={err ? "Erreur : Invalid email or password" : ""}
               variant="outlined"
