@@ -153,7 +153,7 @@ export default function Login() {
               autoFocus
               onChange={handleEmailChange}
               value={err ? "" : TextField.value}
-              error={err}
+              error={Boolean(err)}
               helperText={err ? "Erreur : Invalid email or password" : ""}
               variant="outlined"
               style={{ color: err ? "red" : "" }}
@@ -169,7 +169,7 @@ export default function Login() {
               autoComplete="current-password"
               onChange={handlePasswordChange}
               value={err ? "" : TextField.value}
-              error={err}
+              error={Boolean(err)}
               helperText={err ? "Erreur : Invalid email or password" : ""}
               variant="outlined"
               style={{ color: err ? "red" : "" }}
