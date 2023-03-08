@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   hashPassword,
   verifyPassword,
-  // verifyToken,
+  verifyToken,
   verifyId,
   validateForm,
 } = require("./auth");
