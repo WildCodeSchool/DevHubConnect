@@ -3,7 +3,6 @@ import Stack from "@mui/material/Stack";
 
 import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 
 function Copyright() {
   return (
@@ -19,44 +18,36 @@ function Copyright() {
 
 export default function Footer() {
   return (
-    <Box
-      sx={{
-        position: "absolute",
-        bottom: 10,
-        zIndex: "tooltip",
-      }}
+    <Stack
+      direction="column"
+      justifyContent="flex-end"
+      alignItems="center"
+      spacing={1}
+      p={2}
     >
       <Stack
-        direction="column"
-        justifyContent="flex-end"
+        direction="row"
+        justifyContent="center"
         alignItems="center"
         spacing={1}
-        p={2}
       >
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={1}
-        >
-          <MuiLink href="/terms">
-            <Typography variant="footer" align="center">
-              Mentions légales
-            </Typography>
-          </MuiLink>{" "}
-          <MuiLink href="/cgu">
-            <Typography variant="footer" align="center">
-              CGU
-            </Typography>
-          </MuiLink>{" "}
-          <MuiLink href="/forgot-password">
-            <Typography variant="footer" align="center">
-              MDP oublié
-            </Typography>
-          </MuiLink>
-        </Stack>
-        <Copyright />
+        <MuiLink href="/terms">
+          <Typography variant="footer" align="center">
+            Mentions légales
+          </Typography>
+        </MuiLink>{" "}
+        <MuiLink href="/cgu">
+          <Typography variant="footer" align="center">
+            CGU
+          </Typography>
+        </MuiLink>{" "}
+        <MuiLink href="/forgot-password">
+          <Typography variant="footer" align="center">
+            MDP oublié
+          </Typography>
+        </MuiLink>
       </Stack>
-    </Box>
+      <Copyright />
+    </Stack>
   );
 }
