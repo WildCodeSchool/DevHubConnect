@@ -40,33 +40,30 @@ export default function Login() {
     // Vérification de la validité du token
     const token = localStorage.getItem("token");
     const userId = parseInt(localStorage.getItem("userId"), 10);
-    let isTokenValid = false;
     if (token) {
       axios
         .get(`http://localhost:5007/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
-          // Traitement de la réponse
-          //  response ? (isTokenValid = true) : false; // Remplacez cela par votre propre vérification de validité du token
           if (response.request.status === 200) {
-            isTokenValid = true;
+            setTokenIsValid(true);
+          } else {
+            localStorage.removeItem("token"); // Supprimez le token si invalide
+            localStorage.removeItem("userId");
           }
+        })
+        .catch((error) => {
+          // Traitement de l'erreur
+          console.info(error);
         });
-      // .catch((error) => {
-      //   // Traitement de l'erreur
-      // })
-      if (isTokenValid) {
-        setTokenIsValid(true);
-      }
     }
   }, []);
+
   if (tokenIsValid) {
     navigate("/dashboard");
-  } else {
-    localStorage.removeItem("token"); // Supprimez le token si invalide
-    localStorage.removeItem("userId");
   }
+
   // Utilisation de useState pour gérer les états de l'email, du mot de passe et de l'erreur de connexion
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -76,33 +73,19 @@ export default function Login() {
     event.preventDefault();
     try {
       // Requête POST vers l'API pour se connecter avec les informations d'identification
-      const response = await axios.post(
-        "http://localhost:5007/users/login",
-        {
-          email,
-          password,
-        }
-        // {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     "Access-Control-Allow-Origin": "http://localhost:5173",
-        //     "Authorization": "Bearer" + Token,
-        //   },
-        // },
-        // {
-        //   withCredentials: true,
-        // }
-      );
+      const response = await axios.post("http://localhost:5007/users/login", {
+        email,
+        password,
+      });
       // Stockage du jeton d'authentification dans le stockage local de l'application
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId.toString());
-      // console.info(response.data);
       // Redirection vers le tableau de bord
       navigate("/dashboard");
     } catch (error) {
       // Affichage d'un message d'erreur si la connexion échoue
       setErr("Invalid email or password");
-      console.error(error.message);
+      // console.error(error.message);
     }
   };
   const handleEmailChange = (event) => {
@@ -115,7 +98,6 @@ export default function Login() {
     setPassword(event.target.value);
     setErr("");
   };
-
   // console.info(err);
   // Rendu de l'élément HTML pour la page de connexion
   return (
