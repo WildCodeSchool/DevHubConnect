@@ -21,7 +21,6 @@ function StepForm() {
   const theme = createTheme();
   const labels = ["Identity", "About you", "Skills", "Confirmation"];
   const { activeStep } = useContext(SignUpContext);
-  // console.log("form activestep", activeStep);
   function handleSteps(step) {
     switch (step) {
       case 0:
