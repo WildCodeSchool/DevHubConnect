@@ -263,3 +263,25 @@ Par exemple dans une API Rest, il est important que les différents cas d'erreur
 ## Typage
 
 à faire
+
+## Token process Fred L
+
+Email : mark.zuckerberg@facebook.com, Password : password1
+
+Pour construire l'entête de vos requêtes avec le token pour passer la barrière dans router.js, vous pouvez utiliser ce code à affiner :
+
+`const token = localStorage.getItem('token');
+const userId = parseInt(localStorage.getItem('userId'));
+
+if (!token) {
+  // Rediriger l'utilisateur vers sign in
+} else {
+  const headers = { Authorization: `Bearer ${token}` };
+  axios.get('fetchURL', { headers })
+    .then(response => {
+      // Traitement de la réponse
+    })
+    .catch(error => {
+      // Traitement de l'erreur
+    });
+}`

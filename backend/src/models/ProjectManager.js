@@ -7,7 +7,7 @@ class ProjectManager extends AbstractManager {
 
   insert(project) {
     return this.database.query(
-      `insert into ${this.table} (project_name, project_start_date, project_end_date, project_image, project_description, project_state, project_remote, region_id) values (?,?,?,?,?,?,?,?)`,
+      `insert into ${this.table} (project_name, project_start_date, project_end_date, project_image, project_description, project_state, project_remote, region_id, creator_id) values (?,?,?,?,?,?,?,?,?)`,
       [
         project.project_name,
         project.project_start_date,
@@ -17,13 +17,14 @@ class ProjectManager extends AbstractManager {
         project.project_state,
         project.project_remote,
         project.region_id,
+        project.creator_id,
       ]
     );
   }
 
   update(project) {
     return this.database.query(
-      `update ${this.table} set project_name = ?, project_start_date = ?, project_end_date = ?, project_image = ?, project_description = ?, project_state = ?, project_remote = ?, region_id = ? where id = ?`,
+      `update ${this.table} set project_name = ?, project_start_date = ?, project_end_date = ?, project_image = ?, project_description = ?, project_state = ?, project_remote = ?, region_id = ?, creator_id = ? where id = ?`,
       [
         project.project_name,
         project.project_start_date,
@@ -33,6 +34,7 @@ class ProjectManager extends AbstractManager {
         project.project_state,
         project.project_remote,
         project.region_id,
+        project.creator_id,
         project.id,
       ]
     );
