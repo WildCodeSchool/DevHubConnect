@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-// Import des modules Node.js nécessaires
+// import some node modules for later
 
 const fs = require("node:fs");
 const path = require("node:path");
