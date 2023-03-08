@@ -198,12 +198,12 @@ Je suis convaincu que nous avons la capacité de faire une réelle différence d
 INSERT INTO project (id, project_name, project_start_date, project_end_date, project_image, project_description, project_state, project_remote, region_id, creator_id)
 VALUES 
 (1, 'Facebook', '2018-02-04', '2024-01-01', 'facebook.jpg', 'Projet de création d''un réseau social', 1, 0, 1, 1),
-(2, 'Virtual Reality', '2024-06-06', '2027-12-12', '2022-12-12', 'virtual-reality.jpg', 'Projet de développement de la réalité virtuelle', 2, 1, 1, 2),
-(3, 'OpenAI', '2021-06-06', '2025-12-12',  'openai.jpg', 'Projet de développement d''IA', 1, 1, 1, 3),
+(2, 'Virtual Reality', '2024-06-06', '2027-12-12', 'virtual-reality.jpg', 'Projet de développement de la réalité virtuelle', 2, 1, 1, 2),
+(3, 'OpenAI', '2021-06-06', '2025-12-12', 'openai.jpg', 'Projet de développement d''IA', 1, 1, 1, 3),
 (4, 'SpaceX', '2024-02-02', '2028-01-01', 'spacex.jpg', 'Projet de transport en orbite', 2, 0, 2, 4),
-(5, 'Tesla', '2003-03-03', '2021-01-01',  'tesla.jpg', 'Projet de voitures électriques', 3, 0, 2, 5),
+(5, 'Tesla', '2003-03-03', '2021-01-01', 'tesla.jpg', 'Projet de voitures électriques', 3, 0, 2, 5),
 (6, 'Neuralink', '2016-06-06', '2022-12-12', 'neuralink.jpg', 'Projet de développement de la connectivité cerveau-machine', 3, 1, 2, 6),
-(7, 'Apple', '1976-04-01', '2011-08-24',  'apple.jpg', 'Projet de développement de l''ordinateur personnel', 3, 0, 3, 7),
+(7, 'Apple', '1976-04-01', '2011-08-24', 'apple.jpg', 'Projet de développement de l''ordinateur personnel', 3, 0, 3, 7),
 (8, 'iPod', '2001-10-23', '2014-09-07', 'ipod.jpg', 'Projet de développement de l''iPod', 3, 0, 3, 8),
 (9, 'iPhone', '2007-06-29', '2021-01-01', 'iphone.jpg', 'Projet de développement de l''iPhone', 3, 0, 3, 1),
 (10, 'Microsoft', '1975-04-04', '2020-12-31', 'microsoft.jpg', 'Projet de développement de logiciels pour l''ordinateur personnel', 3, 0, 4, 2),
@@ -211,10 +211,9 @@ VALUES
 (12, 'XBox', '2001-11-15', '2021-01-01', 'xbox.jpg', 'Projet de développement de la console Xbox', 3, 0, 4, 4),
 (13, 'Google', '1998-09-04', '2021-01-01', 'google.jpg', 'Projet de création d''un moteur de recherche en ligne', 3, 0, 5, 5),
 (14, 'Google AI', '2022-06-06', '2025-12-12', 'google-ai.jpg', 'Projet de développement de l''IA', 1, 1, 5, 6),
-(15, 'Twitter', '2006-03-21', '2022-12-12',  'twitter.jpg', 'Twitter est un réseau social en ligne qui permet aux utilisateurs de partager de courtes messages appelés "tweets" avec leur public.', 3, 0, 1, 7),
+(15, 'Twitter', '2006-03-21', '2022-12-12', 'twitter.jpg', 'Twitter est un réseau social en ligne qui permet aux utilisateurs de partager de courtes messages appelés "tweets" avec leur public.', 3, 0, 1, 7),
 (16, 'Mars Colonization', '2022-06-01', '2028-12-12', 'mars.jpg', 'Le projet Mars Colonization vise à coloniser la planète Mars avec des humains pour en faire une nouvelle colonie viable.', 1, 0, 2, 3),
 (17, 'Hyperloop', '2024-08-12', '2030-12-12', 'hyperloop.jpg', 'Hyperloop est un système de transport à grande vitesse qui utilise des capsules de transport en position déprimée pour permettre des vitesses élevées tout en réduisant les coûts.', 2, 0, 2, 2);
-
 
 INSERT INTO project_skill (project_id, skill_id)
 VALUES
