@@ -13,11 +13,9 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 function UserProjectUpComing() {
   const [projects, setProjects] = useState([]);
 
-  // Appel API Project
-
   const getUpgoingProjects = () => {
     axios
-      .get("http://localhost:5000/projects_upgoing")
+      .get("http://localhost:5007/projects_upgoing")
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);

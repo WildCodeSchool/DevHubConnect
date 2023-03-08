@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
+// import Masonry from "@mui/lab/Masonry";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectNotSelected() {
@@ -17,7 +18,7 @@ function UserProjectNotSelected() {
 
   const getCurrentProjects = () => {
     axios
-      .get("http://localhost:5000/projects_notselected")
+      .get("http://localhost:5007/projects_notselected")
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);

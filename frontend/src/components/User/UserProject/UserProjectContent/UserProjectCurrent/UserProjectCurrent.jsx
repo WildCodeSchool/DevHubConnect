@@ -22,7 +22,7 @@ function UserProjectCurrent() {
 
   const getCurrentProjects = () => {
     axios
-      .get("http://localhost:5000/projects_current")
+      .get("http://localhost:5007/projects_current")
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
