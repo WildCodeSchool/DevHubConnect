@@ -40,6 +40,7 @@ export default function Login() {
     // Vérification de la validité du token
     const token = localStorage.getItem("token");
     const userId = parseInt(localStorage.getItem("userId"), 10);
+
     if (token) {
       axios
         .get(`http://localhost:5007/users/${userId}`, {
@@ -59,9 +60,14 @@ export default function Login() {
         });
     }
   }, []);
-
+  const toggle = parseInt(localStorage.getItem("toggle"), 10);
+  // console.log(toggle);
   if (tokenIsValid) {
-    navigate("/dashboard");
+    if (toggle) {
+      localStorage.removeItem("token");
+    } else {
+      navigate("/dashboard");
+    }
   }
 
   // Utilisation de useState pour gérer les états de l'email, du mot de passe et de l'erreur de connexion
@@ -80,6 +86,7 @@ export default function Login() {
       // Stockage du jeton d'authentification dans le stockage local de l'application
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId.toString());
+      localStorage.setItem("toggle", response.data.toggle.toString());
       // Redirection vers le tableau de bord
       navigate("/dashboard");
     } catch (error) {
