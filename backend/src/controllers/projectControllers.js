@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable camelcase */
 /* eslint-disable no-restricted-syntax */
 const models = require("../models");
 
@@ -131,9 +133,9 @@ const destroy = (req, res) => {
 
 // Filtrer un projet
 
-const filterCurrent = (req, res) => {
+const filterProjectCurrent = (req, res) => {
   models.project
-    .findCurrent()
+    .filterProjectCurrent(req)
     .then((rows) => {
       res.send(rows);
     })
@@ -149,5 +151,5 @@ module.exports = {
   edit,
   add,
   destroy,
-  filterCurrent,
+  filterProjectCurrent,
 };
