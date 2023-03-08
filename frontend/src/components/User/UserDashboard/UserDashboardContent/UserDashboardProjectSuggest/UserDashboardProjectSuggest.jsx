@@ -77,7 +77,7 @@ export default function UserDashboardProjectSuggest() {
           .then((userData) => {
             // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
             setUser(userData);
-            // console.info(userData);
+            console.info(userData);
           });
       };
 
@@ -130,10 +130,10 @@ export default function UserDashboardProjectSuggest() {
                   >
                     <Box sx={{ width: "100%" }}>
                       <Stack
-                        spacing={{ sm: 1, md: 2 }}
                         direction="row"
                         justifyContent="space-between"
                         alignItems="flex-start"
+                        spacing={1}
                       >
                         <Stack direction={{ sm: "column", md: "column" }} p={0}>
                           <Typography component="div" variant="h2">
@@ -147,14 +147,17 @@ export default function UserDashboardProjectSuggest() {
                             {formatDate(project.project_end_date)}
                           </Typography>
                         </Stack>
-                        <Avatar
-                          alt={user}
-                          src="https://xsgames.co/randomusers/avatar.php?g=male"
-                        />
+                        <Avatar alt={user.firstname} src={user.user_image} />
                       </Stack>
                     </Box>
                     <Box sx={{ width: 1 }}>
-                      <Typography variant="body1" gutterBottom>
+                      <Typography
+                        variant="body1"
+                        gutterBottom
+                        sx={{
+                          color: "UserDashboardProjectSuggest.color",
+                        }}
+                      >
                         {project.project_description}
                       </Typography>
                     </Box>

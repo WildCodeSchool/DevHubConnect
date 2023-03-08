@@ -167,6 +167,7 @@ function ResponsiveDrawer(props) {
               flexGrow: 1,
               p: location.pathname === "/" ? 0 : 3, // Conditionally set "p" property
               width: { sm: `calc(100% - ${drawerWidth}px)` },
+              padding: 0,
             }}
           >
             <Toolbar />

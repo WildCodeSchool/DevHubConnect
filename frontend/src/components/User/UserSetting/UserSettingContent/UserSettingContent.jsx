@@ -46,7 +46,7 @@ export default function UserSettingContent() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, padding: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           <Stack direction="column" spacing={2}>

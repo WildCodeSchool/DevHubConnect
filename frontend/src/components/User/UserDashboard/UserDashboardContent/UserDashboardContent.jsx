@@ -3,33 +3,44 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 import UserDashboardUserInfo from "./UserDashboardUserInfo/UserDashboardUserInfo";
 import UserDashboardCurrentProject from "./UserDashboardCurrentProject/UserDashboardCurrentProject";
 import UserDashboardProjectSuggest from "./UserDashboardProjectSuggest/UserDashboardProjectSuggest";
+import MyCalendar from "../../UserCalendar/UserCalendar";
 
 export default function UserDashboardContent() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={7}>
+    <Box sx={{ flexGrow: 1, padding: 3 }}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
           <Stack
             direction="column"
             justifyContent="flex-start"
             alignItems="flex-start"
             spacing={2}
           >
+            <Typography variant="h2" gutterBottom>
+              Vos infos
+            </Typography>
             <UserDashboardUserInfo />
-            <Typography variant="h5" gutterBottom>
-              Mes projets
+            <Typography variant="h2" gutterBottom sx={{ pt: 4 }}>
+              Vos projets en cours
             </Typography>
             <UserDashboardCurrentProject />
-            <UserDashboardCurrentProject />
-            <UserDashboardCurrentProject />
-            <UserDashboardCurrentProject />
-            <UserDashboardCurrentProject />
+            <Link href="/dashboard/my-project" variant="body2" underline="none">
+              <Button variant="outlined" sx={{ sm: "fullWidth" }}>
+                Voir tous mes projets
+              </Button>
+            </Link>
+            <Typography variant="h2" gutterBottom sx={{ pt: 4 }}>
+              My calendar
+            </Typography>
+            <MyCalendar />
           </Stack>
         </Grid>
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={6}>
           <Stack
             direction={{ sm: "column", md: "row" }}
             spacing={{ sm: 1, md: 2 }}
@@ -42,10 +53,13 @@ export default function UserDashboardContent() {
               alignItems="flex-start"
               spacing={2}
             >
-              <Typography variant="h5" gutterBottom>
+              <Typography variant="h2" gutterBottom>
                 Nouveaux projets
               </Typography>
               <UserDashboardProjectSuggest />
+              <Link href="/project" variant="body2" underline="none">
+                <Button variant="outlined">Voir tous les projets</Button>
+              </Link>
             </Stack>
           </Stack>
         </Grid>
