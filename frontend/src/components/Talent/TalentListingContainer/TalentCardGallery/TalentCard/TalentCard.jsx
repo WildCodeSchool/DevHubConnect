@@ -1,36 +1,62 @@
 import * as React from "react";
-
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
+import PropTypes from "prop-types";
+import TalentAvatar from "./TalentAvatar/TalentAvatar";
+import TalentCardName from "./TalentCardName/TalentCardName";
+import TalentCardDescription from "./TalentCardDescription/TalentCardDescription";
 
-function TalentCard() {
+export default function TalentCard({
+  id,
+  firstname,
+  lastname,
+  jobName,
+  biography,
+}) {
   return (
-    <Paper>
-      <CardActionArea sx={{ maxWidth: 500 }}>
-        <Stack alignItems="center" direction={{ sm: "row", md: "column" }}>
-          <Avatar
-            alt="Remy Sharp"
-            src="http://pngimg.com/uploads/mark_zuckerberg/mark_zuckerberg_PNG35.png"
-            sx={{ width: 90, height: 90 }}
-          />
-          <Stack>
-            <Typography variant="body1" color="text.secondary">
-              Métier (job_id)
-            </Typography>
-            <Typography gutterBottom variant="h2" component="div">
-              Mark Zuckerberg
-            </Typography>
+    <Link href={`/talent/${id}`} underline="none">
+      <Paper>
+        <CardActionArea>
+          <Stack
+            alignItems="center"
+            sx={{ p: 2, sm: "50%", md: "25%" }}
+            direction="column"
+          >
+            <Stack
+              direction={{ xs: "row", sm: "row", md: "column" }}
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <TalentAvatar />
+              <TalentCardName
+                jobName={jobName}
+                firstname={firstname}
+                lastname={lastname}
+              />
+            </Stack>
+
+            <TalentCardDescription biography={biography} />
           </Stack>
-        </Stack>
-        <Typography variant="body1" color="text.secondary">
-          Co-fondateur de Facebook (biography)
-        </Typography>
-      </CardActionArea>
-    </Paper>
+        </CardActionArea>
+      </Paper>
+    </Link>
   );
 }
+TalentCard.propTypes = {
+  id: PropTypes.number,
+  jobName: PropTypes.string,
+  firstname: PropTypes.string,
+  lastname: PropTypes.string,
+  biography: PropTypes.string,
+};
 
-export default TalentCard;
+TalentCard.defaultProps = {
+  jobName: "",
+  id: 0,
+  firstname: "",
+  lastname: "",
+  biography: "",
+};
