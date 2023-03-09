@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require("express");
 
 const router = express.Router();
@@ -69,6 +70,12 @@ const projectControllers = require("./controllers/projectControllers");
 
 router.get("/projects", projectControllers.browse);
 router.get("/projects/:id", projectControllers.read);
+router.get("/projects_current", projectControllers.filterProjectCurrent); // filtre les projects en cours
+router.get("/projects_upgoing", projectControllers.filterProjectUpgoing); // filtre les projects à venir
+router.get(
+  "/projects_notselected",
+  projectControllers.filterProjectNotselected
+);
 router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
