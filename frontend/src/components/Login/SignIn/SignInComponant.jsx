@@ -61,7 +61,6 @@ export default function Login() {
     }
   }, []);
   const toggle = parseInt(localStorage.getItem("toggle"), 10);
-  // console.log(toggle);
   if (tokenIsValid) {
     if (toggle) {
       localStorage.removeItem("token");
