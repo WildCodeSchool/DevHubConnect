@@ -1,27 +1,48 @@
-import * as React from "react";
-import Paper from "@mui/material/Paper";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Typography from "@mui/material/Typography";
+import React, { useState, useEffect } from "react";
+import {
+  Paper,
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Typography,
+} from "@mui/material";
+import axios from "axios";
 
 export default function UserSettingSkills() {
-  const [state, setState] = React.useState({
-    gilad: true,
-    jason: false,
-    antoine: false,
-  });
+  const [skillListing, setSkillListing] = useState([]);
 
-  const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+  const fetchSkill = async () => {
+    try {
+      const response = await axios.get("http://localhost:5007/skills", {
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000",
+        },
+      });
+      setSkillListing(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const { gilad, jason, antoine } = state;
+  useEffect(() => {
+    fetchSkill();
+  }, []);
+
+  const handleChange = (event) => {
+    const skillName = event.target.name;
+    const isChecked = event.target.checked;
+    const updatedSkillListing = skillListing.map((skill) => {
+      if (skill.skill_name === skillName) {
+        return {
+          ...skill,
+          checked: isChecked,
+        };
+      }
+      return skill;
+    });
+    setSkillListing(updatedSkillListing);
+  };
 
   return (
     <Paper
@@ -44,30 +65,20 @@ export default function UserSettingSkills() {
         component="fieldset"
         variant="standard"
       >
-        <FormLabel component="legend">Coche et conquiers !</FormLabel>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox checked={gilad} onChange={handleChange} name="gilad" />
-            }
-            label="JavaScript"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox checked={jason} onChange={handleChange} name="jason" />
-            }
-            label="React"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={antoine}
-                onChange={handleChange}
-                name="antoine"
-              />
-            }
-            label="Angular"
-          />
+          {skillListing.map((skill) => (
+            <FormControlLabel
+              key={skill.id}
+              control={
+                <Checkbox
+                  checked={skill.checked || false}
+                  onChange={handleChange}
+                  name={skill.skill_name}
+                />
+              }
+              label={skill.skill_name}
+            />
+          ))}
         </FormGroup>
       </FormControl>
     </Paper>

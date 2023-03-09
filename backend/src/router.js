@@ -12,6 +12,13 @@ const {
 // VERIFIE
 
 const userControllers = require("./controllers/userControllers");
+const regionControllers = require("./controllers/regionControllers");
+const jobControllers = require("./controllers/jobControllers");
+
+// ------ GET pour alimenter sign-up -------
+router.get("/regions", regionControllers.browse);
+router.get("/jobs", jobControllers.browse);
+
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
 router.post(
@@ -35,9 +42,8 @@ router.put("/user_roles/:id", userRoleControllers.edit);
 router.post("/user_roles", userRoleControllers.add);
 router.delete("/user_roles/:id", userRoleControllers.destroy);
 
-const jobControllers = require("./controllers/jobControllers");
+//  jobs
 
-router.get("/jobs", jobControllers.browse);
 router.get("/jobs/:id", jobControllers.read);
 router.put("/jobs/:id", jobControllers.edit);
 router.post("/jobs", jobControllers.add);
@@ -75,9 +81,8 @@ router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
 router.delete("/skills/:id", skillControllers.destroy);
 
-const regionControllers = require("./controllers/regionControllers");
+//  regions
 
-router.get("/regions", regionControllers.browse);
 router.get("/regions/:id", regionControllers.read);
 router.put("/regions/:id", regionControllers.edit);
 router.post("/regions", regionControllers.add);

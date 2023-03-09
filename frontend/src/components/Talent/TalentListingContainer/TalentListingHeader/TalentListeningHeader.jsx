@@ -4,10 +4,10 @@ import { Box } from "@mui/material";
 
 function TalentListeningHeader() {
   return (
-    <Box sx={{ backgroundColor: "#cfe8fc" }}>
+    <Box>
       <Typography variant="h1">Bourse aux talents</Typography>
 
-      <Typography component="h2">
+      <Typography variant="subtitle1" gutterBottom>
         Easily and quickly find your future collaborators according to the
         skills sought, in your region or elsewhere ...
       </Typography>
