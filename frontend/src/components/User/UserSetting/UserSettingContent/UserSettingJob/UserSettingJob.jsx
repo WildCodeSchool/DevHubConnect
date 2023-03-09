@@ -23,58 +23,59 @@ const MenuProps = {
   },
 };
 
-function getStyles(job, selectedJobs, theme) {
+function getStyles(jobId, selectedJob, theme) {
   return {
     fontWeight:
-      selectedJobs.indexOf(job) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
+      selectedJob === jobId
+        ? theme.typography.fontWeightMedium
+        : theme.typography.fontWeightRegular,
   };
 }
 
 export default function UserSettingJob({ userId }) {
   const theme = useTheme();
-
   const [jobListing, setJobListing] = useState([]);
-
-  const fetchJobs = async () => {
-    try {
-      const response = await axios.get("http://localhost:5007/jobs", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000",
-        },
-      });
-      setJobListing(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
   const [user, setUser] = useState(null);
-  const [selectedJobs, setSelectedJobs] = useState(user ? user.job_id : []);
+  const [selectedJob, setSelectedJob] = useState(user?.job_id || "");
 
-  const handleJobChange = (event) => {
-    setSelectedJobs(event.target.value);
-  };
+  const token = localStorage.getItem("token");
+  const apiUrl = "http://localhost:5007";
 
   useEffect(() => {
-    async function fetchDataJob() {
+    const fetchJobs = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5007/jobs/${userId}`
-        );
+        const response = await axios.get(`${apiUrl}/jobs`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setJobListing(response.data);
+        // console.info("Jobs : ", response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchJobs();
+  }, [apiUrl, token]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        // console.info("user from UserSettingJob : ", response.data);
         setUser(response.data);
+        setSelectedJob(response.data.job_id);
       } catch (error) {
         console.error(error);
         setUser(null);
       }
-    }
-    fetchDataJob();
-  }, [userId]);
+    };
+    fetchUser();
+  }, [apiUrl, userId, token]);
+
+  const handleJobChange = (event) => {
+    setSelectedJob(event.target.value);
+  };
 
   return (
     <Paper
@@ -93,7 +94,7 @@ export default function UserSettingJob({ userId }) {
         <Select
           labelId="multiple-job-label"
           id="multiple-job"
-          value={selectedJobs}
+          value={selectedJob}
           onChange={handleJobChange}
           input={<OutlinedInput label="Choisir" />}
           MenuProps={MenuProps}
@@ -101,8 +102,8 @@ export default function UserSettingJob({ userId }) {
           {jobListing.map((job) => (
             <MenuItem
               key={job.id}
-              value={job.job_name}
-              style={getStyles(job.job_name, selectedJobs, theme)}
+              value={job.id}
+              style={getStyles(job.id, selectedJob, theme)}
             >
               {job.job_name}
             </MenuItem>

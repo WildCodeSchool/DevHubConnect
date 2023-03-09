@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Box, Grid, Stack } from "@mui/material";
 import SettingBio from "./UserSettingBio/UserSettingBio";
@@ -16,33 +16,54 @@ export default function UserSettingContent() {
     email: "",
   });
 
-  const getUser = () => {
-    axios
-      .get("http://localhost:5007/users/1", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
-        },
-      })
-      .then((response) => response.data)
-      .then((userData) => {
-        setUser(userData);
+  const [skillListing, setSkillListing] = useState([]);
+
+  const token = localStorage.getItem("token");
+  const userId = parseInt(localStorage.getItem("userId"), 10);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5007/users/${userId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setUser(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getSkills = async () => {
+    try {
+      const response = await axios.get("http://localhost:5007/skills", {
+        headers: { Authorization: `Bearer ${token}` },
       });
+      setSkillListing(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
     getUser();
+    getSkills();
   }, []);
 
-  const handleSaveChanges = () => {
-    axios
-      .put("http://localhost:5007/users/1", user, {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
-        },
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleSaveChanges = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5007/users/${userId}`,
+        user,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setUser(response.data);
+      console.info("response.data PUT", response.data);
+    } catch (error) {
+      console.error(error);
+      setUser(null);
+    }
   };
 
   return (
@@ -50,19 +71,23 @@ export default function UserSettingContent() {
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           <Stack direction="column" spacing={2}>
-            <UserSettingField userId={1} />
-            <SettingBio userId={1} />
-            <UserSettingAbout userId={1} />
+            <UserSettingField userId={userId} />
+            <SettingBio userId={userId} user={user} setUser={setUser} />
+            <UserSettingAbout userId={userId} user={user} setUser={setUser} />
           </Stack>
         </Grid>
         <Grid item xs={12} md={4}>
           <Stack direction="column" spacing={2}>
-            <UserSettingJob userId={1} />
-            <UserSettingSkills userId={1} />
+            <UserSettingJob userId={userId} user={user} setUser={setUser} />
+            <UserSettingSkills
+              userId={userId}
+              skillListing={skillListing}
+              setSkillListing={setSkillListing}
+            />
           </Stack>
         </Grid>
         <Grid item xs={12} md={12}>
-          <UserSettingSaveButton userId={1} onSave={handleSaveChanges} />
+          <UserSettingSaveButton onSave={handleSaveChanges} />
         </Grid>
       </Grid>
     </Box>

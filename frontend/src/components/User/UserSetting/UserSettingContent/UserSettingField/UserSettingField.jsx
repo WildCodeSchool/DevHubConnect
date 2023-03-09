@@ -13,19 +13,23 @@ export default function UserSettingField({ userId }) {
   const [CP, setCP] = useState("");
   const [email, setEmail] = useState("");
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          `http://localhost:5007/users/${userId}`
+          `http://localhost:5007/users/${userId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         setUser(response.data);
         setFirstName(response.data.firstname);
         setLastName(response.data.lastname);
         setCP(response.data.cp);
         setEmail(response.data.email);
+        // console.info("user : ", response.data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         setUser(null);
       }
     }

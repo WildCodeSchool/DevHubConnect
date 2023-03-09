@@ -9,11 +9,14 @@ export default function UserSettingBio({ userId }) {
   const [user, setUser] = useState(null);
   const [biography, setBio] = useState("");
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     async function fetchDataBio() {
       try {
         const response = await axios.get(
-          `http://localhost:5007/users/${userId}`
+          `http://localhost:5007/users/${userId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         setUser(response.data);
         setBio(response.data.biography);

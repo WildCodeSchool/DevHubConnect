@@ -11,23 +11,44 @@ import axios from "axios";
 
 export default function UserSettingSkills() {
   const [skillListing, setSkillListing] = useState([]);
+  const [userSkills, setUserSkills] = useState([]);
+  const token = localStorage.getItem("token");
+  const userId = parseInt(localStorage.getItem("userId"), 10);
 
-  const fetchSkill = async () => {
+  const fetchSkills = async () => {
     try {
       const response = await axios.get("http://localhost:5007/skills", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000",
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setSkillListing(response.data);
+      const sortedSkills = response.data.sort((a, b) => {
+        return a.skill_name.localeCompare(b.skill_name);
+      });
+      setSkillListing(sortedSkills);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchSkill();
+    fetchSkills();
   }, []);
+
+  useEffect(() => {
+    const fetchUserSkills = async () => {
+      try {
+        const response = await axios.get("http://localhost:5007/user_skills", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const userSkillsFilter = response.data.filter(
+          (userSkill) => userSkill.user_id === userId
+        );
+        setUserSkills(userSkillsFilter);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUserSkills();
+  }, [token, userId]);
 
   const handleChange = (event) => {
     const skillName = event.target.name;
@@ -42,6 +63,16 @@ export default function UserSettingSkills() {
       return skill;
     });
     setSkillListing(updatedSkillListing);
+    const updatedUserSkills = userSkills.map((skill) => {
+      if (skill.skill_name === skillName) {
+        return {
+          ...skill,
+          checked: isChecked,
+        };
+      }
+      return skill;
+    });
+    setUserSkills(updatedUserSkills);
   };
 
   return (
@@ -71,7 +102,9 @@ export default function UserSettingSkills() {
               key={skill.id}
               control={
                 <Checkbox
-                  checked={skill.checked || false}
+                  checked={userSkills.some(
+                    (userSkill) => userSkill.skill_id === skill.id
+                  )}
                   onChange={handleChange}
                   name={skill.skill_name}
                 />

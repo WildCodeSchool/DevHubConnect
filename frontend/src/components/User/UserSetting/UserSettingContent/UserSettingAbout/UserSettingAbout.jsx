@@ -8,11 +8,14 @@ import PropTypes from "prop-types";
 export default function UserSettingAbout({ userId }) {
   const [user, setUser] = useState(null);
 
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     async function fetchDataAbout() {
       try {
         const response = await axios.get(
-          `http://localhost:5007/users/${userId}`
+          `http://localhost:5007/users/${userId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         setUser(response.data);
       } catch (error) {
@@ -21,7 +24,7 @@ export default function UserSettingAbout({ userId }) {
       }
     }
     fetchDataAbout();
-  }, [userId]);
+  }, [userId, token]);
 
   return (
     <Paper
