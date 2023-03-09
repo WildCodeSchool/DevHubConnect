@@ -43,7 +43,7 @@ function SelectRegionsProject({
         <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
         <Select
           labelId="regions-select-label"
-          id="regions-select"
+          id="demo-multiple-checkbox"
           multiple
           value={selectRegionsProject}
           onChange={handleChange}

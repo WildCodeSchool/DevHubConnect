@@ -41,7 +41,7 @@ function SelectDatesProject({ dates }) {
           labelId="demo-multiple-checkbox-label"
           id="demo-multiple-checkbox"
           multiple
-          value={selectDatesProject}
+          value={[selectDatesProject?.startDate]}
           onChange={handleChange}
           input={<OutlinedInput label="Dates" />}
           renderValue={(selected) => selected.join(", ")}
@@ -56,13 +56,14 @@ function SelectDatesProject({ dates }) {
               new Date(date.endDate),
               "dd/MM/yyyy"
             );
-
+            console.info(selectDatesProject, "selectDatesProject");
             return (
               <MenuItem key={date.index} value={date}>
                 <Checkbox checked={selectDatesProject.indexOf(date) > -1} />
                 <ListItemText
                   index={index}
                   primary={` Du ${formattedStartDate} au ${formattedEndDate}`}
+                  value={` Du ${formattedStartDate} au ${formattedEndDate}`}
                 />
               </MenuItem>
             );
@@ -73,9 +74,9 @@ function SelectDatesProject({ dates }) {
   );
 }
 SelectDatesProject.propTypes = {
-  dates: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-  // projectStartDate: PropTypes.instanceOf(Date),
-  // projectEndDate: PropTypes.instanceOf(Date),
+  dates: PropTypes.arrayOf(PropTypes.string),
+  // projectStartDate: PropTypes.string,
+  // projectEndDate: PropTypes.string,
 };
 
 SelectDatesProject.defaultProps = {

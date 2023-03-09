@@ -25,11 +25,10 @@ function SelectSkillsProject({ skillName, skillsProject, handleSkillsChange }) {
   const [selectedSkills, setSelectedSkills] = React.useState(skillsProject);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedSkills(value);
-    handleSkillsChange(value);
+    const { value } = event.target;
+
+    setSelectedSkills(typeof value === "string" ? value.split(",") : value);
+    handleSkillsChange(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
@@ -46,12 +45,16 @@ function SelectSkillsProject({ skillName, skillsProject, handleSkillsChange }) {
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {skillName.map((skill) => (
+          {skillName.map((skill, index) => (
             <MenuItem key={skill.id} value={skill.skill_name}>
               <Checkbox
-                checked={selectedSkills.indexOf(skill.skill_name) > -1}
+                checked={
+                  selectedSkills.indexOf(skill.skill_name) > -1
+                  // ||
+                  // skillsProject.indexof(skill.skill_name) > -1
+                }
               />
-              <ListItemText primary={skill.skill_name} />
+              <ListItemText primary={skill.skill_name} index={index} />
             </MenuItem>
           ))}
         </Select>

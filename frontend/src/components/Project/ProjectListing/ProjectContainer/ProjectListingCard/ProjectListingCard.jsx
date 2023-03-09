@@ -21,7 +21,7 @@ export default function ProjectListingCard({
   projectEndDate,
   regionName,
 }) {
-  console.info(skillName, "patate");
+  console.info(projectStartDate, "patate");
   const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
   const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
   return (
