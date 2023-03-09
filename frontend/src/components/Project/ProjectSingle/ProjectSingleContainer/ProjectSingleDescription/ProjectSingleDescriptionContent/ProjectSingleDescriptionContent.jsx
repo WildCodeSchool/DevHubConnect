@@ -17,10 +17,7 @@ export default function ProjectSingleDescriptionContent({
   projectEndDate,
   regionName,
 }) {
-  // if (id !== 1) {
-  //   return null;
-  // }
-
+  console.info(skillName, "coucou");
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}

@@ -7,6 +7,7 @@ import { Link, Chip } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 
 export default function ProjectListingCard({
   projectName,
@@ -20,6 +21,9 @@ export default function ProjectListingCard({
   projectEndDate,
   regionName,
 }) {
+  console.info(skillName, "patate");
+  const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
+  const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
   return (
     <Link href={`/project/${id}`} underline="none">
       {/* {console.info(id, "id:")} */}
@@ -59,7 +63,7 @@ export default function ProjectListingCard({
               </Typography>
 
               <Typography component="div" variant="body1">
-                Du {projectStartDate} au {projectEndDate}
+                Du {formattedStartDate} au {formattedEndDate}
               </Typography>
               <Typography variant="body1" gutterBottom>
                 {regionName}

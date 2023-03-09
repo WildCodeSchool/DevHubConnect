@@ -15,8 +15,8 @@ function ProjectListingHeader() {
         Projets
       </Typography>
       <Typography variant="body1">
-        Découvrez mes projets passionnants et innovants qui témoignent de ma
-        créativité et de mon expertise dans divers domaines !"
+        Découvrez des projets passionnants et innovants qui témoignent de
+        créativité et d'expertise dans divers domaines !"
       </Typography>
     </Stack>
   );

@@ -8,6 +8,7 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -31,6 +32,7 @@ function SelectDatesProject({ dates }) {
       typeof value === "string" ? value.split(",") : value
     );
   };
+  console.info(dates, "startDate");
   return (
     <Stack>
       <FormControl sx={{ width: 300 }}>
@@ -45,12 +47,26 @@ function SelectDatesProject({ dates }) {
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {dates.map((date) => (
-            <MenuItem key={date} value={dates}>
-              <Checkbox checked={selectDatesProject.indexOf(date) > -1} />
-              <ListItemText primary={date} />
-            </MenuItem>
-          ))}
+          {dates.map((date, index) => {
+            const formattedStartDate = format(
+              new Date(date.startDate),
+              "dd/MM/yyyy"
+            );
+            const formattedEndDate = format(
+              new Date(date.endDate),
+              "dd/MM/yyyy"
+            );
+
+            return (
+              <MenuItem key={date.index} value={date}>
+                <Checkbox checked={selectDatesProject.indexOf(date) > -1} />
+                <ListItemText
+                  index={index}
+                  primary={` Du ${formattedStartDate} au ${formattedEndDate}`}
+                />
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </Stack>
@@ -64,8 +80,8 @@ SelectDatesProject.propTypes = {
 
 SelectDatesProject.defaultProps = {
   dates: [],
-  // projectStartDate: null,
-  // projectEndDate: null,
+  // projectStartDate: "",
+  // projectEndDate: "",
 };
 
 export default SelectDatesProject;

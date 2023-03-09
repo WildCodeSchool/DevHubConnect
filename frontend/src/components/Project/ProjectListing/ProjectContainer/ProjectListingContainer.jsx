@@ -14,8 +14,8 @@ function ProjectListingContainer() {
   const [projectRegionListing, setProjectRegionListing] = useState([]);
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [selectedStartDate, setSelectedStartDate] = useState("");
+  const [selectedEndDate, setSelectedEndDate] = useState("");
 
   const getProjects = () => {
     axios
@@ -23,7 +23,7 @@ function ProjectListingContainer() {
       .then((response) => response.data)
       .then((projectsData) => {
         setProjectListing(projectsData);
-        console.info(projectsData, "coucou");
+        console.info(projectsData, "projectData");
       });
   };
 
@@ -33,7 +33,7 @@ function ProjectListingContainer() {
       .then((response) => response.data)
       .then((usersData) => {
         setUserListing(usersData);
-        console.info(usersData);
+        console.info(usersData, "usersData");
       });
   };
 
@@ -44,7 +44,7 @@ function ProjectListingContainer() {
       .then((projectsSkillData) => {
         // Utilisation de setProjectSkillListing pour mettre à jour le state projectSkillListing avec les données de l'API
         setProjectSkillListing(projectsSkillData);
-        console.info(projectsSkillData);
+        console.info(projectsSkillData, "projectSkillid");
       });
   };
 
@@ -55,7 +55,7 @@ function ProjectListingContainer() {
       .then((skillData) => {
         // Utilisation de setSkillListing pour mettre à jour le state skillListing avec les données de l'API
         setSkillListing(skillData);
-        console.info(skillData);
+        console.info(skillData, "skillName");
       });
   };
   const getRegion = () => {
@@ -64,7 +64,7 @@ function ProjectListingContainer() {
       .then((response) => response.data)
       .then((regionData) => {
         setProjectRegionListing(regionData);
-        console.info(regionData);
+        console.info(regionData, "regionsData");
       });
   };
 
@@ -88,11 +88,11 @@ function ProjectListingContainer() {
     setSelectedSkills(event.target.value);
   };
   const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
+    setSelectedStartDate(event.target.value);
   };
 
   const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
+    setSelectedEndDate(event.target.value);
   };
   return (
     <>
@@ -110,15 +110,22 @@ function ProjectListingContainer() {
           selectedRegions={selectedRegions}
           handleRegionChange={handleSelectRegionsChange}
         />
+
         <SelectSkillsProject
           skillName={skillListing}
           skillsProject={projectSkillListing}
           handleSkillChange={handleSkillsChange}
         />
         <SelectDatesProject
-          dates={projectListing.map((project) => project.date)}
-          projectStartDate={startDate}
-          projectEndDate={endDate}
+          dates={projectListing.map((project, index) => {
+            return {
+              index,
+              startDate: project.project_start_date,
+              endDate: project.project_end_date,
+            };
+          })}
+          projectStartDate={projectListing.project_start_date}
+          projectEndDate={projectListing.project_end_date}
           handleChangeStartDate={handleStartDateChange}
           handleChangeEndDate={handleEndDateChange}
         />
@@ -131,12 +138,15 @@ function ProjectListingContainer() {
             (selectedSkills.length === 0 ||
               selectedSkills.some((skill) =>
                 project.skills.some(
-                  (projectSkill) => projectSkill.skill.id === skill.id
+                  (projectSkill) => projectSkill.skill_id === skill.id
                 )
               )) &&
-            (startDate === "" || project.project_start_date >= startDate) &&
-            (endDate === "" || project.project_end_date <= endDate)
+            (selectedStartDate === "" ||
+              project.project_start_date >= selectedStartDate) &&
+            (selectedEndDate === "" ||
+              project.project_end_date <= selectedEndDate)
         )
+
         .map((project) => {
           const projectOwner = userListing.find(
             (user) => user.id === project.owner_id
@@ -172,7 +182,8 @@ function ProjectListingContainer() {
               projectEndDate={project.project_end_date}
               regionName={regions}
               // handleRegionChange={handleSelectRegionsChange}
-              // handleSkillChange={handleSkillsChange}
+              handleRegionChange={handleSelectRegionsChange}
+              handleSkillChange={handleSkillsChange}
               // handleChangeStartDate={handleStartDateChange}
               // handleChangeEndDate={handleEndDateChange}
             />

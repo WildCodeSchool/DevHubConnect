@@ -42,8 +42,8 @@ function SelectRegionsProject({
       <FormControl sx={{ width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId="regions-select-label"
+          id="regions-select"
           multiple
           value={selectRegionsProject}
           onChange={handleChange}
