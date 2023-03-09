@@ -105,6 +105,13 @@ const typography = {
 
   UserDashboardSkill: { fontSize: 14, color: "#353d42" },
 
+  UserDashboardTitle: {
+    fontSize: 20,
+    color: "#5d7280",
+    fontWeight: 300,
+    lineHeight: 0,
+  },
+
   subtitle1: {
     margin: 0,
     fontSize: "1.4rem",

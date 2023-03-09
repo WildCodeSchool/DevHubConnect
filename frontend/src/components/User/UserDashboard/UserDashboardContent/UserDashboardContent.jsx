@@ -21,20 +21,28 @@ export default function UserDashboardContent() {
             alignItems="flex-start"
             spacing={2}
           >
-            <Typography variant="h2" gutterBottom>
+            <Typography variant="UserDashboardTitle" gutterBottom>
               Vos infos
             </Typography>
             <UserDashboardUserInfo />
-            <Typography variant="h2" gutterBottom sx={{ pt: 4 }}>
+            <Typography
+              variant="UserDashboardTitle"
+              gutterBottom
+              sx={{ pt: 4 }}
+            >
               Vos projets en cours
             </Typography>
             <UserDashboardCurrentProject />
             <Link href="/dashboard/my-project" variant="body2" underline="none">
-              <Button variant="outlined" sx={{ sm: "fullWidth" }}>
+              <Button variant="outlined" size="small">
                 Voir tous mes projets
               </Button>
             </Link>
-            <Typography variant="h2" gutterBottom sx={{ pt: 4 }}>
+            <Typography
+              variant="UserDashboardTitle"
+              gutterBottom
+              sx={{ pt: 4 }}
+            >
               My calendar
             </Typography>
             <MyCalendar />
@@ -53,12 +61,14 @@ export default function UserDashboardContent() {
               alignItems="flex-start"
               spacing={2}
             >
-              <Typography variant="h2" gutterBottom>
+              <Typography variant="UserDashboardTitle" gutterBottom>
                 Nouveaux projets
               </Typography>
               <UserDashboardProjectSuggest />
               <Link href="/project" variant="body2" underline="none">
-                <Button variant="outlined">Voir tous les projets</Button>
+                <Button variant="outlined" size="small">
+                  Voir tous les projets
+                </Button>
               </Link>
             </Stack>
           </Stack>

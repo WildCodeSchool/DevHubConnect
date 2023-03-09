@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 
 export default function UserSettingHeader() {
   return (
-    <Paper elevation={8}>
+    <Paper elevation={8} sx={{ mb: 2 }}>
       <Box sx={{ width: "100%", background: "#FFF", padding: 3 }}>
         <Stack spacing={2}>
           <Typography variant="h1">Ma zone de contrôle</Typography>
