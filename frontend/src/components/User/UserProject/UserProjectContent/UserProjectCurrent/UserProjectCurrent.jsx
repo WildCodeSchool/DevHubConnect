@@ -1,12 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-undef */
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
-/* eslint-disable import/extensions */
-/* eslint-disable import/no-unresolved */
 import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -46,7 +37,7 @@ function UserProjectCurrent() {
       <AccordionDetails>
         <Stack
           direction="row"
-          spacing={{ xs: 1, sm: 2, md: 4 }}
+          spacing={{ xs: 1, sm: 2, md: 2 }}
           flexWrap="wrap"
           width={1000}
         >

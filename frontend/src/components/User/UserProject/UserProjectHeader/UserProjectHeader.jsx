@@ -38,12 +38,6 @@ function UserProjectHeader() {
             color="primary"
             onClick={handleClick}
           />
-          <Chip
-            label="Tous les projets"
-            size="medium"
-            color="primary"
-            onClick={handleClick}
-          />
         </Stack>
       </Typography>
     </>
