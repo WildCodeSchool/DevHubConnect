@@ -272,3 +272,4 @@ VALUES
 (3, 15, '2023-01-03', 3, 'Intéressé par les réseaux sociaux'),
 (2, 16, '2023-01-04', 2, 'Passionné par l exploration spatiale'),
 (1, 17, '2023-01-05', 1, 'Intéressé par les transports à grande vitesse');
+

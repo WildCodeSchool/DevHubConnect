@@ -34,10 +34,9 @@ const palette = {
   UserDashboardProjectSuggest: {
     main: "#FFF",
     background: "#FBFCEA",
-    bghover: "#F3F7CD",
+    bghover: "#FBFCEA",
     border: "#BDCA03",
     color: "#e9f3fa",
-    hover: "#e9f3fa",
     contrastText: "#fff",
     spacing: [0, 2, 3, 5, 8],
   },
