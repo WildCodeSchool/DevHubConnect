@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import PropTypes from "prop-types";
 
 export default function UserSettingField({ userId }) {
-  const [user, setUser] = useState(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [CP, setCP] = useState("");
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    cp: "",
+    email: "",
+  });
 
   const token = localStorage.getItem("token");
 
@@ -23,48 +24,23 @@ export default function UserSettingField({ userId }) {
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setUser(response.data);
-        setFirstName(response.data.firstname);
-        setLastName(response.data.lastname);
-        setCP(response.data.cp);
-        setEmail(response.data.email);
-        // console.info("user : ", response.data);
       } catch (error) {
-        // console.error(error);
         setUser(null);
       }
     }
     fetchData();
   }, [userId]);
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-    setUser({ ...user, firstname: event.target.value });
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-    setUser({ ...user, lasttname: event.target.value });
-  };
-
-  const handleCPChange = (event) => {
-    setCP(event.target.value);
-    setUser({ ...user, cp: event.target.value });
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-    setUser({ ...user, email: event.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
   };
 
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        color: "UserSetting.color",
-        p: 3,
-        backgroundColor: "UserSetting.Background",
-      }}
-    >
+    <Paper elevation={2} sx={{ p: 3 }}>
       <Stack direction="column" spacing={3}>
         <Typography variant="fieldBoxTitle" gutterBottom>
           Qui es-tu ? Les champs obligatoires ne mentent pas
@@ -78,26 +54,29 @@ export default function UserSettingField({ userId }) {
             <TextField
               required
               id="firstName"
+              name="firstname"
               label="Nom"
-              value={firstName}
+              value={user.firstname}
               sx={{ width: { sm: "100%", md: "33%" } }}
-              onChange={handleFirstNameChange}
+              onChange={handleChange}
             />
             <TextField
               required
               id="lastName"
+              name="lastname"
               label="Prénom"
-              value={lastName}
+              value={user.lastname}
               sx={{ width: { sm: "100%", md: "33%" } }}
-              onChange={handleLastNameChange}
+              onChange={handleChange}
             />
             <TextField
               required
               id="CP"
+              name="cp"
               label="CP"
-              value={CP}
+              value={user.cp}
               sx={{ width: { sm: "100%", md: "33%" } }}
-              onChange={handleCPChange}
+              onChange={handleChange}
             />
           </Stack>
         ) : (
@@ -109,9 +88,10 @@ export default function UserSettingField({ userId }) {
               required
               fullWidth
               id="email"
+              name="email"
               label="Email"
-              value={email}
-              onChange={handleEmailChange}
+              value={user.email}
+              onChange={handleChange}
             />
           </Stack>
         ) : null}

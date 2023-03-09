@@ -53,6 +53,10 @@ export default function UserSettingContent() {
 
   const handleSaveChanges = async () => {
     try {
+      console.info("userId: ", userId);
+      console.info("user: ", user);
+      console.info("token: ", token);
+
       const response = await axios.put(
         `http://localhost:5007/users/${userId}`,
         user,
@@ -87,7 +91,7 @@ export default function UserSettingContent() {
           </Stack>
         </Grid>
         <Grid item xs={12} md={12}>
-          <UserSettingSaveButton onSave={handleSaveChanges} />
+          <UserSettingSaveButton onClick={handleSaveChanges} />
         </Grid>
       </Grid>
     </Box>

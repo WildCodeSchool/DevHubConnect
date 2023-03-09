@@ -35,7 +35,7 @@ export default function UserSettingAbout({ userId }) {
         backgroundColor: "UserSetting.Background",
       }}
     >
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="fieldBoxTitle" gutterBottom>
         Résume de ta vie en quelques mots : fais-moi rêver
       </Typography>
       {user ? (

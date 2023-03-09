@@ -41,7 +41,7 @@ export default function UserSettingBio({ userId }) {
         backgroundColor: "UserSetting.Background",
       }}
     >
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="fieldBoxTitle" gutterBottom>
         Ta vie en 140 caractères : sois bref et impactant
       </Typography>
       {user ? (
