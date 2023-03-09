@@ -6,7 +6,7 @@ import TalentListeningHeader from "./TalentListingHeader/TalentListeningHeader";
 
 function TalentContainer() {
   const [currentSelectedJobs, setSelectedJobs] = useState([]);
-  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [currentSelectedRegions, setSelectedRegions] = useState([]);
 
   return (
     <div>
@@ -14,13 +14,13 @@ function TalentContainer() {
       <TalentListingFilter
         selectedJobs={currentSelectedJobs}
         setSelectedJobs={setSelectedJobs}
-        selectedRegions={selectedRegions}
+        selectedRegions={currentSelectedRegions}
         setSelectedRegions={setSelectedRegions}
       />
       <TalentCardGallery
         selectedJobs={currentSelectedJobs}
         setSelectedJobs={setSelectedJobs}
-        selectedRegions={selectedRegions}
+        selectedRegions={currentSelectedRegions}
         setSelectedRegions={setSelectedRegions}
       />
     </div>

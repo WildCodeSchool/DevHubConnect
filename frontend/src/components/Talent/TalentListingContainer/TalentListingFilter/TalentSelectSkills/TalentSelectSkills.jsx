@@ -26,7 +26,7 @@ function TalentSelectSkills() {
 
   const getSkills = () => {
     axios
-      .get("http://localhost:5000/skills")
+      .get("http://localhost:5007/skills")
       .then((response) => response.data)
       .then((data) => {
         setSkills(data);

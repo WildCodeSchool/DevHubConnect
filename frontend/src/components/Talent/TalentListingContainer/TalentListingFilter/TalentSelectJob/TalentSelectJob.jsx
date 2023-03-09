@@ -27,7 +27,7 @@ function TalentSelectJob({ currentSelectedJobs, setSelectedJobs }) {
 
   const getJobs = () => {
     axios
-      .get("http://localhost:5000/jobs")
+      .get("http://localhost:5007/jobs")
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);

@@ -9,7 +9,7 @@ import TalentSelectJob from "./TalentSelectJob/TalentSelectJob";
 function TalentListingFilter({
   currentSelectedJobs,
   setSelectedJobs,
-  selectedRegions,
+  currentSelectedRegions,
   setSelectedRegions,
 }) {
   return (
@@ -28,7 +28,7 @@ function TalentListingFilter({
         size={{ xs: "100%", sm: "33%", md: "20%" }}
       >
         <TalentSelectRegion
-          selectedRegions={selectedRegions}
+          selectedRegions={currentSelectedRegions}
           setSelectedRegions={setSelectedRegions}
         />
         <TalentSelectJob
@@ -44,14 +44,14 @@ function TalentListingFilter({
 TalentListingFilter.propTypes = {
   currentSelectedJobs: PropTypes.arrayOf(PropTypes.string),
   setSelectedJobs: PropTypes.func,
-  selectedRegions: PropTypes.arrayOf(PropTypes.string),
+  currentSelectedRegions: PropTypes.arrayOf(PropTypes.string),
   setSelectedRegions: PropTypes.func,
 };
 
 TalentListingFilter.defaultProps = {
   currentSelectedJobs: [],
   setSelectedJobs: () => {},
-  selectedRegions: [],
+  currentSelectedRegions: [],
   setSelectedRegions: () => {},
 };
 

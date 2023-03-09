@@ -21,14 +21,13 @@ const MenuProps = {
   },
 };
 
-function TalentSelectRegion({ selectedRegions, setSelectedRegions }) {
+function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
   const [userRegions, setUserRegions] = useState([]);
-  // sans const [userRegions, setUserRegions] ds la version filtre
   const [regions, setRegions] = useState([]);
 
   const getRegions = () => {
     axios
-      .get("http://localhost:5000/regions")
+      .get("http://localhost:5007/regions")
       .then((response) => response.data)
       .then((regionsData) => {
         setRegions(regionsData);
@@ -42,7 +41,7 @@ function TalentSelectRegion({ selectedRegions, setSelectedRegions }) {
   const handleChange = (event) => {
     const { value } = event.target;
     setUserRegions(typeof value === "string" ? value.split(",") : value);
-    // sans setUserRegions ds version filtre
+
     setSelectedRegions(typeof value === "string" ? value.split(",") : value);
   };
 
@@ -55,7 +54,6 @@ function TalentSelectRegion({ selectedRegions, setSelectedRegions }) {
           id="demo-multiple-checkbox"
           multiple
           value={userRegions}
-          // value={selectedRegions} avec version filtre
           onChange={handleChange}
           input={<OutlinedInput label="Régions" />}
           renderValue={(selected) => selected.join(", ")}
@@ -66,9 +64,8 @@ function TalentSelectRegion({ selectedRegions, setSelectedRegions }) {
               <Checkbox
                 checked={
                   userRegions.indexOf(region.region_name) > -1 ||
-                  selectedRegions.indexOf(region.region_name) > -1
+                  currentSelectedRegions.indexOf(region.region_name) > -1
                 }
-                // checked={selectedRegions.indexOf(region.region_name) > -1} avec version filtre
               />
               <ListItemText primary={region.region_name} index={index} />
             </MenuItem>
@@ -80,12 +77,12 @@ function TalentSelectRegion({ selectedRegions, setSelectedRegions }) {
 }
 
 TalentSelectRegion.propTypes = {
-  selectedRegions: PropTypes.arrayOf(PropTypes.string),
+  currentSelectedRegions: PropTypes.arrayOf(PropTypes.string),
   setSelectedRegions: PropTypes.func,
 };
 
 TalentSelectRegion.defaultProps = {
-  selectedRegions: [],
+  currentSelectedRegions: [],
   setSelectedRegions: () => {},
 };
 

@@ -22,7 +22,7 @@ export default function SignUpAboutYou() {
 
   const getJobList = () => {
     axios
-      .get("http://localhost:5000/jobs", {
+      .get("http://localhost:5007/jobs", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -35,7 +35,7 @@ export default function SignUpAboutYou() {
 
   const getRegionList = () => {
     axios
-      .get("http://127.0.0.1:5000/regions", {
+      .get("http://127.0.0.1:5007/regions", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },

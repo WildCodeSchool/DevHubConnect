@@ -5,33 +5,50 @@ import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import TalentCard from "./TalentCard/TalentCard";
 
-function TalentCardGallery({ selectedJobs: selectedJobsProp }) {
+function TalentCardGallery({
+  selectedJobs: selectedJobsProp,
+  selectedRegions: selectedRegionsProp,
+}) {
   const [users, setUsers] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [regions, setRegions] = useState([]);
   const [selectedJobs, setSelectedJobs] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
 
   const getTalents = () => {
     axios
-      .get("http://localhost:5000/users")
+      .get("http://localhost:5007/users")
       .then((response) => response.data)
       .then((usersData) => {
         setUsers(usersData);
-        console.info(usersData, "talents");
+        console.info(usersData, "talents pour card");
       });
   };
 
   const getJobs = () => {
     axios
-      .get("http://localhost:5000/jobs")
+      .get("http://localhost:5007/jobs")
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);
-        console.info(jobsData, "métiers");
+        console.info(jobsData, "métiers pour card");
       });
   };
+
+  const getRegions = () => {
+    axios
+      .get("http://localhost:5007/regions") // regions/:id
+      .then((response) => response.data)
+      .then((regionsData) => {
+        setRegions(regionsData);
+        console.info(regionsData, "regions pour card");
+      });
+  };
+
   useEffect(() => {
     getTalents();
     getJobs();
+    getRegions();
   }, []);
 
   const filterByJob = (user) => {
@@ -41,9 +58,17 @@ function TalentCardGallery({ selectedJobs: selectedJobsProp }) {
     return selectedJobs.includes(userJob.job_name);
   };
 
+  const filterByRegion = (user) => {
+    if (selectedRegions.length === 0) return true;
+
+    const userRegion = regions.find((region) => region.id === user.region_id);
+    return selectedRegions.includes(userRegion.region_name);
+  };
+
   useEffect(() => {
     setSelectedJobs(selectedJobsProp);
-  }, [selectedJobsProp]);
+    setSelectedRegions(selectedRegionsProp);
+  }, [selectedJobsProp, selectedRegionsProp]);
   return (
     <div>
       <Box sx={{ mt: 2 }}>
@@ -54,18 +79,20 @@ function TalentCardGallery({ selectedJobs: selectedJobsProp }) {
           mt="2"
           sx={{ flexWrap: "wrap", gap: 2 }}
         >
-          {users.filter(filterByJob).map((user) => {
-            return (
-              <TalentCard
-                key={user?.id}
-                firstname={user?.firstname}
-                lastname={user?.lastname}
-                jobName={jobs[user.job_id]?.job_name}
-                biography={user?.biography}
-              />
-            );
-          })}
-          ;
+          {users
+            .filter(filterByJob)
+            .filter(filterByRegion)
+            .map((user) => {
+              return (
+                <TalentCard
+                  key={user?.id}
+                  firstname={user?.firstname}
+                  lastname={user?.lastname}
+                  jobName={jobs[user.job_id]?.job_name}
+                  biography={user?.biography}
+                />
+              );
+            })}
         </Stack>
       </Box>
     </div>
@@ -75,11 +102,13 @@ function TalentCardGallery({ selectedJobs: selectedJobsProp }) {
 TalentCardGallery.propTypes = {
   // selectedRegions: PropTypes.arrayOf(PropTypes.string),
   selectedJobs: PropTypes.arrayOf(PropTypes.string),
+  selectedRegions: PropTypes.arrayOf(PropTypes.string),
 };
 
 TalentCardGallery.defaultProps = {
   // selectedRegions: [],
   selectedJobs: [],
+  selectedRegions: [],
 };
 
 export default TalentCardGallery;
