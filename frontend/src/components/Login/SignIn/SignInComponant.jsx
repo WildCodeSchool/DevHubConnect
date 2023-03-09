@@ -12,6 +12,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ContainedButtons from "./SignInOAuth/SignInOAuth";
 import LogoConnect from "../../Sidebar/Logo";
 
@@ -73,6 +77,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+  const [showPassword, setShowPassword] = React.useState(true);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   // Fonction qui s'exécute lorsque le formulaire est soumis
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -152,8 +163,6 @@ export default function Login() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
-              id="password"
               autoComplete="current-password"
               onChange={handlePasswordChange}
               value={err ? "" : TextField.value}
@@ -161,6 +170,22 @@ export default function Login() {
               helperText={err ? "Erreur : Invalid email or password" : ""}
               variant="outlined"
               style={{ color: err ? "red" : "" }}
+              id="outlined-start-adornment"
+              type={showPassword ? "password" : "text"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
