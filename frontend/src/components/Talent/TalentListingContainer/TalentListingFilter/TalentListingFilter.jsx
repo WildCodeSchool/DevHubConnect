@@ -1,11 +1,17 @@
-import * as React from "react";
+import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
 import TalentSelectRegion from "./TalentSelectRegion/TalentSelectRegion";
 import TalentSelectSkills from "./TalentSelectSkills/TalentSelectSkills";
 import TalentSelectJob from "./TalentSelectJob/TalentSelectJob";
 
-function TalentListingFilter() {
+function TalentListingFilter({
+  currentSelectedJobs,
+  setSelectedJobs,
+  selectedRegions,
+  setSelectedRegions,
+}) {
   return (
     <Box sx={{ mt: 2 }}>
       <Stack
@@ -21,12 +27,32 @@ function TalentListingFilter() {
         spacing={{ xs: 1, sm: 2 }}
         size={{ xs: "100%", sm: "33%", md: "20%" }}
       >
-        <TalentSelectJob />
+        <TalentSelectRegion
+          selectedRegions={selectedRegions}
+          setSelectedRegions={setSelectedRegions}
+        />
+        <TalentSelectJob
+          selectedJobs={currentSelectedJobs}
+          setSelectedJobs={setSelectedJobs}
+        />
         <TalentSelectSkills />
-        <TalentSelectRegion />
       </Stack>
     </Box>
   );
 }
+
+TalentListingFilter.propTypes = {
+  currentSelectedJobs: PropTypes.arrayOf(PropTypes.string),
+  setSelectedJobs: PropTypes.func,
+  selectedRegions: PropTypes.arrayOf(PropTypes.string),
+  setSelectedRegions: PropTypes.func,
+};
+
+TalentListingFilter.defaultProps = {
+  currentSelectedJobs: [],
+  setSelectedJobs: () => {},
+  selectedRegions: [],
+  setSelectedRegions: () => {},
+};
 
 export default TalentListingFilter;

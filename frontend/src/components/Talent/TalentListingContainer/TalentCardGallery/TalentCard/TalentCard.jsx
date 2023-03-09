@@ -54,8 +54,8 @@ TalentCard.propTypes = {
 };
 
 TalentCard.defaultProps = {
-  jobName: "",
   id: 0,
+  jobName: "",
   firstname: "",
   lastname: "",
   biography: "",
