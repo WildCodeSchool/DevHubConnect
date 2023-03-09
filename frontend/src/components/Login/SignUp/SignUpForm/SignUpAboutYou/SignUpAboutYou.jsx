@@ -13,8 +13,14 @@ import { object, string, number } from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
 
 export default function SignUpAboutYou() {
-  const { formValues, setFormValues, activeStep, setActiveStep } =
-    useContext(SignUpContext);
+  const {
+    formValues,
+    setFormValues,
+    activeStep,
+    setActiveStep,
+    setselectedJobId,
+    setselectedRegionId,
+  } = useContext(SignUpContext);
   const { picture, job, experience, region, bio, about, gitHub } = formValues;
 
   const [jobList, setJobList] = useState([]);
@@ -22,7 +28,7 @@ export default function SignUpAboutYou() {
 
   const getJobList = () => {
     axios
-      .get("http://localhost:5000/jobs", {
+      .get("http://localhost:5007/jobs", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -35,7 +41,7 @@ export default function SignUpAboutYou() {
 
   const getRegionList = () => {
     axios
-      .get("http://127.0.0.1:5000/regions", {
+      .get("http://127.0.0.1:5007/regions", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -150,9 +156,15 @@ export default function SignUpAboutYou() {
                     helperText={Boolean(touched.job) && errors.job}
                   >
                     <MenuItem value=""> </MenuItem>
-                    {jobList.map((jobs, index) => {
+                    {jobList.map((jobs) => {
                       return (
-                        <MenuItem value={jobs.job_name} index={index}>
+                        <MenuItem
+                          onClick={() => {
+                            setselectedJobId(jobs.id);
+                          }}
+                          value={jobs.job_name}
+                          key={jobs.id}
+                        >
                           {jobs.job_name}
                         </MenuItem>
                       );
@@ -178,10 +190,10 @@ export default function SignUpAboutYou() {
                   <TextField
                     select
                     name="region"
-                    variant="standard"
-                    color="primary"
                     label="Region"
                     value={region}
+                    variant="standard"
+                    color="primary"
                     onChange={(event) => {
                       setFieldValue("region", event.target.value);
                       setFormValues({
@@ -193,9 +205,15 @@ export default function SignUpAboutYou() {
                     helperText={Boolean(touched.region) && errors.region}
                   >
                     <MenuItem value=""> </MenuItem>
-                    {regionList.map((regions, index) => {
+                    {regionList.map((regions) => {
                       return (
-                        <MenuItem value={regions.region_name} index={index}>
+                        <MenuItem
+                          onClick={() => {
+                            setselectedRegionId(regions.id);
+                          }}
+                          value={regions.region_name}
+                          key={regions.id}
+                        >
                           {regions.region_name}
                         </MenuItem>
                       );
@@ -250,7 +268,6 @@ export default function SignUpAboutYou() {
                 Back
               </Button>
               <Button
-                type="submit"
                 variant="contained"
                 color="primary"
                 disabled={!isValid}

@@ -15,14 +15,20 @@ import { object, array } from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
 
 export default function SignUpSkills() {
-  const { formValues, setFormValues, activeStep, setActiveStep } =
-    useContext(SignUpContext);
+  const {
+    formValues,
+    setFormValues,
+    activeStep,
+    setActiveStep,
+    selectedSkillId,
+    setSelectedSkillId,
+  } = useContext(SignUpContext);
   const { skills } = formValues;
   const [skillList, setSkillList] = useState([]);
 
   const getSkillList = () => {
     axios
-      .get("http://localhost:5000/skills", {
+      .get("http://localhost:5007/skills", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -102,12 +108,25 @@ export default function SignUpSkills() {
                       value={skill.skill_name}
                       label={skill.skill_name}
                       index={index}
+                      key={skill.id}
+                      onClick={() => {
+                        if (selectedSkillId.includes(skill.id)) {
+                          setSelectedSkillId((prevState) =>
+                            prevState.filter((id) => id !== skill.id)
+                          );
+                        } else {
+                          setSelectedSkillId((prevState) => [
+                            ...prevState,
+                            skill.id,
+                          ]);
+                        }
+                      }}
                     />
                   );
                 })}
               </FormGroup>
             </FormControl>
-            <FormHelperText error={Boolean(errors.skills)}>
+            <FormHelperText error={errors.skills}>
               {errors.skills}
             </FormHelperText>
 

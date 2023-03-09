@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import {
   List,
   ListItem,
@@ -18,8 +19,15 @@ import * as Yup from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
 
 export default function SignUpConfirmation() {
-  const { formValues, setFormValues, activeStep, setActiveStep } =
-    useContext(SignUpContext);
+  const {
+    formValues,
+    setFormValues,
+    activeStep,
+    setActiveStep,
+    selectedSkillId,
+    selectedJobId,
+    selectedRegionId,
+  } = useContext(SignUpContext);
   const {
     lastName,
     firstName,
@@ -69,12 +77,33 @@ export default function SignUpConfirmation() {
           "You must accept the terms and conditions to proceed"
         ),
       })}
-      onSubmit={(values) => {
-        console.info("submit values", values);
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        const newUser = {
+          cp: CP,
+          firstName,
+          lastName,
+          email,
+          biography: bio,
+          about,
+          user_image: picture,
+          password,
+          github_page: gitHub,
+          experience,
+          job_id: selectedJobId,
+          region_id: selectedRegionId,
+          skillIds: selectedSkillId,
+        };
+
+        // console.log("axios new user", newUser);
+        axios.post("http://localhost:5007/users", newUser).catch((error) => {
+          console.error(error);
+        });
       }}
     >
-      {({ errors, isValid, touched, values, setFieldValue }) => (
-        <Form>
+      {({ errors, isValid, touched, values, setFieldValue, handleSubmit }) => (
+        <Form onSubmit={handleSubmit}>
           <List disablePadding>
             <ListItem>
               <ListItemText
@@ -104,15 +133,6 @@ export default function SignUpConfirmation() {
               <ListItemText
                 primary="Email"
                 secondary={email || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Password"
-                secondary={password || "Not Provided"}
               />
             </ListItem>
 
@@ -210,7 +230,10 @@ export default function SignUpConfirmation() {
                 }
                 label={
                   <>
-                    I Agree to <a href="/cgu">terms and conditions</a>
+                    I Agree to{" "}
+                    <a href="/cgu" target="_blank">
+                      terms and conditions
+                    </a>
                   </>
                 }
                 error={Boolean(errors.agreement) && Boolean(touched.agreement)}

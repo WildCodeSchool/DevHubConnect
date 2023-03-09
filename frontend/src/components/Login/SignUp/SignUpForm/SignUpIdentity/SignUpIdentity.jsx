@@ -206,7 +206,6 @@ export default function SignUpidentity() {
             </Grid>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                type="submit"
                 variant="contained"
                 color="primary"
                 disabled={!isValid}

@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   hashPassword,
   verifyPassword,
-  // verifyToken,
+  verifyToken,
   verifyId,
 } = require("./auth");
 
@@ -14,10 +14,12 @@ const {
 const userControllers = require("./controllers/userControllers");
 const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
+const skillControllers = require("./controllers/skillControllers");
 
 // ------ GET pour alimenter sign-up -------
 router.get("/regions", regionControllers.browse);
 router.get("/jobs", jobControllers.browse);
+router.get("/skills", skillControllers.browse);
 
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
@@ -27,7 +29,7 @@ router.post(
   verifyPassword
 );
 // authentication wall : verifyToken is activated for each route after this line
-// router.use(verifyToken);
+router.use(verifyToken);
 // ------GET users-------
 router.get("/users", userControllers.browse);
 router.get("/users/:id", userControllers.read);
@@ -73,9 +75,6 @@ router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
-const skillControllers = require("./controllers/skillControllers");
-
-router.get("/skills", skillControllers.browse);
 router.get("/skills/:id", skillControllers.read);
 router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
