@@ -14,8 +14,11 @@ function UserProjectUpComing() {
   const [projects, setProjects] = useState([]);
 
   const getUpgoingProjects = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_upgoing")
+      .get("http://localhost:5007/projects_upgoing", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);

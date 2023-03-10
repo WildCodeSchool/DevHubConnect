@@ -14,8 +14,11 @@ function UserProjectNotSelected() {
   // Appel API Project
 
   const getNotSelectedProjects = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_notselected")
+      .get("http://localhost:5007/projects_notselected", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);

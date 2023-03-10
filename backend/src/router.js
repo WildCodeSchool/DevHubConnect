@@ -67,6 +67,8 @@ router.delete("/user_skills/:id", userSkillControllers.destroy);
 
 const projectControllers = require("./controllers/projectControllers");
 
+// projects
+
 router.get("/projects", projectControllers.browse);
 router.get("/projects/:id", projectControllers.read);
 router.get("/projects_current", projectControllers.filterProjectCurrent);

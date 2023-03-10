@@ -10,14 +10,14 @@ import PropTypes from "prop-types";
 
 export default function UserProjectCard({ projectName, projectDescription }) {
   return (
-    <Card sx={{ display: "flex", flexDirection: "column", mb: 2 }}>
+    <Card sx={{ display: "flex", flexDirection: "column", mb: 4 }}>
       <CardMedia
         component="img"
         // alt= {}
         height="200"
         image="https://picsum.photos/300/200"
       />
-      <CardContent sx={{ width: 250 }}>
+      <CardContent color="primary" sx={{ width: 250 }}>
         <Typography gutterBottom variant="h5" component="div" mb={2}>
           {projectName}
         </Typography>
