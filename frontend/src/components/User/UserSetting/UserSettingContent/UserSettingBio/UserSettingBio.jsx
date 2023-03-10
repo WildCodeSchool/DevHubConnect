@@ -1,59 +1,54 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import PropTypes from "prop-types";
 
-export default function UserSettingBio({ userId }) {
-  const [user, setUser] = useState(null);
-  const [biography, setBio] = useState("");
-
-  const token = localStorage.getItem("token");
+export default function UserSettingBio({ user, setUser }) {
+  const [biography, setBiography] = useState(user.biography);
 
   useEffect(() => {
     async function fetchDataBio() {
       try {
         const response = await axios.get(
-          `http://localhost:5007/users/${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          `http://localhost:5007/users/${user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
-        setUser(response.data);
-        setBio(response.data.biography);
+        setBiography(response.data.biography);
       } catch (error) {
         console.error(error);
-        setUser(null);
       }
     }
     fetchDataBio();
-  }, [userId]);
+  }, [user.id]);
 
   const handleBioChange = (event) => {
-    setBio(event.target.value);
+    const newBio = event.target.value;
+    setBiography(newBio);
+    setUser((prevUser) => ({ ...prevUser, biography: newBio }));
   };
 
   return (
-    <Paper
-      elevation={2}
-      sx={{
-        color: "UserDashboardCard.color",
-        p: 3,
-        backgroundColor: "UserSetting.Background",
-      }}
-    >
+    <Paper elevation={2} sx={{ p: 3 }}>
       <Typography variant="fieldBoxTitle" gutterBottom>
         Ta vie en 140 caractères : sois bref et impactant
       </Typography>
       {user ? (
         <TextField
           fullWidth
-          id="outlined-multiline-static"
-          label="Bio 140 carateres"
+          id="bio-field"
+          label="Bio 140 caractères"
           multiline
-          value={biography}
-          sx={{ mt: 2 }}
           rows={4}
+          variant="outlined"
+          value={biography}
           onChange={handleBioChange}
+          sx={{ mt: 2 }}
         />
       ) : (
         <Typography>Chargement...</Typography>
@@ -63,5 +58,9 @@ export default function UserSettingBio({ userId }) {
 }
 
 UserSettingBio.propTypes = {
-  userId: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    biography: PropTypes.string,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  setUser: PropTypes.func.isRequired,
 };

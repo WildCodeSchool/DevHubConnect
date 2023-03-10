@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
+import bcrypt from "bcryptjs";
 import { Box, Grid, Stack } from "@mui/material";
-import SettingBio from "./UserSettingBio/UserSettingBio";
+import UserSettingBio from "./UserSettingBio/UserSettingBio";
 import UserSettingSkills from "./UserSettingSkills/UserSettingSkills";
 import UserSettingAbout from "./UserSettingAbout/UserSettingAbout";
 import UserSettingField from "./UserSettingField/UserSettingField";
 import UserSettingSaveButton from "./UserSettingSaveButton/UserSettingSaveButton";
 import UserSettingJob from "./UserSettingJob/UserSettingJob";
+import UserSettingUpdatepassword from "./UserSettingUpdatepassword/UserSettingUpdatepassword";
 
-export default function UserSettingContent() {
+function UserSettingContent() {
+  const userId = parseInt(localStorage.getItem("userId"), 10);
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
     CP: "",
     email: "",
+    biography: "",
+    password: "",
+    id: "",
   });
-
-  const [skillListing, setSkillListing] = useState([]);
+  const [userSkillsProp, setUserSkillsProp] = useState(user.userSkillsFilter);
 
   const token = localStorage.getItem("token");
-  const userId = parseInt(localStorage.getItem("userId"), 10);
+  // console.info(user);
 
   const getUser = async () => {
     try {
@@ -35,65 +41,74 @@ export default function UserSettingContent() {
     }
   };
 
-  const getSkills = async () => {
-    try {
-      const response = await axios.get("http://localhost:5007/skills", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setSkillListing(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
     getUser();
-    getSkills();
   }, []);
 
   const handleSaveChanges = async () => {
+    console.info("User au clik : ", user);
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const dataToSend = { ...user, password: hashedPassword };
     try {
-      console.info("userId: ", userId);
-      console.info("user: ", user);
-      console.info("token: ", token);
-
       const response = await axios.put(
         `http://localhost:5007/users/${userId}`,
-        user,
-        { headers: { Authorization: `Bearer ${token}` } }
+        dataToSend,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
       );
-      setUser(response.data);
-      console.info("response.data PUT", response.data);
+      console.info("Response : ", response);
     } catch (error) {
       console.error(error);
-      setUser(null);
     }
   };
+
+  console.info("Rendering UserSettingContent...");
 
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          <Stack direction="column" spacing={2}>
-            <UserSettingField userId={userId} />
-            <SettingBio userId={userId} user={user} setUser={setUser} />
+          <Stack spacing={2}>
+            <UserSettingField user={user} setUser={setUser} />
+            <UserSettingBio userId={userId} user={user} setUser={setUser} />
             <UserSettingAbout userId={userId} user={user} setUser={setUser} />
+            <UserSettingUpdatepassword />
           </Stack>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Stack direction="column" spacing={2}>
+          <Stack spacing={2}>
             <UserSettingJob userId={userId} user={user} setUser={setUser} />
             <UserSettingSkills
-              userId={userId}
-              skillListing={skillListing}
-              setSkillListing={setSkillListing}
+              user={user}
+              setUser={setUser}
+              userSkillsProp={userSkillsProp}
+              setUserSkillsProp={setUserSkillsProp}
             />
           </Stack>
         </Grid>
         <Grid item xs={12} md={12}>
-          <UserSettingSaveButton onClick={handleSaveChanges} />
+          <UserSettingSaveButton
+            onClick={handleSaveChanges}
+            user={user}
+            setUser={setUser}
+          />
         </Grid>
       </Grid>
     </Box>
   );
 }
+
+export default UserSettingContent;
+
+UserSettingBio.propTypes = {
+  userId: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    CP: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    biography: PropTypes.string.isRequired,
+  }).isRequired,
+  setUser: PropTypes.func.isRequired,
+};

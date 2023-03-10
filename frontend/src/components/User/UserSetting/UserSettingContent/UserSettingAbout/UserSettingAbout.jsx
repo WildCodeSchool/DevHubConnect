@@ -5,26 +5,33 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import PropTypes from "prop-types";
 
-export default function UserSettingAbout({ userId }) {
-  const [user, setUser] = useState(null);
-
-  const token = localStorage.getItem("token");
+export default function UserSettingAbout({ user, setUser }) {
+  const [about, setAbout] = useState(user.about);
 
   useEffect(() => {
     async function fetchDataAbout() {
       try {
         const response = await axios.get(
-          `http://localhost:5007/users/${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          `http://localhost:5007/users/${user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
-        setUser(response.data);
+        setAbout(response.data.about);
       } catch (error) {
         console.error(error);
-        setUser(null);
       }
     }
     fetchDataAbout();
-  }, [userId, token]);
+  }, [user.id]);
+
+  const handleAboutChange = (event) => {
+    const newAbout = event.target.value;
+    setAbout(newAbout);
+    setUser((prevUser) => ({ ...prevUser, about: newAbout }));
+  };
 
   return (
     <Paper
@@ -44,9 +51,10 @@ export default function UserSettingAbout({ userId }) {
           id="outlined-multiline-static"
           label="A propos de vous"
           multiline
-          value={user.about}
+          value={about}
           rows={20}
           sx={{ mt: 2 }}
+          onChange={handleAboutChange}
         />
       ) : (
         <Typography>Chargement...</Typography>
@@ -56,5 +64,9 @@ export default function UserSettingAbout({ userId }) {
 }
 
 UserSettingAbout.propTypes = {
-  userId: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    about: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  setUser: PropTypes.func.isRequired,
 };

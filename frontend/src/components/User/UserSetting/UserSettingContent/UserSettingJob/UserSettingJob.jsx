@@ -4,10 +4,9 @@ import {
   Paper,
   OutlinedInput,
   InputLabel,
-  MenuItem,
   FormControl,
-  Select,
   Typography,
+  NativeSelect,
 } from "@mui/material";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -32,50 +31,35 @@ function getStyles(jobId, selectedJob, theme) {
   };
 }
 
-export default function UserSettingJob({ userId }) {
-  const theme = useTheme();
+export default function UserSettingJob({ user, setUser }) {
   const [jobListing, setJobListing] = useState([]);
-  const [user, setUser] = useState(null);
-  const [selectedJob, setSelectedJob] = useState(user?.job_id || "");
-
-  const token = localStorage.getItem("token");
-  const apiUrl = "http://localhost:5007";
+  const [selectedJob, setSelectedJob] = useState(
+    user.job_id ? Number(user.job_id) : ""
+  );
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/jobs`, {
-          headers: { Authorization: `Bearer ${token}` },
+        const response = await axios.get(`http://localhost:5007/jobs`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
         setJobListing(response.data);
-        // console.info("Jobs : ", response.data);
       } catch (error) {
         console.error(error);
       }
     };
     fetchJobs();
-  }, [apiUrl, token]);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/users/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        // console.info("user from UserSettingJob : ", response.data);
-        setUser(response.data);
-        setSelectedJob(response.data.job_id);
-      } catch (error) {
-        console.error(error);
-        setUser(null);
-      }
-    };
-    fetchUser();
-  }, [apiUrl, userId, token]);
+  }, [user.id]);
 
   const handleJobChange = (event) => {
-    setSelectedJob(event.target.value);
+    const newJob = Number(event.target.value); // convertir la valeur en nombre
+    setSelectedJob(newJob);
+    setUser((prevUser) => ({ ...prevUser, job_id: newJob }));
   };
+
+  const theme = useTheme();
 
   return (
     <Paper
@@ -91,29 +75,35 @@ export default function UserSettingJob({ userId }) {
       </Typography>
       <FormControl sx={{ m: 0, mt: 2, width: "100%" }}>
         <InputLabel id="multiple-job-label">Job</InputLabel>
-        <Select
+        <NativeSelect
           labelId="multiple-job-label"
           id="multiple-job"
           value={selectedJob}
           onChange={handleJobChange}
           input={<OutlinedInput label="Choisir" />}
-          MenuProps={MenuProps}
+          selectMenuProps={MenuProps} // remplacer MenuProps par selectMenuProps
+          defaultValue={user?.job_id}
         >
           {jobListing.map((job) => (
-            <MenuItem
+            <option
               key={job.id}
               value={job.id}
               style={getStyles(job.id, selectedJob, theme)}
             >
               {job.job_name}
-            </MenuItem>
+            </option>
           ))}
-        </Select>
+        </NativeSelect>
       </FormControl>
     </Paper>
   );
 }
 
 UserSettingJob.propTypes = {
-  userId: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    job_id: PropTypes.number,
+    // autres propriétés de l'utilisateur
+  }).isRequired,
+  setUser: PropTypes.func.isRequired,
 };

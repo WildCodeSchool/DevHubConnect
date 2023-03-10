@@ -6,37 +6,56 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-export default function UserSettingField({ userId }) {
-  const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    cp: "",
-    email: "",
-  });
-
-  const token = localStorage.getItem("token");
+export default function UserSettingField({ user, setUser }) {
+  const [email, setEmail] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [cp, setCp] = useState("");
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchDataField() {
       try {
         const response = await axios.get(
-          `http://localhost:5007/users/${userId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
+          `http://localhost:5007/users/${user.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
-        setUser(response.data);
+        setEmail(response.data.email);
+        setFirstname(response.data.firstname);
+        setLastName(response.data.lastname);
+        setCp(response.data.cp);
       } catch (error) {
-        setUser(null);
+        console.error(error);
       }
     }
-    fetchData();
-  }, [userId]);
+    fetchDataField();
+  }, [user.id]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUser((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    setUser((prevUser) => ({ ...prevUser, email: newEmail }));
+  };
+
+  const handleFirstnameChange = (event) => {
+    const newFirstname = event.target.value;
+    setFirstname(newFirstname);
+    setUser((prevUser) => ({ ...prevUser, firstname: newFirstname }));
+  };
+
+  const handleLastnameChange = (event) => {
+    const newLastname = event.target.value;
+    setLastName(newLastname);
+    setUser((prevUser) => ({ ...prevUser, firstname: newLastname }));
+  };
+
+  const handleCpChange = (event) => {
+    const newCp = event.target.value;
+    setCp(newCp);
+    setUser((prevUser) => ({ ...prevUser, firstname: newCp }));
   };
 
   return (
@@ -56,27 +75,27 @@ export default function UserSettingField({ userId }) {
               id="firstName"
               name="firstname"
               label="Nom"
-              value={user.firstname}
+              value={firstname}
               sx={{ width: { sm: "100%", md: "33%" } }}
-              onChange={handleChange}
+              onChange={handleFirstnameChange}
             />
             <TextField
               required
               id="lastName"
               name="lastname"
               label="Prénom"
-              value={user.lastname}
+              value={lastname}
               sx={{ width: { sm: "100%", md: "33%" } }}
-              onChange={handleChange}
+              onChange={handleLastnameChange}
             />
             <TextField
               required
               id="CP"
               name="cp"
               label="CP"
-              value={user.cp}
+              value={cp}
               sx={{ width: { sm: "100%", md: "33%" } }}
-              onChange={handleChange}
+              onChange={handleCpChange}
             />
           </Stack>
         ) : (
@@ -90,8 +109,8 @@ export default function UserSettingField({ userId }) {
               id="email"
               name="email"
               label="Email"
-              value={user.email}
-              onChange={handleChange}
+              value={email}
+              onChange={handleEmailChange}
             />
           </Stack>
         ) : null}
@@ -101,5 +120,12 @@ export default function UserSettingField({ userId }) {
 }
 
 UserSettingField.propTypes = {
-  userId: PropTypes.number.isRequired,
+  user: PropTypes.shape({
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
+    email: PropTypes.string,
+    cp: PropTypes.string,
+    id: PropTypes.number,
+  }).isRequired,
+  setUser: PropTypes.func.isRequired,
 };

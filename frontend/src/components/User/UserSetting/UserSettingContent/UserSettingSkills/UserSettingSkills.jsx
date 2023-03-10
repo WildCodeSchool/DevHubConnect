@@ -7,40 +7,42 @@ import {
   Checkbox,
   Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import axios from "axios";
 
-export default function UserSettingSkills() {
+export default function UserSettingSkills({ user, setUser }) {
   const [skillListing, setSkillListing] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
-  const token = localStorage.getItem("token");
-  const userId = parseInt(localStorage.getItem("userId"), 10);
-
-  const fetchSkills = async () => {
-    try {
-      const response = await axios.get("http://localhost:5007/skills", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const sortedSkills = response.data.sort((a, b) => {
-        return a.skill_name.localeCompare(b.skill_name);
-      });
-      setSkillListing(sortedSkills);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const response = await axios.get("http://localhost:5007/skills", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const sortedSkills = response.data.sort((a, b) => {
+          return a.skill_name.localeCompare(b.skill_name);
+        });
+        setSkillListing(sortedSkills);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchSkills();
-  }, []);
+  }, [user.id]);
 
   useEffect(() => {
     const fetchUserSkills = async () => {
       try {
         const response = await axios.get("http://localhost:5007/user_skills", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         });
         const userSkillsFilter = response.data.filter(
-          (userSkill) => userSkill.user_id === userId
+          (userSkill) => userSkill.user_id === user.id
         );
         setUserSkills(userSkillsFilter);
       } catch (error) {
@@ -48,31 +50,52 @@ export default function UserSettingSkills() {
       }
     };
     fetchUserSkills();
-  }, [token, userId]);
+  }, [user.id]);
 
-  const handleChange = (event) => {
+  const handleSkillChange = async (event) => {
     const skillName = event.target.name;
     const isChecked = event.target.checked;
-    const updatedSkillListing = skillListing.map((skill) => {
-      if (skill.skill_name === skillName) {
-        return {
-          ...skill,
-          checked: isChecked,
-        };
+    setUser((prevUser) => ({ ...prevUser, userSkillsFilter: skillName }));
+
+    const skillId = skillListing.find(
+      (skill) => skill.skill_name === skillName
+    ).id;
+
+    if (isChecked) {
+      try {
+        await axios.post(
+          "http://localhost:5007/user_skills",
+          {
+            user_id: user.id,
+            skill_id: skillId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        setUserSkills([...userSkills, { user_id: user.id, skill_id: skillId }]);
+      } catch (error) {
+        console.error(error);
       }
-      return skill;
-    });
-    setSkillListing(updatedSkillListing);
-    const updatedUserSkills = userSkills.map((skill) => {
-      if (skill.skill_name === skillName) {
-        return {
-          ...skill,
-          checked: isChecked,
-        };
+    } else {
+      const userSkillId = userSkills.find(
+        (userSkill) => userSkill.skill_id === skillId
+      ).id;
+      try {
+        await axios.delete(`http://localhost:5007/user_skills/${userSkillId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        setUserSkills(
+          userSkills.filter((userSkill) => userSkill.id !== userSkillId)
+        );
+      } catch (error) {
+        console.error(error);
       }
-      return skill;
-    });
-    setUserSkills(updatedUserSkills);
+    }
   };
 
   return (
@@ -105,7 +128,8 @@ export default function UserSettingSkills() {
                   checked={userSkills.some(
                     (userSkill) => userSkill.skill_id === skill.id
                   )}
-                  onChange={handleChange}
+                  onChange={handleSkillChange}
+                  value={skill.id}
                   name={skill.skill_name}
                 />
               }
@@ -117,3 +141,11 @@ export default function UserSettingSkills() {
     </Paper>
   );
 }
+
+UserSettingSkills.propTypes = {
+  user: PropTypes.shape({
+    skill: PropTypes.string,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  setUser: PropTypes.func.isRequired,
+};
