@@ -10,7 +10,7 @@ function TalentCardGallery() {
 
   const getTalents = () => {
     axios
-      .get("http://localhost:5000/users")
+      .get("http://localhost:5007/users")
       .then((response) => response.data)
       .then((usersData) => {
         setUsers(usersData);
@@ -20,7 +20,7 @@ function TalentCardGallery() {
 
   const getJobs = () => {
     axios
-      .get("http://localhost:5000/jobs")
+      .get("http://localhost:5007/jobs")
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);

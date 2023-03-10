@@ -21,12 +21,10 @@ export default function ProjectListingCard({
   projectEndDate,
   regionName,
 }) {
-  console.info(projectStartDate, "patate");
   const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
   const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
   return (
     <Link href={`/project/${id}`} underline="none">
-      {/* {console.info(id, "id:")} */}
       <Paper elevation={3} p={2}>
         <Box sx={{ width: "100% " }}>
           <Stack

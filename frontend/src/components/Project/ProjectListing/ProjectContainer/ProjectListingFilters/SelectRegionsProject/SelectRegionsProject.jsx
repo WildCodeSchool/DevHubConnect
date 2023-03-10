@@ -24,17 +24,14 @@ const MenuProps = {
 function SelectRegionsProject({
   regions,
   selectedRegions,
-  handleRegionsChange,
+  setSelectedRegions,
+  setSelectedRegionId,
 }) {
-  const [selectRegionsProject, setSelectRegionsProject] =
-    React.useState(selectedRegions);
-
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
-    setSelectRegionsProject(value);
-    handleRegionsChange(value);
+    setSelectedRegions(value);
   };
 
   return (
@@ -45,16 +42,22 @@ function SelectRegionsProject({
           labelId="regions-select-label"
           id="demo-multiple-checkbox"
           multiple
-          value={selectRegionsProject}
+          value={selectedRegions}
           onChange={handleChange}
           input={<OutlinedInput label="Régions" />}
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
           {regions.map((region) => (
-            <MenuItem key={region.region_name} value={region.region_name}>
+            <MenuItem
+              key={region.region_name}
+              value={region.region_name}
+              onClick={() => {
+                setSelectedRegionId(region.id);
+              }}
+            >
               <Checkbox
-                checked={selectRegionsProject.indexOf(region.region_name) > -1}
+                checked={selectedRegions.indexOf(region.region_name) > -1}
               />
               <ListItemText primary={region.region_name} />
             </MenuItem>
@@ -68,13 +71,15 @@ function SelectRegionsProject({
 SelectRegionsProject.propTypes = {
   regions: PropTypes.string,
   selectedRegions: PropTypes.string,
-  handleRegionsChange: PropTypes.func,
+  setSelectedRegions: PropTypes.string,
+  setSelectedRegionId: PropTypes.string,
 };
 
 SelectRegionsProject.defaultProps = {
   regions: "",
   selectedRegions: "",
-  handleRegionsChange: () => {},
+  setSelectedRegions: "",
+  setSelectedRegionId: "",
 };
 
 export default SelectRegionsProject;
