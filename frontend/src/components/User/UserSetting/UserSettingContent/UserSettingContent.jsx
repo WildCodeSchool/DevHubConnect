@@ -20,6 +20,7 @@ function UserSettingContent() {
     email: "",
     biography: "",
     password: "",
+    job_id: "",
     id: "",
   });
   const [userSkillsProp, setUserSkillsProp] = useState(user.userSkillsFilter);
@@ -71,14 +72,14 @@ function UserSettingContent() {
         <Grid item xs={12} md={8}>
           <Stack spacing={2}>
             <UserSettingField user={user} setUser={setUser} />
-            <UserSettingBio userId={userId} user={user} setUser={setUser} />
+            <UserSettingBio user={user} setUser={setUser} />
             <UserSettingAbout userId={userId} user={user} setUser={setUser} />
             <UserSettingUpdatepassword />
           </Stack>
         </Grid>
         <Grid item xs={12} md={4}>
           <Stack spacing={2}>
-            <UserSettingJob userId={userId} user={user} setUser={setUser} />
+            <UserSettingJob user={user} setUser={setUser} />
             <UserSettingSkills
               user={user}
               setUser={setUser}
@@ -104,11 +105,12 @@ export default UserSettingContent;
 UserSettingBio.propTypes = {
   userId: PropTypes.number.isRequired,
   user: PropTypes.shape({
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
-    CP: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    biography: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    CP: PropTypes.string,
+    email: PropTypes.string,
+    biography: PropTypes.string,
+    job_id: PropTypes.number,
   }).isRequired,
-  setUser: PropTypes.func.isRequired,
+  setUser: PropTypes.func,
 };

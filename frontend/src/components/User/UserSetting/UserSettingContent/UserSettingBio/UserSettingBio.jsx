@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 export default function UserSettingBio({ user, setUser }) {
-  const [biography, setBiography] = useState(user.biography);
+  const [biography, setBiography] = useState("");
 
   useEffect(() => {
     async function fetchDataBio() {

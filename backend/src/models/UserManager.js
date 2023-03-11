@@ -9,7 +9,7 @@ class UserManager extends AbstractManager {
 
   insert(user) {
     return this.database.query(
-      `insert into ${this.table} (cp, firstname, lastname, email, biography, about, user_image, hashedPassword, github_page, experience, user_role_id, job_id, region_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (cp, firstname, lastname, email, biography, about, job_id, user_image, hashedPassword, github_page, experience, user_role_id, region_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         user.cp,
         user.firstname,
@@ -17,12 +17,12 @@ class UserManager extends AbstractManager {
         user.email,
         user.biography,
         user.about,
+        user.job_id,
         user.user_image,
         user.hashedPassword,
         user.github_page,
         user.experience,
         user.user_role_id,
-        user.job_id,
         user.region_id,
       ]
     );
@@ -30,7 +30,7 @@ class UserManager extends AbstractManager {
 
   update(user) {
     return this.database.query(
-      `update ${this.table} set cp = ?, firstname = ?, lastname = ?, email = ?, biography = ?, about = ?, user_image = ?, hashedPassword = ?, github_page = ?, experience = ?, user_role_id = ?, job_id = ?, region_id = ? where id = ?`,
+      `update ${this.table} set cp = ?, firstname = ?, lastname = ?, email = ?, biography = ?, about = ?, job_id = ?, user_image = ?, hashedPassword = ?, github_page = ?, experience = ?, user_role_id = ?, region_id = ? where id = ?`,
       [
         user.cp,
         user.firstname,
@@ -38,12 +38,12 @@ class UserManager extends AbstractManager {
         user.email,
         user.biography,
         user.about,
+        user.job_id,
         user.user_image,
         user.hashedPassword,
         user.github_page,
         user.experience,
         user.user_role_id,
-        user.job_id,
         user.region_id,
         user.id,
       ]

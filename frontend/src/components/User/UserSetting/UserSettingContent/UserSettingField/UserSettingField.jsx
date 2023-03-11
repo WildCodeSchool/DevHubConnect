@@ -7,10 +7,10 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
 export default function UserSettingField({ user, setUser }) {
-  const [email, setEmail] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastName] = useState("");
   const [cp, setCp] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     async function fetchDataField() {
@@ -23,22 +23,16 @@ export default function UserSettingField({ user, setUser }) {
             },
           }
         );
-        setEmail(response.data.email);
         setFirstname(response.data.firstname);
         setLastName(response.data.lastname);
         setCp(response.data.cp);
+        setEmail(response.data.email);
       } catch (error) {
         console.error(error);
       }
     }
     fetchDataField();
   }, [user.id]);
-
-  const handleEmailChange = (event) => {
-    const newEmail = event.target.value;
-    setEmail(newEmail);
-    setUser((prevUser) => ({ ...prevUser, email: newEmail }));
-  };
 
   const handleFirstnameChange = (event) => {
     const newFirstname = event.target.value;
@@ -49,14 +43,21 @@ export default function UserSettingField({ user, setUser }) {
   const handleLastnameChange = (event) => {
     const newLastname = event.target.value;
     setLastName(newLastname);
-    setUser((prevUser) => ({ ...prevUser, firstname: newLastname }));
+    setUser((prevUser) => ({ ...prevUser, lastname: newLastname }));
   };
 
   const handleCpChange = (event) => {
     const newCp = event.target.value;
     setCp(newCp);
-    setUser((prevUser) => ({ ...prevUser, firstname: newCp }));
+    setUser((prevUser) => ({ ...prevUser, cp: newCp }));
   };
+
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    setUser((prevUser) => ({ ...prevUser, email: newEmail }));
+  };
+  console.info(user);
 
   return (
     <Paper elevation={2} sx={{ p: 3 }}>
@@ -126,6 +127,7 @@ UserSettingField.propTypes = {
     email: PropTypes.string,
     cp: PropTypes.string,
     id: PropTypes.number,
+    job_id: PropTypes.number,
   }).isRequired,
   setUser: PropTypes.func.isRequired,
 };

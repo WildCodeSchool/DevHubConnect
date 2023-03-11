@@ -34,11 +34,11 @@ function getStyles(jobId, selectedJob, theme) {
 export default function UserSettingJob({ user, setUser }) {
   const [jobListing, setJobListing] = useState([]);
   const [selectedJob, setSelectedJob] = useState(
-    user.job_id ? Number(user.job_id) : ""
+    user.job_id ? Number(user.job_id) : 0
   );
 
   useEffect(() => {
-    const fetchJobs = async () => {
+    async function fetchJobs() {
       try {
         const response = await axios.get(`http://localhost:5007/jobs`, {
           headers: {
@@ -49,7 +49,7 @@ export default function UserSettingJob({ user, setUser }) {
       } catch (error) {
         console.error(error);
       }
-    };
+    }
     fetchJobs();
   }, [user.id]);
 
@@ -103,7 +103,6 @@ UserSettingJob.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     job_id: PropTypes.number,
-    // autres propriétés de l'utilisateur
   }).isRequired,
   setUser: PropTypes.func.isRequired,
 };
