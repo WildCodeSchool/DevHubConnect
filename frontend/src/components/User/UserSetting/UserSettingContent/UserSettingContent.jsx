@@ -73,7 +73,7 @@ function UserSettingContent() {
           <Stack spacing={2}>
             <UserSettingField user={user} setUser={setUser} />
             <UserSettingBio user={user} setUser={setUser} />
-            <UserSettingAbout userId={userId} user={user} setUser={setUser} />
+            <UserSettingAbout user={user} setUser={setUser} />
             <UserSettingUpdatepassword />
           </Stack>
         </Grid>

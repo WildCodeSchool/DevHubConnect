@@ -53,8 +53,13 @@ export default function UserSettingJob({ user, setUser }) {
     fetchJobs();
   }, [user.id]);
 
+  // Nouvel effet pour mettre à jour selectedJob lorsque user.job_id est modifié
+  useEffect(() => {
+    setSelectedJob(user.job_id ? Number(user.job_id) : 0);
+  }, [user.job_id]);
+
   const handleJobChange = (event) => {
-    const newJob = Number(event.target.value); // convertir la valeur en nombre
+    const newJob = Number(event.target.value);
     setSelectedJob(newJob);
     setUser((prevUser) => ({ ...prevUser, job_id: newJob }));
   };
