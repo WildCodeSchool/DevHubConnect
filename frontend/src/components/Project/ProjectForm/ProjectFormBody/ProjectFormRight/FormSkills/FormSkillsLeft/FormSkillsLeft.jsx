@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const FormSkillsLeft = () => {
-  return (
-    <div>FormSkillsLeft</div>
-  )
+function FormSkillsLeft() {
+  return <div>FormSkillsLeft</div>;
 }
 
-export default FormSkillsLeft
+export default FormSkillsLeft;

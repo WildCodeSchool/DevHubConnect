@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const FormSkills = () => {
-  return (
-    <div>FormSkills</div>
-  )
+function FormSkills() {
+  return <div>FormSkills</div>;
 }
 
-export default FormSkills
+export default FormSkills;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const FormRegion = () => {
-  return (
-    <div>FormRegion</div>
-  )
+function FormRegion() {
+  return <div>FormRegion</div>;
 }
 
-export default FormRegion
+export default FormRegion;

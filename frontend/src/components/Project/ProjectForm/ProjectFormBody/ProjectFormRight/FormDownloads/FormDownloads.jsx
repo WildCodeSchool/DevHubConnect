@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const FormDownloads = () => {
-  return (
-    <div>FormDownloads</div>
-  )
+function FormDownloads() {
+  return <div>FormDownloads</div>;
 }
 
-export default FormDownloads
+export default FormDownloads;

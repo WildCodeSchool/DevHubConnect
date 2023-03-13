@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const ProjectFormTexts = () => {
-  return (
-    <div>ProjectFormTexts</div>
-  )
+function ProjectFormTexts() {
+  return <div>ProjectFormTexts</div>;
 }
 
-export default ProjectFormTexts
+export default ProjectFormTexts;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const ProjectFormToggle = () => {
-  return (
-    <div>ProjectFormToggle</div>
-  )
+function ProjectFormToggle() {
+  return <div>ProjectFormToggle</div>;
 }
 
-export default ProjectFormToggle
+export default ProjectFormToggle;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const ProjectFromRight = () => {
-  return (
-    <div>ProjectFromRight</div>
-  )
+function ProjectFromRight() {
+  return <div>ProjectFromRight</div>;
 }
 
-export default ProjectFromRight
+export default ProjectFromRight;

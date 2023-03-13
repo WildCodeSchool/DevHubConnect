@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const ProjectFormBody = () => {
-  return (
-    <div>ProjectFormBody</div>
-  )
+function ProjectFormBody() {
+  return <div>ProjectFormBody</div>;
 }
 
-export default ProjectFormBody
+export default ProjectFormBody;
