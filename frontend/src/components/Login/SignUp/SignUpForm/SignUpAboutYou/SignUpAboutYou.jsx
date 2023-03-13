@@ -41,7 +41,7 @@ export default function SignUpAboutYou() {
 
   const getRegionList = () => {
     axios
-      .get("http://127.0.0.1:5007/regions", {
+      .get("http://localhost:5007/regions", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -60,16 +60,16 @@ export default function SignUpAboutYou() {
   const checkRequiredFields = (values) => {
     const messages = {};
     if (!values.job) {
-      messages.job = "Please select a job";
+      messages.job = "Veuillez sélectionner un poste";
     }
     if (!values.experience) {
-      messages.experience = "Please enter experience";
+      messages.experience = "Veuillez entrer une expérience";
     }
     if (!values.region) {
-      messages.region = "Please select a region";
+      messages.region = "Veuillez sélectionner une région";
     }
     if (!values.bio) {
-      messages.bio = "Please enter your biography";
+      messages.bio = "Veuillez entrer une phrase d'accroche";
     }
     if (!values.about) {
       messages.about = "Please enter your about";
@@ -105,24 +105,36 @@ export default function SignUpAboutYou() {
         validationSchema={object({
           picture: string()
             .url()
-            .max(255, "Picture link should be at most 255 characters"),
-          job: string().required("Please select a job"),
+            .max(
+              255,
+              "Le lien de l'image doit comporter au maximum 255 caractères"
+            ),
+          job: string().required("Veuillez sélectionner un métier"),
           experience: number()
-            .required("Please enter experience")
-            .min(1, "Experience should be at least 1 year")
-            .max(45, "Experience should be at most 45 years"),
-          region: string().required("Please select a region"),
+            .required("Veuillez entrer une expérience")
+            .min(1, "L'expérience doit être d'au moins 1 an")
+            .max(45, "L'expérience doit être d'au plus 45 ans"),
+          region: string().required("Veuillez sélectionner une région"),
           bio: string()
-            .required("Please enter your bio")
-            .min(1, "Bio should not be empty")
-            .max(140, "Bio should be at most 140 characters"),
+            .required("Veuillez entrer une phrase d'accroche")
+            .min(1, "Veuillez entrer une phrase d'accroche")
+            .max(
+              140,
+              "La phrase d'accroche doit comporter au maximum 140 caractères"
+            ),
           about: string()
-            .required("Please enter your about")
-            .min(15, "About should be at least 15 characters")
-            .max(1000, "About should be at most 1000 characters"),
+            .required("Veuillez entrer votre présentation")
+            .min(15, "La présentation doit comporter au moins 15 caractères")
+            .max(
+              1000,
+              "La présentation doit comporter au maximum 1000 caractères"
+            ),
           gitHub: string()
             .url()
-            .max(255, "GitHub link should be at most 255 characters"),
+            .max(
+              255,
+              "Le lien GitHub doit comporter au maximum 255 caractères"
+            ),
         })}
       >
         {({ errors, isValid, touched, setFieldValue, values }) => (
@@ -134,7 +146,7 @@ export default function SignUpAboutYou() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Link to my picture"
+                  label="Lien vers votre photo"
                   error={Boolean(errors.picture) && Boolean(touched.picture)}
                   helperText={Boolean(touched.picture) && errors.picture}
                 />
@@ -143,8 +155,9 @@ export default function SignUpAboutYou() {
                 <FormControl fullWidth>
                   <TextField
                     select
+                    required
                     name="job"
-                    label="Job"
+                    label="votre poste actuel"
                     value={job}
                     variant="standard"
                     color="primary"
@@ -178,7 +191,8 @@ export default function SignUpAboutYou() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Years of Experience"
+                  label="nombre d'années d'expérience"
+                  required
                   error={
                     Boolean(errors.experience) && Boolean(touched.experience)
                   }
@@ -190,8 +204,9 @@ export default function SignUpAboutYou() {
                   <TextField
                     select
                     name="region"
-                    label="Region"
+                    label="Région"
                     value={region}
+                    required
                     variant="standard"
                     color="primary"
                     onChange={(event) => {
@@ -228,7 +243,8 @@ export default function SignUpAboutYou() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="biography"
+                  label="votre phrase d'accroche"
+                  required
                   error={Boolean(errors.bio) && Boolean(touched.bio)}
                   helperText={Boolean(touched.bio) && errors.bio}
                 />
@@ -240,7 +256,8 @@ export default function SignUpAboutYou() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="about"
+                  label="votre expérience en quelques mots"
+                  required
                   error={Boolean(errors.about) && Boolean(touched.about)}
                   helperText={Boolean(touched.about) && errors.about}
                 />
@@ -252,7 +269,7 @@ export default function SignUpAboutYou() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="gitHub"
+                  label="Votre Lien GitHub"
                   error={Boolean(errors.gitHub) && Boolean(touched.gitHub)}
                   helperText={Boolean(touched.gitHub) && errors.gitHub}
                 />

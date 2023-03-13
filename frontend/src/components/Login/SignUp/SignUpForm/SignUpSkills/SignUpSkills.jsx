@@ -46,7 +46,7 @@ export default function SignUpSkills() {
   const checkRequiredFields = () => {
     const messages = {};
     if (skills.length === 0) {
-      messages.skills = "Please select at least 1 skill";
+      messages.skills = "Veuillez sélectionner au moins une compétence";
     }
     return messages;
   };
@@ -71,13 +71,18 @@ export default function SignUpSkills() {
           skills,
         }}
         validationSchema={object({
-          skills: array().min(1, "You should select at least 1 skill"),
+          skills: array().min(
+            1,
+            "Veuillez sélectionner au moins une compétence"
+          ),
         })}
       >
         {({ errors, isValid, touched, values, setFieldValue }) => (
           <Form>
             <FormControl component="fieldset" variant="standard">
-              <FormLabel component="legend">Select your skills</FormLabel>
+              <FormLabel component="legend">
+                Selectionnez vos Compétences
+              </FormLabel>
               <FormGroup
                 sx={{ display: "flex", flexDirection: "row" }}
                 name="skills"

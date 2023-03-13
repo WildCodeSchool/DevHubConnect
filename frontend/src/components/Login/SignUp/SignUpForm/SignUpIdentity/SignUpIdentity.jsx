@@ -22,19 +22,19 @@ export default function SignUpidentity() {
   const checkRequiredFields = (values) => {
     const messages = {};
     if (!values.lastName) {
-      messages.lastName = "Please enter last name";
+      messages.lastName = "Veuillez entrer votre nom de famille";
     }
     if (!values.firstName) {
-      messages.firstName = "Please enter first name";
+      messages.firstName = "Veuillez entrer votre prénom";
     }
     if (!values.CP) {
-      messages.CP = "Please enter CP";
+      messages.CP = "Veuillez entrer votre matricule";
     }
     if (!values.email) {
-      messages.email = "Please enter email";
+      messages.email = "Veuillez entrer votre adresse email";
     }
     if (!values.password) {
-      messages.password = "Please enter password";
+      messages.password = "Veuillez entrer le mot de passe";
     }
     return messages;
   };
@@ -62,36 +62,39 @@ export default function SignUpidentity() {
         validationSchema={yup.object({
           lastName: yup
             .string()
-            .required("Please enter last name")
-            .min(2, "last name too short")
-            .max(60, "last name too long"),
+            .required("Veuillez entrer le nom de famille")
+            .min(2, "Le nom de famille est trop court")
+            .max(60, "Le nom de famille est trop long"),
           firstName: yup
             .string()
-            .required("Please enter first name")
-            .min(2, "first name too short")
-            .max(60, "first name too long"),
+            .required("Veuillez entrer le prénom")
+            .min(2, "Le prénom est trop court")
+            .max(60, "Le prénom est trop long"),
           CP: yup
             .string()
-            .required("Please enter CP")
+            .required("Veuillez entrer votre matricule")
             .matches(
               /^[0-9]{7}[a-zA-Z]{1}$/,
-              "CP should be 7 numbers and 1 letter"
+              "le matricule doit comporter 7 chiffres et une lettre"
             ),
           email: yup
             .string()
-            .required("Please enter email")
-            .email("Invalid email"),
+            .required("Veuillez entrer votre adresse email")
+            .email("Email invalide"),
           password: yup
             .string()
-            .required("Please enter password")
+            .required("Veuillez entrer le mot de passe")
             .matches(
               /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
-              "Password should contain at least one digit and one uppercase letter, and be at least 6 characters long"
+              "Le mot de passe doit contenir au moins un chiffre et une lettre majuscule, et doit comporter au moins 6 caractères"
             ),
           confirmPassword: yup
             .string()
-            .oneOf([yup.ref("password"), null], "Passwords must match")
-            .required("Please confirm password"),
+            .oneOf(
+              [yup.ref("password"), null],
+              "Les mots de passe doivent correspondre"
+            )
+            .required("Veuillez confirmer le mot de passe"),
         })}
       >
         {({ errors, isValid, touched, values }) => (
@@ -104,7 +107,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Last Name"
+                  label="Nom"
+                  required
                   error={Boolean(errors.lastName) && Boolean(touched.lastName)}
                   helperText={Boolean(touched.lastName) && errors.lastName}
                 />
@@ -116,7 +120,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="First Name"
+                  label="Prénom"
+                  required
                   error={
                     Boolean(errors.firstName) && Boolean(touched.firstName)
                   }
@@ -130,7 +135,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="CP"
+                  label="Matricule"
+                  required
                   error={Boolean(errors.CP) && Boolean(touched.CP)}
                   helperText={Boolean(touched.CP) && errors.CP}
                 />
@@ -142,6 +148,7 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   label="Email"
+                  required
                   error={Boolean(errors.email) && Boolean(touched.email)}
                   helperText={Boolean(touched.email) && errors.email}
                 />
@@ -153,7 +160,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Password"
+                  label="Mot de Passe"
+                  required
                   error={Boolean(errors.password) && Boolean(touched.password)}
                   helperText={Boolean(touched.password) && errors.password}
                   InputProps={{
@@ -177,7 +185,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Confirm Password"
+                  label="Confirmez le Mot de Passe"
+                  required
                   error={
                     Boolean(errors.confirmPassword) &&
                     Boolean(touched.confirmPassword)

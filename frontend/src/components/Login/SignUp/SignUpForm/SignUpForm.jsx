@@ -19,7 +19,7 @@ import SignUpCompleted from "./SignUpCompleted/SignUpCompleted";
 
 function StepForm() {
   const theme = createTheme();
-  const labels = ["Identity", "About you", "Skills", "Confirmation"];
+  const labels = ["Identité", "A Propos", "Compétences", "Confirmation"];
   const { activeStep } = useContext(SignUpContext);
   function handleSteps(step) {
     switch (step) {
@@ -47,14 +47,14 @@ function StepForm() {
           <>
             <Box justifyContent="center" style={{ paddingTop: "2rem" }}>
               <Typography component="h1" variant="h2" align="center">
-                User Sign Up
+                Inscription
               </Typography>
               <Typography
                 variant="h5"
                 align="center"
                 style={{ marginTop: "1rem" }}
               >
-                Fill the form to sign up.
+                Remplissez le formulaire pour vous inscrire.
               </Typography>
             </Box>
             <Stepper

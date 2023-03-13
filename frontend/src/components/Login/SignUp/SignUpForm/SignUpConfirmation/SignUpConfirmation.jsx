@@ -45,12 +45,11 @@ export default function SignUpConfirmation() {
     agreement,
   } = formValues;
 
-  // console.log("skills confirmation", selectedSkillId)
   const checkRequiredFields = () => {
     const messages = {};
     if (formValues.agreement === false) {
       messages.agreement =
-        "You must accept the terms and conditions to proceed";
+        "Vous devez accepeter les conditions générales d'utilisation";
     }
     return messages;
   };
@@ -75,35 +74,37 @@ export default function SignUpConfirmation() {
       validationSchema={object({
         agreement: Yup.boolean().oneOf(
           [true],
-          "You must accept the terms and conditions to proceed"
+          "Vous devez accepeter les conditions générales d'utilisation"
         ),
       })}
-      onSubmit={(event) => {
-        event.preventDefault();
+      onSubmit={
+        (/* event */) => {
+          /* event.preventDefault(); */
 
-        const newUser = {
-          cp: CP,
-          firstName,
-          lastName,
-          email,
-          biography: bio,
-          about,
-          user_image: picture,
-          password,
-          github_page: gitHub,
-          experience,
-          job_id: selectedJobId,
-          region_id: selectedRegionId,
-          skillIds: selectedSkillId,
-        };
+          const newUser = {
+            cp: CP,
+            firstname: firstName,
+            lastname: lastName,
+            email,
+            biography: bio,
+            about,
+            user_image: picture,
+            password,
+            github_page: gitHub,
+            experience,
+            user_role_id: 3,
+            job_id: selectedJobId,
+            region_id: selectedRegionId,
+            skillIds: selectedSkillId,
+          };
 
-        // console.log("axios new user", newUser);
-        axios.post("http://localhost:5007/users", newUser).catch((error) => {
-          console.error(error);
-        });
+          axios.post("http://localhost:5007/users", newUser).catch((error) => {
+            console.error(error);
+          });
 
-        handleNext();
-      }}
+          handleNext();
+        }
+      }
     >
       {({ errors, isValid, touched, values, setFieldValue, handleSubmit }) => (
         <Form onSubmit={(event) => handleSubmit(event)}>
@@ -233,9 +234,9 @@ export default function SignUpConfirmation() {
                 }
                 label={
                   <>
-                    I Agree to{" "}
+                    J'accepte les{" "}
                     <a href="/cgu" target="_blank">
-                      terms and conditions
+                      conditions générales d'utilisation
                     </a>
                   </>
                 }

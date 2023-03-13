@@ -8,7 +8,7 @@ function Copyright() {
   return (
     <Typography variant="footer" align="center">
       {"Copyright © "}
-      <MuiLink color="inherit" href="http://127.0.0.1:5173/">
+      <MuiLink color="inherit" href="http://localhost:5173/">
         DevHub Connect
       </MuiLink>{" "}
       {new Date().getFullYear()}.
