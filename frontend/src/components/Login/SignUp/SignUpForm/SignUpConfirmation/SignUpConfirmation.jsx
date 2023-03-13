@@ -45,6 +45,7 @@ export default function SignUpConfirmation() {
     agreement,
   } = formValues;
 
+  // console.log("skills confirmation", selectedSkillId)
   const checkRequiredFields = () => {
     const messages = {};
     if (formValues.agreement === false) {
@@ -100,10 +101,12 @@ export default function SignUpConfirmation() {
         axios.post("http://localhost:5007/users", newUser).catch((error) => {
           console.error(error);
         });
+
+        handleNext();
       }}
     >
       {({ errors, isValid, touched, values, setFieldValue, handleSubmit }) => (
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={(event) => handleSubmit(event)}>
           <List disablePadding>
             <ListItem>
               <ListItemText
@@ -261,7 +264,7 @@ export default function SignUpConfirmation() {
               onClick={
                 isValid
                   ? () => {
-                      handleNext(values);
+                      handleSubmit();
                     }
                   : () => null
               }
