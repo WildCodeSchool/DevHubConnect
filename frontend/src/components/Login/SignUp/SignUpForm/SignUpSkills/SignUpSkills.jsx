@@ -22,7 +22,7 @@ export default function SignUpSkills() {
 
   const getSkillList = () => {
     axios
-      .get("http://localhost:5000/skills", {
+      .get("http://localhost:5007/skills", {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
