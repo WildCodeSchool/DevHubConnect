@@ -170,6 +170,7 @@ function ResponsiveDrawer(props) {
             }}
           >
             <Toolbar />
+            {/* provider pour le contexte utilisé pour le formulaire d'inscription */}
             <SignUpContextProvider>
               <Routes>
                 <Route path="/register" element={<SignUp />} />

@@ -45,6 +45,7 @@ export default function SignUpConfirmation() {
     agreement,
   } = formValues;
 
+  // empêche la validtion tant que les CGU ne sont pas acceptées
   const checkRequiredFields = () => {
     const messages = {};
     if (formValues.agreement === false) {
@@ -54,10 +55,14 @@ export default function SignUpConfirmation() {
     return messages;
   };
 
+  // lors du clic sur precedant enlève 1 à activeStep et stocke les valeurs du formulaire à formValue(dans le contexte)
   const handleBack = (values) => {
     setActiveStep(activeStep - 1);
     setFormValues((prevValues) => ({ ...prevValues, ...values }));
   };
+
+  // lors du clic sur suivant: si tous les champs sont remplis ajoute 1 à activeStep et ajoute les valeurs du formulaire à formValue(dans le contexte)
+
   const handleNext = (values) => {
     const messages = checkRequiredFields(values);
     if (Object.keys(messages).length === 0) {
@@ -66,6 +71,28 @@ export default function SignUpConfirmation() {
     }
   };
 
+  const items = [
+    { primary: "Nom", secondary: lastName || "Non Fourni" },
+    { primary: "Prénom", secondary: firstName || "Non Fourni" },
+    { primary: "Immatriculation", secondary: CP || "Non Fournie" },
+    { primary: "Email", secondary: email || "Non Fourni" },
+    { primary: "Photo", secondary: picture || "Non Fournie" },
+    { primary: "Poste", secondary: job || "Non Fourni" },
+    { primary: "Experience", secondary: experience || "Non Fourni" },
+    { primary: "Region", secondary: region || "Non Fournie" },
+    { primary: "Phrase d'accroche", secondary: bio || "Non Fournie" },
+    { primary: "About", secondary: about || "Non Fourni" },
+    { primary: "Lien GitHub", secondary: gitHub || "Non Fourni" },
+    {
+      primary: "Compétences",
+      secondary:
+        skills.length > 0
+          ? skills.map((skill) => (
+              <Chip key={skill} label={skill} size="small" />
+            ))
+          : "Not provided",
+    },
+  ];
   return (
     <Formik
       initialValues={{
@@ -77,143 +104,44 @@ export default function SignUpConfirmation() {
           "Vous devez accepeter les conditions générales d'utilisation"
         ),
       })}
-      onSubmit={
-        (/* event */) => {
-          /* event.preventDefault(); */
+      onSubmit={() => {
+        // stockage des données du formulaire dans la variable newUser
+        const newUser = {
+          cp: CP,
+          firstname: firstName,
+          lastname: lastName,
+          email,
+          biography: bio,
+          about,
+          user_image: picture,
+          password,
+          github_page: gitHub,
+          experience,
+          user_role_id: 3,
+          job_id: selectedJobId,
+          region_id: selectedRegionId,
+          skillIds: selectedSkillId,
+        };
 
-          const newUser = {
-            cp: CP,
-            firstname: firstName,
-            lastname: lastName,
-            email,
-            biography: bio,
-            about,
-            user_image: picture,
-            password,
-            github_page: gitHub,
-            experience,
-            user_role_id: 3,
-            job_id: selectedJobId,
-            region_id: selectedRegionId,
-            skillIds: selectedSkillId,
-          };
+        // requête POST pour créer un utilisateur dans l'API
+        axios.post("http://localhost:5007/users", newUser).catch((error) => {
+          console.error(error);
+        });
 
-          axios.post("http://localhost:5007/users", newUser).catch((error) => {
-            console.error(error);
-          });
-
-          handleNext();
-        }
-      }
+        handleNext();
+      }}
     >
       {({ errors, isValid, touched, values, setFieldValue, handleSubmit }) => (
         <Form onSubmit={(event) => handleSubmit(event)}>
           <List disablePadding>
-            <ListItem>
-              <ListItemText
-                primary="Last Name"
-                secondary={lastName || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="First Name"
-                secondary={firstName || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText primary="CP" secondary={CP || "Not Provided"} />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Email"
-                secondary={email || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Picture"
-                secondary={picture || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText primary="Job" secondary={job || "Not Provided"} />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Years of Experience"
-                secondary={experience || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Region"
-                secondary={region || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Biography"
-                secondary={bio || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="About"
-                secondary={about || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="GitHub"
-                secondary={gitHub || "Not Provided"}
-              />
-            </ListItem>
-
-            <Divider />
-
-            <ListItem>
-              <ListItemText
-                primary="Skills"
-                secondary={
-                  skills.length > 0
-                    ? skills.map((skill) => (
-                        <Chip key={skill} label={skill} size="small" />
-                      ))
-                    : "Not provided"
-                }
-              />
-            </ListItem>
+            {items.map(({ primary, secondary }, index) => (
+              <React.Fragment index={index}>
+                <ListItem>
+                  <ListItemText primary={primary} secondary={secondary} />
+                </ListItem>
+                <Divider />
+              </React.Fragment>
+            ))}
           </List>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <FormControl>
@@ -248,6 +176,7 @@ export default function SignUpConfirmation() {
               )}
             </FormControl>
           </Box>
+
           <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
             <Button
               sx={{ mr: 1 }}
@@ -255,7 +184,7 @@ export default function SignUpConfirmation() {
                 handleBack(values);
               }}
             >
-              Back
+              Précédent
             </Button>
             <Button
               type="submit"
@@ -270,7 +199,7 @@ export default function SignUpConfirmation() {
                   : () => null
               }
             >
-              Confirm & Continue
+              Confirmer
             </Button>
           </Box>
         </Form>

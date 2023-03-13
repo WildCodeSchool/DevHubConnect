@@ -19,6 +19,7 @@ export default function SignUpidentity() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // empêche la validtion tant que les champs requis ne sont pas remplis
   const checkRequiredFields = (values) => {
     const messages = {};
     if (!values.lastName) {
@@ -39,6 +40,7 @@ export default function SignUpidentity() {
     return messages;
   };
 
+  // lors du clic sur suivant: si tous les champs sont remplis ajoute 1 à activeStep et ajoute les valeurs du formulaire à formValue(dans le contexte)
   const handleNext = (values) => {
     const messages = checkRequiredFields(values);
     if (Object.keys(messages).length === 0) {
@@ -58,7 +60,7 @@ export default function SignUpidentity() {
           email,
           password,
         }}
-        // schéma de validation contenant les contraintes pour chaque valeur
+        // schéma de validation contenant les contraintes pour chaque valeur (utilisation de la bibliotheque yup pour définir les contraintes pour chaque champ)
         validationSchema={yup.object({
           lastName: yup
             .string()
@@ -100,23 +102,29 @@ export default function SignUpidentity() {
         {({ errors, isValid, touched, values }) => (
           <Form>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="lastName"
-                  type="lastName"
-                  as={TextField}
+              <Grid
+                item
+                xs={12}
+                sm={
+                  6
+                } /* nombre de colonnes sur extra petit écran (12) et sur écrans petits à moyen (6) */
+              >
+                <Field // fonction field de formik
+                  name="lastName" // nom du champ correspondant à la propriété de l'objet des valeurs de formulaire dans Formik
+                  type="text" // spécifie le type de données que le champ doit accepter
+                  as={TextField} // as: prop de Formik pour spécifier le rendu. textField composant de Material UI
                   variant="standard"
                   color="primary"
-                  label="Nom"
-                  required
+                  label="Nom" // label à afficher
+                  required // champs obligatoire (MUi)
                   error={Boolean(errors.lastName) && Boolean(touched.lastName)}
-                  helperText={Boolean(touched.lastName) && errors.lastName}
+                  helperText={Boolean(touched.lastName) && errors.lastName} // texte à afficher
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
                   name="firstName"
-                  type="firstName"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -131,7 +139,7 @@ export default function SignUpidentity() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="CP"
-                  type="CP"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -226,7 +234,7 @@ export default function SignUpidentity() {
                     : () => null
                 }
               >
-                Next
+                Suivant
               </Button>
             </Box>
           </Form>

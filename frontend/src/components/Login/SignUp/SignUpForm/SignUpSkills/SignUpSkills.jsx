@@ -26,6 +26,7 @@ export default function SignUpSkills() {
   const { skills } = formValues;
   const [skillList, setSkillList] = useState([]);
 
+  // requête pour récupérer la liste de skills
   const getSkillList = () => {
     axios
       .get("http://localhost:5007/skills", {
@@ -39,10 +40,12 @@ export default function SignUpSkills() {
       });
   };
 
+  // fonction useEffect pour déclencher les requêtes API lors du montage initial du composant
   useEffect(() => {
     getSkillList();
   }, []);
 
+  // empêche la validtion tant qu'aucun skill n'est sélectionné
   const checkRequiredFields = () => {
     const messages = {};
     if (skills.length === 0) {
@@ -51,6 +54,7 @@ export default function SignUpSkills() {
     return messages;
   };
 
+  // lors du clic sur suivant: si tous les champs sont remplis ajoute 1 à activeStep et ajoute les valeurs du formulaire à formValue(dans le contexte)
   const handleNext = (values) => {
     const messages = checkRequiredFields(values);
     if (Object.keys(messages).length === 0) {
@@ -59,6 +63,7 @@ export default function SignUpSkills() {
     }
   };
 
+  // lors du clic sur precedant enlève 1 à activeStep et stocke les valeurs du formulaire à formValue(dans le contexte)
   const handleBack = (values) => {
     setActiveStep(activeStep - 1);
     setFormValues((prevValues) => ({ ...prevValues, ...values }));
@@ -89,7 +94,10 @@ export default function SignUpSkills() {
                 variant="standard"
                 color="primary"
                 onChange={(event) => {
-                  const selectedSkills = values.skills || []; // vérifie que selectedSkills contient toujours un tableau, même si values.skills est null ou undefined
+                  // vérifie que selectedSkills contient toujours un tableau, même si values.skills est null ou undefined
+                  const selectedSkills = values.skills || [];
+                  // si la case est cochée, stocke la valeur dans le tableau selectedSKills
+                  // sinon recherche l'index de la valeur dans le tableau, si son index <-1 la valeur est dans le tableau, retire cette valeur.
                   if (event.target.checked) {
                     selectedSkills.push(event.target.value);
                   } else {
@@ -142,7 +150,7 @@ export default function SignUpSkills() {
                 }}
                 sx={{ mr: 1 }}
               >
-                Back
+                Précédent
               </Button>
               <Button
                 type="submit"
@@ -157,7 +165,7 @@ export default function SignUpSkills() {
                     : () => null
                 }
               >
-                Next
+                Suivant
               </Button>
             </Box>
           </Form>

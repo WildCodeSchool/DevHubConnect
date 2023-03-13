@@ -23,9 +23,11 @@ export default function SignUpAboutYou() {
   } = useContext(SignUpContext);
   const { picture, job, experience, region, bio, about, gitHub } = formValues;
 
+  // hooks d'état initialisés avec des tableaux vide pour stocker les données provenant de l'API
   const [jobList, setJobList] = useState([]);
   const [regionList, setRegionList] = useState([]);
 
+  // requête pour récupérer la liste de jobs
   const getJobList = () => {
     axios
       .get("http://localhost:5007/jobs", {
@@ -39,6 +41,7 @@ export default function SignUpAboutYou() {
       });
   };
 
+  // requête pour récupérer la liste de régions
   const getRegionList = () => {
     axios
       .get("http://localhost:5007/regions", {
@@ -52,11 +55,13 @@ export default function SignUpAboutYou() {
       });
   };
 
+  // fonction useEffect pour déclencher les requêtes API lors du montage initial du composant
   useEffect(() => {
     getJobList();
     getRegionList();
   }, []);
 
+  // empêche la validtion tant que les champs requis ne sont pas remplis
   const checkRequiredFields = (values) => {
     const messages = {};
     if (!values.job) {
@@ -77,6 +82,7 @@ export default function SignUpAboutYou() {
     return messages;
   };
 
+  // lors du clic sur suivant: si tous les champs sont remplis ajoute 1 à activeStep et ajoute les valeurs du formulaire à formValue(dans le contexte)
   const handleNext = (values) => {
     const messages = checkRequiredFields(values);
     if (Object.keys(messages).length === 0) {
@@ -85,6 +91,7 @@ export default function SignUpAboutYou() {
     }
   };
 
+  // lors du clic sur precedant enlève 1 à activeStep et stocke les valeurs du formulaire à formValue(dans le contexte)
   const handleBack = (values) => {
     setActiveStep(activeStep - 1);
     setFormValues((prevValues) => ({ ...prevValues, ...values }));
@@ -94,6 +101,7 @@ export default function SignUpAboutYou() {
     <div>
       <Formik
         initialValues={{
+          // Utilisation de initialValues avec les valeurs stockées dans le state
           picture,
           job,
           experience,
@@ -102,6 +110,7 @@ export default function SignUpAboutYou() {
           about,
           gitHub,
         }}
+        // schéma de validation contenant les contraintes pour chaque valeur (utilisation de la bibliotheque yup pour définir les contraintes pour chaque champ)
         validationSchema={object({
           picture: string()
             .url()
@@ -143,6 +152,7 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="picture"
+                  type="url"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -161,6 +171,9 @@ export default function SignUpAboutYou() {
                     value={job}
                     variant="standard"
                     color="primary"
+                    // fonction appelée lors de la sélection d'une option dans la liste
+                    // utilise setFieldValue de Formik pour MAJ les valeurs du champ dans le formulaire
+                    // utilise setFormValue pour stocker la valeur dans le state (du contexte)
                     onChange={(event) => {
                       setFieldValue("job", event.target.value);
                       setFormValues({ ...formValues, job: event.target.value });
@@ -169,25 +182,30 @@ export default function SignUpAboutYou() {
                     helperText={Boolean(touched.job) && errors.job}
                   >
                     <MenuItem value=""> </MenuItem>
-                    {jobList.map((jobs) => {
-                      return (
-                        <MenuItem
-                          onClick={() => {
-                            setselectedJobId(jobs.id);
-                          }}
-                          value={jobs.job_name}
-                          key={jobs.id}
-                        >
-                          {jobs.job_name}
-                        </MenuItem>
-                      );
-                    })}
+                    {
+                      // affichage de la liste de metier en utilisant le tableau des datas récupérées dans l'API
+                      jobList.map((jobs) => {
+                        return (
+                          <MenuItem
+                            // au clic stockage de l'Id dans le state selectedJobId
+                            onClick={() => {
+                              setselectedJobId(jobs.id);
+                            }}
+                            value={jobs.job_name}
+                            key={jobs.id}
+                          >
+                            {jobs.job_name}
+                          </MenuItem>
+                        );
+                      })
+                    }
                   </TextField>
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
                   name="experience"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -209,6 +227,9 @@ export default function SignUpAboutYou() {
                     required
                     variant="standard"
                     color="primary"
+                    // fonction appelée lors de la sélection d'une option dans la liste
+                    // utilise setFieldValue de Formik pour MAJ les valeurs du champ dans le formulaire
+                    // utilise setFormValue pour stocker la valeur dans le state (du contexte)
                     onChange={(event) => {
                       setFieldValue("region", event.target.value);
                       setFormValues({
@@ -223,6 +244,7 @@ export default function SignUpAboutYou() {
                     {regionList.map((regions) => {
                       return (
                         <MenuItem
+                          // au clic stockage de l'Id dans le state selectedRegionId
                           onClick={() => {
                             setselectedRegionId(regions.id);
                           }}
@@ -239,7 +261,7 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="bio"
-                  type="bio"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -252,7 +274,7 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="about"
-                  type="about"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -265,7 +287,7 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="gitHub"
-                  type="gitHub"
+                  type="url"
                   as={TextField}
                   variant="standard"
                   color="primary"
@@ -282,7 +304,7 @@ export default function SignUpAboutYou() {
                 }}
                 sx={{ mr: 1 }}
               >
-                Back
+                Précédent
               </Button>
               <Button
                 variant="contained"
@@ -296,7 +318,7 @@ export default function SignUpAboutYou() {
                     : () => null
                 }
               >
-                Next
+                Suivant
               </Button>
             </Box>
           </Form>
