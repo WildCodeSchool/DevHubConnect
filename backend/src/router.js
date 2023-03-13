@@ -16,10 +16,12 @@ const {
 const userControllers = require("./controllers/userControllers");
 const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
+const skillControllers = require("./controllers/skillControllers");
 
 // ------ GET pour alimenter sign-up -------
 router.get("/regions", regionControllers.browse);
 router.get("/jobs", jobControllers.browse);
+router.get("/skills", skillControllers.browse);
 
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
@@ -82,15 +84,14 @@ router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
-const skillControllers = require("./controllers/skillControllers");
+// skills
 
-router.get("/skills", skillControllers.browse);
 router.get("/skills/:id", skillControllers.read);
 router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
 router.delete("/skills/:id", skillControllers.destroy);
 
-//  regions
+// regions
 
 router.get("/regions/:id", regionControllers.read);
 router.put("/regions/:id", regionControllers.edit);
