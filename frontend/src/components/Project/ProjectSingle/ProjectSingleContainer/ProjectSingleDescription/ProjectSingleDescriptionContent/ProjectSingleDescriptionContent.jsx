@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
 import PropTypes from "prop-types";
+//  import { format } from "date-fns";
 
 export default function ProjectSingleDescriptionContent({
   projectName,
@@ -17,7 +18,9 @@ export default function ProjectSingleDescriptionContent({
   projectEndDate,
   regionName,
 }) {
-  console.info(skillName, "coucou");
+  //  const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
+  //  const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
+
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}
