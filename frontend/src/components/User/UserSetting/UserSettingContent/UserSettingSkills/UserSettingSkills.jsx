@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 import {
   Paper,
   FormControl,
@@ -7,12 +9,11 @@ import {
   Checkbox,
   Typography,
 } from "@mui/material";
-import PropTypes from "prop-types";
-import axios from "axios";
 
-export default function UserSettingSkills({ user, setUser }) {
+export default function UserSettingSkills({ user, setUserSkillsProp }) {
   const [skillListing, setSkillListing] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
+  const [tempUserSkills, setTempUserSkills] = useState([]);
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -27,7 +28,8 @@ export default function UserSettingSkills({ user, setUser }) {
         });
         setSkillListing(sortedSkills);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch skills: ", error);
+        // display an error message to the user
       }
     };
     fetchSkills();
@@ -44,9 +46,20 @@ export default function UserSettingSkills({ user, setUser }) {
         const userSkillsFilter = response.data.filter(
           (userSkill) => userSkill.user_id === user.id
         );
-        setUserSkills(userSkillsFilter);
+        const userSkillsLocalStorage = JSON.parse(
+          localStorage.getItem(`userSkills-${user.id}`)
+        );
+        setUserSkills((prevUserSkills) => {
+          return userSkillsLocalStorage
+            ? prevUserSkills.filter((usf) =>
+                userSkillsLocalStorage.includes(usf.skill_id)
+              )
+            : userSkillsFilter;
+        });
+        setTempUserSkills(userSkillsFilter);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch user skills: ", error);
+        // display an error message to the user
       }
     };
     fetchUserSkills();
@@ -55,46 +68,24 @@ export default function UserSettingSkills({ user, setUser }) {
   const handleSkillChange = async (event) => {
     const skillName = event.target.name;
     const isChecked = event.target.checked;
-    setUser((prevUser) => ({ ...prevUser, userSkillsFilter: skillName }));
 
-    const skillId = skillListing.find(
+    const skillObj = skillListing.find(
       (skill) => skill.skill_name === skillName
-    ).id;
+    );
+    const skillId = skillObj.id;
 
     if (isChecked) {
-      try {
-        await axios.post(
-          "http://localhost:5007/user_skills",
-          {
-            user_id: user.id,
-            skill_id: skillId,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        setUserSkills([...userSkills, { user_id: user.id, skill_id: skillId }]);
-      } catch (error) {
-        console.error(error);
+      if (!tempUserSkills.includes(skillId)) {
+        const newUserSkills = [...tempUserSkills, skillId];
+        setTempUserSkills(newUserSkills);
+        setUserSkills(newUserSkills);
+        setUserSkillsProp(newUserSkills);
       }
     } else {
-      const userSkillId = userSkills.find(
-        (userSkill) => userSkill.skill_id === skillId
-      ).id;
-      try {
-        await axios.delete(`http://localhost:5007/user_skills/${userSkillId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setUserSkills(
-          userSkills.filter((userSkill) => userSkill.id !== userSkillId)
-        );
-      } catch (error) {
-        console.error(error);
-      }
+      const newUserSkills = tempUserSkills.filter((us) => us !== skillId);
+      setTempUserSkills(newUserSkills);
+      setUserSkills(newUserSkills);
+      setUserSkillsProp(newUserSkills);
     }
   };
 
@@ -120,22 +111,22 @@ export default function UserSettingSkills({ user, setUser }) {
         variant="standard"
       >
         <FormGroup>
-          {skillListing.map((skill) => (
-            <FormControlLabel
-              key={skill.id}
-              control={
-                <Checkbox
-                  checked={userSkills.some(
-                    (userSkill) => userSkill.skill_id === skill.id
-                  )}
-                  onChange={handleSkillChange}
-                  value={skill.id}
-                  name={skill.skill_name}
-                />
-              }
-              label={skill.skill_name}
-            />
-          ))}
+          {skillListing.map((skill) => {
+            return (
+              <FormControlLabel
+                key={skill.id}
+                control={
+                  <Checkbox
+                    checked={userSkills.includes(skill.id)}
+                    onChange={handleSkillChange}
+                    value={skill.id}
+                    name={skill.skill_name}
+                  />
+                }
+                label={skill.skill_name}
+              />
+            );
+          })}
         </FormGroup>
       </FormControl>
     </Paper>
@@ -145,7 +136,7 @@ export default function UserSettingSkills({ user, setUser }) {
 UserSettingSkills.propTypes = {
   user: PropTypes.shape({
     skill: PropTypes.string,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
   }).isRequired,
-  setUser: PropTypes.func.isRequired,
+  setUserSkillsProp: PropTypes.func.isRequired,
 };

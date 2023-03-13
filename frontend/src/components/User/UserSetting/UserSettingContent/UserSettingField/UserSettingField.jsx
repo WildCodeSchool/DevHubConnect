@@ -57,7 +57,7 @@ export default function UserSettingField({ user, setUser }) {
     setEmail(newEmail);
     setUser((prevUser) => ({ ...prevUser, email: newEmail }));
   };
-  console.info(user);
+  // console.info("user : ", user);
 
   return (
     <Paper elevation={2} sx={{ p: 3 }}>

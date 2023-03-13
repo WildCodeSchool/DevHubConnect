@@ -22,11 +22,13 @@ function UserSettingContent() {
     password: "",
     job_id: "",
     id: "",
+    skillIds: [],
   });
-  const [userSkillsProp, setUserSkillsProp] = useState(user.userSkillsFilter);
 
+  const [userSkillsProp, setUserSkillsProp] = useState([]);
+  console.info("userSkillsProp:", userSkillsProp);
   const token = localStorage.getItem("token");
-  // console.info(user);
+  console.info(user);
 
   const getUser = async () => {
     try {
@@ -47,10 +49,16 @@ function UserSettingContent() {
   }, []);
 
   const handleSaveChanges = async () => {
-    console.info("User au clik : ", user);
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    const dataToSend = { ...user, password: hashedPassword };
+    const dataToSend = {
+      ...user,
+      password: hashedPassword,
+      skillIds: userSkillsProp,
+    };
+    console.info("dataToSend : ", dataToSend);
+
     try {
+      // Update user
       const response = await axios.put(
         `http://localhost:5007/users/${userId}`,
         dataToSend,
@@ -59,12 +67,36 @@ function UserSettingContent() {
         }
       );
       console.info("Response : ", response);
+
+      // Update user_skills
+      const initialSkills = userSkillsProp.map((us) => us.skill_id);
+      const skillsToAdd = userSkillsProp.filter(
+        (us) => !initialSkills.includes(us.skill_id)
+      );
+      const skillsToRemove = initialSkills.filter(
+        (is) => !userSkillsProp.some((us) => us.skill_id === is)
+      );
+      console.info("initialSkills = ", initialSkills);
+      console.info("skillsToAdd = ", skillsToAdd);
+      await Promise.all([
+        ...skillsToRemove.map((skill) =>
+          axios.delete(
+            `http://localhost:5007/user_skills/${user.id}/${skill}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          )
+        ),
+        ...skillsToAdd.map((skill) =>
+          axios.post("http://localhost:5007/user_skills", skill.skill_id, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+        ),
+      ]);
     } catch (error) {
       console.error(error);
     }
   };
-
-  console.info("Rendering UserSettingContent...");
 
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
@@ -102,8 +134,7 @@ function UserSettingContent() {
 
 export default UserSettingContent;
 
-UserSettingBio.propTypes = {
-  userId: PropTypes.number.isRequired,
+UserSettingContent.propTypes = {
   user: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
@@ -112,5 +143,4 @@ UserSettingBio.propTypes = {
     biography: PropTypes.string,
     job_id: PropTypes.number,
   }).isRequired,
-  setUser: PropTypes.func,
 };
