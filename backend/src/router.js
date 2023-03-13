@@ -85,12 +85,14 @@ router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
+// skills
+
 router.get("/skills/:id", skillControllers.read);
 router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
 router.delete("/skills/:id", skillControllers.destroy);
 
-//  regions
+// regions
 
 router.get("/regions/:id", regionControllers.read);
 router.put("/regions/:id", regionControllers.edit);
