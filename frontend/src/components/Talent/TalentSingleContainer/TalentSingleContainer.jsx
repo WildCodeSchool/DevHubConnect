@@ -3,7 +3,7 @@ import axios from "axios";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-
+import { useParams } from "react-router-dom";
 import TalentSingleHeader from "./TalentSingleHeader/TalentSingleHeader";
 import TalentSingleSkills from "./TalentSingleSkills/TalentSingleSkills";
 import TalentAbout from "./TalentAbout/TalentAbout";
@@ -16,13 +16,13 @@ function TalentSingleContainer() {
   const [job, setJob] = useState([]);
   const [region, setRegion] = useState([]);
 
-  const userId = 2;
+  const { id } = useParams();
 
   const token = localStorage.getItem("token");
 
   const getUser = () => {
     axios
-      .get(`http://localhost:5007/users/${userId}`, {
+      .get(`http://localhost:5007/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
