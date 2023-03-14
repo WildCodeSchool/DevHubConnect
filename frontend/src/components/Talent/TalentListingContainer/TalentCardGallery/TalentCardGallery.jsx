@@ -94,7 +94,7 @@ function TalentCardGallery({
       .filter((userSkill) => selectedSkillIds.includes(userSkill.skill_id))
       .map((userSkill) => userSkill.user_id);
     console.info(userIdsWithSelectedSkills, "premier filtre");
-    return userIdsWithSelectedSkills.includes(user.user_id);
+    return userIdsWithSelectedSkills.includes(user.id);
   };
 
   useEffect(() => {
