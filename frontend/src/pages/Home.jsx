@@ -20,6 +20,8 @@ const styles = {
 };
 
 export default function Home() {
+  const token = localStorage.getItem("token");
+
   return (
     <Stack spacing={0}>
       <Paper
@@ -60,14 +62,20 @@ export default function Home() {
               expert en développement dès maintenant et lancez votre projet en
               un rien de temps.
             </Typography>
-            <Stack spacing={2} direction="row">
-              <Button variant="contained" href="/register">
-                S'inscrire
+            {!token ? (
+              <Stack spacing={2} direction="row">
+                <Button variant="contained" href="/register">
+                  S'inscrire
+                </Button>
+                <Button variant="outlined" href="/login">
+                  Se connecter
+                </Button>
+              </Stack>
+            ) : (
+              <Button variant="contained" href="/dashboard">
+                Aller au Dashbord
               </Button>
-              <Button variant="outlined" href="/login">
-                Se connecter
-              </Button>
-            </Stack>
+            )}
           </Stack>
         </Container>
       </Paper>
