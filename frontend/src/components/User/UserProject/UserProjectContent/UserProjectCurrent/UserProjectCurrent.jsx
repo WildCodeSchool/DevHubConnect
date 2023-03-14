@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -12,7 +12,7 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectCurrent() {
   const [projects, setProjects] = useState([]);
-  // const [expanded, setExpanded] = useState();
+  const currentProjectsRef = useRef(null);
   const getCurrentProjects = () => {
     const token = localStorage.getItem("token");
     axios
@@ -30,16 +30,13 @@ function UserProjectCurrent() {
     getCurrentProjects();
   }, []);
 
-  // useEffect(() => {
-  //   setExpanded();
-  // }, []);
-
   return (
-    <Accordion defaultExpanded>
+    <Accordion defaultExpanded ref={currentProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        data-type="current"
       >
         <Typography variant="accordionTitle">Projets en cours</Typography>
       </AccordionSummary>

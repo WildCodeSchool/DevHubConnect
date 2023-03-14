@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,6 +10,7 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectNotSelected() {
   const [projects, setProjects] = useState([]);
+  const notselectedProjectsRef = useRef(null);
 
   const getNotSelectedProjects = () => {
     const token = localStorage.getItem("token");
@@ -28,11 +29,12 @@ function UserProjectNotSelected() {
     getNotSelectedProjects();
   }, []);
   return (
-    <Accordion>
+    <Accordion ref={notselectedProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        data-type="notselected"
       >
         <Typography variant="accordionTitle">Projets non retenus</Typography>
       </AccordionSummary>

@@ -8,7 +8,7 @@ import UserProjectNotSelected from "./UserProjectNotSelected/UserProjectNotSelec
 import UserProjectAll from "./UserProjectAll/UserProjectAll";
 
 function UserProjectContent() {
-  const [currentProjectsExpanded, setCurrentProjectsExpanded] = useState(true);
+  const [currentProjectsExpanded, setCurrentProjectsExpanded] = useState(false);
   const [upcomingProjectsExpanded, setUpcomingProjectsExpanded] =
     useState(false);
   const [notselectedProjectsExpanded, setNotselectedProjectsExpanded] =
@@ -48,6 +48,12 @@ function UserProjectContent() {
         setAllProjectsExpanded(false);
         break;
     }
+    const accordions = document.querySelectorAll(".MuiAccordionSummary-root");
+    accordions.forEach((accordion) => {
+      if (accordion.getAttribute("data-type") === type) {
+        accordion.click();
+      }
+    });
   };
 
   return (
@@ -61,6 +67,7 @@ function UserProjectContent() {
             backgroundColor: currentProjectsExpanded ? "#ffcc00" : "",
           }}
           onClick={() => handleProjectsClick("current")}
+          data-type="current"
         >
           Projets en cours
         </Button>
@@ -72,6 +79,7 @@ function UserProjectContent() {
             backgroundColor: upcomingProjectsExpanded ? "#ffcc00" : "",
           }}
           onClick={() => handleProjectsClick("upcoming")}
+          data-type="upcoming"
         >
           Projets à venir
         </Button>
@@ -83,6 +91,7 @@ function UserProjectContent() {
             backgroundColor: notselectedProjectsExpanded ? "#ffcc00" : "",
           }}
           onClick={() => handleProjectsClick("notselected")}
+          data-type="notselected"
         >
           Projets non retenus
         </Button>
@@ -94,6 +103,7 @@ function UserProjectContent() {
             backgroundColor: allProjectsExpanded ? "#ffcc00" : "",
           }}
           onClick={() => handleProjectsClick("all")}
+          data-type="all"
         >
           Tous les projets
         </Button>

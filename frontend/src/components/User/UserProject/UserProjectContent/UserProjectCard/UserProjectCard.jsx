@@ -9,7 +9,7 @@ export default function UserProjectCard({ projectName, projectDescription }) {
     console.info("You clicked the Chip.");
   };
   return (
-    <Link to="/project/:id" underline="none">
+    <Link href={`/project/${projectName.toLowerCase()}`} underline="none">
       <Paper
         elevation={2}
         sx={{

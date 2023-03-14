@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,6 +10,7 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectAll() {
   const [projects, setProjects] = useState([]);
+  const allProjectsRef = useRef(null);
 
   const getAllProjects = () => {
     const token = localStorage.getItem("token");
@@ -28,11 +29,12 @@ function UserProjectAll() {
     getAllProjects();
   }, []);
   return (
-    <Accordion>
+    <Accordion ref={allProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        data-type="all"
       >
         <Typography variant="accordionTitle">Tous les projets</Typography>
       </AccordionSummary>
