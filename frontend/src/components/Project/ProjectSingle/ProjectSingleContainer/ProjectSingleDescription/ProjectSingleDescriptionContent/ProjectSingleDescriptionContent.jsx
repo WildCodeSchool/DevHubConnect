@@ -89,10 +89,10 @@ export default function ProjectSingleDescriptionContent({
           p={2}
         >
           <Typography variant="body1" gutterBottom>
-            {firstname} {lastname}
+            {jobId}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            {jobId}
+            {firstname} {lastname}
           </Typography>
           <Typography variant="body1" gutterBottom>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
@@ -105,7 +105,6 @@ export default function ProjectSingleDescriptionContent({
 
       <Stack
         direction={{ xs: "column", sm: "column", md: "column" }}
-        // display="flex"
         spacing={{ xs: 1, sm: 1, md: 2 }}
         justifyContent="flex-start"
         alignItems="center"
