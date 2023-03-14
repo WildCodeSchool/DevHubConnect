@@ -19,8 +19,10 @@ import SignUpCompleted from "./SignUpCompleted/SignUpCompleted";
 
 function StepForm() {
   const theme = createTheme();
-  const labels = ["Identity", "About you", "Skills", "Confirmation"];
-  const { activeStep } = useContext(SignUpContext);
+  const labels = ["Identité", "A Propos", "Compétences", "Confirmation"];
+  const { activeStep } = useContext(SignUpContext); // récupération depuis le contexte
+
+  // renvoie le composant selon l'étape stockée dans le contexte
   function handleSteps(step) {
     switch (step) {
       case 0:
@@ -41,20 +43,21 @@ function StepForm() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        {/* affiche soit la page de confirmation soit le formulaire(stepper) */}
         {activeStep === labels.length ? (
           <SignUpCompleted />
         ) : (
           <>
             <Box justifyContent="center" style={{ paddingTop: "2rem" }}>
               <Typography component="h1" variant="h2" align="center">
-                User Sign Up
+                Inscription
               </Typography>
               <Typography
                 variant="h5"
                 align="center"
                 style={{ marginTop: "1rem" }}
               >
-                Fill the form to sign up.
+                Remplissez le formulaire pour vous inscrire.
               </Typography>
             </Box>
             <Stepper

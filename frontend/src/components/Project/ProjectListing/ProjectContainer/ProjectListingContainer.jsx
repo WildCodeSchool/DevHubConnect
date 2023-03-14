@@ -13,58 +13,67 @@ function ProjectListingContainer() {
   const [skillListing, setSkillListing] = useState([]);
   const [projectRegionListing, setProjectRegionListing] = useState([]);
   const [selectedRegions, setSelectedRegions] = useState([]);
+  const [selectedRegionId, setSelectedRegionId] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [selectedSkillId, setSelectedSkillId] = useState([]);
+  const [selectedStartDate, setSelectedStartDate] = useState("");
+  const [selectedEndDate, setSelectedEndDate] = useState("");
 
+  const token = localStorage.getItem("token");
   const getProjects = () => {
     axios
-      .get("http://localhost:5007/projects")
+
+      .get("http://localhost:5007/projects", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjectListing(projectsData);
-        console.info(projectsData, "coucou");
       });
   };
 
   const getUsers = () => {
     axios
-      .get("http://localhost:5007/users")
+      .get("http://localhost:5007/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((usersData) => {
         setUserListing(usersData);
-        console.info(usersData);
       });
   };
 
   const getProjectSkill = () => {
     axios
-      .get("http://localhost:5007/project_skills")
+      .get("http://localhost:5007/project_skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((projectsSkillData) => {
         // Utilisation de setProjectSkillListing pour mettre à jour le state projectSkillListing avec les données de l'API
         setProjectSkillListing(projectsSkillData);
-        console.info(projectsSkillData);
       });
   };
 
   const getSkill = () => {
     axios
-      .get("http://localhost:5007/skills")
+      .get("http://localhost:5007/skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((skillData) => {
         // Utilisation de setSkillListing pour mettre à jour le state skillListing avec les données de l'API
         setSkillListing(skillData);
-        console.info(skillData);
       });
   };
   const getRegion = () => {
     axios
-      .get("http://localhost:5007/regions")
+      .get("http://localhost:5007/regions", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((regionData) => {
         setProjectRegionListing(regionData);
-        console.info(regionData);
       });
   };
 
@@ -76,24 +85,6 @@ function ProjectListingContainer() {
     getRegion();
   }, []);
 
-  // const formatDate = (dateString) => {
-  //   const date = new Date(dateString);
-  //   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-  // };
-
-  const handleSelectRegionsChange = (event) => {
-    setSelectedRegions(event.target.value);
-  };
-  const handleSkillsChange = (event) => {
-    setSelectedSkills(event.target.value);
-  };
-  const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
-  };
   return (
     <>
       <Stack
@@ -108,35 +99,48 @@ function ProjectListingContainer() {
         <SelectRegionsProject
           regions={projectRegionListing}
           selectedRegions={selectedRegions}
-          handleRegionChange={handleSelectRegionsChange}
+          setSelectedRegions={setSelectedRegions}
+          selectedRegionId={selectedRegionId}
+          setSelectedRegionId={setSelectedRegionId}
         />
+
         <SelectSkillsProject
           skillName={skillListing}
           skillsProject={projectSkillListing}
-          handleSkillChange={handleSkillsChange}
+          selectedSkills={selectedSkills}
+          setSelectedSkills={setSelectedSkills}
+          selectedSkillId={selectedSkillId}
+          setSelectedSkillId={setSelectedSkillId}
         />
         <SelectDatesProject
-          dates={projectListing.map((project) => project.date)}
-          projectStartDate={startDate}
-          projectEndDate={endDate}
-          handleChangeStartDate={handleStartDateChange}
-          handleChangeEndDate={handleEndDateChange}
+          selectedStartDate={selectedStartDate}
+          setSelectedStartDate={setSelectedStartDate}
+          selectedEndDate={selectedEndDate}
+          setSelectedEndDate={setSelectedEndDate}
         />
       </Stack>
+
       {projectListing
         .filter(
           (project) =>
             (selectedRegions.length === 0 ||
-              selectedRegions.includes(project.region_id)) &&
+              selectedRegionId === project.region_id) &&
             (selectedSkills.length === 0 ||
-              selectedSkills.some((skill) =>
-                project.skills.some(
-                  (projectSkill) => projectSkill.skill.id === skill.id
+              /* eslint-disable-next-line */
+              selectedSkillId.some((selectedSkillId) =>
+                projectSkillListing.some(
+                  (projectSkill) =>
+                    projectSkill.skill_id === selectedSkillId &&
+                    project.id === projectSkill.project_id
                 )
               )) &&
-            (startDate === "" || project.project_start_date >= startDate) &&
-            (endDate === "" || project.project_end_date <= endDate)
+            (!selectedStartDate ||
+              new Date(project.project_start_date) >=
+                new Date(selectedStartDate)) &&
+            (!selectedEndDate ||
+              new Date(project.project_end_date) <= new Date(selectedEndDate))
         )
+
         .map((project) => {
           const projectOwner = userListing.find(
             (user) => user.id === project.owner_id
@@ -171,10 +175,6 @@ function ProjectListingContainer() {
               projectStartDate={project.project_start_date}
               projectEndDate={project.project_end_date}
               regionName={regions}
-              // handleRegionChange={handleSelectRegionsChange}
-              // handleSkillChange={handleSkillsChange}
-              // handleChangeStartDate={handleStartDateChange}
-              // handleChangeEndDate={handleEndDateChange}
             />
           );
         })}

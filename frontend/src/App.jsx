@@ -1,11 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import * as React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  // useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import "./App.css";
 
@@ -18,8 +13,13 @@ import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import { SignUpContextProvider } from "./Contexts/SignUpContext";
+
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import fr from "date-fns/locale/fr";
 import Theme from "./theme/theme";
+
+import { SignUpContextProvider } from "./Contexts/SignUpContext";
 
 import LogoConnect from "./components/Sidebar/Logo";
 import Footer from "./components/Sidebar/Footer";
@@ -171,31 +171,43 @@ function ResponsiveDrawer(props) {
             }}
           >
             <Toolbar />
-            <SignUpContextProvider>
-              <Routes>
-                <Route path="/register" element={<SignUp />} />
-                <Route path="/login" element={<SignIn />} />
-                <Route path="/forgot-password" element={<LostPassword />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/cgu" element={<CGU />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/dashboard" element={<UserDashboard />} />
-                <Route path="/dashboard/my-project" element={<UserProject />} />
-                <Route
-                  path="/dashboard/my-calendar"
-                  element={<UserCalendar />}
-                />
-                <Route path="/dashboard/my-setting" element={<UserSetting />} />
-                <Route path="/project" element={<ProjectListing />} />
-                <Route path="/project/:id" element={<ProjectSingle />} />
-                <Route path="/add-project" element={<ProjectForm />} />
-                <Route path="/calendar" element={<ProjectCalendar />} />
-                <Route path="/talent" element={<TalentListing />} />
-                <Route path="/talent/:id" element={<TalentSingle />} />
-                <Route path="/charte" element={<Charte />} />
-              </Routes>
-            </SignUpContextProvider>
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              adapterLocale={fr}
+            >
+              {/* provider pour le contexte utilisé pour le formulaire d'inscription */}
+              <SignUpContextProvider>
+                <Routes>
+                  <Route path="/register" element={<SignUp />} />
+                  <Route path="/login" element={<SignIn />} />
+                  <Route path="/forgot-password" element={<LostPassword />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/cgu" element={<CGU />} />
+                  <Route path="*" element={<NotFound />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/dashboard" element={<UserDashboard />} />
+                  <Route
+                    path="/dashboard/my-project"
+                    element={<UserProject />}
+                  />
+                  <Route
+                    path="/dashboard/my-calendar"
+                    element={<UserCalendar />}
+                  />
+                  <Route
+                    path="/dashboard/my-setting"
+                    element={<UserSetting />}
+                  />
+                  <Route path="/project" element={<ProjectListing />} />
+                  <Route path="/project/:id" element={<ProjectSingle />} />
+                  <Route path="/add-project" element={<ProjectForm />} />
+                  <Route path="/calendar" element={<ProjectCalendar />} />
+                  <Route path="/talent" element={<TalentListing />} />
+                  <Route path="/talent/:id" element={<TalentSingle />} />
+                  <Route path="/charte" element={<Charte />} />
+                </Routes>
+              </SignUpContextProvider>
+            </LocalizationProvider>
           </Box>
         </Box>
       </ThemeProvider>

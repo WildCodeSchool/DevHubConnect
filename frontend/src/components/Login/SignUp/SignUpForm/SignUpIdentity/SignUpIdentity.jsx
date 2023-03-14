@@ -19,26 +19,28 @@ export default function SignUpidentity() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // empêche la validtion tant que les champs requis ne sont pas remplis
   const checkRequiredFields = (values) => {
     const messages = {};
     if (!values.lastName) {
-      messages.lastName = "Please enter last name";
+      messages.lastName = "Veuillez entrer votre nom de famille";
     }
     if (!values.firstName) {
-      messages.firstName = "Please enter first name";
+      messages.firstName = "Veuillez entrer votre prénom";
     }
     if (!values.CP) {
-      messages.CP = "Please enter CP";
+      messages.CP = "Veuillez entrer votre matricule";
     }
     if (!values.email) {
-      messages.email = "Please enter email";
+      messages.email = "Veuillez entrer votre adresse email";
     }
     if (!values.password) {
-      messages.password = "Please enter password";
+      messages.password = "Veuillez entrer le mot de passe";
     }
     return messages;
   };
 
+  // lors du clic sur suivant: si tous les champs sont remplis ajoute 1 à activeStep et ajoute les valeurs du formulaire à formValue(dans le contexte)
   const handleNext = (values) => {
     const messages = checkRequiredFields(values);
     if (Object.keys(messages).length === 0) {
@@ -58,65 +60,76 @@ export default function SignUpidentity() {
           email,
           password,
         }}
-        // schéma de validation contenant les contraintes pour chaque valeur
+        // schéma de validation contenant les contraintes pour chaque valeur (utilisation de la bibliotheque yup pour définir les contraintes pour chaque champ)
         validationSchema={yup.object({
           lastName: yup
             .string()
-            .required("Please enter last name")
-            .min(2, "last name too short")
-            .max(60, "last name too long"),
+            .required("Veuillez entrer le nom de famille")
+            .min(2, "Le nom de famille est trop court")
+            .max(60, "Le nom de famille est trop long"),
           firstName: yup
             .string()
-            .required("Please enter first name")
-            .min(2, "first name too short")
-            .max(60, "first name too long"),
+            .required("Veuillez entrer le prénom")
+            .min(2, "Le prénom est trop court")
+            .max(60, "Le prénom est trop long"),
           CP: yup
             .string()
-            .required("Please enter CP")
+            .required("Veuillez entrer votre matricule")
             .matches(
               /^[0-9]{7}[a-zA-Z]{1}$/,
-              "CP should be 7 numbers and 1 letter"
+              "le matricule doit comporter 7 chiffres et une lettre"
             ),
           email: yup
             .string()
-            .required("Please enter email")
-            .email("Invalid email"),
+            .required("Veuillez entrer votre adresse email")
+            .email("Email invalide"),
           password: yup
             .string()
-            .required("Please enter password")
+            .required("Veuillez entrer le mot de passe")
             .matches(
               /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
-              "Password should contain at least one digit and one uppercase letter, and be at least 6 characters long"
+              "Le mot de passe doit contenir au moins un chiffre et une lettre majuscule, et doit comporter au moins 6 caractères"
             ),
           confirmPassword: yup
             .string()
-            .oneOf([yup.ref("password"), null], "Passwords must match")
-            .required("Please confirm password"),
+            .oneOf(
+              [yup.ref("password"), null],
+              "Les mots de passe doivent correspondre"
+            )
+            .required("Veuillez confirmer le mot de passe"),
         })}
       >
         {({ errors, isValid, touched, values }) => (
           <Form>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="lastName"
-                  type="lastName"
-                  as={TextField}
+              <Grid
+                item
+                xs={12}
+                sm={
+                  6
+                } /* nombre de colonnes sur extra petit écran (12) et sur écrans petits à moyen (6) */
+              >
+                <Field // fonction field de formik
+                  name="lastName" // nom du champ correspondant à la propriété de l'objet des valeurs de formulaire dans Formik
+                  type="text" // spécifie le type de données que le champ doit accepter
+                  as={TextField} // as: prop de Formik pour spécifier le rendu. textField composant de Material UI
                   variant="standard"
                   color="primary"
-                  label="Last Name"
+                  label="Nom" // label à afficher
+                  required // champs obligatoire (MUi)
                   error={Boolean(errors.lastName) && Boolean(touched.lastName)}
-                  helperText={Boolean(touched.lastName) && errors.lastName}
+                  helperText={Boolean(touched.lastName) && errors.lastName} // texte à afficher
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
                   name="firstName"
-                  type="firstName"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="First Name"
+                  label="Prénom"
+                  required
                   error={
                     Boolean(errors.firstName) && Boolean(touched.firstName)
                   }
@@ -126,11 +139,12 @@ export default function SignUpidentity() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="CP"
-                  type="CP"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="CP"
+                  label="Matricule"
+                  required
                   error={Boolean(errors.CP) && Boolean(touched.CP)}
                   helperText={Boolean(touched.CP) && errors.CP}
                 />
@@ -142,6 +156,7 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   label="Email"
+                  required
                   error={Boolean(errors.email) && Boolean(touched.email)}
                   helperText={Boolean(touched.email) && errors.email}
                 />
@@ -153,7 +168,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Password"
+                  label="Mot de Passe"
+                  required
                   error={Boolean(errors.password) && Boolean(touched.password)}
                   helperText={Boolean(touched.password) && errors.password}
                   InputProps={{
@@ -177,7 +193,8 @@ export default function SignUpidentity() {
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Confirm Password"
+                  label="Confirmez le Mot de Passe"
+                  required
                   error={
                     Boolean(errors.confirmPassword) &&
                     Boolean(touched.confirmPassword)
@@ -206,7 +223,6 @@ export default function SignUpidentity() {
             </Grid>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                type="submit"
                 variant="contained"
                 color="primary"
                 disabled={!isValid}
@@ -218,7 +234,7 @@ export default function SignUpidentity() {
                     : () => null
                 }
               >
-                Next
+                Suivant
               </Button>
             </Box>
           </Form>
