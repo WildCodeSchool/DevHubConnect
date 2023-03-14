@@ -16,7 +16,6 @@ export default function UserSettingSkills({
   setUserSkillsProp,
 }) {
   const [skillListing, setSkillListing] = useState([]);
-  const [userSkills, setUserSkills] = useState([]);
   const [tempUserSkills, setTempUserSkills] = useState([]);
 
   useEffect(() => {
@@ -40,6 +39,7 @@ export default function UserSettingSkills({
   }, [user.id]);
 
   useEffect(() => {
+    console.info(user);
     const fetchUserSkills = async () => {
       try {
         const response = await axios.get("http://localhost:5007/user_skills", {
@@ -50,16 +50,7 @@ export default function UserSettingSkills({
         const userSkillsFilter = response.data.filter(
           (userSkill) => userSkill.user_id === user.id
         );
-        const userSkillsLocalStorage = JSON.parse(
-          localStorage.getItem(`userSkills-${user.id}`)
-        );
-        setUserSkills((prevUserSkills) => {
-          return userSkillsLocalStorage
-            ? prevUserSkills.filter((usf) =>
-                userSkillsLocalStorage.includes(usf.skill_id)
-              )
-            : userSkillsFilter;
-        });
+        setUserSkills(userSkillsFilter);
         setTempUserSkills(userSkillsFilter);
       } catch (error) {
         console.error("Failed to fetch user skills: ", error);
@@ -67,7 +58,7 @@ export default function UserSettingSkills({
       }
     };
     fetchUserSkills();
-  }, [user.id]);
+  }, [user]);
 
   const handleSkillChange = async (event) => {
     const skillName = event.target.name;
@@ -78,25 +69,23 @@ export default function UserSettingSkills({
     );
     const skillId = skillObj.id;
 
+    let newUserSkills;
     if (isChecked) {
-      if (!tempUserSkills.some((us) => us.skill_id === skillId)) {
-        const newUserSkills = [
-          ...tempUserSkills,
-          { user_id: user.id, skill_id: skillId },
-        ];
-        setTempUserSkills(newUserSkills);
-        setUserSkills(newUserSkills);
-        setUserSkillsProp(newUserSkills);
-      }
+      newUserSkills = [
+        ...tempUserSkills,
+        { user_id: user.id, skill_id: skillId },
+      ];
     } else {
-      const newUserSkills = tempUserSkills.filter(
-        (us) => us.skill_id !== skillId
-      );
-      setTempUserSkills(newUserSkills);
-      setUserSkills(newUserSkills);
-      setUserSkillsProp(newUserSkills);
-      setUser((prevUser) => ({ ...prevUser, skillIds: newUserSkills }));
+      newUserSkills = tempUserSkills.filter((us) => us.skill_id !== skillId);
     }
+    setTempUserSkills(newUserSkills);
+    setUserSkillsProp([
+      ...new Set(newUserSkills.map((skill) => skill.skill_id)),
+    ]);
+    setUser((prevUser) => ({
+      ...prevUser,
+      skillIds: [...new Set(newUserSkills.map((skill) => skill.skill_id))],
+    }));
   };
 
   return (
@@ -127,7 +116,9 @@ export default function UserSettingSkills({
                 key={skill.id}
                 control={
                   <Checkbox
-                    checked={userSkills.some((us) => us.skill_id === skill.id)}
+                    checked={tempUserSkills.some(
+                      (us) => us.skill_id === skill.id
+                    )}
                     onChange={handleSkillChange}
                     value={skill.id}
                     name={skill.skill_name}
@@ -148,5 +139,6 @@ UserSettingSkills.propTypes = {
     skill: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
+  setUser: PropTypes.func.isRequired, // Ajoutez cette ligne
   setUserSkillsProp: PropTypes.func.isRequired,
 };

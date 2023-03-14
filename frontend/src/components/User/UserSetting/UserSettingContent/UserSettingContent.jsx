@@ -25,40 +25,28 @@ function UserSettingContent() {
   });
 
   const [userSkillsProp, setUserSkillsProp] = useState([]);
-  console.info("userSkillsProp:", userSkillsProp);
-  const token = localStorage.getItem("token");
-  console.info(user);
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5007/users/${userId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setUser(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5007/users/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     getUser();
   }, []);
 
-  const handleSaveChanges = async () => {
-    console.info("handleSaveChanges called");
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    const dataToSend = {
-      ...user,
-      password: hashedPassword,
-      skillIds: userSkillsProp,
-    };
-    console.info("dataToSend : ", dataToSend);
-
+  const updateUserAndSkills = async (dataToSend) => {
     try {
-      // Update user
       const response = await axios.put(
         `http://localhost:5007/users/${userId}`,
         dataToSend,
@@ -67,36 +55,22 @@ function UserSettingContent() {
         }
       );
       console.info("User update response: ", response);
+    } catch (error) {
+      console.error("Error updating user: ", error);
+    }
+  };
 
-      // Update user_skills
-      const initialSkills = user.skillIds;
-      const skillsToAdd = userSkillsProp.filter(
-        (us) => !initialSkills.includes(us.skill_id)
-      );
-      const skillsToRemove = initialSkills.filter(
-        (is) => !userSkillsProp.some((us) => us.skill_id === is)
-      );
+  const handleSaveChanges = async () => {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const dataToSend = {
+      ...user,
+      password: hashedPassword,
+      skillIds: userSkillsProp,
+    };
 
-      console.info("initialSkills = ", initialSkills);
-      console.info("skillsToAdd = ", skillsToAdd);
-
-      await Promise.all([
-        ...skillsToRemove.map((skill) =>
-          axios.delete(`http://localhost:5007/user_skills/${user.id}`, {
-            headers: { Authorization: `Bearer ${token}` },
-            data: { skill_id: skill },
-          })
-        ),
-        ...skillsToAdd.map((skill) =>
-          axios.post(
-            "http://localhost:5007/user_skills",
-            { user_id: user.id, skill_id: skill.skill_id },
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          )
-        ),
-      ]);
+    try {
+      await updateUserAndSkills(dataToSend);
+      console.info(dataToSend);
     } catch (error) {
       console.error(error);
     }
