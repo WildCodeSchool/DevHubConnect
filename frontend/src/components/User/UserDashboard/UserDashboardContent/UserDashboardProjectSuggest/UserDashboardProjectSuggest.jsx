@@ -1,6 +1,7 @@
 // External dependencies
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Material-UI components
 import {
@@ -21,77 +22,76 @@ export default function UserDashboardProjectSuggest() {
   const [skillListing, setSkillListing] = useState([]);
   const [user, setUser] = useState([]);
 
-  // Définition de la fonction getProjects pour récupérer les projets à partir de l'API REST
-  const getProjects = () => {
-    axios
-      .get("http://localhost:5007/projects", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
-        },
-      })
-      .then((response) => response.data)
-      .then((projectsData) => {
-        // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
-        setProjectListing(projectsData);
-      });
-  };
-
-  const getProjectSkill = () => {
-    axios
-      .get("http://localhost:5007/project_skills", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
-        },
-      })
-      .then((response) => response.data)
-      .then((projectsSkillData) => {
-        // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
-        setProjectSkillListing(projectsSkillData);
-      });
-  };
-
-  const getSkill = () => {
-    axios
-      .get("http://localhost:5007/skills", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
-        },
-      })
-      .then((response) => response.data)
-      .then((skillData) => {
-        // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
-        setSkillListing(skillData);
-      });
-  };
-
-  const getUser = () => {
-    axios
-      .get("http://localhost:5007/users", {
-        headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000", // L'URL de votre front-end
-        },
-      })
-      .then((response) => response.data)
-      .then((userData) => {
-        // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
-        setUser(userData);
-        // console.info(userData);
-      });
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getProjects();
-    getSkill();
-    getProjectSkill();
-    getUser();
+    const token = localStorage.getItem("token");
+    // const userId = parseInt(localStorage.getItem("userId"), 10);
+
+    if (!token) {
+      navigate("/login");
+    } else {
+      // Définition de la fonction getProjects pour récupérer les projets à partir de l'API REST
+      const getProjects = () => {
+        axios
+          .get("http://localhost:5007/projects", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => response.data)
+          .then((projectsData) => {
+            // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
+            setProjectListing(projectsData);
+          });
+      };
+
+      const getProjectSkill = () => {
+        axios
+          .get("http://localhost:5007/project_skills", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => response.data)
+          .then((projectsSkillData) => {
+            // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
+            setProjectSkillListing(projectsSkillData);
+          });
+      };
+
+      const getSkill = () => {
+        axios
+          .get("http://localhost:5007/skills", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => response.data)
+          .then((skillData) => {
+            // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
+            setSkillListing(skillData);
+          });
+      };
+
+      const getUser = () => {
+        axios
+          .get("http://localhost:5007/users", {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((response) => response.data)
+          .then((userData) => {
+            // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
+            setUser(userData);
+            console.info(userData);
+          });
+      };
+
+      getProjects();
+      getSkill();
+      getProjectSkill();
+      getUser();
+    }
   }, []);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
-
-  // Retour du JSX à partir de la fonction UserDashboardProjectSuggest
 
   return (
     <>
@@ -130,10 +130,10 @@ export default function UserDashboardProjectSuggest() {
                   >
                     <Box sx={{ width: "100%" }}>
                       <Stack
-                        spacing={{ sm: 1, md: 2 }}
                         direction="row"
                         justifyContent="space-between"
                         alignItems="flex-start"
+                        spacing={1}
                       >
                         <Stack direction={{ sm: "column", md: "column" }} p={0}>
                           <Typography component="div" variant="h2">
@@ -147,14 +147,17 @@ export default function UserDashboardProjectSuggest() {
                             {formatDate(project.project_end_date)}
                           </Typography>
                         </Stack>
-                        <Avatar
-                          alt={user}
-                          src="https://xsgames.co/randomusers/avatar.php?g=male"
-                        />
+                        <Avatar alt={user.firstname} src={user.user_image} />
                       </Stack>
                     </Box>
                     <Box sx={{ width: 1 }}>
-                      <Typography variant="body1" gutterBottom>
+                      <Typography
+                        variant="body1"
+                        gutterBottom
+                        sx={{
+                          color: "UserDashboardProjectSuggest.color",
+                        }}
+                      >
                         {project.project_description}
                       </Typography>
                     </Box>
