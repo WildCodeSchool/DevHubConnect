@@ -76,6 +76,20 @@ const palette = {
     contrastText: "#fff",
     spacing: [0, 2, 3, 5, 8],
   },
+  UserProjectCard: {
+    main: "#FFF",
+    color: "#82929b",
+    background: "#a8b30a",
+    bghover: "#F3F7CD",
+    border: "#E6A410",
+    InProgress: "#a8b30a",
+    Pending: "#E6A410",
+    Paused: "#827e7f",
+    Completed: "#028B96",
+    Abandoned: "#B90231",
+    contrastText: "#fff",
+    spacing: [0, 2, 3, 5, 8],
+  },
   searhSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (search -> searh)
   myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)
 };
@@ -107,6 +121,13 @@ const typography = {
 
   UserDashboardTitle: {
     fontSize: 20,
+    color: "#5d7280",
+    fontWeight: 300,
+    lineHeight: 0,
+  },
+
+  accordionTitle: {
+    fontSize: 22,
     color: "#5d7280",
     fontWeight: 300,
     lineHeight: 0,

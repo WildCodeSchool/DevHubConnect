@@ -4,7 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import axios from "axios";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
@@ -29,32 +29,28 @@ function UserProjectUpComing() {
   }, []);
 
   return (
-    <Accordion id="UpComing">
+    <Accordion id="current" defaultExpanded>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel2a-content"
-        id="panel2a-header"
+        aria-controls="panel1a-content"
+        id="panel1a-header"
       >
-        <Typography variant="subtitle2">Projets à venir </Typography>
+        <Typography variant="accordionTitle">Projets à venir </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-          width={1000}
-          flexWrap="wrap"
-        >
-          {projects.map((project) => (
-            <UserProjectCard
-              key={project.id}
-              projectName={project.project_name}
-              projectDescription={project.project_description}
-              sx={{ marginLeft: "20px" }}
-            />
-          ))}
-        </Grid>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {projects.map((project) => (
+              <Grid item xs={12} md={6}>
+                <UserProjectCard
+                  key={project.id}
+                  projectName={project.project_name}
+                  projectDescription={project.project_description}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </AccordionDetails>
     </Accordion>
   );

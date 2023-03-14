@@ -1,65 +1,22 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import { Chip } from "@mui/material";
-import { Link } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 function UserProjectHeader() {
-  const handleClick = () => {
-    console.info("You clicked the Header Chip.");
-  };
-
   return (
-    <>
-      <Stack
-        direction={{ xs: "column", sm: "row" }}
-        spacing={{ xs: 1, sm: 2, md: 4 }}
-        p={1}
-      />
-      <Typography gutterBottom variant="h1" component="div">
-        UserProject
-      </Typography>
-      <Typography variant="body2">
-        <Stack direction={{ xs: "column", sm: "row" }} spacing={4} p={2}>
-          <Link to="/dashboard/my-project " style={{ textDecoration: "none" }}>
-            <Chip
-              label="Projets en cours"
-              size="medium"
-              color="primary"
-              onClick={handleClick}
-            />
-          </Link>
-          <Link to="/dashboard/my-project" style={{ textDecoration: "none" }}>
-            <Chip
-              label="Projets à venir"
-              size="medium"
-              color="primary"
-              onClick={handleClick}
-            />
-          </Link>
-          <Link
-            to="/dashboard/my-project id="
-            projets-non-retenus
-            style={{ textDecoration: "none" }}
-          >
-            <Chip
-              label="Projets non retenus"
-              size="medium"
-              color="primary"
-              onClick={handleClick}
-            />
-          </Link>
-          <Link to="/dashboard/my-project" style={{ textDecoration: "none" }}>
-            <Chip
-              label="Tous les projets"
-              size="medium"
-              color="primary"
-              onClick={handleClick}
-            />
-          </Link>
+    <Paper elevation={8} sx={{ mb: 2 }}>
+      <Box sx={{ width: "100%", background: "#FFF", padding: 3 }}>
+        <Stack spacing={2}>
+          <Typography variant="h1">Mes projets</Typography>
+          <Typography variant="subtitle1" gutterBottom>
+            Les projets sur lesquels je travaille actuellement et ceux qui vont
+            suivre
+          </Typography>
         </Stack>
-      </Typography>
-    </>
+      </Box>
+    </Paper>
   );
 }
 
