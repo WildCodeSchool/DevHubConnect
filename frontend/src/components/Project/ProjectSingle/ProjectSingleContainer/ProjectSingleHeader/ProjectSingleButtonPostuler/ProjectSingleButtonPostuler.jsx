@@ -1,4 +1,4 @@
-import * as React from "react";
+/* import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -7,21 +7,25 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function ProjectSingleButtonPostuler({ users, project, onClick }) {
+export default function ProjectSingleButtonPostuler({
+  users,
+  project,
+  onClick,
+}) {
   const [open, setOpen] = React.useState(false);
-const [motivation, setMotivation] = React.useState("");
-  const [candidatureEnvoyee, setCandidatureEnvoyee] =React. useState(false);
+  const [motivation, setMotivation] = React.useState("");
+  const [candidatureEnvoyee, setCandidatureEnvoyee] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
   };
   const handleCandidature = () => {
     // Envoyer un mail de confirmation au user
-    users.forEach((user) => sendConfirmationMail(user.email)); 
+    users.forEach((user) => sendConfirmationMail(user.email));
     // Envoyer un mail de candidature au PO
     sendCandidatureMail(project.poEmail, users);
 
@@ -29,23 +33,23 @@ const [motivation, setMotivation] = React.useState("");
     setCandidatureEnvoyee(true);
   };
   // Vérifier si le postulant a déjà postulé sur ce projet
-const dejaPostule = checkDejaPostule(users.id, project.id);
+  const dejaPostule = checkDejaPostule(users.id, project.id);
 
-return (
-<>
-{dejaPostule ? (
-<div>Vous avez déjà postulé sur ce projet.</div>
-) : (
-<button onClick={handleCandidature}>Envoyer ma candidature</button>
-)}
-{candidatureEnvoyee && (
-<div>Un mail de confirmation vous a été envoyé.</div>
-)}
-</>
-);
+  return (
+    <>
+      {dejaPostule ? (
+        <div>Vous avez déjà postulé sur ce projet.</div>
+      ) : (
+        <button onClick={handleCandidature}>Envoyer ma candidature</button>
+      )}
+      {candidatureEnvoyee && (
+        <div>Un mail de confirmation vous a été envoyé.</div>
+      )}
+    </>
+  );
 }
 // Composant pour la vision du PO sur son projet
-export default function Project({ project }) {
+function Project({ project }) {
   const [users, setUsers] = React.useState(project.users);
   const [retenus, setRetenus] = React.useState(project.retenus);
   const [refuses, setRefuses] = React.useState(project.refuses);
@@ -74,35 +78,34 @@ export default function Project({ project }) {
     setUsers(users.filter((p) => p.id !== user.id));
     // Ajouter le projet à la liste des projets refusés du postulant
     addProjectToRefusedProjects(user.id, project);
-
   };
   const handleClose = () => {
     // Clôturer le projet
     closeProjet(projet.id);
   };
 
-//   return (
+  //   return (
 
-//     projectName = { project_name },
-//     projectDescription = { project_description },
-//     dates = { project_dates },
-//     { users }
-//     < ul >
-//     {
-//       users.map((user) => (
-//         <li key={user.id}>
-//           {user_name}{" "}
-//           <button onClick={() => handleValider(user)}>Valider</button>{" "}
-//           <button onClick={() => handleRefuser(user, "Motif 1")}>
-//             Refuser
-//           </button>
-//         </li>
-//       ))
-//     }
-//  </ul >  
-//   );
-// };
-    const handleSubmit = () => {
+  //     projectName = { project_name },
+  //     projectDescription = { project_description },
+  //     dates = { project_dates },
+  //     { users }
+  //     < ul >
+  //     {
+  //       users.map((user) => (
+  //         <li key={user.id}>
+  //           {user_name}{" "}
+  //           <button onClick={() => handleValider(user)}>Valider</button>{" "}
+  //           <button onClick={() => handleRefuser(user, "Motif 1")}>
+  //             Refuser
+  //           </button>
+  //         </li>
+  //       ))
+  //     }
+  //  </ul >
+  //   );
+  // };
+  const handleSubmit = () => {
     // Logique d'envoi de mail de confirmation au candidat et d'un mail de candidature au PO
     setCandidatureEnvoyee(true);
     handleClose();
@@ -114,13 +117,12 @@ export default function Project({ project }) {
           Vous avez déjà postulé sur ce projet
         </Button>
       );
-    } else {
-      return (
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
-          Envoyer ma candidature
-        </Button>
-      );
     }
+    return (
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        Envoyer ma candidature
+      </Button>
+    );
   };
 
   return (
@@ -150,4 +152,4 @@ export default function Project({ project }) {
       </Dialog>
     </div>
   );
-}
+} */

@@ -10,8 +10,8 @@ function ProjectSingleContainer() {
   const { id } = useParams();
 
   const [projectSingleListing, setProjectSingleListing] = useState([]);
-  const [userSingleListing, setUserSingleListing] = useState([]);
-  const [jobSingleListing, setjobSingleListing] = useState([]);
+  const [setUserSingleListing] = useState([]);
+  const [setjobSingleListing] = useState([]);
   const [projectSingleSkillListing, setProjectSingleSkillListing] = useState(
     []
   );
@@ -113,19 +113,19 @@ function ProjectSingleContainer() {
 
   //  const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
   //   }
-  const userProjectNames = userSingleListing
-    .filter((user) => user.job === "Product Owner")
-    .map((user) => {
-      const userProjects = projectSingleListing.filter(
-        (project) => project.creator_id === user.id
-      );
+  // const userProjectNames = userSingleListing
+  //   .filter((user) => user.job === "Product Owner")
+  //   .map((user) => {
+  //     const userProjects = projectSingleListing.filter(
+  //       (project) => project.creator_id === user.id
+  //     );
 
-      return {
-        firstname: `${user.firstName} `,
-        lastname: `${user.lastName}`,
-        biographie: `${user.bio}`,
-      };
-    });
+  //     return {
+  //       firstname: `${user.firstName} `,
+  //       lastname: `${user.lastName}`,
+  //       biographie: `${user.bio}`,
+  //     };
+  //   });
 
   // Création d'un tableau de compétences pour chaque projet
   const skills = projectSingleSkillListing
