@@ -97,6 +97,7 @@ export default function UserDashboardProjectSuggest() {
     <>
       {projectListing.slice(-5).map((project) => {
         console.info("project", project);
+
         return (
           <Box sx={{ width: "100%" }}>
             <Paper
@@ -152,6 +153,10 @@ export default function UserDashboardProjectSuggest() {
                           alt={user.firstname}
                           src={`../../../../../assets/projects-img/${project.project_image}`}
                         />
+                        {console.info(
+                          "project.project_image : ",
+                          `../../../../../assets/projects-img/${project.project_image}`
+                        )}
                       </Stack>
                     </Box>
                     <Box sx={{ width: 1 }}>
