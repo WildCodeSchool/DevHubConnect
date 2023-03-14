@@ -151,12 +151,9 @@ export default function UserDashboardProjectSuggest() {
                         </Stack>
                         <Avatar
                           alt={user.firstname}
-                          src={`../../../../../assets/projects-img/${project.project_image}`}
+                          src={`../../../../../src/assets/projects-img/${project.project_image}`}
+                          sx={{ width: 50, height: 50 }}
                         />
-                        {console.info(
-                          "project.project_image : ",
-                          `../../../../../assets/projects-img/${project.project_image}`
-                        )}
                       </Stack>
                     </Box>
                     <Box sx={{ width: 1 }}>
@@ -165,6 +162,7 @@ export default function UserDashboardProjectSuggest() {
                         gutterBottom
                         sx={{
                           color: "UserDashboardProjectSuggest.color",
+                          width: "100%",
                         }}
                       >
                         {project.project_description}
