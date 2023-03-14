@@ -37,9 +37,21 @@ function UserProjectHeader() {
               onClick={handleClick}
             />
           </Link>
-          <Link to="/dashboard/my-project" style={{ textDecoration: "none" }}>
+          <Link
+            to="/dashboard/my-project id="
+            projets-non-retenus
+            style={{ textDecoration: "none" }}
+          >
             <Chip
               label="Projets non retenus"
+              size="medium"
+              color="primary"
+              onClick={handleClick}
+            />
+          </Link>
+          <Link to="/dashboard/my-project" style={{ textDecoration: "none" }}>
+            <Chip
+              label="Tous les projets"
               size="medium"
               color="primary"
               onClick={handleClick}

@@ -34,7 +34,7 @@ export default function UserProjectCard({ projectName, projectDescription }) {
       />
       <CardContent color="primary" sx={{ width: 220 }}>
         <CardActions>
-          <Link to="/project">
+          <Link to="/project/:id">
             <Chip
               label="+ d'infos"
               onClick={handleClick}
