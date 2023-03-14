@@ -13,13 +13,21 @@ import { object, string, number } from "yup";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
 
 export default function SignUpAboutYou() {
-  const { formValues, setFormValues, activeStep, setActiveStep } =
-    useContext(SignUpContext);
+  const {
+    formValues,
+    setFormValues,
+    activeStep,
+    setActiveStep,
+    setselectedJobId,
+    setselectedRegionId,
+  } = useContext(SignUpContext);
   const { picture, job, experience, region, bio, about, gitHub } = formValues;
 
+  // hooks d'état initialisés avec des tableaux vide pour stocker les données provenant de l'API
   const [jobList, setJobList] = useState([]);
   const [regionList, setRegionList] = useState([]);
 
+  // requête pour récupérer la liste de jobs
   const getJobList = () => {
     axios
       .get("http://localhost:5007/jobs", {
@@ -33,9 +41,11 @@ export default function SignUpAboutYou() {
       });
   };
 
+  // requête pour récupérer la liste de régions
   const getRegionList = () => {
     axios
-      .get("http://127.0.0.1:5007/regions", {
+      .get("http://localhost:5007/regions", {
+
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
@@ -46,24 +56,26 @@ export default function SignUpAboutYou() {
       });
   };
 
+  // fonction useEffect pour déclencher les requêtes API lors du montage initial du composant
   useEffect(() => {
     getJobList();
     getRegionList();
   }, []);
 
+  // empêche la validtion tant que les champs requis ne sont pas remplis
   const checkRequiredFields = (values) => {
     const messages = {};
     if (!values.job) {
-      messages.job = "Please select a job";
+      messages.job = "Veuillez sélectionner un poste";
     }
     if (!values.experience) {
-      messages.experience = "Please enter experience";
+      messages.experience = "Veuillez entrer une expérience";
     }
     if (!values.region) {
-      messages.region = "Please select a region";
+      messages.region = "Veuillez sélectionner une région";
     }
     if (!values.bio) {
-      messages.bio = "Please enter your biography";
+      messages.bio = "Veuillez entrer une phrase d'accroche";
     }
     if (!values.about) {
       messages.about = "Please enter your about";
@@ -71,6 +83,7 @@ export default function SignUpAboutYou() {
     return messages;
   };
 
+  // lors du clic sur suivant: si tous les champs sont remplis ajoute 1 à activeStep et ajoute les valeurs du formulaire à formValue(dans le contexte)
   const handleNext = (values) => {
     const messages = checkRequiredFields(values);
     if (Object.keys(messages).length === 0) {
@@ -79,6 +92,7 @@ export default function SignUpAboutYou() {
     }
   };
 
+  // lors du clic sur precedant enlève 1 à activeStep et stocke les valeurs du formulaire à formValue(dans le contexte)
   const handleBack = (values) => {
     setActiveStep(activeStep - 1);
     setFormValues((prevValues) => ({ ...prevValues, ...values }));
@@ -88,6 +102,7 @@ export default function SignUpAboutYou() {
     <div>
       <Formik
         initialValues={{
+          // Utilisation de initialValues avec les valeurs stockées dans le state
           picture,
           job,
           experience,
@@ -96,27 +111,40 @@ export default function SignUpAboutYou() {
           about,
           gitHub,
         }}
+        // schéma de validation contenant les contraintes pour chaque valeur (utilisation de la bibliotheque yup pour définir les contraintes pour chaque champ)
         validationSchema={object({
           picture: string()
             .url()
-            .max(255, "Picture link should be at most 255 characters"),
-          job: string().required("Please select a job"),
+            .max(
+              255,
+              "Le lien de l'image doit comporter au maximum 255 caractères"
+            ),
+          job: string().required("Veuillez sélectionner un métier"),
           experience: number()
-            .required("Please enter experience")
-            .min(1, "Experience should be at least 1 year")
-            .max(45, "Experience should be at most 45 years"),
-          region: string().required("Please select a region"),
+            .required("Veuillez entrer une expérience")
+            .min(1, "L'expérience doit être d'au moins 1 an")
+            .max(45, "L'expérience doit être d'au plus 45 ans"),
+          region: string().required("Veuillez sélectionner une région"),
           bio: string()
-            .required("Please enter your bio")
-            .min(1, "Bio should not be empty")
-            .max(140, "Bio should be at most 140 characters"),
+            .required("Veuillez entrer une phrase d'accroche")
+            .min(1, "Veuillez entrer une phrase d'accroche")
+            .max(
+              140,
+              "La phrase d'accroche doit comporter au maximum 140 caractères"
+            ),
           about: string()
-            .required("Please enter your about")
-            .min(15, "About should be at least 15 characters")
-            .max(1000, "About should be at most 1000 characters"),
+            .required("Veuillez entrer votre présentation")
+            .min(15, "La présentation doit comporter au moins 15 caractères")
+            .max(
+              1000,
+              "La présentation doit comporter au maximum 1000 caractères"
+            ),
           gitHub: string()
             .url()
-            .max(255, "GitHub link should be at most 255 characters"),
+            .max(
+              255,
+              "Le lien GitHub doit comporter au maximum 255 caractères"
+            ),
         })}
       >
         {({ errors, isValid, touched, setFieldValue, values }) => (
@@ -125,10 +153,11 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="picture"
+                  type="url"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Link to my picture"
+                  label="Lien vers votre photo"
                   error={Boolean(errors.picture) && Boolean(touched.picture)}
                   helperText={Boolean(touched.picture) && errors.picture}
                 />
@@ -137,11 +166,15 @@ export default function SignUpAboutYou() {
                 <FormControl fullWidth>
                   <TextField
                     select
+                    required
                     name="job"
-                    label="Job"
+                    label="votre poste actuel"
                     value={job}
                     variant="standard"
                     color="primary"
+                    // fonction appelée lors de la sélection d'une option dans la liste
+                    // utilise setFieldValue de Formik pour MAJ les valeurs du champ dans le formulaire
+                    // utilise setFormValue pour stocker la valeur dans le state (du contexte)
                     onChange={(event) => {
                       setFieldValue("job", event.target.value);
                       setFormValues({ ...formValues, job: event.target.value });
@@ -150,23 +183,35 @@ export default function SignUpAboutYou() {
                     helperText={Boolean(touched.job) && errors.job}
                   >
                     <MenuItem value=""> </MenuItem>
-                    {jobList.map((jobs, index) => {
-                      return (
-                        <MenuItem value={jobs.job_name} index={index}>
-                          {jobs.job_name}
-                        </MenuItem>
-                      );
-                    })}
+                    {
+                      // affichage de la liste de metier en utilisant le tableau des datas récupérées dans l'API
+                      jobList.map((jobs) => {
+                        return (
+                          <MenuItem
+                            // au clic stockage de l'Id dans le state selectedJobId
+                            onClick={() => {
+                              setselectedJobId(jobs.id);
+                            }}
+                            value={jobs.job_name}
+                            key={jobs.id}
+                          >
+                            {jobs.job_name}
+                          </MenuItem>
+                        );
+                      })
+                    }
                   </TextField>
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
                   name="experience"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="Years of Experience"
+                  label="nombre d'années d'expérience"
+                  required
                   error={
                     Boolean(errors.experience) && Boolean(touched.experience)
                   }
@@ -178,10 +223,14 @@ export default function SignUpAboutYou() {
                   <TextField
                     select
                     name="region"
+                    label="Région"
+                    value={region}
+                    required
                     variant="standard"
                     color="primary"
-                    label="Region"
-                    value={region}
+                    // fonction appelée lors de la sélection d'une option dans la liste
+                    // utilise setFieldValue de Formik pour MAJ les valeurs du champ dans le formulaire
+                    // utilise setFormValue pour stocker la valeur dans le state (du contexte)
                     onChange={(event) => {
                       setFieldValue("region", event.target.value);
                       setFormValues({
@@ -193,9 +242,16 @@ export default function SignUpAboutYou() {
                     helperText={Boolean(touched.region) && errors.region}
                   >
                     <MenuItem value=""> </MenuItem>
-                    {regionList.map((regions, index) => {
+                    {regionList.map((regions) => {
                       return (
-                        <MenuItem value={regions.region_name} index={index}>
+                        <MenuItem
+                          // au clic stockage de l'Id dans le state selectedRegionId
+                          onClick={() => {
+                            setselectedRegionId(regions.id);
+                          }}
+                          value={regions.region_name}
+                          key={regions.id}
+                        >
                           {regions.region_name}
                         </MenuItem>
                       );
@@ -206,11 +262,12 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="bio"
-                  type="bio"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="biography"
+                  label="votre phrase d'accroche"
+                  required
                   error={Boolean(errors.bio) && Boolean(touched.bio)}
                   helperText={Boolean(touched.bio) && errors.bio}
                 />
@@ -218,11 +275,12 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="about"
-                  type="about"
+                  type="text"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="about"
+                  label="votre expérience en quelques mots"
+                  required
                   error={Boolean(errors.about) && Boolean(touched.about)}
                   helperText={Boolean(touched.about) && errors.about}
                 />
@@ -230,11 +288,11 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="gitHub"
-                  type="gitHub"
+                  type="url"
                   as={TextField}
                   variant="standard"
                   color="primary"
-                  label="gitHub"
+                  label="Votre Lien GitHub"
                   error={Boolean(errors.gitHub) && Boolean(touched.gitHub)}
                   helperText={Boolean(touched.gitHub) && errors.gitHub}
                 />
@@ -247,10 +305,9 @@ export default function SignUpAboutYou() {
                 }}
                 sx={{ mr: 1 }}
               >
-                Back
+                Précédent
               </Button>
               <Button
-                type="submit"
                 variant="contained"
                 color="primary"
                 disabled={!isValid}
@@ -262,7 +319,7 @@ export default function SignUpAboutYou() {
                     : () => null
                 }
               >
-                Next
+                Suivant
               </Button>
             </Box>
           </Form>

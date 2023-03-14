@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable camelcase */
-/* eslint-disable no-restricted-syntax */
 const models = require("../models");
 
 const browse = (req, res) => {

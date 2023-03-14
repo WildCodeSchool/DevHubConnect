@@ -21,15 +21,19 @@ const MenuProps = {
   },
 };
 
-function SelectSkillsProject({ skillName, skillsProject, handleSkillsChange }) {
-  const [selectedSkills, setSelectedSkills] = React.useState(skillsProject);
-
+function SelectSkillsProject({
+  skillName,
+  handleSkillsChange,
+  selectedSkills,
+  setSelectedSkills,
+  selectedSkillId,
+  setSelectedSkillId,
+}) {
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedSkills(value);
-    handleSkillsChange(value);
+    const { value } = event.target;
+
+    setSelectedSkills(typeof value === "string" ? value.split(",") : value);
+    handleSkillsChange(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
@@ -46,12 +50,25 @@ function SelectSkillsProject({ skillName, skillsProject, handleSkillsChange }) {
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {skillName.map((skill) => (
-            <MenuItem key={skill.id} value={skill.skill_name}>
+          {skillName.map((skill, index) => (
+            <MenuItem
+              key={skill.id}
+              value={skill.skill_name}
+              onClick={() => {
+                if (selectedSkillId.includes(skill.id)) {
+                  setSelectedSkillId((prevState) =>
+                    prevState.filter((id) => id !== skill.id)
+                  );
+                } else {
+                  setSelectedSkillId((prevState) => [...prevState, skill.id]);
+                }
+              }}
+            >
               <Checkbox
                 checked={selectedSkills.indexOf(skill.skill_name) > -1}
               />
-              <ListItemText primary={skill.skill_name} />
+
+              <ListItemText primary={skill.skill_name} index={index} />
             </MenuItem>
           ))}
         </Select>
@@ -62,13 +79,22 @@ function SelectSkillsProject({ skillName, skillsProject, handleSkillsChange }) {
 
 SelectSkillsProject.propTypes = {
   skillName: PropTypes.string,
-  skillsProject: PropTypes.string,
+
+  selectedSkills: PropTypes.string,
+  setSelectedSkills: PropTypes.string,
+  selectedSkillId: PropTypes.string,
+  setSelectedSkillId: PropTypes.string,
+
   handleSkillsChange: PropTypes.func,
 };
 
 SelectSkillsProject.defaultProps = {
   skillName: "",
-  skillsProject: "",
+
+  selectedSkills: "",
+  setSelectedSkills: "",
+  selectedSkillId: "",
+  setSelectedSkillId: "",
   handleSkillsChange: () => {},
 };
 

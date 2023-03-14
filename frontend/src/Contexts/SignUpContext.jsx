@@ -21,17 +21,24 @@ export function SignUpContextProvider({ children }) {
     skills: [],
     agreement: false,
   });
-
+  const [selectedJobId, setselectedJobId] = useState("");
+  const [selectedRegionId, setselectedRegionId] = useState("");
+  const [selectedSkillId, setSelectedSkillId] = useState([]);
   const contextValue = useMemo(
     () => ({
       activeStep,
       setActiveStep,
       formValues,
       setFormValues,
+      selectedJobId,
+      setselectedJobId,
+      selectedRegionId,
+      setselectedRegionId,
+      selectedSkillId,
+      setSelectedSkillId,
     }),
-    [activeStep, formValues]
+    [activeStep, formValues, selectedJobId, selectedRegionId, selectedSkillId]
   );
-
   return (
     <SignUpContext.Provider value={contextValue}>
       {children}
