@@ -8,39 +8,38 @@ import { Grid } from "@mui/material";
 import axios from "axios";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectCurrent() {
+function UserProjectAll() {
   const [projects, setProjects] = useState([]);
 
-  const getCurrentProjects = () => {
+  const getAllProjects = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_current", {
+      .get("http://localhost:5007/project", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0]);
+        console.info(projectsData[0], "allprojects");
       });
   };
 
   useEffect(() => {
-    getCurrentProjects();
+    getAllProjects();
   }, []);
-
   return (
-    <Accordion id="current" defaultExpanded>
+    <Accordion id="all">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
+        aria-controls="panel3a-content"
+        id="panel3a-header"
       >
-        <Typography variant="subtitle2">Projets en cours</Typography>
+        <Typography variant="subtitle2">Tous les projets</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Grid
           container
-          direction={{ sm: "column", md: "row" }}
+          direction="row"
           justifyContent="center"
           spacing={{ xs: 1, sm: 2, md: 4 }}
           width={1000}
@@ -59,5 +58,4 @@ function UserProjectCurrent() {
     </Accordion>
   );
 }
-
-export default UserProjectCurrent;
+export default UserProjectAll;

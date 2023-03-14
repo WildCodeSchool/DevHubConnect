@@ -74,6 +74,14 @@ class ProjectManager extends AbstractManager {
       ]
     );
   }
+
+  findAllProjects(project) {
+    return this.database.query(`SELECT * FROM ${this.table} `, [
+      project.project_start_date,
+      project.project_end_date,
+      project.project_state,
+    ]);
+  }
 }
 
 module.exports = ProjectManager;

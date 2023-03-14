@@ -1,24 +1,22 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Stack from "@mui/material/Stack";
+import { Grid } from "@mui/material";
 import axios from "axios";
-// import Masonry from "@mui/lab/Masonry";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectNotSelected() {
   const [projects, setProjects] = useState([]);
 
-  // Appel API Project
-
-  const getCurrentProjects = () => {
+  const getNotSelectedProjects = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_notselected")
+      .get("http://localhost:5007/projects_notselected", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
@@ -27,10 +25,10 @@ function UserProjectNotSelected() {
   };
 
   useEffect(() => {
-    getCurrentProjects();
+    getNotSelectedProjects();
   }, []);
   return (
-    <Accordion>
+    <Accordion id="notselected">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel3a-content"
@@ -39,20 +37,23 @@ function UserProjectNotSelected() {
         <Typography variant="subtitle2">Projets non retenus</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Stack
+        <Grid
+          container
           direction="row"
+          justifyContent="center"
           spacing={{ xs: 1, sm: 2, md: 4 }}
-          flexWrap="wrap"
           width={1000}
+          flexWrap="wrap"
         >
           {projects.map((project) => (
             <UserProjectCard
               key={project.id}
               projectName={project.project_name}
               projectDescription={project.project_description}
+              sx={{ marginLeft: "20px" }}
             />
           ))}
-        </Stack>
+        </Grid>
       </AccordionDetails>
     </Accordion>
   );
