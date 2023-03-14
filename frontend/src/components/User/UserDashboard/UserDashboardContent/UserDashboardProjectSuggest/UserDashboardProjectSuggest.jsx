@@ -95,7 +95,7 @@ export default function UserDashboardProjectSuggest() {
 
   return (
     <>
-      {projectListing.slice(-5).map((project) => {
+      {projectListing.slice(-4).map((project) => {
         console.info("project", project);
 
         return (
@@ -165,7 +165,7 @@ export default function UserDashboardProjectSuggest() {
                           width: "100%",
                         }}
                       >
-                        {project.project_description}
+                        {project.project_about}
                       </Typography>
                     </Box>
 

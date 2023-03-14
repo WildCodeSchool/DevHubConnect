@@ -139,7 +139,7 @@ const typography = {
     color: "#82929b",
     marginBottom: 10,
     fontWeight: 300,
-    lineHeight: 0.5,
+    lineHeight: 1,
   },
 
   subtitle2: {

@@ -92,17 +92,12 @@ export default function UserDashboardUserInfo() {
             />
             <Stack
               direction="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
+              justifyContent={{ sm: "center", md: "flex-start" }}
+              alignItems={{ xs: "center", sm: "center", md: "flex-start" }}
               spacing={0.5}
               sx={{ width: "100%" }}
             >
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start"
-                spacing={0.5}
-              >
+              <Stack direction="row" spacing={0.5}>
                 {isLoading ? (
                   <Typography
                     variant="body1"
