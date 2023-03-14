@@ -77,7 +77,6 @@ const edit = (req, res) => {
 // insertion d'un nouvel utilisateur
 const add = (req, res) => {
   const user = req.body; // récupère les données de l'utilisateur à partir du corps de la requête HTTP
-
   models.user
     .insert(user) // méthode insert pour insérer les données dans la table user
     .then(([result]) => {
