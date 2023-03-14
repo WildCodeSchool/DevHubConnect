@@ -12,7 +12,7 @@ export default function ContainedButtons() {
         color="primary"
         startIcon={<img src={google} alt="google" />}
         size="medium"
-        fullWidth="true"
+        fullWidth
       >
         Sign in With Google
       </Button>
@@ -22,7 +22,7 @@ export default function ContainedButtons() {
         color="inherit"
         startIcon={<img src={github} alt="github" />}
         size="medium"
-        fullWidth="true"
+        fullWidth
       >
         Sign in with GitHub
       </Button>

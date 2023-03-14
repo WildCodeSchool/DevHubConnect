@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const express = require("express");
 
 const router = express.Router();
@@ -7,6 +8,7 @@ const {
   verifyPassword,
   verifyToken,
   verifyId,
+  validateForm,
 } = require("./auth");
 
 // VERIFIE
@@ -14,15 +16,22 @@ const {
 const userControllers = require("./controllers/userControllers");
 const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
+const skillControllers = require("./controllers/skillControllers");
+const userSkillControllers = require("./controllers/userSkillControllers");
 
 // ------ GET pour alimenter sign-up -------
 router.get("/regions", regionControllers.browse);
 router.get("/jobs", jobControllers.browse);
+router.get("/skills", skillControllers.browse);
 
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
+router.post("/user_skills", userSkillControllers.add);
+
+// -----LOGIN-------
 router.post(
   "/users/login",
+  validateForm,
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
@@ -57,31 +66,33 @@ router.put("/candidacies/:id", candidacyControllers.edit);
 router.post("/candidacies", candidacyControllers.add);
 router.delete("/candidacies/:id", candidacyControllers.destroy);
 
-const userSkillControllers = require("./controllers/userSkillControllers");
-
 router.get("/user_skills", userSkillControllers.browse);
 router.get("/user_skills/:id", userSkillControllers.read);
 router.put("/user_skills/:id", userSkillControllers.edit);
-router.post("/user_skills", userSkillControllers.add);
 router.delete("/user_skills/:id", userSkillControllers.destroy);
 
 const projectControllers = require("./controllers/projectControllers");
 
 router.get("/projects", projectControllers.browse);
 router.get("/projects/:id", projectControllers.read);
+router.get("/projects_current", projectControllers.filterProjectCurrent); // filtre les projects en cours
+router.get("/projects_upgoing", projectControllers.filterProjectUpgoing); // filtre les projects à venir
+router.get(
+  "/projects_notselected",
+  projectControllers.filterProjectNotselected
+);
 router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
-const skillControllers = require("./controllers/skillControllers");
+// skills
 
-router.get("/skills", skillControllers.browse);
 router.get("/skills/:id", skillControllers.read);
 router.put("/skills/:id", skillControllers.edit);
 router.post("/skills", skillControllers.add);
 router.delete("/skills/:id", skillControllers.destroy);
 
-//  regions
+// regions
 
 router.get("/regions/:id", regionControllers.read);
 router.put("/regions/:id", regionControllers.edit);
