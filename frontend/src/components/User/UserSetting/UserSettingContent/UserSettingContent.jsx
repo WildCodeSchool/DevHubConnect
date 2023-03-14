@@ -22,7 +22,6 @@ function UserSettingContent() {
     password: "",
     job_id: "",
     id: "",
-    skillIds: [],
   });
 
   const [userSkillsProp, setUserSkillsProp] = useState([]);
@@ -49,6 +48,7 @@ function UserSettingContent() {
   }, []);
 
   const handleSaveChanges = async () => {
+    console.info("handleSaveChanges called");
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const dataToSend = {
       ...user,
@@ -66,31 +66,35 @@ function UserSettingContent() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info("Response : ", response);
+      console.info("User update response: ", response);
 
       // Update user_skills
-      const initialSkills = userSkillsProp.map((us) => us.skill_id);
+      const initialSkills = user.skillIds;
       const skillsToAdd = userSkillsProp.filter(
         (us) => !initialSkills.includes(us.skill_id)
       );
       const skillsToRemove = initialSkills.filter(
         (is) => !userSkillsProp.some((us) => us.skill_id === is)
       );
+
       console.info("initialSkills = ", initialSkills);
       console.info("skillsToAdd = ", skillsToAdd);
+
       await Promise.all([
         ...skillsToRemove.map((skill) =>
-          axios.delete(
-            `http://localhost:5007/user_skills/${user.id}/${skill}`,
+          axios.delete(`http://localhost:5007/user_skills/${user.id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+            data: { skill_id: skill },
+          })
+        ),
+        ...skillsToAdd.map((skill) =>
+          axios.post(
+            "http://localhost:5007/user_skills",
+            { user_id: user.id, skill_id: skill.skill_id },
             {
               headers: { Authorization: `Bearer ${token}` },
             }
           )
-        ),
-        ...skillsToAdd.map((skill) =>
-          axios.post("http://localhost:5007/user_skills", skill.skill_id, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
         ),
       ]);
     } catch (error) {
@@ -115,7 +119,6 @@ function UserSettingContent() {
             <UserSettingSkills
               user={user}
               setUser={setUser}
-              userSkillsProp={userSkillsProp}
               setUserSkillsProp={setUserSkillsProp}
             />
           </Stack>

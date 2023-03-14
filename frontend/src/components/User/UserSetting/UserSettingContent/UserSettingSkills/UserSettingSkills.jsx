@@ -10,7 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function UserSettingSkills({ user, setUserSkillsProp }) {
+export default function UserSettingSkills({
+  user,
+  setUser,
+  setUserSkillsProp,
+}) {
   const [skillListing, setSkillListing] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
   const [tempUserSkills, setTempUserSkills] = useState([]);
@@ -75,17 +79,23 @@ export default function UserSettingSkills({ user, setUserSkillsProp }) {
     const skillId = skillObj.id;
 
     if (isChecked) {
-      if (!tempUserSkills.includes(skillId)) {
-        const newUserSkills = [...tempUserSkills, skillId];
+      if (!tempUserSkills.some((us) => us.skill_id === skillId)) {
+        const newUserSkills = [
+          ...tempUserSkills,
+          { user_id: user.id, skill_id: skillId },
+        ];
         setTempUserSkills(newUserSkills);
         setUserSkills(newUserSkills);
         setUserSkillsProp(newUserSkills);
       }
     } else {
-      const newUserSkills = tempUserSkills.filter((us) => us !== skillId);
+      const newUserSkills = tempUserSkills.filter(
+        (us) => us.skill_id !== skillId
+      );
       setTempUserSkills(newUserSkills);
       setUserSkills(newUserSkills);
       setUserSkillsProp(newUserSkills);
+      setUser((prevUser) => ({ ...prevUser, skillIds: newUserSkills }));
     }
   };
 
@@ -117,7 +127,7 @@ export default function UserSettingSkills({ user, setUserSkillsProp }) {
                 key={skill.id}
                 control={
                   <Checkbox
-                    checked={userSkills.includes(skill.id)}
+                    checked={userSkills.some((us) => us.skill_id === skill.id)}
                     onChange={handleSkillChange}
                     value={skill.id}
                     name={skill.skill_name}
