@@ -11,6 +11,7 @@ function TalentCardGallery({
   selectedSkillIds,
 }) {
   const token = localStorage.getItem("token");
+
   const [users, setUsers] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [regions, setRegions] = useState([]);
@@ -27,7 +28,7 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((usersData) => {
         setUsers(usersData);
-        console.info(usersData, "talents pour card");
+        console.info(usersData, "talents card-gallery");
       });
   };
 
@@ -39,7 +40,7 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);
-        console.info(jobsData, "métiers pour card");
+        console.info(jobsData, "métiers card-gallery");
       });
   };
 
@@ -47,11 +48,11 @@ function TalentCardGallery({
     axios
       .get("http://localhost:5007/regions", {
         headers: { Authorization: `Bearer ${token}` },
-      }) // regions/:id
+      })
       .then((response) => response.data)
       .then((regionsData) => {
         setRegions(regionsData);
-        console.info(regionsData, "regions pour card");
+        console.info(regionsData, "regions card-gallery");
       });
   };
 
@@ -63,7 +64,7 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((usersSkillsData) => {
         setUsersSkills(usersSkillsData);
-        console.info(usersSkillsData, "skills_user pour card");
+        console.info(usersSkillsData, "skills_user jointure");
       });
   };
   useEffect(() => {
@@ -118,6 +119,7 @@ function TalentCardGallery({
               return (
                 <TalentCard
                   key={user?.id}
+                  id={user.id}
                   firstname={user?.firstname}
                   lastname={user?.lastname}
                   jobName={jobs[user.job_id - 1]?.job_name}
