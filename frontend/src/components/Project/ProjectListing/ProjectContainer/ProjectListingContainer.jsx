@@ -1,42 +1,183 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Stack from "@mui/material/Stack";
 import ProjectListingCard from "./ProjectListingCard/ProjectListingCard";
-import ProjectListingHeader from "./ProjectListingHeader/ProjectListingHeader";
-import SelectDatesProject from "./ProjectListingFilters/SelectDatesProject/SelectDatesProject";
 import SelectRegionsProject from "./ProjectListingFilters/SelectRegionsProject/SelectRegionsProject";
 import SelectSkillsProject from "./ProjectListingFilters/SelectSkillsProject/SelectSkillsProject";
+import SelectDatesProject from "./ProjectListingFilters/SelectDatesProject/SelectDatesProject";
 
 function ProjectListingContainer() {
+  const [projectListing, setProjectListing] = useState([]);
+  const [userListing, setUserListing] = useState([]);
+  const [projectSkillListing, setProjectSkillListing] = useState([]);
+  const [skillListing, setSkillListing] = useState([]);
+  const [projectRegionListing, setProjectRegionListing] = useState([]);
+  const [selectedRegions, setSelectedRegions] = useState([]);
+  const [selectedRegionId, setSelectedRegionId] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkillId, setSelectedSkillId] = useState([]);
+  const [selectedStartDate, setSelectedStartDate] = useState("");
+  const [selectedEndDate, setSelectedEndDate] = useState("");
+
+  const token = localStorage.getItem("token");
+  const getProjects = () => {
+    axios
+
+      .get("http://localhost:5007/projects", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((projectsData) => {
+        setProjectListing(projectsData);
+      });
+  };
+
+  const getUsers = () => {
+    axios
+      .get("http://localhost:5007/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((usersData) => {
+        setUserListing(usersData);
+      });
+  };
+
+  const getProjectSkill = () => {
+    axios
+      .get("http://localhost:5007/project_skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((projectsSkillData) => {
+        // Utilisation de setProjectSkillListing pour mettre à jour le state projectSkillListing avec les données de l'API
+        setProjectSkillListing(projectsSkillData);
+      });
+  };
+
+  const getSkill = () => {
+    axios
+      .get("http://localhost:5007/skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((skillData) => {
+        // Utilisation de setSkillListing pour mettre à jour le state skillListing avec les données de l'API
+        setSkillListing(skillData);
+      });
+  };
+  const getRegion = () => {
+    axios
+      .get("http://localhost:5007/regions", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((regionData) => {
+        setProjectRegionListing(regionData);
+      });
+  };
+
+  useEffect(() => {
+    getProjects();
+    getUsers();
+    getProjectSkill();
+    getSkill();
+    getRegion();
+  }, []);
+
   return (
     <>
       <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
+        direction={{ sm: "column", md: "row" }}
+        spacing={{ sm: 1, md: 2 }}
         justifyContent="space-between"
-        alignItems="flex-start"
+        alignItems="center"
+        sx={{
+          width: "100%",
+        }}
       >
-        <ProjectListingHeader />
+        <SelectRegionsProject
+          regions={projectRegionListing}
+          selectedRegions={selectedRegions}
+          setSelectedRegions={setSelectedRegions}
+          selectedRegionId={selectedRegionId}
+          setSelectedRegionId={setSelectedRegionId}
+        />
+
+        <SelectSkillsProject
+          skillName={skillListing}
+          skillsProject={projectSkillListing}
+          selectedSkills={selectedSkills}
+          setSelectedSkills={setSelectedSkills}
+          selectedSkillId={selectedSkillId}
+          setSelectedSkillId={setSelectedSkillId}
+        />
+        <SelectDatesProject
+          selectedStartDate={selectedStartDate}
+          setSelectedStartDate={setSelectedStartDate}
+          selectedEndDate={selectedEndDate}
+          setSelectedEndDate={setSelectedEndDate}
+        />
       </Stack>
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
-        justifyContent="space-between"
-        alignItems="flex-start"
-      >
-        <SelectDatesProject />
-        <SelectRegionsProject />
-        <SelectSkillsProject />
-      </Stack>
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "column" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
-        justifyContent="space-between"
-        alignItems="flex-start"
-      >
-        <ProjectListingCard />
-        <ProjectListingCard />
-        <ProjectListingCard />
-      </Stack>
+
+      {projectListing
+        .filter(
+          (project) =>
+            (selectedRegions.length === 0 ||
+              selectedRegionId === project.region_id) &&
+            (selectedSkills.length === 0 ||
+              /* eslint-disable-next-line */
+              selectedSkillId.some((selectedSkillId) =>
+                projectSkillListing.some(
+                  (projectSkill) =>
+                    projectSkill.skill_id === selectedSkillId &&
+                    project.id === projectSkill.project_id
+                )
+              )) &&
+            (!selectedStartDate ||
+              new Date(project.project_start_date) >=
+                new Date(selectedStartDate)) &&
+            (!selectedEndDate ||
+              new Date(project.project_end_date) <= new Date(selectedEndDate))
+        )
+
+        .map((project) => {
+          const projectOwner = userListing.find(
+            (user) => user.id === project.owner_id
+          );
+
+          // Création d'un tableau de compétences pour chaque projet
+          const skills = projectSkillListing
+            .filter((projectSkill) => projectSkill.project_id === project.id)
+            .map((projectSkill) => {
+              const skillItem = skillListing.find(
+                (skill) => skill.id === projectSkill.skill_id
+              );
+
+              return skillItem ? skillItem.skill_name : "";
+            });
+
+          const regions = projectRegionListing
+            .filter((projectRegion) => projectRegion.id === project.region_id)
+            .map((projectRegion) => projectRegion.region_name);
+
+          return (
+            <ProjectListingCard
+              key={project.id}
+              id={project.id}
+              projectImage={project.project_image}
+              projectName={project.project_name}
+              projectDescription={project.project_description}
+              firstname={projectOwner ? projectOwner.firstname : ""}
+              lastname={projectOwner ? projectOwner.lastname : ""}
+              jobId={projectOwner ? projectOwner.job : ""}
+              skillName={skills}
+              projectStartDate={project.project_start_date}
+              projectEndDate={project.project_end_date}
+              regionName={regions}
+            />
+          );
+        })}
     </>
   );
 }

@@ -27,7 +27,7 @@ export default function ProjectSingleButtonPostuler() {
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Phrases de Motivation Max 200 caractères
+            Phrases de Motivation Max 240 caractères
           </DialogContentText>
           <TextField
             id="outlined-textarea"

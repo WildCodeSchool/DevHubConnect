@@ -1,6 +1,4 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,17 +7,24 @@ import Checkbox from "@mui/material/Checkbox";
 import { Link as MuiLink } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ContainedButtons from "./SignInOAuth/SignInOAuth";
+import LogoConnect from "../../Sidebar/Logo";
 
+// Fonction qui renvoie l'élément HTML pour le texte de droits d'auteur
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <MuiLink color="inherit" href="http://127.0.0.1:5173/">
+      <MuiLink color="inherit" href="http://localhost:5173/">
         DevHub Connect
       </MuiLink>{" "}
       {new Date().getFullYear()}.
@@ -27,13 +32,91 @@ function Copyright() {
   );
 }
 
+// Création du thème Material UI
 const theme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+// Composant de la page de connexion
+export default function Login() {
+  const [tokenIsValid, setTokenIsValid] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Vérification de la validité du token
+    const token = localStorage.getItem("token");
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+
+    if (token) {
+      axios
+        .get(`http://localhost:5007/users/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          if (response.request.status === 200) {
+            setTokenIsValid(true);
+          } else {
+            localStorage.removeItem("token"); // Supprimez le token si invalide
+            localStorage.removeItem("userId");
+          }
+        })
+        .catch((error) => {
+          // Traitement de l'erreur
+          console.info(error);
+        });
+    }
+  }, []);
+  const toggle = parseInt(localStorage.getItem("toggle"), 10);
+  if (tokenIsValid) {
+    if (toggle) {
+      localStorage.removeItem("token");
+    } else {
+      navigate("/dashboard");
+    }
+  }
+
+  // Utilisation de useState pour gérer les états de l'email, du mot de passe et de l'erreur de connexion
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState("");
+  const [showPassword, setShowPassword] = React.useState(true);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
+  // Fonction qui s'exécute lorsque le formulaire est soumis
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Requête POST vers l'API pour se connecter avec les informations d'identification
+      const response = await axios.post("http://localhost:5007/users/login", {
+        email,
+        password,
+      });
+      // Stockage du jeton d'authentification dans le stockage local de l'application
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.userId.toString());
+      localStorage.setItem("toggle", response.data.toggle.toString());
+      // Redirection vers le tableau de bord
+      navigate("/dashboard");
+    } catch (error) {
+      // Affichage d'un message d'erreur si la connexion échoue
+      setErr("Invalid email or password");
+      // console.error(error.message);
+    }
+  };
+  const handleEmailChange = (event) => {
+    event.preventDefault();
+    setEmail(event.target.value);
+    setErr("");
+  };
+  const handlePasswordChange = (event) => {
+    event.preventDefault();
+    setPassword(event.target.value);
+    setErr("");
+  };
+  // console.info(err);
+  // Rendu de l'élément HTML pour la page de connexion
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -46,9 +129,9 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
+          <Box>
+            <LogoConnect />
+          </Box>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
@@ -67,6 +150,12 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={handleEmailChange}
+              value={err ? "" : TextField.value}
+              error={Boolean(err)}
+              helperText={err ? "Erreur : Invalid email or password" : ""}
+              variant="outlined"
+              style={{ color: err ? "red" : "" }}
             />
             <TextField
               margin="normal"
@@ -74,9 +163,29 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Password"
-              type="password"
-              id="password"
               autoComplete="current-password"
+              onChange={handlePasswordChange}
+              value={err ? "" : TextField.value}
+              error={Boolean(err)}
+              helperText={err ? "Erreur : Invalid email or password" : ""}
+              variant="outlined"
+              style={{ color: err ? "red" : "" }}
+              id="outlined-start-adornment"
+              type={showPassword ? "password" : "text"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -86,7 +195,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 1, mb: 1 }}
             >
               Sign In
             </Button>

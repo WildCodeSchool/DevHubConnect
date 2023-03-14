@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import * as React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
@@ -9,17 +10,21 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import fr from "date-fns/locale/fr";
 import Theme from "./theme/theme";
+
+import { SignUpContextProvider } from "./Contexts/SignUpContext";
 
 import LogoConnect from "./components/Sidebar/Logo";
 import Footer from "./components/Sidebar/Footer";
 import NavItems from "./components/Sidebar/Navigation/NavItems";
+import NavItemsTopBar from "./components/Sidebar/Navigation/NavItemTopBar";
 
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -59,7 +64,15 @@ function ResponsiveDrawer(props) {
     >
       <LogoConnect />
       <NavItems />
-      <Footer />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 10,
+          zIndex: "tooltip",
+        }}
+      >
+        <Footer />
+      </Box>
     </Stack>
   );
 
@@ -68,115 +81,133 @@ function ResponsiveDrawer(props) {
 
   return (
     <Router>
-      <ThemeProvider theme={Theme} pb={2}>
+      <ThemeProvider theme={Theme}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar
             position="fixed"
             sx={{
               backgroundColor: "BgSidebar.main",
-              width: { sm: `calc(100% - ${drawerWidth}px)` },
+              width: { sm: `100%` },
               ml: { sm: `${drawerWidth}px` },
             }}
           >
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: "none" } }}
-              >
-                <MenuIcon />
-              </IconButton>
+            <Toolbar
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
               <Typography variant="h6" noWrap component="div">
                 DevHub Connect
               </Typography>
+              <NavItemsTopBar />
             </Toolbar>
           </AppBar>
-          <Box
-            component="nav"
-            sx={{
-              backgroundColor: "primary.dark",
-              width: { sm: drawerWidth },
-              flexShrink: { sm: 0 },
-            }}
-            aria-label="mailbox folders"
-          >
-            <Drawer
-              container={container}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-              sx={{
-                display: { xs: "block", sm: "none" },
-                "& .MuiDrawer-paper": {
-                  boxSizing: "border-box",
-                  width: drawerWidth,
-                },
-              }}
-            >
-              {drawer}
-            </Drawer>
-            <Drawer
-              variant="permanent"
-              sx={{
-                display: { xs: "none", sm: "block" },
-                "& .MuiDrawer-paper": {
-                  boxSizing: "border-box",
-                  width: drawerWidth,
-                  height: "100%",
-                },
-              }}
-              PaperProps={{
-                sx: {
-                  background:
-                    "linear-gradient(to right bottom, #0A3752, #056CA4)",
-                  color: "#eff3f7",
-                  "&:hover": {
-                    a: "#FFF",
-                  },
-                },
-              }}
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Box>
-          {/* Content */}
+          {location.pathname !== "/" &&
+            location.pathname !== "/login" &&
+            location.pathname !== "/register" && (
+              <Box
+                component="nav"
+                sx={{
+                  backgroundColor: "primary.dark",
+                  width: { sm: drawerWidth },
+                  flexShrink: { sm: 0 },
+                }}
+                aria-label="mailbox folders"
+              >
+                <Drawer
+                  container={container}
+                  variant="temporary"
+                  open={mobileOpen}
+                  onClose={handleDrawerToggle}
+                  ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                  }}
+                  sx={{
+                    display: { xs: "block", sm: "none" },
+                    "& .MuiDrawer-paper": {
+                      boxSizing: "border-box",
+                      width: drawerWidth,
+                    },
+                  }}
+                >
+                  {drawer}
+                </Drawer>
+                <Drawer
+                  variant="permanent"
+                  sx={{
+                    display: { xs: "none", sm: "block" },
+                    "& .MuiDrawer-paper": {
+                      boxSizing: "border-box",
+                      width: drawerWidth,
+                      height: "100%",
+                    },
+                  }}
+                  PaperProps={{
+                    sx: {
+                      background:
+                        "linear-gradient(to right bottom, #0A3752, #056CA4)",
+                      color: "#eff3f7",
+                      "&:hover": {
+                        a: "#FFF",
+                      },
+                    },
+                  }}
+                  open
+                >
+                  {drawer}
+                </Drawer>
+              </Box>
+            )}
           <Box
             component="main"
             sx={{
               backgroundColor: "BgContent.main",
               flexGrow: 1,
-              p: 3,
+              p: location.pathname === "/" ? 0 : 3, // Conditionally set "p" property
               width: { sm: `calc(100% - ${drawerWidth}px)` },
+              padding: 0,
             }}
           >
             <Toolbar />
-            <Routes>
-              <Route path="/register" element={<SignUp />} />
-              <Route path="/login" element={<SignIn />} />
-              <Route path="/forgot-password" element={<LostPassword />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/cgu" element={<CGU />} />
-              <Route path="*" element={<NotFound />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<UserDashboard />} />
-              <Route path="/dashboard/my-project" element={<UserProject />} />
-              <Route path="/dashboard/my-calendar" element={<UserCalendar />} />
-              <Route path="/dashboard/my-setting" element={<UserSetting />} />
-              <Route path="/project" element={<ProjectListing />} />
-              <Route path="/project/:id" element={<ProjectSingle />} />
-              <Route path="/add-project" element={<ProjectForm />} />
-              <Route path="/calendar" element={<ProjectCalendar />} />
-              <Route path="/talent" element={<TalentListing />} />
-              <Route path="/talent/:id" element={<TalentSingle />} />
-              <Route path="/charte" element={<Charte />} />
-            </Routes>
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              adapterLocale={fr}
+            >
+              {/* provider pour le contexte utilisé pour le formulaire d'inscription */}
+              <SignUpContextProvider>
+                <Routes>
+                  <Route path="/register" element={<SignUp />} />
+                  <Route path="/login" element={<SignIn />} />
+                  <Route path="/forgot-password" element={<LostPassword />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/cgu" element={<CGU />} />
+                  <Route path="*" element={<NotFound />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/dashboard" element={<UserDashboard />} />
+                  <Route
+                    path="/dashboard/my-project"
+                    element={<UserProject />}
+                  />
+                  <Route
+                    path="/dashboard/my-calendar"
+                    element={<UserCalendar />}
+                  />
+                  <Route
+                    path="/dashboard/my-setting"
+                    element={<UserSetting />}
+                  />
+                  <Route path="/project" element={<ProjectListing />} />
+                  <Route path="/project/:id" element={<ProjectSingle />} />
+                  <Route path="/add-project" element={<ProjectForm />} />
+                  <Route path="/calendar" element={<ProjectCalendar />} />
+                  <Route path="/talent" element={<TalentListing />} />
+                  <Route path="/talent/:id" element={<TalentSingle />} />
+                  <Route path="/charte" element={<Charte />} />
+                </Routes>
+              </SignUpContextProvider>
+            </LocalizationProvider>
           </Box>
         </Box>
       </ThemeProvider>
