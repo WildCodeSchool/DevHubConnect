@@ -1,11 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import * as React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  // useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
 import "./App.css";
 
@@ -179,6 +174,7 @@ function ResponsiveDrawer(props) {
               dateAdapter={AdapterDateFns}
               adapterLocale={fr}
             >
+              {/* provider pour le contexte utilisé pour le formulaire d'inscription */}
               <SignUpContextProvider>
                 <Routes>
                   <Route path="/register" element={<SignUp />} />

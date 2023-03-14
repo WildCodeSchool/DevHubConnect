@@ -17,6 +17,7 @@ const userControllers = require("./controllers/userControllers");
 const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
 const skillControllers = require("./controllers/skillControllers");
+const userSkillControllers = require("./controllers/userSkillControllers");
 
 // ------ GET pour alimenter sign-up -------
 router.get("/regions", regionControllers.browse);
@@ -25,6 +26,9 @@ router.get("/skills", skillControllers.browse);
 
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
+router.post("/user_skills", userSkillControllers.add);
+
+// -----LOGIN-------
 router.post(
   "/users/login",
   validateForm,
@@ -62,12 +66,9 @@ router.put("/candidacies/:id", candidacyControllers.edit);
 router.post("/candidacies", candidacyControllers.add);
 router.delete("/candidacies/:id", candidacyControllers.destroy);
 
-const userSkillControllers = require("./controllers/userSkillControllers");
-
 router.get("/user_skills", userSkillControllers.browse);
 router.get("/user_skills/:id", userSkillControllers.read);
 router.put("/user_skills/:id", userSkillControllers.edit);
-router.post("/user_skills", userSkillControllers.add);
 router.delete("/user_skills/:id", userSkillControllers.destroy);
 
 const projectControllers = require("./controllers/projectControllers");
