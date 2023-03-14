@@ -45,7 +45,6 @@ export default function SignUpAboutYou() {
   const getRegionList = () => {
     axios
       .get("http://localhost:5007/regions", {
-
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:3000",
         },
