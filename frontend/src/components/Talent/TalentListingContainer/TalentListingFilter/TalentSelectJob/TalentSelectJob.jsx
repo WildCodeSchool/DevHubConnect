@@ -26,8 +26,11 @@ function TalentSelectJob({ currentSelectedJobs, setSelectedJobs }) {
   const [jobs, setJobs] = useState([]);
 
   const getJobs = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/jobs")
+      .get("http://localhost:5007/jobs", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);

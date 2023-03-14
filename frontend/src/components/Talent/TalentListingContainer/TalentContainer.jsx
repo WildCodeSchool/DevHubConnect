@@ -7,7 +7,8 @@ import TalentListeningHeader from "./TalentListingHeader/TalentListeningHeader";
 function TalentContainer() {
   const [currentSelectedJobs, setSelectedJobs] = useState([]);
   const [currentSelectedRegions, setSelectedRegions] = useState([]);
-
+  const [selectedSkillIds, setSelectedSkillIds] = useState([]);
+  console.info(selectedSkillIds, "camembert");
   return (
     <div>
       <TalentListeningHeader />
@@ -16,12 +17,16 @@ function TalentContainer() {
         setSelectedJobs={setSelectedJobs}
         selectedRegions={currentSelectedRegions}
         setSelectedRegions={setSelectedRegions}
+        selectedSkillIds={selectedSkillIds}
+        setSelectedSkillIds={setSelectedSkillIds}
       />
       <TalentCardGallery
         selectedJobs={currentSelectedJobs}
         setSelectedJobs={setSelectedJobs}
         selectedRegions={currentSelectedRegions}
         setSelectedRegions={setSelectedRegions}
+        selectedSkillIds={selectedSkillIds}
+        setSelectedSkillIds={setSelectedSkillIds}
       />
     </div>
   );

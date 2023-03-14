@@ -11,7 +11,11 @@ function TalentListingFilter({
   setSelectedJobs,
   currentSelectedRegions,
   setSelectedRegions,
+  selectedSkillIds,
+  setSelectedSkillIds,
 }) {
+  console.info(currentSelectedJobs, "japanJOB");
+  console.info(selectedSkillIds, "japan");
   return (
     <Box sx={{ mt: 2 }}>
       <Stack
@@ -35,7 +39,10 @@ function TalentListingFilter({
           selectedJobs={currentSelectedJobs}
           setSelectedJobs={setSelectedJobs}
         />
-        <TalentSelectSkills />
+        <TalentSelectSkills
+          selectedSkillIds={selectedSkillIds}
+          setSelectedSkillIds={setSelectedSkillIds}
+        />
       </Stack>
     </Box>
   );
@@ -46,6 +53,8 @@ TalentListingFilter.propTypes = {
   setSelectedJobs: PropTypes.func,
   currentSelectedRegions: PropTypes.arrayOf(PropTypes.string),
   setSelectedRegions: PropTypes.func,
+  selectedSkillIds: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkillIds: PropTypes.func,
 };
 
 TalentListingFilter.defaultProps = {
@@ -53,6 +62,8 @@ TalentListingFilter.defaultProps = {
   setSelectedJobs: () => {},
   currentSelectedRegions: [],
   setSelectedRegions: () => {},
+  selectedSkillIds: [],
+  setSelectedSkillIds: () => {},
 };
 
 export default TalentListingFilter;

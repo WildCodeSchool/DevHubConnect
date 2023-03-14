@@ -8,6 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
+import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,13 +21,16 @@ const MenuProps = {
   },
 };
 
-function TalentSelectSkills() {
+function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
   const [userSkills, setUserSkills] = useState([]);
   const [skills, setSkills] = useState([]);
 
   const getSkills = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/skills")
+      .get("http://localhost:5007/skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((data) => {
         setSkills(data);
@@ -40,6 +44,7 @@ function TalentSelectSkills() {
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSkills(typeof value === "string" ? value.split(",") : value);
+    console.info(selectedSkillIds, "coucou");
   };
 
   return (
@@ -57,9 +62,25 @@ function TalentSelectSkills() {
           MenuProps={MenuProps}
         >
           {skills.map((skill, index) => (
-            <MenuItem key={skill.id} value={skill.skill_name}>
+            <MenuItem
+              key={skill.id}
+              value={skill.skill_name}
+              onClick={() => {
+                if (selectedSkillIds.includes(skill.id)) {
+                  setSelectedSkillIds((prevState) =>
+                    prevState.filter((id) => id !== skill.id)
+                  );
+                } else {
+                  setSelectedSkillIds((prevState) => [...prevState, skill.id]);
+                }
+              }}
+            >
               <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
-              <ListItemText primary={skill.skill_name} index={index} />
+              <ListItemText
+                key={skill.id}
+                primary={skill.skill_name}
+                index={index}
+              />
             </MenuItem>
           ))}
         </Select>
@@ -67,5 +88,15 @@ function TalentSelectSkills() {
     </Stack>
   );
 }
+
+TalentSelectSkills.propTypes = {
+  selectedSkillIds: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkillIds: PropTypes.func,
+};
+
+TalentSelectSkills.defaultProps = {
+  selectedSkillIds: [],
+  setSelectedSkillIds: () => {},
+};
 
 export default TalentSelectSkills;

@@ -26,8 +26,11 @@ function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
   const [regions, setRegions] = useState([]);
 
   const getRegions = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/regions")
+      .get("http://localhost:5007/regions", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((regionsData) => {
         setRegions(regionsData);
