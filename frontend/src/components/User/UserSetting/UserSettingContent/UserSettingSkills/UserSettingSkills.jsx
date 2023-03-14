@@ -50,7 +50,6 @@ export default function UserSettingSkills({
         const userSkillsFilter = response.data.filter(
           (userSkill) => userSkill.user_id === user.id
         );
-        setUserSkills(userSkillsFilter);
         setTempUserSkills(userSkillsFilter);
       } catch (error) {
         console.error("Failed to fetch user skills: ", error);
