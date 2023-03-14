@@ -144,9 +144,9 @@ const filterProjectCurrent = (req, res) => {
 
 // Filtrer les projets à venir
 
-const filterProjectUpgoing = (req, res) => {
+const filterProjectUpComing = (req, res) => {
   models.project
-    .findUpgoingProjects(req)
+    .findUpComingProjects(req)
     .then((rows) => {
       res.send(rows);
     })
@@ -191,7 +191,7 @@ module.exports = {
   add,
   destroy,
   filterProjectCurrent,
-  filterProjectUpgoing,
+  filterProjectUpComing,
   filterProjectNotselected,
   filterAllProject,
 };

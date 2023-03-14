@@ -14,7 +14,7 @@ function UserProjectAll() {
   const getAllProjects = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/project", {
+      .get("http://localhost:5007/projects_all", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
@@ -28,7 +28,7 @@ function UserProjectAll() {
     getAllProjects();
   }, []);
   return (
-    <Accordion id="current" defaultExpanded>
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

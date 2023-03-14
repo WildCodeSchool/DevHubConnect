@@ -28,7 +28,7 @@ function UserProjectNotSelected() {
     getNotSelectedProjects();
   }, []);
   return (
-    <Accordion id="current" defaultExpanded>
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

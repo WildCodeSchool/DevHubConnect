@@ -77,11 +77,12 @@ const projectControllers = require("./controllers/projectControllers");
 router.get("/projects", projectControllers.browse);
 router.get("/projects/:id", projectControllers.read);
 router.get("/projects_current", projectControllers.filterProjectCurrent);
-router.get("/projects_upgoing", projectControllers.filterProjectUpgoing);
+router.get("/projects_upcoming", projectControllers.filterProjectUpComing);
 router.get(
   "/projects_notselected",
   projectControllers.filterProjectNotselected
 );
+router.get("/projects_all", projectControllers.filterAllProject);
 router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);

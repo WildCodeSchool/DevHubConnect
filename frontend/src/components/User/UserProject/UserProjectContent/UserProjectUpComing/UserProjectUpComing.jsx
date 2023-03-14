@@ -14,7 +14,7 @@ function UserProjectUpComing() {
   const getUpgoingProjects = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_upgoing", {
+      .get("http://localhost:5007/projects_upcoming", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
@@ -29,7 +29,7 @@ function UserProjectUpComing() {
   }, []);
 
   return (
-    <Accordion id="current" defaultExpanded>
+    <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
