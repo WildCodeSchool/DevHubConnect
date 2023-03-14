@@ -97,7 +97,7 @@ function TalentSingleContainer() {
         <TalentSingleSkills id={user.id} />
       </Stack>
       <TalentAbout about={user.about} />
-      <TalentPortofolio />
+      <TalentPortofolio id={user.id} />
     </Box>
   );
 }
