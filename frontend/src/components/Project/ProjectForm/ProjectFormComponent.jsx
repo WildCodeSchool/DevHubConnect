@@ -1,7 +1,13 @@
 import React from "react";
+import Stack from "@mui/material/Stack";
+import ProjectFormHeading from "./ProjectFormHeading/ProjectFormHeading";
+import ProjectFormBody from "./ProjectFormBody/ProjectFormBody";
 
-function ProjectFormComponent() {
-  return <div>ProjectFormComponent</div>;
+export default function ProjectFormComponent() {
+  return (
+    <Stack spacing={2}>
+      <ProjectFormHeading />
+      <ProjectFormBody />
+    </Stack>
+  );
 }
-
-export default ProjectFormComponent;
