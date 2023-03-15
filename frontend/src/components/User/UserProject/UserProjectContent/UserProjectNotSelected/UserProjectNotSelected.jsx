@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-prop-types */
+import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -6,10 +8,12 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Grid, Box } from "@mui/material";
 import axios from "axios";
+import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectNotSelected() {
+function UserProjectNotSelected({ expanded }) {
   const [projects, setProjects] = useState([]);
+  const notselectedProjectsRef = useRef(null);
 
   const getNotSelectedProjects = () => {
     const token = localStorage.getItem("token");
@@ -28,11 +32,12 @@ function UserProjectNotSelected() {
     getNotSelectedProjects();
   }, []);
   return (
-    <Accordion id="current" defaultExpanded>
+    <Accordion expanded={expanded} ref={notselectedProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        data-type="notselected"
       >
         <Typography variant="accordionTitle">Projets non retenus</Typography>
       </AccordionSummary>
@@ -46,6 +51,7 @@ function UserProjectNotSelected() {
                   projectName={project.project_name}
                   projectDescription={project.project_description}
                   sx={{ marginLeft: "20px" }}
+                  projectId={project.id}
                 />
               </Grid>
             ))}
@@ -55,5 +61,9 @@ function UserProjectNotSelected() {
     </Accordion>
   );
 }
+
+UserProjectNotSelected.propTypes = {
+  expanded: PropTypes.string,
+};
 
 export default UserProjectNotSelected;
