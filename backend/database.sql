@@ -56,7 +56,7 @@ CREATE TABLE project (
   project_start_date date,
   project_end_date date,
   project_image varchar(255),
-  project_about varchar(150),
+  project_about varchar(200),
   project_description text,
   project_state boolean,
   project_remote boolean,
@@ -182,7 +182,7 @@ INSERT INTO user_role (role_name) VALUES
 INSERT INTO user (id, cp, firstname, lastname, email, biography, about, user_image, hashedPassword, github_page, experience, user_role_id, job_id, region_id) VALUES 
 ('1','9400000B', 'Mark', 'Zuckerberg', 'mark.zuckerberg@facebook.com', 'Co-fondateur de Facebook', ' Bonjour, je suis Mark Zuckerberg, fondateur de Facebook. J ai grandi en banlieue de New York et j ai découvert ma passion pour la technologie et la connectivité sociale pendant mes études à Harvard. Après avoir lancé Facebook en 2004, j ai travaillé sans relâche pour construire la plus grande plateforme de médias sociaux au monde.
 Aujourd hui, je continue de diriger Facebook en utilisant la technologie pour connecter des personnes et favoriser la communication et la collaboration à l échelle mondiale. Je suis également impliqué dans de nombreux projets philanthropiques, notamment la fondation Chan Zuckerberg Initiative, qui vise à aider à résoudre les plus grands défis mondiaux à travers la science et la technologie.
-', 'https://randomuser.me/api/portraits/women/19.jpg', '$argon2id$v=19$m=65536,t=5,p=1$NJJuWXB2avclJ+7N+ccowQ$nDIEriUSE99xq5e1sXJ3OoBbbsJViyi19bccI/W69QY', 'https://github.com/markzuckerberg', 10, 1, 1, 1), 
+', 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg', '$argon2id$v=19$m=65536,t=5,p=1$NJJuWXB2avclJ+7N+ccowQ$nDIEriUSE99xq5e1sXJ3OoBbbsJViyi19bccI/W69QY', 'https://github.com/markzuckerberg', 10, 1, 1, 1), 
 ('2','9402200B', 'Elon', 'Musk', 'elon.musk@spacex.com', 'PDG de SpaceX et Tesla', ' Bonjour, je suis Elon Musk, entrepreneur et ingénieur technologique. J ai fondé plusieurs entreprises de pointe, notamment Tesla, SpaceX et The Boring Company, avec pour objectif de rendre la vie meilleure pour tous les êtres humains.
 Mon parcours a commencé par la fondation de Zip2, une entreprise de publication en ligne, vendue plus tard à Compaq pour 307 millions de dollars. Depuis, j ai continué de développer des entreprises qui utilisent la technologie pour résoudre les défis les plus importants de notre temps, notamment la transition vers des sources d énergie propres et la colonisation de Mars.
 Je suis convaincu que nous avons la capacité de faire une réelle différence dans le monde et je travaille sans relâche pour atteindre cet objectif. Je suis enthousiaste à l idée de voir ce que nous pourrons accomplir ensemble dans les années à venir.
@@ -198,23 +198,23 @@ Je suis convaincu que nous avons la capacité de faire une réelle différence d
 
 INSERT INTO project (id, project_name, project_start_date, project_end_date, project_image, project_about, project_description, project_state, project_remote, region_id, creator_id)
 VALUES 
-(1, 'Facebook', '2018-02-04', '2024-01-01', 'facebook.jpg', 'Projet de création d''un réseau social', 'Projet de création d''un réseau social', 1, 0, 1, 1),
-(2, 'Virtual Reality', '2024-06-06', '2027-12-12', 'virtual-reality.jpg', 'Projet de développement de la réalité virtuelle', 'Projet de développement de la réalité virtuelle', 1, 1, 1, 2),
-(3, 'OpenAI', '2021-06-06', '2025-12-12', 'openai.jpg', 'Projet de développement d''IA', 'Projet de développement d''IA', 1, 1, 1, 3),
-(4, 'SpaceX', '2024-02-02', '2028-01-01', 'spacex.jpg', 'Projet de transport en orbite', 'Projet de transport en orbite', 0, 0, 2, 4),
-(5, 'Tesla', '2003-03-03', '2021-01-01', 'tesla.jpg', 'Projet de voitures électriques', 'Projet de voitures électriques', 0, 0, 2, 5),
-(6, 'Neuralink', '2016-06-06', '2022-12-12', 'neuralink.jpg', 'Projet de développement de la connectivité cerveau-machine', 'Projet de développement de la connectivité cerveau-machine', 1, 1, 2, 6),
-(7, 'Apple', '1976-04-01', '2011-08-24', 'apple.jpg', 'Projet de développement de l''ordinateur personnel', 'Projet de développement de l''ordinateur personnel', 1, 0, 3, 7),
-(8, 'iPod', '2001-10-23', '2014-09-07', 'ipod.jpg', 'Projet de développement de l''iPod', 'Projet de développement de l''iPod', 1, 0, 3, 8),
-(9, 'iPhone', '2007-06-29', '2021-01-01', 'iphone.jpg', 'Projet de développement de l''iPhone', 'Projet de développement de l''iPhone', 1, 0, 3, 1),
-(10, 'Microsoft', '1975-04-04', '2020-12-31', 'microsoft.jpg', 'Projet de développement de logiciels pour l''ordinateur personnel', 'Projet de développement de logiciels pour l''ordinateur personnel', 1, 0, 4, 2),
-(11, 'Windows', '1985-11-20', '2021-01-01', 'windows.jpg', 'Projet de développement de l''OS Windows', 'Projet de développement de l''OS Windows', 0, 0, 4, 3),
-(12, 'XBox', '2001-11-15', '2021-01-01', 'xbox.jpg', 'Projet de développement de la console Xbox', 'Projet de développement de la console Xbox', 1, 0, 4, 4),
-(13, 'Google', '1998-09-04', '2021-01-01', 'google.jpg', 'Projet de création d''un moteur de recherche en ligne', 'Projet de création d''un moteur de recherche en ligne', 0, 0, 5, 5),
-(14, 'Google AI', '2022-06-06', '2025-12-12', 'google-ai.jpg', 'Projet de développement de l''IA', 'Projet de développement de l''IA', 1, 1, 5, 6),
-(15, 'Twitter', '2006-03-21', '2022-12-12', 'twitter.jpg', 'Twitter est un réseau social en ligne qui permet aux utilisateurs de partager de courtes messages appelés "tweets" avec leur public.', 'Twitter est un réseau social en ligne qui permet aux utilisateurs de partager de courtes messages appelés "tweets" avec leur public.', 1, 0, 1, 7),
-(16, 'Mars Colonization', '2022-06-01', '2028-12-12', 'mars.jpg', 'Le projet Mars Colonization vise à coloniser la planète Mars avec des humains pour en faire une nouvelle colonie viable.', 'Le projet Mars Colonization vise à coloniser la planète Mars avec des humains pour en faire une nouvelle colonie viable.', 1, 0, 2, 3),
-(17, 'Hyperloop', '2024-08-12', '2030-12-12', 'hyperloop.jpg', 'Hyperloop est un système de transport à grande vitesse qui utilise des capsules de transport en position déprimée pour permettre des vitesses élevées', 'Hyperloop est un système de transport à grande vitesse qui utilise des capsules de transport en position déprimée pour permettre des vitesses élevées tout en réduisant les coûts.', 1, 0, 2, 2);
+(1, 'Facebook', '2018-02-04', '2024-01-01', 'facebook.png', 'Notre projet est de créer une plateforme de réseau social en ligne qui permet aux utilisateurs de se connecter, partager du contenu et interagir avec d''autres personnes', 'Projet de création d''un réseau social', 1, 0, 1, 1),
+(2, 'Virtual Reality', '2024-06-06', '2027-12-12', 'virtual-reality.png', 'La réalité virtuelle (VR) est une technologie qui permet à l''utilisateur de vivre une expérience immersive dans un monde artificiel généré par ordinateur.', 'Projet de développement de la réalité virtuelle', 1, 1, 1, 2),
+(3, 'OpenAI', '2021-06-06', '2025-12-12', 'openai.png', 'Le projet OpenAI consiste à développer des systèmes d''IA avancés de manière éthique et transparente afin de résoudre des problèmes complexes et améliorer la vie de l''humanité.', 'Projet de développement d''IA', 1, 1, 1, 3),
+(4, 'SpaceX', '2024-02-02', '2028-01-01', 'spacex.jpg', 'Le projet SpaceX consiste à développer des fusées et des véhicules spatiaux réutilisables pour rendre l''exploration spatiale plus abordable et accessible à tous.', 'Projet de transport en orbite', 0, 0, 2, 4),
+(5, 'Tesla', '2003-03-03', '2021-01-01', 'tesla.png', 'Tesla est une entreprise américaine spécialisée dans la conception et la production de voitures électriques, de panneaux solaires et de solutions de stockage d''énergie.', 'Projet de voitures électriques', 0, 0, 2, 5),
+(6, 'Neuralink', '2016-06-06', '2022-12-12', 'neuralink.neralink', 'Neuralink est une entreprise de neurotechnologie fondée par Elon Musk qui développe des interfaces cerveau-machine pour améliorer les capacités humaines.', 'Projet de développement de la connectivité cerveau-machine', 1, 1, 2, 6),
+(7, 'Apple', '1976-04-01', '2011-08-24', 'apple.jpg', 'Apple est une entreprise multinationale américaine qui conçoit, développe et commercialise des produits électroniques, des logiciels et des services en ligne.', 'Projet de développement de l''ordinateur personnel', 1, 0, 3, 7),
+(8, 'iPod', '2001-10-23', '2014-09-07', 'ipod.png', 'Créer un lecteur de musique portable révolutionnaire avec un design élégant et facile à utiliser, permettant de stocker et de lire des milliers de chansons.', 'Projet de développement de l''iPod', 1, 0, 3, 8),
+(9, 'iPhone', '2007-06-29', '2021-01-01', 'iphone.png', 'Le projet iPhone consiste à concevoir un smartphone innovant avec un écran tactile, une caméra, une connectivité sans fil et une interface conviviale et une expérience utilisateur exceptionnelle.', 'Projet de développement de l''iPhone', 1, 0, 3, 1),
+(10, 'Microsoft', '1975-04-04', '2020-12-31', 'microsoft.jpg', 'Créer une entreprise de technologie à succès avec des logiciels, des appareils et des services pour améliorer la productivité et faciliter la vie des gens à travers le monde', 'Projet de développement de logiciels pour l''ordinateur personnel', 1, 0, 4, 2),
+(11, 'Windows', '1985-11-20', '2021-01-01', 'windows.jpg', 'Le projet Microsoft Windows consiste à développer un système d''exploitation convivial et performant pour les ordinateurs personnels et les entreprises.', 'Projet de développement de l''OS Windows', 0, 0, 4, 3),
+(12, 'XBox', '2001-11-15', '2021-01-01', 'xbox.jpg', 'Le projet Xbox consiste à concevoir une console de jeu de haute qualité avec des graphismes impressionnants et une expérience de jeu fluide pour les joueurs du monde entier', 'Projet de développement de la console Xbox', 1, 0, 4, 4),
+(13, 'Google', '1998-09-04', '2021-01-01', 'google.jpg', 'Le projet Google consiste à créer un moteur de recherche efficace, capable d''indexer et de classer des millions de pages web pour faciliter l''accès à l''information en ligne.', 'Projet de création d''un moteur de recherche en ligne', 0, 0, 5, 5),
+(14, 'Google AI', '2022-06-06', '2025-12-12', 'google-ai.jpg', 'Le projet Google AI consiste à développer des systèmes d''intelligence artificielle avancés pour améliorer les produits Google et résoudre des problèmes du monde réel.', 'Projet de développement de l''IA', 1, 1, 5, 6),
+(15, 'Twitter', '2006-03-21', '2022-12-12', 'twitter.jpg', 'Le projet Twitter consiste à créer une plateforme de réseau social qui permet aux utilisateurs de partager des messages courts et de suivre les dernières actualités en temps réel', 'Twitter est un réseau social en ligne qui permet aux utilisateurs de partager de courtes messages appelés "tweets" avec leur public.', 1, 0, 1, 7),
+(16, 'Mars Colonization', '2022-06-01', '2028-12-12', 'mars-colonization.png', 'Le projet de colonisation de Mars vise à établir une communauté humaine permanente sur la planète rouge en utilisant des technologies avancées pour survivre et s''adapter aux conditions extrêmes', 'Le projet Mars Colonization vise à coloniser la planète Mars avec des humains pour en faire une nouvelle colonie viable.', 1, 0, 2, 3),
+(17, 'Hyperloop', '2024-08-12', '2030-12-12', 'hyperloop.jpg', 'Hyperloop est un projet de transport à grande vitesse qui utilise des capsules pour réduire les coûts et les temps de trajet. L''objectif est de créer un système de transport durable.', 'Hyperloop est un système de transport à grande vitesse qui utilise des capsules de transport en position déprimée pour permettre des vitesses élevées tout en réduisant les coûts.', 1, 0, 2, 2);
 
 INSERT INTO project_skill (project_id, skill_id)
 VALUES

@@ -10,7 +10,8 @@ function ProjectSingleContainer() {
   const { id } = useParams();
 
   const [projectSingleListing, setProjectSingleListing] = useState([]);
-  const [/* jobSingleListing, */ setjobSingleListing] = useState([]);
+  const [userSingleListing, setUserSingleListing] = useState([]);
+  const [/* jobSingleListing */ setjobSingleListing] = useState([]);
   const [projectSingleSkillListing, setProjectSingleSkillListing] = useState(
     []
   );
@@ -19,9 +20,6 @@ function ProjectSingleContainer() {
   const [projectSingleRegionListing, setProjectSingleRegionListing] = useState(
     []
   );
-
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
   const token = localStorage.getItem("token");
 
   const getProjects = () => {
@@ -33,11 +31,22 @@ function ProjectSingleContainer() {
       .then((projectsData) => {
         setProjectSingleListing(projectsData);
         console.info(projectsData, " ProjectSingleContainer");
-        console.info(projectsData.creator_id);
       })
       .catch((error) => console.error(error));
   };
 
+  const getUsers = () => {
+    axios
+      .get("http://localhost:5007/users", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((usersData) => {
+        setUserSingleListing(usersData);
+        console.info(usersData, "userSingleListing");
+      })
+      .catch((error) => console.error(error));
+  };
   const getJobs = () => {
     axios
       .get("http://localhost:5007/jobs", {
@@ -91,32 +100,23 @@ function ProjectSingleContainer() {
   };
   useEffect(() => {
     getProjects();
+    getUsers();
     getJobs();
     getProjectSkill();
     getSkill();
     getRegion();
   }, []);
-  //   {
-  //  const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
 
-  //  const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
-  //   }
-
-  // const projectOwners =
-  //   Array.isArray(projectSingleListing) &&
-  //   projectSingleListing.map((project) => {
-  //     const projectOwner = jobSingleListing.find(
-  //       (job) => job_name === job.job_name
-  //     );
-  //     return projectOwner
-  //       ? {
-  //           firstName: projectOwner.firstname,
-  //           lastName: projectOwner.lastname,
-  //           jobId: projectOwner.jobid,
-  //         }
-  //       : null;
-  //   });
-
+  const creatorUser = userSingleListing.find(
+    (user) => user.id === projectSingleListing.creator_id
+  );
+  const creatorName = creatorUser
+    ? `${creatorUser.firstname} ${creatorUser.lastname}`
+    : "";
+  const creatorBiography = creatorUser ? creatorUser.biography : "";
+  const creatorEmail = creatorUser ? creatorUser.email : "";
+  const creatorJob = "Product Owner";
+  const creatorAbout = creatorUser ? creatorUser.about : "";
   // Création d'un tableau de compétences pour chaque projet
   const skills = projectSingleSkillListing
     .filter(
@@ -145,9 +145,11 @@ function ProjectSingleContainer() {
         projectImage={projectSingleListing.project_image}
         projectName={projectSingleListing.project_name}
         projectDescription={projectSingleListing.project_description}
-        // firstname={projectOwners.first_name}
-        // lastname={projectOwners.last_name}
-        // jobId={projectOwners.job_id}
+        creatorName={creatorName}
+        creatorBiography={creatorBiography}
+        creatorAbout={creatorAbout}
+        creatorEmail={creatorEmail}
+        creatorJob={creatorJob}
         skillName={skills}
         projectStartDate={projectSingleListing.project_start_date}
         projectEndDate={projectSingleListing.project_end_date}

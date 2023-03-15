@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export default function TalentAvatar({ firstname, lastname }) {
   return (
     <Avatar
-      alt={{ firstname, lastname }}
+      alt={`${firstname}, ${lastname}`}
       src="http://pngimg.com/uploads/mark_zuckerberg/mark_zuckerberg_PNG35.png"
       sx={{ width: 90, height: 90, alignItems: "center" }}
     />

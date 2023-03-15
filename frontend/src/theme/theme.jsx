@@ -11,6 +11,9 @@ const breakpoints = {
   },
 };
 const palette = {
+  background: {
+    default: "#EAEFF2",
+  },
   primary: { main: "#0088CD", contrastText: "#fff" },
   secondary: { main: "#E05205", contrastText: "#FFFFFF" },
   BgContent: { main: "#eaeff2", contrastText: "#000" },
@@ -27,8 +30,8 @@ const palette = {
     main: "#FFF",
     Background: "#4CA0D8",
     Bghover: "#448ebf",
-    color: "#e9f3fa",
-    hover: "#e9f3fa",
+    color: "#FFF",
+    hover: "#677880",
     contrastText: "#fff",
   },
   UserDashboardProjectSuggest: {
@@ -36,15 +39,21 @@ const palette = {
     background: "#FBFCEA",
     bghover: "#FBFCEA",
     border: "#BDCA03",
-    color: "#e9f3fa",
+    color: "#859298",
+    InProgress: "#a8b30a",
+    Pending: "#E6A410",
+    Paused: "#827e7f",
+    Completed: "#028B96",
+    Abandoned: "#B90231",
     contrastText: "#fff",
     spacing: [0, 2, 3, 5, 8],
   },
   UserDashboardCurrentProject: {
     main: "#FFF",
     background: "#FFF",
-    bghover: "#F3F7CD",
+    bghover: "#fff8e7",
     border: "#E6A410",
+    color: "#859298",
     InProgress: "#a8b30a",
     Pending: "#E6A410",
     Paused: "#827e7f",
@@ -67,6 +76,20 @@ const palette = {
     contrastText: "#fff",
     spacing: [0, 2, 3, 5, 8],
   },
+  UserProjectCard: {
+    main: "#FFF",
+    color: "#82929b",
+    background: "#a8b30a",
+    bghover: "#F3F7CD",
+    border: "#E6A410",
+    InProgress: "#a8b30a",
+    Pending: "#E6A410",
+    Paused: "#827e7f",
+    Completed: "#028B96",
+    Abandoned: "#B90231",
+    contrastText: "#fff",
+    spacing: [0, 2, 3, 5, 8],
+  },
   searhSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (search -> searh)
   myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)
 };
@@ -76,9 +99,9 @@ const typography = {
 
   p: { fontSize: 14, color: "#353d42" },
 
-  h1: { fontSize: 40, color: "#353d42" },
+  h1: { fontSize: 40, color: "#353d42", lineHeight: 1 },
 
-  h2: { fontSize: 24, color: "#353d42", fontWeight: 400 },
+  h2: { fontSize: 28, color: "#5d7280", fontWeight: 300 },
 
   h3: { fontSize: 20, color: "#353d42", fontWeight: 300 },
 
@@ -92,21 +115,38 @@ const typography = {
 
   UserDaskboardSuggestDate: { fontSize: 12, color: "#A8B30A" },
 
+  UserDaskboardCurrenttDate: { fontSize: 12, color: "#e6a410" },
+
   UserDashboardSkill: { fontSize: 14, color: "#353d42" },
+
+  UserDashboardTitle: {
+    fontSize: 20,
+    color: "#5d7280",
+    fontWeight: 300,
+    lineHeight: 0,
+  },
+
+  accordionTitle: {
+    fontSize: 22,
+    color: "#5d7280",
+    fontWeight: 300,
+    lineHeight: 0,
+  },
 
   subtitle1: {
     margin: 0,
     fontSize: "1.4rem",
     color: "#82929b",
-    marginBottom: 40,
-    fontWeight: 400,
+    marginBottom: 10,
+    fontWeight: 300,
+    lineHeight: 1,
   },
 
   subtitle2: {
     margin: 0,
     fontSize: "1.4rem",
     color: "#5698C7",
-    marginBottom: 40,
+    marginBottom: 10,
     fontWeight: 400,
   },
 

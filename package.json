@@ -40,12 +40,12 @@
     "@fullcalendar/react": "^6.1.4",
     "@mui/material": "^5.11.10",
     "@mui/styled-engine-sc": "^5.11.9",
-    "date-fns": "^2.29.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "mui-image": "^1.0.7",
     "prop-types": "^15.8.1",
     "proptypes": "^1.1.0",
-    "cors": "^2.8.5",
     "styled-components": "^5.3.6"
   }
 }
