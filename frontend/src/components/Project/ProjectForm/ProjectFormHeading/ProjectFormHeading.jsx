@@ -26,9 +26,9 @@ export default function ProjectFormHeading() {
         </Box>
         <Box sx={{ width: "30%", background: "#FFF", padding: 3 }}>
           <Stack alignItems="center">
-            <Paper sx={{ maxWidth: 180 }}>
+            <Box sx={{ maxWidth: 180 }}>
               <Image src={Neuralink} aspectRatio={16 / 9} disableSpinner />
-            </Paper>
+            </Box>
             <Box component="form" onSubmit={handleSubmit} noValidate>
               <Button
                 type="submit"

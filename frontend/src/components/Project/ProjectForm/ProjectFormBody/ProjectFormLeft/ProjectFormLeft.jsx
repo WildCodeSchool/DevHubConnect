@@ -1,7 +1,10 @@
 import React from "react";
+import Stack from "@mui/material/Stack";
 
-function ProjectFormLeft() {
-  return <div>ProjectFormLeft</div>;
+export default function ProjectFormLeft() {
+  return (
+    <Stack spacing={2}>
+      <div>ProjectFormLeft</div>
+    </Stack>
+  );
 }
-
-export default ProjectFormLeft;

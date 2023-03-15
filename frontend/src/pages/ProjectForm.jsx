@@ -4,7 +4,7 @@ import ProjectFormComponent from "../components/Project/ProjectForm/ProjectFormC
 
 export default function ProjectForm() {
   return (
-    <Stack spacing={2}>
+    <Stack>
       <ProjectFormComponent />
     </Stack>
   );
