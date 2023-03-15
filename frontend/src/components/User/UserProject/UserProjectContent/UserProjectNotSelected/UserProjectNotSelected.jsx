@@ -1,24 +1,26 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-prop-types */
+import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Stack from "@mui/material/Stack";
+import { Grid, Box } from "@mui/material";
 import axios from "axios";
-// import Masonry from "@mui/lab/Masonry";
+import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectNotSelected() {
+function UserProjectNotSelected({ expanded }) {
   const [projects, setProjects] = useState([]);
+  const notselectedProjectsRef = useRef(null);
 
-  // Appel API Project
-
-  const getCurrentProjects = () => {
+  const getNotSelectedProjects = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_notselected")
+      .get("http://localhost:5007/projects_notselected", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
@@ -27,35 +29,41 @@ function UserProjectNotSelected() {
   };
 
   useEffect(() => {
-    getCurrentProjects();
+    getNotSelectedProjects();
   }, []);
   return (
-    <Accordion>
+    <Accordion expanded={expanded} ref={notselectedProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel3a-content"
-        id="panel3a-header"
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+        data-type="notselected"
       >
-        <Typography variant="subtitle2">Projets non retenus</Typography>
+        <Typography variant="accordionTitle">Projets non retenus</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Stack
-          direction="row"
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-          flexWrap="wrap"
-          width={1000}
-        >
-          {projects.map((project) => (
-            <UserProjectCard
-              key={project.id}
-              projectName={project.project_name}
-              projectDescription={project.project_description}
-            />
-          ))}
-        </Stack>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            {projects.map((project) => (
+              <Grid item xs={12} md={6}>
+                <UserProjectCard
+                  key={project.id}
+                  projectName={project.project_name}
+                  projectDescription={project.project_description}
+                  sx={{ marginLeft: "20px" }}
+                  projectId={project.id}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
       </AccordionDetails>
     </Accordion>
   );
 }
+
+UserProjectNotSelected.propTypes = {
+  expanded: PropTypes.string,
+};
 
 export default UserProjectNotSelected;

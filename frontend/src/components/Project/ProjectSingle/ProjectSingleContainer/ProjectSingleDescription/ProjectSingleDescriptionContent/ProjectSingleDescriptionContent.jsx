@@ -5,22 +5,21 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
 import PropTypes from "prop-types";
-//  import { format } from "date-fns";
+import { format } from "date-fns";
 
 export default function ProjectSingleDescriptionContent({
   projectName,
   projectDescription,
-  firstname,
-  lastname,
-  jobId,
+  creatorName,
+  creatorBiography,
+  creatorAbout,
+  creatorEmail,
+  creatorJob,
   skillName,
   projectStartDate,
   projectEndDate,
   regionName,
 }) {
-  //  const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
-  //  const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
-
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}
@@ -30,10 +29,10 @@ export default function ProjectSingleDescriptionContent({
       alignItems="flex-start"
     >
       <Paper
-        elevation={3}
+        elevation={8}
         sx={{
           flexGrow: 1,
-          borderRadius: 2,
+          borderRadius: 4,
         }}
       >
         <Stack
@@ -50,7 +49,14 @@ export default function ProjectSingleDescriptionContent({
           <Typography variant="body1" gutterBottom>
             {projectDescription}
             <Typography variant="body1" gutterBottom>
-              Du {projectStartDate} au {projectEndDate}
+              Du{" "}
+              {projectStartDate?.length > 0
+                ? format(new Date(projectStartDate), "dd/MM/yyyy")
+                : ""}{" "}
+              au{" "}
+              {projectEndDate?.length > 0
+                ? format(new Date(projectEndDate), "dd/MM/yyyy")
+                : ""}
             </Typography>
             <Typography variant="body1" gutterBottom>
               {regionName}
@@ -78,34 +84,35 @@ export default function ProjectSingleDescriptionContent({
           <Avatar
             src="https://xsgames.co/randomusers/avatar.php?g=male"
             sx={{ width: 90, height: 90 }}
-            alt="Pierre Perrin"
+            alt=""
           />
         </Stack>
         <Stack
           direction={{ xs: "column", sm: "column", md: "column" }}
           spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="space-between"
+          justifyContent="flex-start"
           alignItems="center"
           p={2}
         >
           <Typography variant="body1" gutterBottom>
-            {firstname} {lastname}
+            {creatorJob}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            {jobId}
+            {creatorName}
+          </Typography>
+
+          <Typography paragraph>{creatorBiography}</Typography>
+          <Typography variant="body2" color="text.secondary">
+            {creatorAbout}
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-            blanditiis tenetur unde suscipit, quam beatae rerum inventore
-            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-            fugiat deleniti? Eum quasi quidem quibusdam.
+            📧 {creatorEmail}
           </Typography>
         </Stack>
       </Paper>
 
       <Stack
         direction={{ xs: "column", sm: "column", md: "column" }}
-        // display="flex"
         spacing={{ xs: 1, sm: 1, md: 2 }}
         justifyContent="flex-start"
         alignItems="center"
@@ -154,9 +161,11 @@ export default function ProjectSingleDescriptionContent({
 ProjectSingleDescriptionContent.propTypes = {
   projectName: PropTypes.string,
   projectDescription: PropTypes.string,
-  firstname: PropTypes.string,
-  lastname: PropTypes.string,
-  jobId: PropTypes.string,
+  creatorName: PropTypes.string,
+  creatorBiography: PropTypes.string,
+  creatorAbout: PropTypes.string,
+  creatorEmail: PropTypes.string,
+  creatorJob: PropTypes.string,
   skillName: PropTypes.string,
   projectStartDate: PropTypes.instanceOf(Date),
   projectEndDate: PropTypes.instanceOf(Date),
@@ -166,9 +175,11 @@ ProjectSingleDescriptionContent.propTypes = {
 ProjectSingleDescriptionContent.defaultProps = {
   projectName: "",
   projectDescription: "",
-  firstname: "",
-  lastname: "",
-  jobId: "",
+  creatorName: "",
+  creatorBiography: "",
+  creatorAbout: "",
+  creatorEmail: "",
+  creatorJob: "",
   skillName: "",
   projectStartDate: [],
   projectEndDate: [],
