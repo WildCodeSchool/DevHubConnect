@@ -144,9 +144,9 @@ const filterProjectCurrent = (req, res) => {
 
 // Filtrer les projets à venir
 
-const filterProjectUpgoing = (req, res) => {
+const filterProjectUpComing = (req, res) => {
   models.project
-    .findUpgoingProjects(req)
+    .findUpComingProjects(req)
     .then((rows) => {
       res.send(rows);
     })
@@ -170,6 +170,20 @@ const filterProjectNotselected = (req, res) => {
     });
 };
 
+// Filtrer tous les projets
+
+const filterAllProject = (req, res) => {
+  models.project
+    .findAllProjects(req)
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -177,6 +191,7 @@ module.exports = {
   add,
   destroy,
   filterProjectCurrent,
-  filterProjectUpgoing,
+  filterProjectUpComing,
   filterProjectNotselected,
+  filterAllProject,
 };

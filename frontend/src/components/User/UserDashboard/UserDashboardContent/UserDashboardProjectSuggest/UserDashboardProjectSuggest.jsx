@@ -95,7 +95,9 @@ export default function UserDashboardProjectSuggest() {
 
   return (
     <>
-      {projectListing.slice(-5).map((project) => {
+      {projectListing.slice(-4).map((project) => {
+        console.info("project", project);
+
         return (
           <Box sx={{ width: "100%" }}>
             <Paper
@@ -147,7 +149,11 @@ export default function UserDashboardProjectSuggest() {
                             {formatDate(project.project_end_date)}
                           </Typography>
                         </Stack>
-                        <Avatar alt={user.firstname} src={user.user_image} />
+                        <Avatar
+                          alt={user.firstname}
+                          src={`../../../../../src/assets/projects-img/${project.project_image}`}
+                          sx={{ width: 50, height: 50 }}
+                        />
                       </Stack>
                     </Box>
                     <Box sx={{ width: 1 }}>
@@ -156,9 +162,10 @@ export default function UserDashboardProjectSuggest() {
                         gutterBottom
                         sx={{
                           color: "UserDashboardProjectSuggest.color",
+                          width: "100%",
                         }}
                       >
-                        {project.project_description}
+                        {project.project_about}
                       </Typography>
                     </Box>
 
