@@ -1,19 +1,37 @@
-import React from "react";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import PropTypes from "prop-types";
 
-function TalentSingleHeader() {
+function TalentSingleHeader({ job, region, mail }) {
   return (
-    <Box sx={{ backgroundColor: "#cfe8fc" }}>
-      <Typography component="h1" variant="h3" sx={{ p: 1 }}>
-        Votre talent
+    <Stack spacing={2}>
+      <Typography variant="h1">{job}</Typography>
+
+      <Typography variant="subtitle1" gutterBottom>
+        {region}
       </Typography>
-      <Typography component="h2" variant="h5" sx={{ p: 1, color: "grey" }}>
-        Je suis votre talent. Pour mieux me connaître prenez le temps de lire ma
-        fiche de présentation ...
-      </Typography>
-    </Box>
+      <Box m={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button variant="contained" startIcon={<SendIcon />}>
+          {mail}
+        </Button>
+      </Box>
+    </Stack>
   );
 }
+
+TalentSingleHeader.propTypes = {
+  job: PropTypes.string,
+  region: PropTypes.string,
+  mail: PropTypes.string,
+};
+
+TalentSingleHeader.defaultProps = {
+  job: "",
+  region: "",
+  mail: "",
+};
 
 export default TalentSingleHeader;
