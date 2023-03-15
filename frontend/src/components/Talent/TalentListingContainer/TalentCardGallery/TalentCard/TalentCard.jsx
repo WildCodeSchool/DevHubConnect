@@ -17,7 +17,7 @@ export default function TalentCard({
 }) {
   return (
     <Link href={`/talent/${id}`} underline="none">
-      <Paper>
+      <Paper elevation={3} p={2}>
         <CardActionArea>
           <Stack
             alignItems="center"
@@ -25,7 +25,7 @@ export default function TalentCard({
             direction="column"
           >
             <Stack
-              direction={{ xs: "row", sm: "row", md: "column" }}
+              direction={{ xs: "row", sm: "column", md: "column" }}
               justifyContent="center"
               alignItems="center"
               spacing={2}
@@ -35,6 +35,7 @@ export default function TalentCard({
                 jobName={jobName}
                 firstname={firstname}
                 lastname={lastname}
+                id={id}
               />
             </Stack>
 
@@ -54,8 +55,8 @@ TalentCard.propTypes = {
 };
 
 TalentCard.defaultProps = {
+  id: "",
   jobName: "",
-  id: 0,
   firstname: "",
   lastname: "",
   biography: "",
