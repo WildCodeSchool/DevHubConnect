@@ -16,7 +16,7 @@ export default function UserSettingSkills({
   setUserSkillsProp,
 }) {
   const [skillListing, setSkillListing] = useState([]);
-  const [tempUserSkills, setTempUserSkills] = useState([]);
+  const [userSkills, setUserSkills] = useState([]);
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -50,7 +50,7 @@ export default function UserSettingSkills({
         const userSkillsFilter = response.data.filter(
           (userSkill) => userSkill.user_id === user.id
         );
-        setTempUserSkills(userSkillsFilter);
+        setUserSkills(userSkillsFilter);
       } catch (error) {
         console.error("Failed to fetch user skills: ", error);
         // display an error message to the user
@@ -70,20 +70,17 @@ export default function UserSettingSkills({
 
     let newUserSkills;
     if (isChecked) {
-      newUserSkills = [
-        ...tempUserSkills,
-        { user_id: user.id, skill_id: skillId },
-      ];
+      newUserSkills = [...userSkills, { user_id: user.id, skill_id: skillId }];
     } else {
-      newUserSkills = tempUserSkills.filter((us) => us.skill_id !== skillId);
+      newUserSkills = userSkills.filter((us) => us.skill_id !== skillId);
     }
-    setTempUserSkills(newUserSkills);
+    setUserSkills(newUserSkills);
     setUserSkillsProp([
       ...new Set(newUserSkills.map((skill) => skill.skill_id)),
     ]);
     setUser((prevUser) => ({
       ...prevUser,
-      skillIds: [...new Set(newUserSkills.map((skill) => skill.skill_id))],
+      skillIds: newUserSkills.map((skill) => skill.skill_id),
     }));
   };
 
@@ -115,9 +112,7 @@ export default function UserSettingSkills({
                 key={skill.id}
                 control={
                   <Checkbox
-                    checked={tempUserSkills.some(
-                      (us) => us.skill_id === skill.id
-                    )}
+                    checked={userSkills.some((us) => us.skill_id === skill.id)}
                     onChange={handleSkillChange}
                     value={skill.id}
                     name={skill.skill_name}
@@ -138,6 +133,6 @@ UserSettingSkills.propTypes = {
     skill: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
-  setUser: PropTypes.func.isRequired, // Ajoutez cette ligne
+  setUser: PropTypes.func.isRequired,
   setUserSkillsProp: PropTypes.func.isRequired,
 };
