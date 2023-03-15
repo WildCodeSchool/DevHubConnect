@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -6,13 +7,14 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Grid, Box } from "@mui/material";
 import axios from "axios";
+import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectUpComing() {
+function UserProjectUpComing({ expanded }) {
   const [projects, setProjects] = useState([]);
   const upcomingProjectsRef = useRef(null);
 
-  const getUpgoingProjects = () => {
+  const getUpComingProjects = () => {
     const token = localStorage.getItem("token");
     axios
       .get("http://localhost:5007/projects_upcoming", {
@@ -26,11 +28,11 @@ function UserProjectUpComing() {
   };
 
   useEffect(() => {
-    getUpgoingProjects();
+    getUpComingProjects();
   }, []);
 
   return (
-    <Accordion ref={upcomingProjectsRef}>
+    <Accordion expanded={expanded} ref={upcomingProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -57,5 +59,9 @@ function UserProjectUpComing() {
     </Accordion>
   );
 }
+
+UserProjectUpComing.propTypes = {
+  expanded: PropTypes.string,
+};
 
 export default UserProjectUpComing;

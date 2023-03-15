@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
@@ -8,9 +9,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import axios from "axios";
+import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectCurrent() {
+function UserProjectCurrent({ expanded }) {
   const [projects, setProjects] = useState([]);
   const currentProjectsRef = useRef(null);
   const getCurrentProjects = () => {
@@ -31,7 +33,7 @@ function UserProjectCurrent() {
   }, []);
 
   return (
-    <Accordion defaultExpanded ref={currentProjectsRef}>
+    <Accordion expanded={expanded} ref={currentProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -58,5 +60,9 @@ function UserProjectCurrent() {
     </Accordion>
   );
 }
+
+UserProjectCurrent.propTypes = {
+  expanded: PropTypes.string,
+};
 
 export default UserProjectCurrent;

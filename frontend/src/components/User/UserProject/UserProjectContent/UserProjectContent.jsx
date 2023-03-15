@@ -8,7 +8,7 @@ import UserProjectNotSelected from "./UserProjectNotSelected/UserProjectNotSelec
 import UserProjectAll from "./UserProjectAll/UserProjectAll";
 
 function UserProjectContent() {
-  const [currentProjectsExpanded, setCurrentProjectsExpanded] = useState(false);
+  const [currentProjectsExpanded, setCurrentProjectsExpanded] = useState(true);
   const [upcomingProjectsExpanded, setUpcomingProjectsExpanded] =
     useState(false);
   const [notselectedProjectsExpanded, setNotselectedProjectsExpanded] =
@@ -42,7 +42,7 @@ function UserProjectContent() {
         setAllProjectsExpanded(!allProjectsExpanded);
         break;
       default:
-        setCurrentProjectsExpanded(true);
+        setCurrentProjectsExpanded(false);
         setUpcomingProjectsExpanded(false);
         setNotselectedProjectsExpanded(false);
         setAllProjectsExpanded(false);
@@ -64,7 +64,7 @@ function UserProjectContent() {
           size="small"
           href="#InProgress"
           sx={{
-            backgroundColor: currentProjectsExpanded ? "#ffcc00" : "",
+            backgroundColor: currentProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("current")}
           data-type="current"
@@ -76,7 +76,7 @@ function UserProjectContent() {
           size="small"
           href="#Pending"
           sx={{
-            backgroundColor: upcomingProjectsExpanded ? "#ffcc00" : "",
+            backgroundColor: upcomingProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("upcoming")}
           data-type="upcoming"
@@ -88,7 +88,7 @@ function UserProjectContent() {
           size="small"
           href="#Abandoned"
           sx={{
-            backgroundColor: notselectedProjectsExpanded ? "#ffcc00" : "",
+            backgroundColor: notselectedProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("notselected")}
           data-type="notselected"
@@ -100,7 +100,7 @@ function UserProjectContent() {
           size="small"
           href="#All"
           sx={{
-            backgroundColor: allProjectsExpanded ? "#ffcc00" : "",
+            backgroundColor: allProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("all")}
           data-type="all"

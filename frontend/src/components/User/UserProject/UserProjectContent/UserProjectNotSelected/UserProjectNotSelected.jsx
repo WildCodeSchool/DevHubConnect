@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/no-unused-prop-types */
 import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -6,9 +8,10 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Grid, Box } from "@mui/material";
 import axios from "axios";
+import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectNotSelected() {
+function UserProjectNotSelected({ expanded }) {
   const [projects, setProjects] = useState([]);
   const notselectedProjectsRef = useRef(null);
 
@@ -29,7 +32,7 @@ function UserProjectNotSelected() {
     getNotSelectedProjects();
   }, []);
   return (
-    <Accordion ref={notselectedProjectsRef}>
+    <Accordion expanded={expanded} ref={notselectedProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -57,5 +60,9 @@ function UserProjectNotSelected() {
     </Accordion>
   );
 }
+
+UserProjectNotSelected.propTypes = {
+  expanded: PropTypes.string,
+};
 
 export default UserProjectNotSelected;
