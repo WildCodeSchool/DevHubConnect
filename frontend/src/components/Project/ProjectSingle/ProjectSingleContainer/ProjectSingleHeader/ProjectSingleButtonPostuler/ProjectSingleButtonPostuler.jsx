@@ -9,15 +9,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 export default function ProjectSingleButtonPostuler() {
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -27,7 +24,7 @@ export default function ProjectSingleButtonPostuler() {
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Phrases de Motivation Max 240 caractères
+            Phrases de Motivation Max 160 caractères
           </DialogContentText>
           <TextField
             id="outlined-textarea"
