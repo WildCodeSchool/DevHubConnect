@@ -1,15 +1,22 @@
+/* eslint-disable react/no-typos */
+/* eslint-disable react/require-default-props */
 import React from "react";
 import { Paper, Chip, Typography, Link, Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 
-export default function UserProjectCard({ projectName, projectDescription }) {
-  const handleClick = () => {
+export default function UserProjectCard({
+  projectId,
+  projectName,
+  projectDescription,
+}) {
+  const handleMoreInfoClick = () => {
     console.info("You clicked the Chip.");
   };
+
   return (
-    <Link href={`/project/${projectName.toLowerCase()}`} underline="none">
+    <Link href={`/project/${projectId}`} underline="none">
       <Paper
         elevation={2}
         sx={{
@@ -58,7 +65,7 @@ export default function UserProjectCard({ projectName, projectDescription }) {
               <Chip
                 size="small"
                 label="+ d'infos"
-                onClick={handleClick}
+                onClick={() => handleMoreInfoClick(projectId)}
                 color="primary"
                 sx={{
                   mt: 2,
@@ -73,11 +80,13 @@ export default function UserProjectCard({ projectName, projectDescription }) {
 }
 
 UserProjectCard.propTypes = {
+  projectId: PropTypes.number,
   projectName: PropTypes.string,
   projectDescription: PropTypes.string,
 };
 
 UserProjectCard.defaultProps = {
+  projectId: "",
   projectName: "",
   projectDescription: "",
 };

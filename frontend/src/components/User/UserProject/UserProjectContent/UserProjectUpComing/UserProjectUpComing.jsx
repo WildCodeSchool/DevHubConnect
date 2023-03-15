@@ -50,6 +50,7 @@ function UserProjectUpComing({ expanded }) {
                   key={project.id}
                   projectName={project.project_name}
                   projectDescription={project.project_description}
+                  projectId={project.id}
                 />
               </Grid>
             ))}

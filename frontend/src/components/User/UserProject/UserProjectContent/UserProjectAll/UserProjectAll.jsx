@@ -50,6 +50,7 @@ function UserProjectAll({ expanded }) {
                   projectName={project.project_name}
                   projectDescription={project.project_description}
                   sx={{ marginLeft: "20px" }}
+                  projectId={project.id}
                 />
               </Grid>
             ))}
