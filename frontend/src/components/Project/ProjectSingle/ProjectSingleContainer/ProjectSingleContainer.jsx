@@ -142,6 +142,7 @@ function ProjectSingleContainer() {
       <ProjectSingleDescriptionContent
         key={projectSingleListing.id}
         id={projectSingleListing.id}
+        userId={projectSingleListing.creator_id}
         projectImage={projectSingleListing.project_image}
         projectName={projectSingleListing.project_name}
         projectDescription={projectSingleListing.project_description}
