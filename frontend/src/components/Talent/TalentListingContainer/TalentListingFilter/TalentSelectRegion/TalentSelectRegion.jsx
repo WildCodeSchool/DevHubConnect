@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,6 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Stack from "@mui/material/Stack";
+import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,46 +21,36 @@ const MenuProps = {
   },
 };
 
-const regions = [
-  "Ile-de-France",
-  "Nord-Pas-de-Calais",
-  "Champagne-Ardenne",
-  "Picardie",
-  "Haute-Normandie",
-  "Basse-Normandie",
-  "Bourgogne",
-  "Franche-Comté",
-  "Alsace",
-  "Lorraine",
-  "Languedoc-Roussillon",
-  "Provence-Alpes-Côte d Azur",
-  "Rhône-Alpes",
-  "Aquitaine",
-  "Midi-Pyrénées",
-  "Poitou-Charentes",
-  "Centre",
-  "Bretagne",
-  "Pays de la Loire",
-  "Limousin",
-  "Auvergne",
-];
+function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
+  const [userRegions, setUserRegions] = useState([]);
+  const [regions, setRegions] = useState([]);
 
-function TalentSelectRegions() {
-  const [userRegions, setUserRegions] = React.useState([]);
+  const getRegions = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get("http://localhost:5007/regions", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((regionsData) => {
+        setRegions(regionsData);
+      });
+  };
+
+  useEffect(() => {
+    getRegions();
+  }, []);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setUserRegions(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    const { value } = event.target;
+    setUserRegions(typeof value === "string" ? value.split(",") : value);
+
+    setSelectedRegions(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
     <Stack>
-      <FormControl sx={{ width: 300 }}>
+      <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
         <Select
           labelId="demo-multiple-checkbox-label"
@@ -70,10 +62,15 @@ function TalentSelectRegions() {
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {regions.map((region) => (
-            <MenuItem key={region} value={region}>
-              <Checkbox checked={userRegions.indexOf(region) > -1} />
-              <ListItemText primary={region} />
+          {regions.map((region, index) => (
+            <MenuItem key={region.id} value={region.region_name}>
+              <Checkbox
+                checked={
+                  userRegions.indexOf(region.region_name) > -1 ||
+                  currentSelectedRegions.indexOf(region.region_name) > -1
+                }
+              />
+              <ListItemText primary={region.region_name} index={index} />
             </MenuItem>
           ))}
         </Select>
@@ -82,4 +79,14 @@ function TalentSelectRegions() {
   );
 }
 
-export default TalentSelectRegions;
+TalentSelectRegion.propTypes = {
+  currentSelectedRegions: PropTypes.arrayOf(PropTypes.string),
+  setSelectedRegions: PropTypes.func,
+};
+
+TalentSelectRegion.defaultProps = {
+  currentSelectedRegions: [],
+  setSelectedRegions: () => {},
+};
+
+export default TalentSelectRegion;

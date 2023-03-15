@@ -8,8 +8,8 @@ function TalentListeningHeader() {
       <Typography variant="h1">Bourse aux talents</Typography>
 
       <Typography variant="subtitle1" gutterBottom>
-        Easily and quickly find your future collaborators according to the
-        skills sought, in your region or elsewhere ...
+        Trouvez facilement et rapidement vos futurs collaborateurs en fonction
+        des compétences recherchées, dans votre région ou ailleurs...
       </Typography>
     </Stack>
   );
