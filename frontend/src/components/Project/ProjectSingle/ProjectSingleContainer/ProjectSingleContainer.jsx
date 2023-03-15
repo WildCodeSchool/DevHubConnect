@@ -20,9 +20,6 @@ function ProjectSingleContainer() {
   const [projectSingleRegionListing, setProjectSingleRegionListing] = useState(
     []
   );
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
-
   const token = localStorage.getItem("token");
 
   const getProjects = () => {
@@ -109,20 +106,17 @@ function ProjectSingleContainer() {
     getSkill();
     getRegion();
   }, []);
-  console.info(userSingleListing, "usercreatorNames");
-  console.info(projectSingleListing.creator_id, "creatorId");
-  console.info(userSingleListing.id, "user.id");
-  const usercreatorNames = userSingleListing
-    .filter((user) => projectSingleListing.creator_id === user.id)
-    .map((user) => {
-      console.info(usercreatorNames, "usercreatorNames");
-      return {
-        firstname: `${user.firstName} `,
-        lastname: `${user.lastName}`,
-        biographie: `${user.bio}`,
-      };
-    });
 
+  const creatorUser = userSingleListing.find(
+    (user) => user.id === projectSingleListing.creator_id
+  );
+  const creatorName = creatorUser
+    ? `${creatorUser.firstname} ${creatorUser.lastname}`
+    : "";
+  const creatorBiography = creatorUser ? creatorUser.biography : "";
+  const creatorEmail = creatorUser ? creatorUser.email : "";
+  const creatorJob = "Product Owner";
+  const creatorAbout = creatorUser ? creatorUser.about : "";
   // Création d'un tableau de compétences pour chaque projet
   const skills = projectSingleSkillListing
     .filter(
@@ -151,9 +145,11 @@ function ProjectSingleContainer() {
         projectImage={projectSingleListing.project_image}
         projectName={projectSingleListing.project_name}
         projectDescription={projectSingleListing.project_description}
-        // firstname={userSingleListing.user.firstName}
-        // lastname={userSingleListing.user.lastName}
-        // jobId={jobSingleListing.job_name}
+        creatorName={creatorName}
+        creatorBiography={creatorBiography}
+        creatorAbout={creatorAbout}
+        creatorEmail={creatorEmail}
+        creatorJob={creatorJob}
         skillName={skills}
         projectStartDate={projectSingleListing.project_start_date}
         projectEndDate={projectSingleListing.project_end_date}
