@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 const AbstractManager = require("./AbstractManager");
 
 class ItemManager extends AbstractManager {

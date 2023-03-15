@@ -65,7 +65,8 @@ export default function UserDashboardCurrentProject() {
                   justifyContent="flex-start"
                   alignItems="center"
                   p={0}
-                  pl={3}
+                  pl={{ sm: 3, md: 3 }}
+                  pt={{ xs: 3, sm: 0 }}
                   sx={{
                     borderLeft: 4,
                     borderColor: "UserDashboardCurrentProject.border",
@@ -89,8 +90,12 @@ export default function UserDashboardCurrentProject() {
                   >
                     <Stack
                       direction="column"
-                      justifyContent="flex-start"
-                      alignItems="flex-start"
+                      justifyContent={{ xs: "center", sm: "flex-start" }}
+                      alignItems={{
+                        xs: "center",
+                        sm: "center",
+                        md: "flex-start",
+                      }}
                       spacing={0.5}
                     >
                       <Typography component="div" variant="h2">

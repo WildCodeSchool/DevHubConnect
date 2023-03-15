@@ -1,25 +1,36 @@
-/* eslint-disable no-undef */
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
 import React from "react";
-import Stack from "@mui/material/Stack";
+import { Box, Stack } from "@mui/material";
+import Button from "@mui/material/Button";
 import UserProjectCurrent from "./UserProjectCurrent/UserProjectCurrent";
 import UserProjectUpComing from "./UserProjectUpComing/UserProjectUpComing";
 import UserProjectNotSelected from "./UserProjectNotSelected/UserProjectNotSelected";
+import UserProjectAll from "./UserProjectAll/UserProjectAll";
 
-export default function UserProjectContent() {
+function UserProjectContent() {
   return (
-    <div>
-      <Stack
-        direction="row"
-        spacing={{ xs: 1, sm: 2, md: 4, ml: 25 }}
-        flexWrap="wrap"
-        width={1000}
-      >
+    <Box sx={{ flexGrow: 1, padding: 3 }}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={4} p={2}>
+        <Button variant="outlined" size="small" href="#InProgress">
+          Projets en cours
+        </Button>
+        <Button variant="outlined" size="small" href="#Pending">
+          Projets à venir
+        </Button>
+        <Button variant="outlined" size="small" href="#Abandoned">
+          Projets non retenus
+        </Button>
+        <Button variant="outlined" size="small" href="#All">
+          Tous les projets
+        </Button>
+      </Stack>
+      <Stack>
         <UserProjectCurrent />
         <UserProjectUpComing />
         <UserProjectNotSelected />
+        <UserProjectAll />
       </Stack>
-    </div>
+    </Box>
   );
 }
+
+export default UserProjectContent;

@@ -8,24 +8,24 @@ import { Grid, Box } from "@mui/material";
 import axios from "axios";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectNotSelected() {
+function UserProjectAll() {
   const [projects, setProjects] = useState([]);
 
-  const getNotSelectedProjects = () => {
+  const getAllProjects = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_notselected", {
+      .get("http://localhost:5007/project", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0]);
+        console.info(projectsData[0], "allprojects");
       });
   };
 
   useEffect(() => {
-    getNotSelectedProjects();
+    getAllProjects();
   }, []);
   return (
     <Accordion id="current" defaultExpanded>
@@ -34,7 +34,7 @@ function UserProjectNotSelected() {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography variant="accordionTitle">Projets non retenus</Typography>
+        <Typography variant="accordionTitle">Tous les projets</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Box sx={{ flexGrow: 1 }}>
@@ -55,5 +55,4 @@ function UserProjectNotSelected() {
     </Accordion>
   );
 }
-
-export default UserProjectNotSelected;
+export default UserProjectAll;

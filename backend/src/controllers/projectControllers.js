@@ -170,6 +170,20 @@ const filterProjectNotselected = (req, res) => {
     });
 };
 
+// Filtrer tous les projets
+
+const filterAllProject = (req, res) => {
+  models.project
+    .findAllProjects(req)
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 module.exports = {
   browse,
   read,
@@ -179,4 +193,5 @@ module.exports = {
   filterProjectCurrent,
   filterProjectUpgoing,
   filterProjectNotselected,
+  filterAllProject,
 };

@@ -1,5 +1,3 @@
-// import some node modules for later
-
 const fs = require("node:fs");
 const path = require("node:path");
 
@@ -20,8 +18,7 @@ app.use(
   cors({
     origin: [
       process.env.FRONTEND_URL ?? "http://localhost:3000",
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
+      "http://127.0.0.1:5173/",
       "http://localhost:5173",
     ],
     optionsSuccessStatus: 200,

@@ -23,7 +23,6 @@ import LogoConnect from "../../Sidebar/Logo";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
       <MuiLink color="inherit" href="http://localhost:5173/">
         DevHub Connect
       </MuiLink>{" "}
@@ -93,6 +92,7 @@ export default function Login() {
         email,
         password,
       });
+
       // Stockage du jeton d'authentification dans le stockage local de l'application
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("userId", response.data.userId.toString());
