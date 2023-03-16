@@ -16,7 +16,10 @@ import {
 import { Formik, Form } from "formik";
 import { object } from "yup";
 import * as Yup from "yup";
+// import transporter from "mvc-express/src/services/mailer";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
+
+// const mailer = require('./backend/src/services/mailer.js');
 
 export default function SignUpConfirmation() {
   const {
@@ -124,9 +127,29 @@ export default function SignUpConfirmation() {
         };
 
         // requête POST pour créer un utilisateur dans l'API
-        axios.post("http://localhost:5007/users", newUser).catch((error) => {
-          console.error(error);
-        });
+        axios
+          .post("http://localhost:5007/users", newUser)
+          /* .then((response) => {
+            // Si la requête POST réussit, envoi de l'e-mail de confirmation
+            const mailOptions = {
+              from: "fannykaugumi@gmail.com",
+              to: email,
+              subject: "Confirmation d'inscription",
+              text: "Merci de vous être inscrit sur notre site !",
+              html: "<p>Merci de vous être inscrit sur notre site !</p>",
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.error(error);
+              } else {
+                console.log("E-mail envoyé :", info.response);
+              }
+            });
+          }) */
+          .catch((error) => {
+            console.error(error);
+          });
 
         handleNext();
       }}
