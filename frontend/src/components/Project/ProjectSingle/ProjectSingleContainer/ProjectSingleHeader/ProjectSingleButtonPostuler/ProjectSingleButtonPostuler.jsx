@@ -7,41 +7,52 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
-import PropTypes from "prop-types";
+import { format } from "date-fns";
+import { useParams } from "react-router-dom";
 
-export default function ProjectSingleButtonPostuler({ userId, id }) {
+export default function ProjectSingleButtonPostuler() {
   const [open, setOpen] = useState(false);
   const [motivation, setMotivation] = useState("");
-  const [candidacy, setCandidacy] = useState(null);
+  const [candidacy, setCandidacy] = useState([]);
+  const [hasApplied, setHasApplied] = useState(false);
+
   // const [candidacyEnvoyee, setCandidacyEnvoyee] = useState(false);
 
   const token = localStorage.getItem("token");
+  const userId = parseInt(localStorage.getItem("userId"), 10);
+  const { id } = useParams();
+  const projectId = parseInt(id, 10);
 
-  const hasApplied = candidacy !== null;
+  const newCandidacy = {
+    user_id: userId,
+    project_id: projectId,
+    apply_date: format(new Date(), "yyyy/MM/dd"),
+    user_status: 1,
+    user_motivation: motivation,
+  };
 
-  const postCandidacy = () => {
+  const getCandidacy = () => {
     axios
-      .post(
-        `http://localhost:5007/candidacies/${id}`, // Include projectId in URL
-        { userId, motivation, id }, // Include projectId in the request body
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      .then((response) => {
-        setCandidacy(response.data);
-        console.info(response.data, "PostCandidacies");
+      .get("http://localhost:5007/candidacies", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((candidacyData) => {
+        setCandidacy(candidacyData);
       })
       .catch((error) => console.error(error));
   };
+  useEffect(() => {
+    getCandidacy();
+  }, []);
 
   useEffect(() => {
-    if (userId && token) {
-      postCandidacy();
-    } else {
-      setCandidacy(null);
-    }
-  }, [userId, token]);
+    setHasApplied(
+      candidacy.some(
+        (apply) => apply.project_id === projectId && apply.user_id === userId
+      )
+    );
+  }, [candidacy, projectId, userId]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,11 +71,19 @@ export default function ProjectSingleButtonPostuler({ userId, id }) {
     }
   };
 
-  const handlePostuler = () => {
-    postCandidacy();
+  const postCandidacy = () => {
+    axios
+      .post(`http://localhost:5007/candidacies`, newCandidacy, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        setHasApplied(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     handleClose();
   };
-
   return (
     <>
       {userId ? (
@@ -105,23 +124,15 @@ export default function ProjectSingleButtonPostuler({ userId, id }) {
         <DialogActions>
           <Button onClick={handleClose}>Annuler</Button>
           <Button
-            onClick={handlePostuler}
-            disabled={motivation.length === 0 || motivation.length > 160}
+            onClick={() => {
+              postCandidacy();
+            }}
+            disabled={motivation.length === 0 || motivation.length >= 160}
           >
-            Postuler
+            Valider
           </Button>
         </DialogActions>
       </Dialog>
     </>
   );
 }
-
-ProjectSingleButtonPostuler.propTypes = {
-  userId: PropTypes.number,
-  id: PropTypes.number,
-};
-
-ProjectSingleButtonPostuler.defaultProps = {
-  userId: "",
-  id: "",
-};
