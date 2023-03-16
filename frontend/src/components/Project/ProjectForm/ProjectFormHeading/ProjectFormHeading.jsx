@@ -14,8 +14,8 @@ export default function ProjectFormHeading() {
   };
   return (
     <Paper elevation={8} sx={{ mb: 2 }}>
-      <Stack direction="row" spacing={2}>
-        <Box sx={{ width: "70%", background: "#FFF", padding: 3 }}>
+      <Stack direction="row">
+        <Box sx={{ width: "85%", background: "#FFF", padding: 3 }}>
           <Stack spacing={2}>
             <Typography variant="h1">Add Project</Typography>
             <Typography variant="h5">Neuralink</Typography>
@@ -24,12 +24,23 @@ export default function ProjectFormHeading() {
             </Typography>
           </Stack>
         </Box>
-        <Box sx={{ width: "30%", background: "#FFF", padding: 3 }}>
-          <Stack alignItems="center">
-            <Box sx={{ maxWidth: 180 }}>
-              <Image src={Neuralink} aspectRatio={16 / 9} disableSpinner />
+
+        <Box sx={{ background: "#FFF", padding: 3 }}>
+          <Stack justifyContent="space-between" alignItems="center">
+            <Box sx={{ height: 80 }}>
+              <Image
+                src={Neuralink}
+                aspectRatio={16 / 9}
+                disableSpinner
+                sx={{ objectFit: "contain", maxWidth: 200, maxHeight: 200 }}
+              />
             </Box>
-            <Box component="form" onSubmit={handleSubmit} noValidate>
+            <Box
+              sx={{ height: 50 }}
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+            >
               <Button
                 type="submit"
                 fullWidth
