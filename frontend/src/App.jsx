@@ -44,6 +44,7 @@ import TalentSingle from "./pages/TalentSingle";
 import ProjectForm from "./pages/ProjectForm";
 import ProjectCalendar from "./pages/ProjectCalendar";
 import Charte from "./pages/Charte";
+import EditProjectForm from "./pages/ProjectEdit";
 
 const drawerWidth = 240;
 
@@ -205,6 +206,10 @@ function ResponsiveDrawer(props) {
                   <Route path="/talent" element={<TalentListing />} />
                   <Route path="/talent/:id" element={<TalentSingle />} />
                   <Route path="/charte" element={<Charte />} />
+                  <Route
+                    path="/edit-project/:id"
+                    element={<EditProjectForm />}
+                  />
                 </Routes>
               </SignUpContextProvider>
             </LocalizationProvider>
