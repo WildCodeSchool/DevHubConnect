@@ -9,7 +9,7 @@ export default function UserSetting() {
   return (
     <Stack spacing={2}>
       <ProjectEditHeader />
-      <EditProjectForm projectId={projectId} />
+      <EditProjectForm projectId={projectId} key={projectId} />
     </Stack>
   );
 }

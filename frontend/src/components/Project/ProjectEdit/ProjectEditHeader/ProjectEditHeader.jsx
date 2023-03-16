@@ -9,9 +9,9 @@ export default function ProjectEditHeader() {
     <Paper elevation={8} sx={{ mb: 2 }}>
       <Box sx={{ width: "100%", background: "#FFF", padding: 3 }}>
         <Stack spacing={2}>
-          <Typography variant="h1">Editer un projet</Typography>
+          <Typography variant="h1">Édition de projet</Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Blablabla blaba !
+            Où les idées se transforment et les plans prennent vie !
           </Typography>
         </Stack>
       </Box>

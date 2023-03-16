@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { Formik, Form } from "formik";
 import axios from "axios";
 import {
@@ -24,8 +23,10 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { format } from "date-fns";
+import { useNavigate, useParams } from "react-router-dom";
 
-function EditProjectForm({ projectId }) {
+function EditProjectForm() {
+  const { id } = useParams();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -34,6 +35,7 @@ function EditProjectForm({ projectId }) {
   const [projectSkills, setProjectSkills] = useState([]);
   const [skills, setSkills] = useState([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const navigate = useNavigate();
 
   const handleOpenDeleteDialog = () => {
     setOpenDeleteDialog(true);
@@ -43,61 +45,86 @@ function EditProjectForm({ projectId }) {
     setOpenDeleteDialog(false);
   };
 
-  useEffect(() => {
-    console.info(
-      "Informations du projet modifiées:",
-      initialValues,
-      projectSkills
-    );
-  }, [initialValues, projectSkills]);
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split("T")[0];
+  };
 
   useEffect(() => {
+    const updateInitialValuesWithSkills = (allSkills) => {
+      // Trouver les compétences du projet en utilisant la table de liaison
+      const projectSkillsFromDatabase = allSkills.filter((skill) =>
+        projectSkills.some((projectSkill) => projectSkill.skill_id === skill.id)
+      );
+
+      setInitialValues((prevValues) => ({
+        ...prevValues,
+        skillIds: projectSkillsFromDatabase.map((skill) => skill.id),
+      }));
+    };
+
+    // Fonction asynchrone pour récupérer les données du projet, des compétences et des compétences du projet
     const fetchData = async () => {
       const token = localStorage.getItem("token");
 
-      // Récupérer les données du projet spécifique
-      const projectResponse = await axios.get(
-        `http://localhost:5007/projects/${projectId}`,
-        {
+      try {
+        // Récupérer les données du projet spécifique
+        const projectResponse = await axios.get(
+          `http://localhost:5007/projects/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        // Récupérer les compétences
+        const skillsResponse = await axios.get("http://localhost:5007/skills", {
           headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+        });
 
-      // Récupérer les compétences
-      const skillsResponse = await axios.get("http://localhost:5007/skills", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.info("skill : ", skillsResponse.data);
-      setSkills(skillsResponse.data);
+        // Récupérer les compétences du projet dans la table de liaison
+        const projectSkillsResponse = await axios.get(
+          `http://localhost:5007/project_skills`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: { project_id: id },
+          }
+        );
+        setProjectSkills(projectSkillsResponse.data);
 
-      setDataLoaded(true);
+        // Mettre à jour l'état des compétences
+        setSkills(skillsResponse.data);
+        setDataLoaded(true);
 
-      setInitialValues({
-        project_name: projectResponse.data.project_name || "",
-        project_start_date: projectResponse.data.project_start_date || "",
-        project_end_date: projectResponse.data.project_end_date || "",
-        project_about: projectResponse.data.project_about || "",
-        project_description: projectResponse.data.project_description || "",
-        project_state: !!projectResponse.data.project_state, // Convertir en booléen
-        project_remote: !!projectResponse.data.project_remote, // Convertir en booléen
-        project_image: projectResponse.data.project_image || "",
-        region_id: projectResponse.data.region_id || "",
-        creator_id: projectResponse.data.creator_id || "",
-        skillIds: projectSkills.map((projectSkill) => projectSkill.skill_id),
-      });
+        // Mettre à jour l'état des valeurs initiales du formulaire
+        setInitialValues({
+          project_name: projectResponse.data.project_name || "",
+          project_start_date:
+            formatDate(projectResponse.data.project_start_date) || "",
+          project_end_date:
+            formatDate(projectResponse.data.project_end_date) || "",
+          project_about: projectResponse.data.project_about || "",
+          project_description: projectResponse.data.project_description || "",
+          project_state: !!projectResponse.data.project_state, // Convertir en booléen
+          project_remote: !!projectResponse.data.project_remote, // Convertir en booléen
+          project_image: projectResponse.data.project_image || "",
+          region_id: projectResponse.data.region_id || "",
+          creator_id: projectResponse.data.creator_id || "",
+          skillIds: projectSkills.map((projectSkill) => projectSkill.skill_id),
+        });
 
-      const projectSkillsResponse = await axios.get(
-        `http://localhost:5007/project_skills`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          params: { project_id: projectId },
-        }
-      );
-      setProjectSkills(projectSkillsResponse.data);
+        // Mettre à jour les valeurs initiales avec les nouvelles compétences
+        updateInitialValuesWithSkills(projectSkillsResponse.data);
+
+        // Mettre à jour l'état des compétences du projet
+        setProjectSkills(projectSkillsResponse.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+      }
     };
 
+    // Appeler la fonction fetchData pour récupérer les données lors du montage du composant
     fetchData();
-  }, [projectId]);
+  }, [id]);
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
@@ -154,16 +181,11 @@ function EditProjectForm({ projectId }) {
       project_end_date: mysqlFormattedEndDate,
     };
 
-    const updatedDataToSend = {
-      ...dataToSend,
-      projectIds: projectSkills.map((projectSkill) => projectSkill.skill_id),
-    };
-    console.info("Data to send: ", updatedDataToSend);
-
     console.info("Data to send: ", dataToSendWithFormattedDates);
+
     try {
       const response = await axios.put(
-        `http://localhost:5007/projects/${projectId}`,
+        `http://localhost:5007/projects/${id}`,
         dataToSendWithFormattedDates,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -182,21 +204,19 @@ function EditProjectForm({ projectId }) {
   const deleteProject = async (token) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5007/projects/${projectId}`,
+        `http://localhost:5007/projects/${id}`,
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
-      console.info("Project delete response: ", response);
-      setSnackbarMessage("Projet supprimé avec succès !");
-      setSnackbarOpen(true);
 
-      // Redirigez l'utilisateur vers la page d'accueil ou une autre page appropriée après la suppression
-      // Vous pouvez utiliser react-router ou un autre mécanisme de navigation
+      if (response.status === 200) {
+        navigate("/project");
+      }
     } catch (error) {
-      console.error("Error deleting project: ", error);
-      setSnackbarMessage("Erreur lors de la suppression du projet.");
-      setSnackbarOpen(true);
+      console.error("Erreur lors de la suppression du projet :", error);
     }
   };
 
@@ -205,7 +225,6 @@ function EditProjectForm({ projectId }) {
     const response = await axios.get(`http://localhost:5007/regions`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.info("region : ", response.data);
     setRegions(response.data);
   };
 
@@ -229,10 +248,13 @@ function EditProjectForm({ projectId }) {
                     .filter((projectSkill) => projectSkill.skill_id !== null)
                     .map((projectSkill) => projectSkill.skill_id);
 
-                  // Ajoutez skillIds au dataToSend
+                  // Utilisez Set pour créer un ensemble unique de skillIds et convertir cet ensemble en tableau
+                  const uniqueSkillIds = Array.from(new Set(skillIds));
+
+                  // Ajoutez uniqueSkillIds au dataToSend
                   const dataToSend = {
                     ...values,
-                    skillIds,
+                    skillIds: uniqueSkillIds,
                   };
 
                   updateProject(dataToSend, token);
@@ -474,9 +496,5 @@ function EditProjectForm({ projectId }) {
     </Box>
   );
 }
-
-EditProjectForm.propTypes = {
-  projectId: PropTypes.number.isRequired,
-};
 
 export default EditProjectForm;

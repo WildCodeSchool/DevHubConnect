@@ -50,6 +50,7 @@
     "multer": "^1.4.5-lts.1",
     "prop-types": "^15.8.1",
     "proptypes": "^1.1.0",
+    "react-router": "^6.9.0",
     "styled-components": "^5.3.6"
   }
 }
