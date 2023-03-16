@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,6 +7,8 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import Stack from "@mui/material/Stack";
+import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,38 +21,39 @@ const MenuProps = {
   },
 };
 
-const skills = [
-  "React",
-  "JavaScript",
-  "CSS",
-  "HTML",
-  "MUI",
-  "Bootstrap",
-  "MySQL",
-  "ExpressJS",
-  "NodeJS",
-];
+function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
+  const [userSkills, setUserSkills] = useState([]);
+  const [skills, setSkills] = useState([]);
 
-function TalentSelectSkills() {
-  const [userSkills, setUserSkills] = React.useState([]);
+  const getSkills = () => {
+    const token = localStorage.getItem("token");
+    axios
+      .get("http://localhost:5007/skills", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => response.data)
+      .then((data) => {
+        setSkills(data);
+      });
+  };
+
+  useEffect(() => {
+    getSkills();
+  }, []);
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setUserSkills(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    const { value } = event.target;
+    setUserSkills(typeof value === "string" ? value.split(",") : value);
+    console.info(selectedSkillIds, "coucou");
   };
 
   return (
-    <div>
-      <FormControl sx={{ minWidth: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Compétences</InputLabel>
+    <Stack>
+      <FormControl sx={{ m: 1, width: 300 }}>
+        <InputLabel id="demo-multiple-skill-label">Compétences</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId="demo-multiple-skill-label"
+          id="demo-multiple-skill"
           multiple
           value={userSkills}
           onChange={handleChange}
@@ -57,16 +61,42 @@ function TalentSelectSkills() {
           renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {skills.map((skill) => (
-            <MenuItem key={skill} value={skill}>
-              <Checkbox checked={userSkills.indexOf(skill) > -1} />
-              <ListItemText primary={skill} />
+          {skills.map((skill, index) => (
+            <MenuItem
+              key={skill.id}
+              value={skill.skill_name}
+              onClick={() => {
+                if (selectedSkillIds.includes(skill.id)) {
+                  setSelectedSkillIds((prevState) =>
+                    prevState.filter((id) => id !== skill.id)
+                  );
+                } else {
+                  setSelectedSkillIds((prevState) => [...prevState, skill.id]);
+                }
+              }}
+            >
+              <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
+              <ListItemText
+                key={skill.id}
+                primary={skill.skill_name}
+                index={index}
+              />
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Stack>
   );
 }
+
+TalentSelectSkills.propTypes = {
+  selectedSkillIds: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkillIds: PropTypes.func,
+};
+
+TalentSelectSkills.defaultProps = {
+  selectedSkillIds: [],
+  setSelectedSkillIds: () => {},
+};
 
 export default TalentSelectSkills;

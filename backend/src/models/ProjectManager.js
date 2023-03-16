@@ -53,7 +53,7 @@ class ProjectManager extends AbstractManager {
     );
   }
 
-  findUpgoingProjects(project) {
+  findUpComingProjects(project) {
     return this.database.query(
       `SELECT * FROM ${this.table} WHERE project_start_date >= CURDATE()`,
       [
@@ -73,6 +73,10 @@ class ProjectManager extends AbstractManager {
         project.project_state,
       ]
     );
+  }
+
+  findAllProjects() {
+    return this.database.query(`SELECT * FROM ${this.table} `);
   }
 }
 

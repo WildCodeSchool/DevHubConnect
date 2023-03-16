@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 
 export default function TalentCardName({ firstname, lastname, jobName }) {
-  console.info(jobName, "TalentCardName");
+  // console.info(jobName, "TalentCardName");
   return (
     <Stack direction="column" textAlign={{ xs: "flex-start", md: "center" }}>
       <Typography gutterBottom variant="body1" color="text.secondary">

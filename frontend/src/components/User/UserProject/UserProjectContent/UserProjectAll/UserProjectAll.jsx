@@ -1,46 +1,44 @@
 /* eslint-disable react/require-default-props */
-/* eslint-disable no-use-before-define */
 import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Grid } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Grid, Box } from "@mui/material";
 import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectCurrent({ expanded }) {
+function UserProjectAll({ expanded }) {
   const [projects, setProjects] = useState([]);
-  const currentProjectsRef = useRef(null);
-  const getCurrentProjects = () => {
+  const allProjectsRef = useRef(null);
+
+  const getAllProjects = () => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_current", {
+      .get("http://localhost:5007/projects_all", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0]);
+        console.info(projectsData[0], "allprojects");
       });
   };
 
   useEffect(() => {
-    getCurrentProjects();
+    getAllProjects();
   }, []);
-
   return (
-    <Accordion expanded={expanded} ref={currentProjectsRef}>
+    <Accordion expanded={expanded} ref={allProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        data-type="current"
+        data-type="all"
       >
-        <Typography variant="accordionTitle">Projets en cours</Typography>
+        <Typography variant="accordionTitle">Tous les projets</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Box sx={{ flexGrow: 1 }}>
@@ -51,6 +49,7 @@ function UserProjectCurrent({ expanded }) {
                   key={project.id}
                   projectName={project.project_name}
                   projectDescription={project.project_description}
+                  sx={{ marginLeft: "20px" }}
                   projectId={project.id}
                 />
               </Grid>
@@ -62,8 +61,7 @@ function UserProjectCurrent({ expanded }) {
   );
 }
 
-UserProjectCurrent.propTypes = {
+UserProjectAll.propTypes = {
   expanded: PropTypes.string,
 };
-
-export default UserProjectCurrent;
+export default UserProjectAll;
