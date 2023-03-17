@@ -16,6 +16,8 @@ export default function ProjectSingleDescriptionContent({
   skillName,
   projectImage,
 }) {
+  const lignes = projectDescription.split("\n");
+
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
       <Grid container spacing={2}>
@@ -46,7 +48,12 @@ export default function ProjectSingleDescriptionContent({
               }}
               flexWrap="wrap"
             >
-              {projectDescription}
+              {lignes.map((ligne) => (
+                <span key={ligne}>
+                  {ligne}
+                  <br />
+                </span>
+              ))}
             </Stack>
           </Paper>
         </Grid>
@@ -87,7 +94,7 @@ export default function ProjectSingleDescriptionContent({
               }}
               flexWrap="wrap"
             >
-              <Chip label={skillName} size="small" />
+              <Chip key={skillName} label={skillName} size="small" />
             </Stack>
           </Paper>
           <Paper
@@ -100,7 +107,7 @@ export default function ProjectSingleDescriptionContent({
           >
             <CardMedia
               component="img"
-              // alt= {}
+              key={projectImage}
               image={`../../../../../src/assets/projects-img/${projectImage}`}
             />
           </Paper>
@@ -109,6 +116,7 @@ export default function ProjectSingleDescriptionContent({
     </Box>
   );
 }
+
 ProjectSingleDescriptionContent.propTypes = {
   projectDescription: PropTypes.string,
   skillName: PropTypes.string,
