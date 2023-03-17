@@ -10,7 +10,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectUpComing({ expanded }) {
+function UserProjectUpComing({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
   const upcomingProjectsRef = useRef(null);
 
@@ -32,7 +32,7 @@ function UserProjectUpComing({ expanded }) {
   }, []);
 
   return (
-    <Accordion expanded={expanded} ref={upcomingProjectsRef}>
+    <Accordion expanded={expanded} onClick={onClick} ref={upcomingProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -63,6 +63,7 @@ function UserProjectUpComing({ expanded }) {
 
 UserProjectUpComing.propTypes = {
   expanded: PropTypes.string,
+  onClick: PropTypes.string,
 };
 
 export default UserProjectUpComing;

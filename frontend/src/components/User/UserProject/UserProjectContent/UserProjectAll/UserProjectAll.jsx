@@ -10,7 +10,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectAll({ expanded }) {
+function UserProjectAll({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
   const allProjectsRef = useRef(null);
 
@@ -31,7 +31,7 @@ function UserProjectAll({ expanded }) {
     getAllProjects();
   }, []);
   return (
-    <Accordion expanded={expanded} ref={allProjectsRef}>
+    <Accordion expanded={expanded} onClick={onClick} ref={allProjectsRef}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -63,5 +63,6 @@ function UserProjectAll({ expanded }) {
 
 UserProjectAll.propTypes = {
   expanded: PropTypes.string,
+  onClick: PropTypes.string,
 };
 export default UserProjectAll;

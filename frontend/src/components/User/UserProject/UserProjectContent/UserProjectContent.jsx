@@ -109,10 +109,22 @@ function UserProjectContent() {
         </Button>
       </Stack>
       <Stack>
-        <UserProjectCurrent expanded={currentProjectsExpanded} />
-        <UserProjectUpComing expanded={upcomingProjectsExpanded} />
-        <UserProjectNotSelected expanded={notselectedProjectsExpanded} />
-        <UserProjectAll expanded={allProjectsExpanded} />
+        <UserProjectCurrent
+          expanded={currentProjectsExpanded}
+          onClick={() => handleProjectsClick("current")}
+        />
+        <UserProjectUpComing
+          expanded={upcomingProjectsExpanded}
+          onClick={() => handleProjectsClick("upcoming")}
+        />
+        <UserProjectNotSelected
+          expanded={notselectedProjectsExpanded}
+          onClick={() => handleProjectsClick("notselected")}
+        />
+        <UserProjectAll
+          expanded={allProjectsExpanded}
+          onClick={() => handleProjectsClick("all")}
+        />
       </Stack>
     </Box>
   );

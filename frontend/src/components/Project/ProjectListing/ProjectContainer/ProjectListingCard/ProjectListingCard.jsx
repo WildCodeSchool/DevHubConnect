@@ -68,7 +68,16 @@ export default function ProjectListingCard({
               </Typography>
               <Typography variant="body1" gutterBottom>
                 <Stack direction="row" spacing={2}>
-                  <Chip label={skillName} size="small" color="primary" />
+                  {skillName.map((skill, index) => {
+                    return (
+                      <Chip
+                        label={skill}
+                        index={index}
+                        size="small"
+                        color="primary"
+                      />
+                    );
+                  })}
                 </Stack>
               </Typography>
             </Stack>

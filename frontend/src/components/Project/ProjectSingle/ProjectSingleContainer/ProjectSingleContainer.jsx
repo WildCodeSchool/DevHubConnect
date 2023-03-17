@@ -30,7 +30,6 @@ function ProjectSingleContainer() {
       .then((response) => response.data)
       .then((projectsData) => {
         setProjectSingleListing(projectsData);
-        console.info(projectsData, " ProjectSingleContainer");
       })
       .catch((error) => console.error(error));
   };
@@ -43,7 +42,6 @@ function ProjectSingleContainer() {
       .then((response) => response.data)
       .then((usersData) => {
         setUserSingleListing(usersData);
-        console.info(usersData, "userSingleListing");
       })
       .catch((error) => console.error(error));
   };
@@ -55,7 +53,6 @@ function ProjectSingleContainer() {
       .then((response) => response.data)
       .then((jobsData) => {
         setjobSingleListing(jobsData);
-        console.info(jobsData, "jobData");
       })
       .catch((error) => console.error(error));
   };
@@ -82,7 +79,6 @@ function ProjectSingleContainer() {
       .then((skillData) => {
         // Utilisation de setSkillListing pour mettre à jour le state skillListing avec les données de l'API
         setSkillSingleListing(skillData);
-        console.info(projectSingleSkillListing, "skillData");
       })
       .catch((error) => console.error(error));
   };
@@ -94,7 +90,6 @@ function ProjectSingleContainer() {
       .then((response) => response.data)
       .then((regionData) => {
         setProjectSingleRegionListing(regionData);
-        console.info(regionData, "regionData");
       })
       .catch((error) => console.error(error));
   };
@@ -147,6 +142,7 @@ function ProjectSingleContainer() {
       <ProjectSingleDescriptionContent
         key={projectSingleListing.id}
         id={projectSingleListing.id}
+        userId={projectSingleListing.creator_id}
         projectImage={projectSingleListing.project_image}
         projectName={projectSingleListing.project_name}
         projectDescription={projectSingleListing.project_description}

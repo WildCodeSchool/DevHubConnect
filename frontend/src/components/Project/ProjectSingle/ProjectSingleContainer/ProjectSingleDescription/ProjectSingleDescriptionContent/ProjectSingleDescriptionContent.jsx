@@ -94,7 +94,16 @@ export default function ProjectSingleDescriptionContent({
               }}
               flexWrap="wrap"
             >
-              <Chip key={skillName} label={skillName} size="small" />
+              {skillName.map((skill, index) => {
+                return (
+                  <Chip
+                    label={skill}
+                    index={index}
+                    size="small"
+                    color="primary"
+                  />
+                );
+              })}
             </Stack>
           </Paper>
           <Paper
