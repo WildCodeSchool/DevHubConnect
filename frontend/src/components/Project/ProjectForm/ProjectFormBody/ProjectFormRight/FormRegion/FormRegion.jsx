@@ -75,7 +75,7 @@ export default function FormRegion() {
   // const theme = useTheme();
 
   return (
-    <Paper elevation={2} sx={{ p: 3, width: "100%" }}>
+    <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
       <FormControl sx={{ m: 0, mt: 2, width: "100%" }}>
         <InputLabel>Region</InputLabel>
         <NativeSelect

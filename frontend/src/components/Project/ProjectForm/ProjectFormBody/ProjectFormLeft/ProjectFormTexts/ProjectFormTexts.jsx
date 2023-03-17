@@ -28,7 +28,7 @@ export default function ProjectFormTexts() {
   };
   return (
     <FormControl sx={{ m: 0, width: "100%" }}>
-      <Paper elevation={2} sx={{ p: 3, width: "100%" }}>
+      <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
         <TextField
           fullWidth
           id="ProjectTitle"
@@ -39,7 +39,7 @@ export default function ProjectFormTexts() {
           sx={{ mt: 2 }}
         />
       </Paper>
-      <Paper elevation={2} sx={{ mt: 2, p: 3 }}>
+      <Paper elevation={2} sx={{ mt: 2, p: 2 }}>
         <TextField
           fullWidth
           id="aboutProject"
@@ -52,7 +52,7 @@ export default function ProjectFormTexts() {
           sx={{ mt: 2 }}
         />
       </Paper>
-      <Paper elevation={2} sx={{ mt: 2, p: 3 }}>
+      <Paper elevation={2} sx={{ mt: 2, p: 2 }}>
         <TextField
           fullWidth
           id="projectDescription"

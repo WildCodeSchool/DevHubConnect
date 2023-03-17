@@ -1,14 +1,60 @@
 import React from "react";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import { Paper, FormControl } from "@mui/material";
 
 export default function FormDownloads() {
+  const handleImageUpload = async (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const imgFile = event.target.files[0];
+      // const imgFileName = imgFile.name;
+
+      // setInitialValues((prevValues) => ({
+      //   ...prevValues,
+      //   project_image: imgFileName,
+      // }));
+
+      const formData = new FormData();
+      formData.append("image", imgFile);
+
+      try {
+        // Remplacez cette URL par l'URL de votre API pour la route d'upload d'image
+        const uploadUrl = "http://localhost:3000/upload";
+
+        const response = await fetch(uploadUrl, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          console.info("Image uploaded successfully.");
+        } else {
+          console.error("Error uploading image:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
   return (
-    <Stack direction="row" alignItems="center" spacing={2}>
-      <Button variant="contained" component="label">
-        Upload
-        <input hidden accept="image/*" multiple type="file" />
-      </Button>
-    </Stack>
+    <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
+      <FormControl sx={{ m: 0, width: "100%" }}>
+        <TextField
+          fullWidth
+          label="Image du projet"
+          name="project_image"
+          type="file"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          inputProps={{
+            accept: "image/*",
+          }}
+          onChange={(event) => {
+            // handleChange(event);
+            handleImageUpload(event);
+          }}
+        />
+      </FormControl>
+    </Paper>
   );
 }
