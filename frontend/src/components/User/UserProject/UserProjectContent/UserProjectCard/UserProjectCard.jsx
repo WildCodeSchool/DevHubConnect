@@ -9,9 +9,7 @@ export default function UserProjectCard({
   projectName,
   projectDescription,
 }) {
-  const handleMoreInfoClick = () => {
-    console.info("You clicked the Chip.");
-  };
+  const handleMoreInfoClick = () => {};
 
   return (
     <Link href={`/project/${projectId}`} underline="none">

@@ -60,7 +60,6 @@ function UserProjectContent() {
             backgroundColor: currentProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("current")}
-          data-type="current"
         >
           Projets en cours
         </Button>
@@ -72,7 +71,6 @@ function UserProjectContent() {
             backgroundColor: upcomingProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("upcoming")}
-          data-type="upcoming"
         >
           Projets à venir
         </Button>
@@ -84,7 +82,6 @@ function UserProjectContent() {
             backgroundColor: notselectedProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("notselected")}
-          data-type="notselected"
         >
           Projets non retenus
         </Button>
@@ -96,7 +93,6 @@ function UserProjectContent() {
             backgroundColor: allProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("all")}
-          data-type="all"
         >
           Tous les projets
         </Button>

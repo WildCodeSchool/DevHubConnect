@@ -21,7 +21,6 @@ function UserProjectAll({ expanded, onClick }) {
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0], "allprojects");
       });
   };
 
