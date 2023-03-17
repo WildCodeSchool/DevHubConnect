@@ -55,7 +55,11 @@ function TalentSingleSkills({ id }) {
         backgroundColor: "UserSetting.Background",
       }}
     >
-      <Typography variant="fieldBoxTitle" gutterBottom>
+      <Typography
+        component="div"
+        variant="Body2"
+        sx={{ pb: 2, textAlign: "center" }}
+      >
         COMPETENCES
       </Typography>
       <Stack
