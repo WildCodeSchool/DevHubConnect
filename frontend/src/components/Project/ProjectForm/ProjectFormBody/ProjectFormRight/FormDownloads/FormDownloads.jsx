@@ -39,7 +39,6 @@ export default function FormDownloads() {
     <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
       <FormControl sx={{ m: 0, width: "100%" }}>
         <TextField
-          fullWidth
           label="Image du projet"
           name="project_image"
           type="file"

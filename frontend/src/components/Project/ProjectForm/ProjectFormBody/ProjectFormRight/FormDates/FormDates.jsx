@@ -9,31 +9,33 @@ function FormDates() {
     console.info("Coucou");
   };
   return (
-    <FormControl sx={{ m: 0, width: "100%" }}>
-      <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
-        <Stack spacing={2} sx={{ width: "100%" }}>
-          <TextField
-            label="Date de début"
-            name="project_start_date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value="" // {values.project_start_date}
-            onChange={handleChange}
-          />
-          <TextField
-            label="Date de fin"
-            name="project_end_date"
-            type="date"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            value="" // {values.project_end_date}
-            onChange={handleChange}
-          />
-        </Stack>
-      </Paper>
+    <FormControl sx={{ m: 0 }}>
+      <Stack alignItems="center">
+        <Paper elevation={2} sx={{ p: 2 }}>
+          <Stack spacing={2}>
+            <TextField
+              label="Date de début"
+              name="project_start_date"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value="" // {values.project_start_date}
+              onChange={handleChange}
+            />
+            <TextField
+              label="Date de fin"
+              name="project_end_date"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value="" // {values.project_end_date}
+              onChange={handleChange}
+            />
+          </Stack>
+        </Paper>
+      </Stack>
     </FormControl>
   );
 }

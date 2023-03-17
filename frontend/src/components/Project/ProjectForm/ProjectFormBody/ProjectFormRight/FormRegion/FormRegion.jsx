@@ -77,7 +77,7 @@ export default function FormRegion() {
   return (
     <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
       <FormControl sx={{ m: 0, mt: 2, width: "100%" }}>
-        <InputLabel>Region</InputLabel>
+        <InputLabel>Région</InputLabel>
         <NativeSelect
           id="multiple-region"
           value={selectedRegion}

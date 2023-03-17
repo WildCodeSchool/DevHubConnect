@@ -32,7 +32,7 @@ export default function ProjectFormTexts() {
         <TextField
           fullWidth
           id="ProjectTitle"
-          label={`Project title in 60 characters (${projectTitle.length}/60)`}
+          label={`Titre du projet en 60 caractères (${projectTitle.length}/60)`}
           variant="outlined"
           value={projectTitle}
           onChange={handleProjectTitleChange}
@@ -43,7 +43,7 @@ export default function ProjectFormTexts() {
         <TextField
           fullWidth
           id="aboutProject"
-          label={`About your project in 150 characters (${aboutProject.length}/150)`}
+          label={`Le projet en quelques mots (${aboutProject.length}/150 caractères)`}
           multiline
           rows={2}
           variant="outlined"
@@ -56,7 +56,7 @@ export default function ProjectFormTexts() {
         <TextField
           fullWidth
           id="projectDescription"
-          label={`Your description project in 2000 characters (${projectDescription.length}/2000)`}
+          label={`La description de projet (${projectDescription.length}/2000 caractères)`}
           multiline
           rows={15}
           variant="outlined"

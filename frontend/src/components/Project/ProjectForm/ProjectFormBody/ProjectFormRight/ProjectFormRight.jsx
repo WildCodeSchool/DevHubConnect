@@ -3,6 +3,7 @@ import Stack from "@mui/material/Stack";
 import FormRegion from "./FormRegion/FormRegion";
 import FormDownloads from "./FormDownloads/FormDownloads";
 import FormDates from "./FormDates/FormDates";
+import FormSkills from "./FormSkills/FormSkills";
 
 function ProjectFormRight() {
   return (
@@ -10,6 +11,7 @@ function ProjectFormRight() {
       <FormRegion />
       <FormDownloads />
       <FormDates />
+      <FormSkills />
     </Stack>
   );
 }

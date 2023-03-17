@@ -8,9 +8,9 @@ function ProjectFormToggle() {
   return (
     <Box>
       <Stack direction="row" justifyContent="flex-start" sx={{ ml: 5 }}>
-        <Typography>Closed</Typography>
+        <Typography>Fermé</Typography>
         <Switch />
-        <Typography>Open</Typography>
+        <Typography>Ouvert</Typography>
       </Stack>
     </Box>
   );

@@ -17,7 +17,7 @@ export default function ProjectFormHeading() {
       <Stack direction="row">
         <Box sx={{ width: "85%", background: "#FFF", padding: 3 }}>
           <Stack spacing={2}>
-            <Typography variant="h1">Add Project</Typography>
+            <Typography variant="h1">Création de projet</Typography>
             <Typography variant="h5">Neuralink</Typography>
             <Typography variant="subtitle2" gutterBottom>
               Projet de développement de la connectivité cerveau-machine.
@@ -41,13 +41,8 @@ export default function ProjectFormHeading() {
               onSubmit={handleSubmit}
               noValidate
             >
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 1, mb: 1 }}
-              >
-                submit
+              <Button type="submit" variant="contained" sx={{ mt: 1, mb: 1 }}>
+                Valider
               </Button>
             </Box>
           </Stack>
