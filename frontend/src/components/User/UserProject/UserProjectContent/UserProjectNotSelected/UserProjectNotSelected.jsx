@@ -11,7 +11,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectNotSelected({ expanded }) {
+function UserProjectNotSelected({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
   const notselectedProjectsRef = useRef(null);
 
@@ -32,7 +32,11 @@ function UserProjectNotSelected({ expanded }) {
     getNotSelectedProjects();
   }, []);
   return (
-    <Accordion expanded={expanded} ref={notselectedProjectsRef}>
+    <Accordion
+      expanded={expanded}
+      onClick={onClick}
+      ref={notselectedProjectsRef}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -64,6 +68,7 @@ function UserProjectNotSelected({ expanded }) {
 
 UserProjectNotSelected.propTypes = {
   expanded: PropTypes.string,
+  onClick: PropTypes.string,
 };
 
 export default UserProjectNotSelected;
