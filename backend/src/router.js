@@ -1,4 +1,5 @@
 const express = require("express");
+const formidable = require("formidable");
 
 const router = express.Router();
 
@@ -11,12 +12,33 @@ const {
 } = require("./auth");
 
 // VERIFIE
-
 const userControllers = require("./controllers/userControllers");
 const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
 const skillControllers = require("./controllers/skillControllers");
 const userSkillControllers = require("./controllers/userSkillControllers");
+
+// ------ Upload -------
+
+router.post("/upload", (req, res) => {
+  const form = new formidable.IncomingForm(); // Assurez-vous que cette ligne est présente et correcte
+  form.uploadDir = "./assets/projects-img/";
+  form.keepExtensions = true;
+
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      console.error("Error processing file upload:", err);
+      res.status(500).send("Error processing file upload.");
+      return;
+    }
+
+    // Process uploaded file(s) and/or fields here
+    const uploadedFile = files.project_image; // Remplacez "image" par le nom de l'input côté client
+    const filename = uploadedFile.name; // Utilisez .name pour obtenir le nom du fichier
+
+    res.status(200).json({ filename });
+  });
+});
 
 // ------ GET pour alimenter sign-up -------
 router.get("/regions", regionControllers.browse);

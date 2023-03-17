@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import PropTypes from "prop-types";
 import ProjectSingleButtonPostuler from "./ProjectSingleButtonPostuler/ProjectSingleButtonPostuler";
 
-function ProjectSingleHeader({ projectName }) {
+function ProjectSingleHeader({ id, projectName }) {
   return (
     <Paper
       elevation={3}
@@ -36,16 +36,18 @@ function ProjectSingleHeader({ projectName }) {
         alignItems="center"
         p={2}
       >
-        <ProjectSingleButtonPostuler />
+        <ProjectSingleButtonPostuler projectId={id} />
       </Stack>
     </Paper>
   );
 }
 ProjectSingleHeader.propTypes = {
   projectName: PropTypes.string,
+  id: PropTypes.number,
 };
 
 ProjectSingleHeader.defaultProps = {
   projectName: "",
+  id: "",
 };
 export default ProjectSingleHeader;

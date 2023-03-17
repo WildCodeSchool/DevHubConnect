@@ -27,10 +27,11 @@ class UserSkillManager extends AbstractManager {
     );
   }
 
-  delete(userId) {
-    return this.database.query(`delete from ${this.table} where user_id = ?`, [
-      userId,
-    ]);
+  delete(userId, skillId) {
+    return this.database.query(
+      `delete from ${this.table} where user_id = ? and skill_id = ?`,
+      [userId, skillId]
+    );
   }
 }
 

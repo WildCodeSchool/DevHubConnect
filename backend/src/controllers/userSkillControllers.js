@@ -51,9 +51,14 @@ const edit = (req, res) => {
 };
 
 const add = (req, res) => {
-  const userSkill = req.body;
+  const requestBody = req.body;
 
   // TODO validations (length, format...)
+
+  const userSkill = {
+    userId: requestBody.user_id,
+    skillId: requestBody.skill_id,
+  };
 
   models.userSkill
     .insert(userSkill)

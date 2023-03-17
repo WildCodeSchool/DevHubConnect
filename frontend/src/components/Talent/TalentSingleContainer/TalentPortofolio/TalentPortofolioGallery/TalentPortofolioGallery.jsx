@@ -98,6 +98,7 @@ function TalentPortofolioGallery({ id }) {
                 </Button>
               </CardActions>
             </Link>
+
           </Card>
         );
       })}
