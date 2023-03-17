@@ -10,11 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function UserSettingSkills({
-  user,
-  setUser,
-  setUserSkillsProp,
-}) {
+export default function UserSettingSkills({ user, setUserSkillsProp }) {
   const [skillListing, setSkillListing] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
 
@@ -39,7 +35,7 @@ export default function UserSettingSkills({
   }, [user.id]);
 
   useEffect(() => {
-    console.info(user);
+    console.info(user, "user");
     const fetchUserSkills = async () => {
       try {
         const response = await axios.get("http://localhost:5007/user_skills", {
@@ -47,10 +43,10 @@ export default function UserSettingSkills({
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        const userSkillsFilter = response.data.filter(
-          (userSkill) => userSkill.user_id === user.id
-        );
-        setUserSkills(userSkillsFilter);
+        const userSkillsFilter = response.data
+          .filter((userSkill) => userSkill.user_id === user.id)
+          .map((userSkill) => userSkill.skill_id);
+        setUserSkills([...new Set(userSkillsFilter)]);
       } catch (error) {
         console.error("Failed to fetch user skills: ", error);
         // display an error message to the user
@@ -59,29 +55,16 @@ export default function UserSettingSkills({
     fetchUserSkills();
   }, [user]);
 
-  const handleSkillChange = async (event) => {
-    const skillName = event.target.name;
-    const isChecked = event.target.checked;
-
-    const skillObj = skillListing.find(
-      (skill) => skill.skill_name === skillName
-    );
-    const skillId = skillObj.id;
-
-    let newUserSkills;
-    if (isChecked) {
-      newUserSkills = [...userSkills, { user_id: user.id, skill_id: skillId }];
+  const handleSkillChange = (event) => {
+    if (event.target.checked) {
+      userSkills.push(parseInt(event.target.value, 10));
     } else {
-      newUserSkills = userSkills.filter((us) => us.skill_id !== skillId);
+      const index = userSkills.indexOf(event.target.value);
+      if (index > -1) {
+        userSkills.splice(index, 1);
+      }
     }
-    setUserSkills(newUserSkills);
-    setUserSkillsProp([
-      ...new Set(newUserSkills.map((skill) => skill.skill_id)),
-    ]);
-    setUser((prevUser) => ({
-      ...prevUser,
-      skillIds: newUserSkills.map((skill) => skill.skill_id),
-    }));
+    setUserSkillsProp([...new Set(userSkills)]);
   };
 
   return (
@@ -112,7 +95,7 @@ export default function UserSettingSkills({
                 key={skill.id}
                 control={
                   <Checkbox
-                    checked={userSkills.some((us) => us.skill_id === skill.id)}
+                    checked={userSkills.includes(skill.id)}
                     onChange={handleSkillChange}
                     value={skill.id}
                     name={skill.skill_name}
@@ -133,6 +116,5 @@ UserSettingSkills.propTypes = {
     skill: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
-  setUser: PropTypes.func.isRequired,
   setUserSkillsProp: PropTypes.func.isRequired,
 };

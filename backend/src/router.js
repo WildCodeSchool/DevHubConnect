@@ -22,7 +22,7 @@ const userSkillControllers = require("./controllers/userSkillControllers");
 
 router.post("/upload", (req, res) => {
   const form = new formidable.IncomingForm(); // Assurez-vous que cette ligne est présente et correcte
-  form.uploadDir = "./assets/projects-img/";
+  form.uploadDir = "../../frontend/src/assets/projects-img/";
   form.keepExtensions = true;
 
   form.parse(req, (err, fields, files) => {
