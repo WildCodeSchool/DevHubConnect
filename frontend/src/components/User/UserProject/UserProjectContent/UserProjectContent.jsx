@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -48,12 +47,6 @@ function UserProjectContent() {
         setAllProjectsExpanded(false);
         break;
     }
-    const accordions = document.querySelectorAll(".MuiAccordionSummary-root");
-    accordions.forEach((accordion) => {
-      if (accordion.getAttribute("data-type") === type) {
-        accordion.click();
-      }
-    });
   };
 
   return (

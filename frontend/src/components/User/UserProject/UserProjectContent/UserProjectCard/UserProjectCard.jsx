@@ -1,5 +1,3 @@
-/* eslint-disable react/no-typos */
-/* eslint-disable react/require-default-props */
 import React from "react";
 import { Paper, Chip, Typography, Link, Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
