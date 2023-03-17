@@ -6,7 +6,7 @@ import ProjectFormRight from "./ProjectFormRight/ProjectFormRight";
 
 export default function ProjectFormBody() {
   return (
-    <Stack direction="row">
+    <Stack direction="row" spacing={2}>
       <Box sx={{ width: "50%" }}>
         <Stack alignItems="center">
           <ProjectFormLeft />

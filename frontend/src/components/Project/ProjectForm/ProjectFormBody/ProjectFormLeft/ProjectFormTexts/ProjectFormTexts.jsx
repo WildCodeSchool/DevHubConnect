@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import Paper from "@mui/material/Paper";
-import FormControl from "@mui/material/FormControl";
-import Typography from "@mui/material/Typography";
+import { Paper, FormControl } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
 
 export default function ProjectFormTexts() {
   const [projectTitle, setProjectTitle] = useState("");
@@ -29,54 +26,45 @@ export default function ProjectFormTexts() {
       setProjectDescription(event.target.value);
     }
   };
-
   return (
-    <Box sx={{ width: "100%" }}>
-      <FormControl sx={{ p: 3 }}>
-        <Paper elevation={2} sx={{ p: 3 }}>
-          <TextField
-            fullWidth
-            id="ProjectTitle"
-            label={`Project title in 60 characters (${projectTitle.length}/60)`}
-            multiline
-            rows={1}
-            variant="outlined"
-            value={projectTitle}
-            onChange={handleProjectTitleChange}
-            sx={{ mt: 2 }}
-          />
-        </Paper>
-
-        <Paper elevation={2} sx={{ mt: 2, p: 3 }}>
-          <TextField
-            fullWidth
-            id="aboutProject"
-            label={`About your project in 150 characters (${aboutProject.length}/150)`}
-            multiline
-            rows={2}
-            variant="outlined"
-            value={aboutProject}
-            onChange={handleAboutProjectChange}
-            sx={{ mt: 2 }}
-          />
-        </Paper>
-        <Paper elevation={2} sx={{ mt: 2, p: 3 }}>
-          <Typography variant="fieldBoxTitle" gutterBottom>
-            --------------------------------------------------------------------------
-          </Typography>
-          <TextField
-            fullWidth
-            id="projectDescription"
-            label={`Your description project in 2000 characters (${projectDescription.length}/2000)`}
-            multiline
-            rows={15}
-            variant="outlined"
-            value={projectDescription}
-            onChange={handleDescriptionProjecteChange}
-            sx={{ mt: 2 }}
-          />
-        </Paper>
-      </FormControl>
-    </Box>
+    <FormControl sx={{ m: 0, width: "100%" }}>
+      <Paper elevation={2} sx={{ p: 3, width: "100%" }}>
+        <TextField
+          fullWidth
+          id="ProjectTitle"
+          label={`Project title in 60 characters (${projectTitle.length}/60)`}
+          variant="outlined"
+          value={projectTitle}
+          onChange={handleProjectTitleChange}
+          sx={{ mt: 2 }}
+        />
+      </Paper>
+      <Paper elevation={2} sx={{ mt: 2, p: 3 }}>
+        <TextField
+          fullWidth
+          id="aboutProject"
+          label={`About your project in 150 characters (${aboutProject.length}/150)`}
+          multiline
+          rows={2}
+          variant="outlined"
+          value={aboutProject}
+          onChange={handleAboutProjectChange}
+          sx={{ mt: 2 }}
+        />
+      </Paper>
+      <Paper elevation={2} sx={{ mt: 2, p: 3 }}>
+        <TextField
+          fullWidth
+          id="projectDescription"
+          label={`Your description project in 2000 characters (${projectDescription.length}/2000)`}
+          multiline
+          rows={15}
+          variant="outlined"
+          value={projectDescription}
+          onChange={handleDescriptionProjecteChange}
+          sx={{ mt: 2 }}
+        />
+      </Paper>
+    </FormControl>
   );
 }
