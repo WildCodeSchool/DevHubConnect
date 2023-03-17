@@ -82,7 +82,7 @@ function TalentPortofolioGallery({ id }) {
                 description
               </Typography>
               <Typography>
-                <a href={`/project/:${project.id}`}>en savoir plus</a>
+                <a href={`/project/${project.id}`}>en savoir plus</a>
               </Typography>
             </CardContent>
           </Card>

@@ -128,9 +128,18 @@ export default function ProjectSingleDescriptionContent({
           <Typography variant="h3" gutterBottom p={2}>
             Skills
           </Typography>
-          <Typography variant="body2" gutterBottom>
-            <Stack direction="row" spacing={2} p={2}>
-              <Chip label={skillName} size="small" color="primary" />
+          <Typography variant="body1" gutterBottom>
+            <Stack direction="row" spacing={2} p={1}>
+              {skillName.map((skill, index) => {
+                return (
+                  <Chip
+                    label={skill}
+                    index={index}
+                    size="small"
+                    color="primary"
+                  />
+                );
+              })}
             </Stack>
           </Typography>
         </Paper>
