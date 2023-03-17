@@ -1,51 +1,61 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
+import { Stack, Box, Paper, Typography } from "@mui/material";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
 import ProjectSingleButtonPostuler from "./ProjectSingleButtonPostuler/ProjectSingleButtonPostuler";
 
-function ProjectSingleHeader({ projectName }) {
+function ProjectSingleHeader({
+  projectName,
+  projectStartDate,
+  projectEndDate,
+  regionName,
+  projectAbout,
+}) {
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        flexGrow: 1,
-        borderRadius: 2,
-      }}
-    >
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "column" }}
-        spacing={{ sm: 1, md: 2 }}
-        justifyContent="flex-start"
-        alignItems="flex-start"
-        p={2}
-      >
-        <Typography gutterBottom variant="h1" component="div">
-          {projectName}
-        </Typography>
-        <Typography variant="body1">
-          Nous invitons tous les talents intéressés à postuler pour nos projets
-          et à contribuer à leur réussite.
-        </Typography>
-      </Stack>
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
-        spacing={{ sm: 1, md: 2 }}
-        justifyContent="flex-end"
-        alignItems="center"
-        p={2}
-      >
-        <ProjectSingleButtonPostuler />
-      </Stack>
+    <Paper elevation={8} sx={{ mb: 2 }}>
+      <Box sx={{ width: "100%", background: "#FFF", padding: 3 }}>
+        <Stack spacing={2}>
+          <Typography variant="h1">{projectName}</Typography>
+          <Typography variant="h4" gutterBottom>
+            Du{" "}
+            {projectStartDate?.length > 0
+              ? format(new Date(projectStartDate), "dd/MM/yyyy")
+              : ""}{" "}
+            au{" "}
+            {projectEndDate?.length > 0
+              ? format(new Date(projectEndDate), "dd/MM/yyyy")
+              : ""}
+            , secteur {regionName}
+          </Typography>
+
+          <Stack
+            direction={{ xs: "column", sm: "column", md: "row" }}
+            justifyContent="space-between"
+          >
+            <Typography variant="subtitle3" gutterBottom>
+              {projectAbout}
+            </Typography>
+            <ProjectSingleButtonPostuler />
+          </Stack>
+        </Stack>
+      </Box>
     </Paper>
   );
 }
 ProjectSingleHeader.propTypes = {
   projectName: PropTypes.string,
+  projectStartDate: PropTypes.string,
+  projectEndDate: PropTypes.string,
+  regionName: PropTypes.string,
+  projectAbout: PropTypes.string,
 };
 
 ProjectSingleHeader.defaultProps = {
   projectName: "",
+  projectStartDate: "",
+  projectEndDate: "",
+  regionName: "",
+  projectAbout: "",
 };
+
 export default ProjectSingleHeader;
