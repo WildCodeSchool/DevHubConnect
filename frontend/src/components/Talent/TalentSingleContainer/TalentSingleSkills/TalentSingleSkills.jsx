@@ -63,9 +63,6 @@ function TalentSingleSkills({ id }) {
         COMPETENCES
       </Typography>
       <Stack
-        // justifyContent="center" // {{ xs: "center", sm: "center", md: "space-around" }}
-        // alignItems="center"
-        // spacing={3}
         direction="row"
         display="flex"
         justifyContent="center"

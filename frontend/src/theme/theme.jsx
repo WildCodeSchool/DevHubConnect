@@ -154,6 +154,15 @@ const typography = {
     fontWeight: 400,
   },
 
+  subtitle3: {
+    margin: 0,
+    fontSize: "1.2rem",
+    color: "#82929b",
+    marginBottom: 10,
+    fontWeight: 300,
+    lineHeight: 1,
+  },
+
   fieldBoxTitle: {
     margin: 0,
     fontSize: "1.2rem",

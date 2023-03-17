@@ -134,9 +134,11 @@ function ProjectSingleContainer() {
     <>
       <ProjectSingleHeader
         projectName={projectSingleListing.project_name}
-        id={projectSingleListing.id}
+        projectStartDate={projectSingleListing.project_start_date}
+        projectEndDate={projectSingleListing.project_end_date}
+        regionName={regions}
+        projectAbout={projectSingleListing.project_about}
       />
-
       <ProjectSingleDescriptionContent
         key={projectSingleListing.id}
         id={projectSingleListing.id}
@@ -144,6 +146,7 @@ function ProjectSingleContainer() {
         projectImage={projectSingleListing.project_image}
         projectName={projectSingleListing.project_name}
         projectDescription={projectSingleListing.project_description}
+        projectAbout={projectSingleListing.project_about}
         creatorName={creatorName}
         creatorBiography={creatorBiography}
         creatorAbout={creatorAbout}
