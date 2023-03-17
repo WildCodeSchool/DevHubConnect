@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -48,12 +47,6 @@ function UserProjectContent() {
         setAllProjectsExpanded(false);
         break;
     }
-    const accordions = document.querySelectorAll(".MuiAccordionSummary-root");
-    accordions.forEach((accordion) => {
-      if (accordion.getAttribute("data-type") === type) {
-        accordion.click();
-      }
-    });
   };
 
   return (
@@ -67,7 +60,6 @@ function UserProjectContent() {
             backgroundColor: currentProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("current")}
-          data-type="current"
         >
           Projets en cours
         </Button>
@@ -79,7 +71,6 @@ function UserProjectContent() {
             backgroundColor: upcomingProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("upcoming")}
-          data-type="upcoming"
         >
           Projets à venir
         </Button>
@@ -91,7 +82,6 @@ function UserProjectContent() {
             backgroundColor: notselectedProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("notselected")}
-          data-type="notselected"
         >
           Projets non retenus
         </Button>
@@ -103,7 +93,6 @@ function UserProjectContent() {
             backgroundColor: allProjectsExpanded ? "#1C2536" : "",
           }}
           onClick={() => handleProjectsClick("all")}
-          data-type="all"
         >
           Tous les projets
         </Button>
