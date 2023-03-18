@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -64,5 +63,10 @@ function UserProjectAll({ expanded, onClick }) {
 UserProjectAll.propTypes = {
   expanded: PropTypes.string,
   onClick: PropTypes.string,
+};
+
+UserProjectAll.defaultProps = {
+  expanded: "",
+  onClick: "",
 };
 export default UserProjectAll;

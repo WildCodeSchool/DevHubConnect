@@ -1,5 +1,3 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/no-unused-prop-types */
 import React, { useState, useEffect, useRef } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -71,4 +69,8 @@ UserProjectNotSelected.propTypes = {
   onClick: PropTypes.string,
 };
 
+UserProjectNotSelected.defaultProps = {
+  expanded: "",
+  onClick: "",
+};
 export default UserProjectNotSelected;
