@@ -1,11 +1,10 @@
 import * as React from "react";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Stack, Typography, Box } from "@mui/material";
 import PropTypes from "prop-types";
 
 function TalentAbout({ about }) {
   return (
-    <Stack spacing={1}>
+    <Stack direction="column" spacing={2}>
       <Typography
         component="div"
         variant="h2"
@@ -13,9 +12,16 @@ function TalentAbout({ about }) {
       >
         A PROPOS
       </Typography>
-      <Typography component="p" variant="body1" sx={{ p: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {about}
-      </Typography>
+      </Box>
     </Stack>
   );
 }

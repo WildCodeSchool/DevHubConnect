@@ -1,135 +1,99 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import { Chip } from "@mui/material";
+import {
+  Chip,
+  Box,
+  Typography,
+  Paper,
+  Stack,
+  Grid,
+  CardMedia,
+} from "@mui/material";
 import PropTypes from "prop-types";
-import { format } from "date-fns";
+import UserDashboardUserInfo from "../../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
 
 export default function ProjectSingleDescriptionContent({
-  projectName,
   projectDescription,
-  creatorName,
-  creatorBiography,
-  creatorAbout,
-  creatorEmail,
-  creatorJob,
   skillName,
-  projectStartDate,
-  projectEndDate,
-  regionName,
+  projectImage,
 }) {
+  const lignes = projectDescription.split("\n");
+
   return (
-    <Stack
-      direction={{ xs: "column", sm: "column", md: "row" }}
-      spacing={{ sm: 1, md: 2 }}
-      sx={{ mt: 1, mb: 1 }}
-      justifyContent="flex-start"
-      alignItems="flex-start"
-    >
-      <Paper
-        elevation={8}
-        sx={{
-          flexGrow: 1,
-          borderRadius: 4,
-        }}
-      >
-        <Stack
-          direction={{ xs: "column", sm: "column", md: "column" }}
-          spacing={{ sm: 1, md: 2 }}
-          justifyContent="flex-start"
-          alignItems="center"
-          p={2}
-        >
-          <Typography variant="h3" gutterBottom>
-            {projectName}
-          </Typography>
-
-          <Typography variant="body1" gutterBottom>
-            {projectDescription}
-            <Typography variant="body1" gutterBottom>
-              Du{" "}
-              {projectStartDate?.length > 0
-                ? format(new Date(projectStartDate), "dd/MM/yyyy")
-                : ""}{" "}
-              au{" "}
-              {projectEndDate?.length > 0
-                ? format(new Date(projectEndDate), "dd/MM/yyyy")
-                : ""}
+    <Box sx={{ flexGrow: 1, padding: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={7}>
+          <Paper
+            elevation={2}
+            sx={{
+              color: "UserSetting.color",
+              p: 3,
+              backgroundColor: "UserSetting.Background",
+            }}
+          >
+            <Typography
+              component="div"
+              variant="Body2"
+              sx={{ pb: 2, textAlign: "center" }}
+            >
+              DETAIL DU PROJET
             </Typography>
-            <Typography variant="body1" gutterBottom>
-              {regionName}
+            <Stack
+              direction="row"
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+              spacing={2}
+              sx={{
+                p: 2,
+              }}
+              flexWrap="wrap"
+            >
+              {lignes.map((ligne) => (
+                <span key={ligne}>
+                  {ligne}
+                  <br />
+                </span>
+              ))}
+            </Stack>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={5}>
+          <Box
+            sx={{
+              color: "UserSetting.color",
+              backgroundColor: "UserSetting.Background",
+              mb: 3,
+            }}
+          >
+            <UserDashboardUserInfo />
+          </Box>
+          <Paper
+            elevation={2}
+            sx={{
+              color: "UserSetting.color",
+              p: 3,
+              backgroundColor: "UserSetting.Background",
+              mb: 3,
+            }}
+          >
+            <Typography
+              component="div"
+              variant="Body2"
+              sx={{ pb: 2, textAlign: "center" }}
+            >
+              COMPETENCES
             </Typography>
-          </Typography>
-        </Stack>
-      </Paper>
-
-      <Paper
-        elevation={3}
-        sx={{
-          flexGrow: 1,
-          borderRadius: 2,
-          mt: 1,
-          mb: 1,
-        }}
-      >
-        <Stack
-          direction={{ xs: "column", sm: "column", md: "column" }}
-          spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="flex-start"
-          alignItems="center"
-          p={2}
-        >
-          <Avatar
-            src="https://xsgames.co/randomusers/avatar.php?g=male"
-            sx={{ width: 90, height: 90 }}
-            alt=""
-          />
-        </Stack>
-        <Stack
-          direction={{ xs: "column", sm: "column", md: "column" }}
-          spacing={{ xs: 1, sm: 1, md: 2 }}
-          justifyContent="flex-start"
-          alignItems="center"
-          p={2}
-        >
-          <Typography variant="body1" gutterBottom>
-            {creatorJob}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            {creatorName}
-          </Typography>
-
-          <Typography paragraph>{creatorBiography}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            {creatorAbout}
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            📧 {creatorEmail}
-          </Typography>
-        </Stack>
-      </Paper>
-
-      <Stack
-        direction={{ xs: "column", sm: "column", md: "column" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
-        justifyContent="flex-start"
-        alignItems="center"
-        p={2}
-      >
-        <Paper
-          elevation={3}
-          sx={{
-            flexGrow: 1,
-            borderRadius: 2,
-          }}
-        >
-          <Typography variant="h3" gutterBottom p={2}>
-            Skills
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            <Stack direction="row" spacing={2} p={1}>
+            <Stack
+              direction="row"
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+              spacing={2}
+              sx={{
+                p: 2,
+              }}
+              flexWrap="wrap"
+            >
               {skillName.map((skill, index) => {
                 return (
                   <Chip
@@ -141,56 +105,35 @@ export default function ProjectSingleDescriptionContent({
                 );
               })}
             </Stack>
-          </Typography>
-        </Paper>
-
-        {/* <Stack
-        direction={{ xs: "column", sm: "column", md: "row" }}
-        spacing={{ xs: 1, sm: 1, md: 2 }}
-        justifyContent="flex-start"
-        alignItems="center"
-      > */}
-        <Paper
-          elevation={3}
-          p={2}
-          sx={{
-            flexGrow: 1,
-            borderRadius: 2,
-          }}
-        >
-          <image>
-            <img alt="projet" src="https://picsum.photos/300/200" />
-          </image>
-        </Paper>
-      </Stack>
-    </Stack>
-    //  </Stack>
+          </Paper>
+          <Paper
+            elevation={2}
+            sx={{
+              color: "UserSetting.color",
+              backgroundColor: "UserSetting.Background",
+            }}
+            pb={2}
+          >
+            <CardMedia
+              component="img"
+              key={projectImage}
+              image={`../../../../../src/assets/projects-img/${projectImage}`}
+            />
+          </Paper>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
+
 ProjectSingleDescriptionContent.propTypes = {
-  projectName: PropTypes.string,
   projectDescription: PropTypes.string,
-  creatorName: PropTypes.string,
-  creatorBiography: PropTypes.string,
-  creatorAbout: PropTypes.string,
-  creatorEmail: PropTypes.string,
-  creatorJob: PropTypes.string,
   skillName: PropTypes.string,
-  projectStartDate: PropTypes.instanceOf(Date),
-  projectEndDate: PropTypes.instanceOf(Date),
-  regionName: PropTypes.string,
+  projectImage: PropTypes.string,
 };
 
 ProjectSingleDescriptionContent.defaultProps = {
-  projectName: "",
   projectDescription: "",
-  creatorName: "",
-  creatorBiography: "",
-  creatorAbout: "",
-  creatorEmail: "",
-  creatorJob: "",
   skillName: "",
-  projectStartDate: [],
-  projectEndDate: [],
-  regionName: "",
+  projectImage: "",
 };

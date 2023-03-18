@@ -1,5 +1,4 @@
-/* eslint-disable react/require-default-props */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,9 +9,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectUpComing({ expanded }) {
+function UserProjectUpComing({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
-  const upcomingProjectsRef = useRef(null);
 
   const getUpComingProjects = () => {
     const token = localStorage.getItem("token");
@@ -23,7 +21,6 @@ function UserProjectUpComing({ expanded }) {
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0]);
       });
   };
 
@@ -32,12 +29,11 @@ function UserProjectUpComing({ expanded }) {
   }, []);
 
   return (
-    <Accordion expanded={expanded} ref={upcomingProjectsRef}>
+    <Accordion expanded={expanded} onClick={onClick}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        data-type="upcoming"
       >
         <Typography variant="accordionTitle">Projets à venir </Typography>
       </AccordionSummary>
@@ -63,6 +59,12 @@ function UserProjectUpComing({ expanded }) {
 
 UserProjectUpComing.propTypes = {
   expanded: PropTypes.string,
+  onClick: PropTypes.string,
+};
+
+UserProjectUpComing.defaultProps = {
+  expanded: "",
+  onClick: "",
 };
 
 export default UserProjectUpComing;

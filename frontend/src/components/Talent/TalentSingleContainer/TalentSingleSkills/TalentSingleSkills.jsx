@@ -55,13 +55,14 @@ function TalentSingleSkills({ id }) {
         backgroundColor: "UserSetting.Background",
       }}
     >
-      <Typography variant="fieldBoxTitle" gutterBottom>
+      <Typography
+        component="div"
+        variant="Body2"
+        sx={{ pb: 2, textAlign: "center" }}
+      >
         COMPETENCES
       </Typography>
       <Stack
-        // justifyContent="center" // {{ xs: "center", sm: "center", md: "space-around" }}
-        // alignItems="center"
-        // spacing={3}
         direction="row"
         display="flex"
         justifyContent="center"

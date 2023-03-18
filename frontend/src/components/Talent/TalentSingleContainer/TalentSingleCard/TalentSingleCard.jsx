@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 
-function TalentSingleCard({ avatar, firstName, lastName, bio }) {
+function TalentSingleCard({ avatar, firstName, lastName, bio, job }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper
@@ -43,6 +43,15 @@ function TalentSingleCard({ avatar, firstName, lastName, bio }) {
             spacing={0.5}
             sx={{ width: "100%" }}
           >
+            <Typography
+              component="div"
+              variant="body1"
+              sx={{
+                color: "UserDashboardCard.color",
+              }}
+            >
+              {job}
+            </Typography>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -74,6 +83,7 @@ TalentSingleCard.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   bio: PropTypes.string,
+  job: PropTypes.string,
 };
 
 TalentSingleCard.defaultProps = {
@@ -81,6 +91,7 @@ TalentSingleCard.defaultProps = {
   firstName: "",
   lastName: "",
   bio: "",
+  job: "",
 };
 
 export default TalentSingleCard;

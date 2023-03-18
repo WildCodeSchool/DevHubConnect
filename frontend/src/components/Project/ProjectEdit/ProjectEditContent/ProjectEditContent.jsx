@@ -115,8 +115,12 @@ function EditProjectForm() {
         // Mettre à jour les valeurs initiales avec les nouvelles compétences
         updateInitialValuesWithSkills(projectSkillsResponse.data);
 
-        // Mettre à jour l'état des compétences du projet
-        setProjectSkills(projectSkillsResponse.data);
+        // filtrage des skills par projet
+        setProjectSkills(
+          projectSkillsResponse.data.filter(
+            (projectSkill) => projectSkill.project_id === parseInt(id, 10)
+          )
+        );
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
       }
@@ -125,7 +129,6 @@ function EditProjectForm() {
     // Appeler la fonction fetchData pour récupérer les données lors du montage du composant
     fetchData();
   }, [id]);
-
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
@@ -459,6 +462,7 @@ function EditProjectForm() {
               <Typography variant="fieldBoxTitle" gutterBottom>
                 Compétences du projet
               </Typography>
+
               <FormControl>
                 {skills.map((skill) => (
                   <FormControlLabel

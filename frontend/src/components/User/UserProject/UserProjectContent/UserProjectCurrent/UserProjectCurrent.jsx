@@ -1,6 +1,4 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-use-before-define */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -12,9 +10,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectCurrent({ expanded }) {
+function UserProjectCurrent({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
-  const currentProjectsRef = useRef(null);
   const getCurrentProjects = () => {
     const token = localStorage.getItem("token");
     axios
@@ -24,7 +21,6 @@ function UserProjectCurrent({ expanded }) {
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0]);
       });
   };
 
@@ -33,12 +29,11 @@ function UserProjectCurrent({ expanded }) {
   }, []);
 
   return (
-    <Accordion expanded={expanded} ref={currentProjectsRef}>
+    <Accordion expanded={expanded} onClick={onClick}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        data-type="current"
       >
         <Typography variant="accordionTitle">Projets en cours</Typography>
       </AccordionSummary>
@@ -64,6 +59,12 @@ function UserProjectCurrent({ expanded }) {
 
 UserProjectCurrent.propTypes = {
   expanded: PropTypes.string,
+  onClick: PropTypes.string,
+};
+
+UserProjectCurrent.defaultProps = {
+  expanded: "",
+  onClick: "",
 };
 
 export default UserProjectCurrent;

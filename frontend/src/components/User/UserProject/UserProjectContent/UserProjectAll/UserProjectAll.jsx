@@ -1,5 +1,4 @@
-/* eslint-disable react/require-default-props */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,9 +9,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
-function UserProjectAll({ expanded }) {
+function UserProjectAll({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
-  const allProjectsRef = useRef(null);
 
   const getAllProjects = () => {
     const token = localStorage.getItem("token");
@@ -23,7 +21,6 @@ function UserProjectAll({ expanded }) {
       .then((response) => response.data)
       .then((projectsData) => {
         setProjects(projectsData[0]);
-        console.info(projectsData[0], "allprojects");
       });
   };
 
@@ -31,12 +28,11 @@ function UserProjectAll({ expanded }) {
     getAllProjects();
   }, []);
   return (
-    <Accordion expanded={expanded} ref={allProjectsRef}>
+    <Accordion expanded={expanded} onClick={onClick}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        data-type="all"
       >
         <Typography variant="accordionTitle">Tous les projets</Typography>
       </AccordionSummary>
@@ -63,5 +59,11 @@ function UserProjectAll({ expanded }) {
 
 UserProjectAll.propTypes = {
   expanded: PropTypes.string,
+  onClick: PropTypes.string,
+};
+
+UserProjectAll.defaultProps = {
+  expanded: "",
+  onClick: "",
 };
 export default UserProjectAll;
