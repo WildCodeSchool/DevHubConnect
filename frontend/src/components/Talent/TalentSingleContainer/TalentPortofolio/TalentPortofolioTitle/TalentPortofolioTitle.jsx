@@ -7,7 +7,7 @@ function TalentPortofolioTitle() {
       <Typography
         component="div"
         variant="h2"
-        sx={{ p: 1, textAlign: "center" }}
+        sx={{ p: 3, textAlign: "center" }}
       >
         PORTOFOLIO
       </Typography>

@@ -13,7 +13,6 @@ import {
 export default function UserSettingSkills({ user, setUserSkillsProp }) {
   const [skillListing, setSkillListing] = useState([]);
   const [userSkills, setUserSkills] = useState([]);
-  const [tempUserSkills, setTempUserSkills] = useState([]);
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -36,6 +35,7 @@ export default function UserSettingSkills({ user, setUserSkillsProp }) {
   }, [user.id]);
 
   useEffect(() => {
+    console.info(user, "user");
     const fetchUserSkills = async () => {
       try {
         const response = await axios.get("http://localhost:5007/user_skills", {
@@ -43,50 +43,28 @@ export default function UserSettingSkills({ user, setUserSkillsProp }) {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        const userSkillsFilter = response.data.filter(
-          (userSkill) => userSkill.user_id === user.id
-        );
-        const userSkillsLocalStorage = JSON.parse(
-          localStorage.getItem(`userSkills-${user.id}`)
-        );
-        setUserSkills((prevUserSkills) => {
-          return userSkillsLocalStorage
-            ? prevUserSkills.filter((usf) =>
-                userSkillsLocalStorage.includes(usf.skill_id)
-              )
-            : userSkillsFilter;
-        });
-        setTempUserSkills(userSkillsFilter);
+        const userSkillsFilter = response.data
+          .filter((userSkill) => userSkill.user_id === user.id)
+          .map((userSkill) => userSkill.skill_id);
+        setUserSkills([...new Set(userSkillsFilter)]);
       } catch (error) {
         console.error("Failed to fetch user skills: ", error);
         // display an error message to the user
       }
     };
     fetchUserSkills();
-  }, [user.id]);
+  }, [user]);
 
-  const handleSkillChange = async (event) => {
-    const skillName = event.target.name;
-    const isChecked = event.target.checked;
-
-    const skillObj = skillListing.find(
-      (skill) => skill.skill_name === skillName
-    );
-    const skillId = skillObj.id;
-
-    if (isChecked) {
-      if (!tempUserSkills.includes(skillId)) {
-        const newUserSkills = [...tempUserSkills, skillId];
-        setTempUserSkills(newUserSkills);
-        setUserSkills(newUserSkills);
-        setUserSkillsProp(newUserSkills);
-      }
+  const handleSkillChange = (event) => {
+    if (event.target.checked) {
+      userSkills.push(parseInt(event.target.value, 10));
     } else {
-      const newUserSkills = tempUserSkills.filter((us) => us !== skillId);
-      setTempUserSkills(newUserSkills);
-      setUserSkills(newUserSkills);
-      setUserSkillsProp(newUserSkills);
+      const index = userSkills.indexOf(event.target.value);
+      if (index > -1) {
+        userSkills.splice(index, 1);
+      }
     }
+    setUserSkillsProp([...new Set(userSkills)]);
   };
 
   return (

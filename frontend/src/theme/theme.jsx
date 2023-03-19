@@ -90,8 +90,12 @@ const palette = {
     contrastText: "#fff",
     spacing: [0, 2, 3, 5, 8],
   },
-  searhSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (search -> searh)
-  myFavoriteSelect: { main: "#e8dbcb00", contrastText: "#fff" }, // typo corrected here (favorite -> favorite)
+  searchSelect: { main: "#e8dbcb00", contrastText: "#fff", color: "353535" }, // corrected typo here (searh -> search)
+  myFavoritesSelect: {
+    main: "#e8dbcb00",
+    contrastText: "#fff",
+    color: "353535",
+  }, // corrected typo here (favorite -> favorites)
 };
 
 const typography = {
@@ -150,6 +154,15 @@ const typography = {
     fontWeight: 400,
   },
 
+  subtitle3: {
+    margin: 0,
+    fontSize: "1.2rem",
+    color: "#82929b",
+    marginBottom: 10,
+    fontWeight: 300,
+    lineHeight: 1,
+  },
+
   fieldBoxTitle: {
     margin: 0,
     fontSize: "1.2rem",
@@ -163,6 +176,16 @@ const typography = {
   body2: { fontSize: 14, fontWeight: 600 }, // added missing comma here.
 };
 
-const Theme = createTheme({ breakpoints, palette, typography }); // rearranged the order of parameters for better readability and removed unnecessary curly brackets for cleaner code.
+const components = {
+  MuiNativeSelect: {
+    styleOverrides: {
+      select: {
+        color: "inherit", // Utilisez la couleur du texte héritée
+      },
+    },
+  },
+};
+
+const Theme = createTheme({ breakpoints, palette, typography, components }); // rearranged the order of parameters for better readability and removed unnecessary curly brackets for cleaner code.
 
 export default Theme;
