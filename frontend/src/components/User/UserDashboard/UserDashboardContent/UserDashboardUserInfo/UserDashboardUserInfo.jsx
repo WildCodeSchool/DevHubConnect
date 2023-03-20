@@ -81,7 +81,7 @@ export default function UserDashboardUserInfo() {
         >
           <Avatar
             alt="Remy Sharp"
-            src={user.user_image}
+            src={`../../../../../../src/assets/user-img/${user.user_image}`}
             sx={{
               width: 100,
               height: 100,

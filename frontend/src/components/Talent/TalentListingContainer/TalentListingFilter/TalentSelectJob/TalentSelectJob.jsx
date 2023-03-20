@@ -7,7 +7,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
@@ -48,33 +47,31 @@ function TalentSelectJob({ currentSelectedJobs, setSelectedJobs }) {
   };
 
   return (
-    <Stack>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Métiers</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={userJobs}
-          onChange={handleChange}
-          input={<OutlinedInput label="Métiers" />}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {jobs.map((job, index) => (
-            <MenuItem key={job.id} value={job.job_name}>
-              <Checkbox
-                checked={
-                  userJobs.indexOf(job.job_name) > -1 ||
-                  currentSelectedJobs.indexOf(job.job_name) > -1
-                }
-              />
-              <ListItemText primary={job.job_name} index={index} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Stack>
+    <FormControl sx={{ width: "100%" }}>
+      <InputLabel id="demo-multiple-checkbox-label">Métiers</InputLabel>
+      <Select
+        labelId="demo-multiple-checkbox-label"
+        id="demo-multiple-checkbox"
+        multiple
+        value={userJobs}
+        onChange={handleChange}
+        input={<OutlinedInput label="Métiers" />}
+        renderValue={(selected) => selected.join(", ")}
+        MenuProps={MenuProps}
+      >
+        {jobs.map((job, index) => (
+          <MenuItem key={job.id} value={job.job_name}>
+            <Checkbox
+              checked={
+                userJobs.indexOf(job.job_name) > -1 ||
+                currentSelectedJobs.indexOf(job.job_name) > -1
+              }
+            />
+            <ListItemText primary={job.job_name} index={index} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
 

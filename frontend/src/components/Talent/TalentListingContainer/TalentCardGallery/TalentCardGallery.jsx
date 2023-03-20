@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import { Grid } from "@mui/material/";
 import PropTypes from "prop-types";
 import TalentCard from "./TalentCard/TalentCard";
 
@@ -101,22 +100,17 @@ function TalentCardGallery({
     setSelectedJobs(selectedJobsProp);
     setSelectedRegions(selectedRegionsProp);
   }, [selectedJobsProp, selectedRegionsProp]);
+
   return (
     <div>
-      <Box sx={{ mt: 2 }}>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          mt="2"
-          sx={{ flexWrap: "wrap", gap: 2 }}
-        >
-          {users
-            .filter(filterByJob)
-            .filter(filterByRegion)
-            .filter(filterBySkill)
-            .map((user) => {
-              return (
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        {users
+          .filter(filterByJob)
+          .filter(filterByRegion)
+          .filter(filterBySkill)
+          .map((user) => {
+            return (
+              <Grid item xs={12} sm={6} md={3}>
                 <TalentCard
                   key={user?.id}
                   id={user.id}
@@ -124,11 +118,12 @@ function TalentCardGallery({
                   lastname={user?.lastname}
                   jobName={jobs[user.job_id - 1]?.job_name}
                   biography={user?.biography}
+                  userImage={user?.user_image}
                 />
-              );
-            })}
-        </Stack>
-      </Box>
+              </Grid>
+            );
+          })}
+      </Grid>
     </div>
   );
 }

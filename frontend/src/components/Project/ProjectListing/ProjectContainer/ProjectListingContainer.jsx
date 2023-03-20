@@ -142,9 +142,10 @@ function ProjectListingContainer() {
         )
 
         .map((project) => {
-          const projectOwner = userListing.find(
-            (user) => user.id === project.owner_id
+          const creatorImage = userListing.find(
+            (user) => user.id === project.creator_id
           );
+          console.info("creatorImage : ", creatorImage);
 
           // Création d'un tableau de compétences pour chaque projet
           const skills = projectSkillListing
@@ -160,7 +161,7 @@ function ProjectListingContainer() {
           const regions = projectRegionListing
             .filter((projectRegion) => projectRegion.id === project.region_id)
             .map((projectRegion) => projectRegion.region_name);
-          console.info("project", project);
+
           return (
             <ProjectListingCard
               key={project.id}
@@ -168,13 +169,11 @@ function ProjectListingContainer() {
               projectImage={project.project_image}
               projectName={project.project_name}
               projectAbout={project.project_about}
-              firstname={projectOwner ? projectOwner.firstname : ""}
-              lastname={projectOwner ? projectOwner.lastname : ""}
-              jobId={projectOwner ? projectOwner.job : ""}
               skillName={skills}
               projectStartDate={project.project_start_date}
               projectEndDate={project.project_end_date}
               regionName={regions}
+              userImage={userListing ? creatorImage.user_image : ""}
             />
           );
         })}

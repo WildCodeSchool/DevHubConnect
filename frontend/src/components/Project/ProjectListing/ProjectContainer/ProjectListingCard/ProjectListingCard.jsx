@@ -22,6 +22,7 @@ export default function ProjectListingCard({
   projectStartDate,
   projectEndDate,
   regionName,
+  userImage,
 }) {
   const formattedStartDate = format(new Date(projectStartDate), "dd/MM/yyyy");
   const formattedEndDate = format(new Date(projectEndDate), "dd/MM/yyyy");
@@ -72,7 +73,7 @@ export default function ProjectListingCard({
                 </Stack>
 
                 <Avatar
-                  src="https://xsgames.co/randomusers/avatar.php?g=male"
+                  src={`../../../../../../src/assets/user-img/${userImage}`}
                   sx={{ width: 90, height: 90, m: 2 }}
                   alt=""
                 />
@@ -93,6 +94,7 @@ ProjectListingCard.propTypes = {
   projectStartDate: PropTypes.instanceOf(Date),
   projectEndDate: PropTypes.instanceOf(Date),
   regionName: PropTypes.string,
+  userImage: PropTypes.string,
 };
 
 ProjectListingCard.defaultProps = {
@@ -104,4 +106,5 @@ ProjectListingCard.defaultProps = {
   projectStartDate: [],
   projectEndDate: [],
   regionName: "",
+  userImage: "",
 };
