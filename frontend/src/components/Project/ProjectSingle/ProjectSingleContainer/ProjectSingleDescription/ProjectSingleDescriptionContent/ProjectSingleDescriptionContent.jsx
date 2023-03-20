@@ -7,6 +7,7 @@ import {
   Stack,
   Grid,
   CardMedia,
+  Link,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import UserDashboardUserInfo from "../../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
@@ -17,6 +18,7 @@ export default function ProjectSingleDescriptionContent({
   projectImage,
 }) {
   const lignes = projectDescription.split("\n");
+  const userId = parseInt(localStorage.getItem("userId"), 10);
 
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
@@ -65,7 +67,9 @@ export default function ProjectSingleDescriptionContent({
               mb: 3,
             }}
           >
-            <UserDashboardUserInfo />
+            <Link href={`/talent/${userId}`} underline="none" sx={{ width: 1 }}>
+              <UserDashboardUserInfo />
+            </Link>
           </Box>
           <Paper
             elevation={2}

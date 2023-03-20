@@ -115,7 +115,7 @@ export default function UserDashboardCurrentProject() {
                           color: "UserDashboardCurrentProject.color",
                         }}
                       >
-                        {project.project_description}
+                        {project.project_about}
                       </Typography>
                     </Stack>
                     <AvatarGroup max={4}>

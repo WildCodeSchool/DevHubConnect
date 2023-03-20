@@ -1,21 +1,17 @@
 import React from "react";
-import Stack from "@mui/material/Stack";
+import { Stack, Box } from "@mui/material";
 import ProjectListingContainer from "../components/Project/ProjectListing/ProjectContainer/ProjectListingContainer";
 import ProjectListingHeader from "../components/Project/ProjectListing/ProjectContainer/ProjectListingHeader/ProjectListingHeader";
 //  import ProjectListingFilters from "../components/Project/ProjectListing/ProjectContainer/ProjectListingFilters/ProjectListingFilters";
 
 function ProjectListing() {
   return (
-    <Stack
-      direction={{ xs: "column", sm: "column", md: "column" }}
-      spacing={{ xs: 1, sm: 1, md: 2 }}
-      justifyContent="flex-start"
-      alignItems="flex-start"
-      p={2}
-    >
+    <Stack spacing={2}>
       <ProjectListingHeader />
       {/* <ProjectListingFilters />  */}
-      <ProjectListingContainer />
+      <Box sx={{ flexGrow: 1, padding: 3 }}>
+        <ProjectListingContainer />
+      </Box>
     </Stack>
   );
 }

@@ -86,12 +86,12 @@ function ProjectListingContainer() {
   }, []);
 
   return (
-    <>
+    <Stack spacing={2}>
       <Stack
         direction={{ sm: "column", md: "row" }}
         spacing={{ sm: 1, md: 2 }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems="flex-start"
         sx={{
           width: "100%",
         }}
@@ -160,14 +160,14 @@ function ProjectListingContainer() {
           const regions = projectRegionListing
             .filter((projectRegion) => projectRegion.id === project.region_id)
             .map((projectRegion) => projectRegion.region_name);
-
+          console.info("project", project);
           return (
             <ProjectListingCard
               key={project.id}
               id={project.id}
               projectImage={project.project_image}
               projectName={project.project_name}
-              projectDescription={project.project_description}
+              projectAbout={project.project_about}
               firstname={projectOwner ? projectOwner.firstname : ""}
               lastname={projectOwner ? projectOwner.lastname : ""}
               jobId={projectOwner ? projectOwner.job : ""}
@@ -178,7 +178,7 @@ function ProjectListingContainer() {
             />
           );
         })}
-    </>
+    </Stack>
   );
 }
 export default ProjectListingContainer;
