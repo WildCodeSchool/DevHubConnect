@@ -129,24 +129,18 @@ export default function SignUpConfirmation() {
         // requête POST pour créer un utilisateur dans l'API
         axios
           .post("http://localhost:5007/users", newUser)
-          /* .then((response) => {
+          .then(() => {
             // Si la requête POST réussit, envoi de l'e-mail de confirmation
-            const mailOptions = {
-              from: "fannykaugumi@gmail.com",
-              to: email,
-              subject: "Confirmation d'inscription",
-              text: "Merci de vous être inscrit sur notre site !",
-              html: "<p>Merci de vous être inscrit sur notre site !</p>",
-            };
-
-            transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                console.error(error);
-              } else {
-                console.log("E-mail envoyé :", info.response);
-              }
-            });
-          }) */
+            axios
+              .post("http://localhost:5007/contact", {
+                email,
+                subject: "Confirmation d'inscription",
+                html: "<p>Merci de vous être inscrit sur notre site !</p>",
+              })
+              .catch((err) => {
+                console.info(err);
+              });
+          })
           .catch((error) => {
             console.error(error);
           });
