@@ -16,8 +16,6 @@ export default function ProjectSingleButtonPostuler() {
   const [candidacy, setCandidacy] = useState([]);
   const [hasApplied, setHasApplied] = useState(false);
 
-  // const [candidacyEnvoyee, setCandidacyEnvoyee] = useState(false);
-
   const token = localStorage.getItem("token");
   const userId = parseInt(localStorage.getItem("userId"), 10);
   const { id } = useParams();
