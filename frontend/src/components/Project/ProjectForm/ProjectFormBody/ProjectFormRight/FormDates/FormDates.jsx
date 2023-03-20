@@ -12,7 +12,7 @@ function FormDates() {
     <FormControl sx={{ m: 0 }}>
       <Stack alignItems="center">
         <Paper elevation={2} sx={{ p: 2 }}>
-          <Stack spacing={2}>
+          <Stack direction="row" spacing={2}>
             <TextField
               label="Date de début"
               name="project_start_date"

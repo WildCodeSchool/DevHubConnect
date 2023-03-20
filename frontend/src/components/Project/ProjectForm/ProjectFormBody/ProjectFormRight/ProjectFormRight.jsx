@@ -4,6 +4,7 @@ import FormRegion from "./FormRegion/FormRegion";
 import FormDownloads from "./FormDownloads/FormDownloads";
 import FormDates from "./FormDates/FormDates";
 import FormSkills from "./FormSkills/FormSkills";
+import FormSave from "./FormSave/FormSave";
 
 function ProjectFormRight() {
   return (
@@ -12,6 +13,7 @@ function ProjectFormRight() {
       <FormDownloads />
       <FormDates />
       <FormSkills />
+      <FormSave />
     </Stack>
   );
 }

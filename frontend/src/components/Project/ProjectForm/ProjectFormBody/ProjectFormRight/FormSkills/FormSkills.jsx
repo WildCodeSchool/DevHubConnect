@@ -19,7 +19,10 @@ export default function FormSkills() {
       .get("http://localhost:5007/skills")
       .then((response) => response.data)
       .then((skillsData) => {
-        setSkillList(skillsData);
+        const sortedSkills = skillsData.sort((a, b) => {
+          return a.skill_name.localeCompare(b.skill_name);
+        });
+        setSkillList(sortedSkills);
       });
   };
 
@@ -45,7 +48,7 @@ export default function FormSkills() {
             {skillList.map((skill, index) => {
               return (
                 <FormControlLabel
-                  sx={{ width: 113 }}
+                  sx={{ width: 113 }} // <-- C'est la Fanny
                   control={<Checkbox />}
                   value={skill.skill_name}
                   label={skill.skill_name}
