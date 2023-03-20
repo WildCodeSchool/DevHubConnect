@@ -6,12 +6,6 @@ export default function FormDownloads() {
   const handleImageUpload = async (event) => {
     if (event.target.files && event.target.files[0]) {
       const imgFile = event.target.files[0];
-      // const imgFileName = imgFile.name;
-
-      // setInitialValues((prevValues) => ({
-      //   ...prevValues,
-      //   project_image: imgFileName,
-      // }));
 
       const formData = new FormData();
       formData.append("image", imgFile);

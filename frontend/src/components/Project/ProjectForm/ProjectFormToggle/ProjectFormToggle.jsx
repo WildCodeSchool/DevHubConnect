@@ -1,15 +1,30 @@
 import React from "react";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Switch from "@mui/material/Switch";
-import Box from "@mui/material/Box";
+import {
+  FormControlLabel,
+  Stack,
+  Typography,
+  Switch,
+  Box,
+} from "@mui/material";
 
 function ProjectFormToggle() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
   return (
     <Box>
-      <Stack direction="row" justifyContent="flex-start" sx={{ ml: 5 }}>
+      <Stack direction="row" alignItems="center" sx={{ ml: 5 }}>
         <Typography>Fermé</Typography>
-        <Switch />
+        <FormControlLabel
+          control={
+            <Stack justifyContent="center" sx={{ ml: 4 }}>
+              {/* penser à centrer le switch et supprimer le margin-left ml : 4 */}
+              <Switch checked={checked} onChange={handleChange} />
+            </Stack>
+          }
+        />
         <Typography>Ouvert</Typography>
       </Stack>
     </Box>
