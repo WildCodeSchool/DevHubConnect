@@ -12,8 +12,13 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectCurrent({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
+  const [candidacies, setCandidacies] = useState([]);
+
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("userId");
+  const userId = parseInt(id, 10);
+
   const getCurrentProjects = () => {
-    const token = localStorage.getItem("token");
     axios
       .get("http://localhost:5007/projects_current", {
         headers: { Authorization: `Bearer ${token}` },
@@ -23,6 +28,25 @@ function UserProjectCurrent({ expanded, onClick }) {
         setProjects(projectsData[0]);
       });
   };
+
+  useEffect(() => {
+    const getCandidacy = async () => {
+      try {
+        const response = await axios.get("http://localhost:5007/candidacies", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const candidaciesFilter = response.data
+          .filter((candidacy) => candidacy.user_id === userId)
+          .map((candidacy) => candidacy);
+        setCandidacies([...new Set(candidaciesFilter)]);
+      } catch (error) {
+        console.error("Failed to fetch candidacies: ", error);
+      }
+    };
+    getCandidacy();
+  }, [userId]);
 
   useEffect(() => {
     getCurrentProjects();
@@ -40,16 +64,22 @@ function UserProjectCurrent({ expanded, onClick }) {
       <AccordionDetails>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            {projects.map((project) => (
-              <Grid item xs={12} md={6}>
-                <UserProjectCard
-                  key={project.id}
-                  projectName={project.project_name}
-                  projectDescription={project.project_description}
-                  projectId={project.id}
-                />
-              </Grid>
-            ))}
+            {projects
+              .filter((project) =>
+                candidacies
+                  .map((candidacy) => candidacy.project_id)
+                  .includes(project.id)
+              )
+              .map((project) => (
+                <Grid item xs={12} md={6}>
+                  <UserProjectCard
+                    key={project.id}
+                    projectName={project.project_name}
+                    projectDescription={project.project_description}
+                    projectId={project.id}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </AccordionDetails>
