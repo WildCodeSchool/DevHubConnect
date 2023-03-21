@@ -72,7 +72,7 @@ function TalentPortofolioGallery({ id }) {
       {projects.map((project, index) => {
         return (
           <Card sx={{ maxWidth: "30%" }} index={index}>
-            <Link href={`/project/:${project.id}`} underline="none">
+            <Link href={`/project/${project.id}`} underline="none">
               <CardMedia
                 component="img"
                 // alt= {}
