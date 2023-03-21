@@ -1,21 +1,37 @@
 import React from "react";
 import { Stack, Button } from "@mui/material";
 import PropTypes from "prop-types";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DatePicker } from "@mui/x-date-pickers";
+import { parseISO, format } from "date-fns";
 
-function SelectDatesProject({
-  selectedStartDate,
-  setSelectedStartDate,
-  selectedEndDate,
-  setSelectedEndDate,
+export default function SelectDatesProject({
+  selectedStartDate, // date de début sélectionnée
+  setSelectedStartDate, // fonction pour modifier la date de début sélectionnée
+  selectedEndDate, // date de fin sélectionnée
+  setSelectedEndDate, // fonction pour modifier la date de fin sélectionnée
 }) {
   const handleClearStartDate = () => {
-    setSelectedStartDate(null);
+    setSelectedStartDate(null); // effacer la date de début sélectionnée
   };
 
   const handleClearEndDate = () => {
-    setSelectedEndDate(null);
+    setSelectedEndDate(null); // effacer la date de fin sélectionnée
   };
+
+  // Utiliser une variable locale pour stocker la valeur de selectedStartDate
+  let startDate = selectedStartDate;
+
+  // Vérifier que la valeur de startDate est bien une instance de Date
+  if (startDate && !(startDate instanceof Date)) {
+    startDate = parseISO(startDate);
+  }
+
+  // Convertir les dates en chaînes de caractères dans le format approprié
+  const formattedStartDate = startDate ? format(startDate, "yyyy-MM-dd") : null;
+  const formattedEndDate = selectedEndDate
+    ? format(selectedEndDate, "yyyy-MM-dd")
+    : null;
+
   return (
     <Stack
       direction="row"
@@ -25,31 +41,29 @@ function SelectDatesProject({
       sx={{ width: "100%" }}
     >
       <Stack
-        components={["DatePicker"]}
         sx={{ width: "100%" }}
         direction="row"
         spacing={{ xs: 1, sm: 2, md: 4 }}
       >
         <DatePicker
           label="date de début"
-          value={selectedStartDate}
+          value={formattedStartDate}
           onChange={(newValue) => setSelectedStartDate(newValue)}
         />
-        {selectedStartDate && (
+        {startDate && (
           <Button onClick={handleClearStartDate} variant="outlined">
             X
           </Button>
         )}
       </Stack>
       <Stack
-        components={["DatePicker"]}
         sx={{ width: "100%" }}
         direction="row"
         spacing={{ xs: 1, sm: 2, md: 4 }}
       >
         <DatePicker
           label="date de fin"
-          value={selectedEndDate}
+          value={formattedEndDate}
           onChange={(newValue) => setSelectedEndDate(newValue)}
         />
         {selectedEndDate && (
@@ -61,18 +75,23 @@ function SelectDatesProject({
     </Stack>
   );
 }
+
+// définir les types de props attendues
 SelectDatesProject.propTypes = {
-  selectedStartDate: PropTypes.instanceOf(Date),
-  setSelectedStartDate: PropTypes.instanceOf(Date),
-  selectedEndDate: PropTypes.instanceOf(Date),
-  setSelectedEndDate: PropTypes.instanceOf(Date),
+  selectedStartDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]),
+  setSelectedStartDate: PropTypes.func.isRequired,
+  selectedEndDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]),
+  setSelectedEndDate: PropTypes.func.isRequired,
 };
 
+// définir les valeurs par défaut des props pour éviter les erreurs
 SelectDatesProject.defaultProps = {
-  selectedStartDate: "",
-  setSelectedStartDate: "",
-  selectedEndDate: "",
-  setSelectedEndDate: "",
+  selectedStartDate: null,
+  selectedEndDate: null,
 };
-
-export default SelectDatesProject;

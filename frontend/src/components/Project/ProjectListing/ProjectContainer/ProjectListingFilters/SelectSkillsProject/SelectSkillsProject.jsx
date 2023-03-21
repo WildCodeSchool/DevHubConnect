@@ -48,48 +48,53 @@ function SelectSkillsProject({
         renderValue={(selected) => selected.join(", ")}
         MenuProps={MenuProps}
       >
-        {skillName.map((skill, index) => (
-          <MenuItem
-            key={skill.id}
-            value={skill.skill_name}
-            onClick={() => {
-              if (selectedSkillId.includes(skill.id)) {
-                setSelectedSkillId((prevState) =>
-                  prevState.filter((id) => id !== skill.id)
-                );
-              } else {
-                setSelectedSkillId((prevState) => [...prevState, skill.id]);
-              }
-            }}
-          >
-            <Checkbox checked={selectedSkills.indexOf(skill.skill_name) > -1} />
-
-            <ListItemText primary={skill.skill_name} index={index} />
-          </MenuItem>
-        ))}
+        {skillName
+          .sort((a, b) => a.skill_name.localeCompare(b.skill_name)) // tri par ordre alphabétique
+          .map((skill) => (
+            <MenuItem
+              key={skill.id}
+              value={skill.skill_name}
+              onClick={() => {
+                if (selectedSkillId.includes(skill.id)) {
+                  setSelectedSkillId((prevState) =>
+                    prevState.filter((id) => id !== skill.id)
+                  );
+                } else {
+                  setSelectedSkillId((prevState) => [...prevState, skill.id]);
+                }
+              }}
+            >
+              <Checkbox
+                checked={selectedSkills.indexOf(skill.skill_name) > -1}
+              />
+              <ListItemText primary={skill.skill_name} />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );
 }
 
 SelectSkillsProject.propTypes = {
-  skillName: PropTypes.string,
-
-  selectedSkills: PropTypes.string,
-  setSelectedSkills: PropTypes.string,
-  selectedSkillId: PropTypes.string,
-  setSelectedSkillId: PropTypes.string,
-
+  skillName: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      skill_name: PropTypes.string.isRequired,
+    })
+  ),
+  selectedSkills: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkills: PropTypes.func,
+  selectedSkillId: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkillId: PropTypes.func,
   handleSkillsChange: PropTypes.func,
 };
 
 SelectSkillsProject.defaultProps = {
-  skillName: "",
-
-  selectedSkills: "",
-  setSelectedSkills: "",
-  selectedSkillId: "",
-  setSelectedSkillId: "",
+  skillName: [],
+  selectedSkills: [],
+  setSelectedSkills: () => {},
+  selectedSkillId: [],
+  setSelectedSkillId: () => {},
   handleSkillsChange: () => {},
 };
 

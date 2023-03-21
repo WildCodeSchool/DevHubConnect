@@ -14,8 +14,6 @@ function TalentListingFilter({
   selectedSkillIds,
   setSelectedSkillIds,
 }) {
-  console.info(currentSelectedJobs, "japanJOB");
-  console.info(selectedSkillIds, "japan");
   return (
     <Box sx={{ mt: 2 }}>
       <Stack

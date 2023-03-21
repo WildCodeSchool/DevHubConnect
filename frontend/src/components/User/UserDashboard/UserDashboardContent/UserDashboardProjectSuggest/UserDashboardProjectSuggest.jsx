@@ -77,7 +77,6 @@ export default function UserDashboardProjectSuggest() {
           .then((userData) => {
             // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
             setUser(userData);
-            console.info(userData);
           });
       };
 
@@ -96,8 +95,6 @@ export default function UserDashboardProjectSuggest() {
   return (
     <>
       {projectListing.slice(-4).map((project) => {
-        console.info("project", project);
-
         return (
           <Box sx={{ width: "100%" }}>
             <Paper

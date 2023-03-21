@@ -61,12 +61,10 @@ export default function ProjectListingCard({
                     Du {formattedStartDate} au {formattedEndDate}, secteur{" "}
                     {regionName}
                   </Typography>
-                  <Typography variant="body1" gutterBottom>
+                  <Typography variant="body1" gutterBottom component="div">
                     <Stack direction="row" spacing={2}>
-                      {skillName.map((skill, index) => {
-                        return (
-                          <Chip label={skill} index={index} size="small" />
-                        );
+                      {skillName.map((skill) => {
+                        return <Chip label={skill} key={skill} size="small" />;
                       })}
                     </Stack>
                   </Typography>
@@ -85,15 +83,16 @@ export default function ProjectListingCard({
     </Link>
   );
 }
+
 ProjectListingCard.propTypes = {
   projectName: PropTypes.string,
   projectAbout: PropTypes.string,
   projectImage: PropTypes.string,
   id: PropTypes.number,
-  skillName: PropTypes.string,
-  projectStartDate: PropTypes.instanceOf(Date),
-  projectEndDate: PropTypes.instanceOf(Date),
-  regionName: PropTypes.string,
+  skillName: PropTypes.arrayOf(PropTypes.string),
+  projectStartDate: PropTypes.string,
+  projectEndDate: PropTypes.string,
+  regionName: PropTypes.arrayOf(PropTypes.string),
   userImage: PropTypes.string,
 };
 
@@ -102,9 +101,9 @@ ProjectListingCard.defaultProps = {
   projectAbout: "",
   projectImage: "",
   id: "",
-  skillName: "",
-  projectStartDate: [],
-  projectEndDate: [],
-  regionName: "",
+  skillName: [],
+  projectStartDate: "",
+  projectEndDate: "",
+  regionName: [],
   userImage: "",
 };

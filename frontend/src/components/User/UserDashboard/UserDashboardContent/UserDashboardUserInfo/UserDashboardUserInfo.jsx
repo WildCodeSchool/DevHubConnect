@@ -31,7 +31,6 @@ export default function UserDashboardUserInfo() {
           .then((response) => response.data)
           .then((userData) => {
             setUser(userData);
-            // console.info(userData);
           })
           .catch((error) => {
             console.error(error);
@@ -46,7 +45,6 @@ export default function UserDashboardUserInfo() {
           .then((response) => response.data)
           .then((jobData) => {
             setJob(jobData);
-            // console.info(jobData);
             setIsLoading(false);
           })
           .catch((error) => {
