@@ -1,37 +1,26 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Stack from "@mui/material/Stack";
 import { Paper, FormControl } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-function FormDates() {
-  const handleChange = async (event) => {
-    event.preventDefault();
-    console.info("Coucou");
-  };
+function FormDates({ startDate, setStartDate, endDate, setEndDate }) {
   return (
-    <FormControl sx={{ m: 0 }}>
+    <FormControl>
       <Stack alignItems="center">
         <Paper elevation={2} sx={{ p: 2 }}>
           <Stack direction="row" spacing={2}>
-            <TextField
+            <DatePicker
               label="Date de début"
-              name="project_start_date"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value="" // {values.project_start_date}
-              onChange={handleChange}
+              format="dd/MM/yyyy"
+              value={startDate}
+              onChange={(newDate) => setStartDate(newDate)}
             />
-            <TextField
+            <DatePicker
               label="Date de fin"
-              name="project_end_date"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              value="" // {values.project_end_date}
-              onChange={handleChange}
+              format="dd/MM/yyyy"
+              value={endDate}
+              onChange={(newDate) => setEndDate(newDate)}
             />
           </Stack>
         </Paper>
@@ -39,5 +28,18 @@ function FormDates() {
     </FormControl>
   );
 }
+FormDates.propTypes = {
+  startDate: PropTypes.instanceOf(Date),
+  setStartDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date),
+  setEndDate: PropTypes.instanceOf(Date),
+};
+
+FormDates.defaultProps = {
+  startDate: "",
+  setStartDate: "",
+  endDate: "",
+  setEndDate: "",
+};
 
 export default FormDates;
