@@ -7,43 +7,55 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 
 function TalentSingleSkills({ id }) {
+  // définit un state pour la liste des compétences existantes
   const [skillList, setSkillList] = useState([]);
+  // définit un state pour la liste des compétences  du talent visé
   const [userSkillList, setUserSkillList] = useState([]);
 
+  // récupère le token d'authentification stocké dans le localStorage
   const token = localStorage.getItem("token");
 
+  // Fonction pour récupérer la liste des compétences existantes
   const getSkillList = () => {
     axios
       .get("http://localhost:5007/skills", {
-        headers: { Authorization: `Bearer ${token}` },
+        // appel à l'API par requête http GET pour récupérer les compétences existantes
+        headers: { Authorization: `Bearer ${token}` }, // envoi du token dans les headers de la requête
       })
       .then((response) => response.data)
       .then((skillsData) => {
         setSkillList(skillsData);
+        // met à jour le state avec la liste des compétences existantes
       });
   };
 
+  // Fonction pour récupérer la liste des compétences  du talent visé
   const getUserSkillList = () => {
     axios
       .get("http://localhost:5007/user_skills", {
-        headers: { Authorization: `Bearer ${token}` },
+        // appel à l'API pour récupérer les compétences  du talent visé
+        headers: { Authorization: `Bearer ${token}` }, // envoi du token dans les headers de la requête
       })
       .then((response) => response.data)
       .then((userSkillsData) => {
         setUserSkillList(userSkillsData);
+        // met à jour le state avec la liste des compétences du talent visé
       });
   };
 
+  // lorsque le composant est monté
+  // hook useEffect pour appeler les fonctions de récupération des compétences existantes et des compétences  du talent visé
   useEffect(() => {
     getSkillList();
     getUserSkillList();
   }, []);
 
   const skills = userSkillList
-    .filter((userSkill) => userSkill.user_id === id)
+    .filter((userSkill) => userSkill.user_id === id) // filtrage de la liste des compétences du talent visé en fonction de son id
     .map((List) => {
-      const skillItem = skillList.find((skill) => skill.id === List.skill_id);
-      return skillItem ? skillItem.skill_name : "";
+      // mappe sur la liste des compétences du talent visé pour retourner leur nom
+      const skillItem = skillList.find((skill) => skill.id === List.skill_id); // trouve la compétence correspondante dans la liste des compétences existantes
+      return skillItem ? skillItem.skill_name : ""; // retourne le nom de la compétence si elle est trouvée dans la liste des compétences existantes
     });
 
   return (
@@ -63,9 +75,6 @@ function TalentSingleSkills({ id }) {
         COMPETENCES
       </Typography>
       <Stack
-        // justifyContent="center" // {{ xs: "center", sm: "center", md: "space-around" }}
-        // alignItems="center"
-        // spacing={3}
         direction="row"
         display="flex"
         justifyContent="center"

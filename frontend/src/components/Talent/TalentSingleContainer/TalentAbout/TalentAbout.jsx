@@ -12,6 +12,7 @@ function TalentAbout({ about }) {
       >
         A PROPOS
       </Typography>
+      {/* Affichage du contenu "about" passé en paramètre */}
       <Box
         sx={{
           display: "flex",
