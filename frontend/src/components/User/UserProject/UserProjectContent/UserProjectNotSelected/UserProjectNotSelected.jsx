@@ -77,7 +77,7 @@ function UserProjectNotSelected({ expanded, onClick }) {
                   <UserProjectCard
                     key={project.id}
                     projectName={project.project_name}
-                    projectDescription={project.project_description}
+                    projectDescription={project.project_about}
                     sx={{ marginLeft: "20px" }}
                     projectId={project.id}
                   />

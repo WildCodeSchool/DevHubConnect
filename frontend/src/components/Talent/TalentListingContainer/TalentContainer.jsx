@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Box } from "@mui/material";
 import TalentCardGallery from "./TalentCardGallery/TalentCardGallery";
 import TalentListingFilter from "./TalentListingFilter/TalentListingFilter";
 import TalentListeningHeader from "./TalentListingHeader/TalentListeningHeader";
-// import PropTypes from "prop-types";
 
 function TalentContainer() {
   const [currentSelectedJobs, setSelectedJobs] = useState([]);
@@ -12,22 +12,24 @@ function TalentContainer() {
   return (
     <div>
       <TalentListeningHeader />
-      <TalentListingFilter
-        selectedJobs={currentSelectedJobs}
-        setSelectedJobs={setSelectedJobs}
-        selectedRegions={currentSelectedRegions}
-        setSelectedRegions={setSelectedRegions}
-        selectedSkillIds={selectedSkillIds}
-        setSelectedSkillIds={setSelectedSkillIds}
-      />
-      <TalentCardGallery
-        selectedJobs={currentSelectedJobs}
-        setSelectedJobs={setSelectedJobs}
-        selectedRegions={currentSelectedRegions}
-        setSelectedRegions={setSelectedRegions}
-        selectedSkillIds={selectedSkillIds}
-        setSelectedSkillIds={setSelectedSkillIds}
-      />
+      <Box sx={{ padding: 3 }}>
+        <TalentListingFilter
+          selectedJobs={currentSelectedJobs}
+          setSelectedJobs={setSelectedJobs}
+          selectedRegions={currentSelectedRegions}
+          setSelectedRegions={setSelectedRegions}
+          selectedSkillIds={selectedSkillIds}
+          setSelectedSkillIds={setSelectedSkillIds}
+        />
+        <TalentCardGallery
+          selectedJobs={currentSelectedJobs}
+          setSelectedJobs={setSelectedJobs}
+          selectedRegions={currentSelectedRegions}
+          setSelectedRegions={setSelectedRegions}
+          selectedSkillIds={selectedSkillIds}
+          setSelectedSkillIds={setSelectedSkillIds}
+        />
+      </Box>
     </div>
   );
 }

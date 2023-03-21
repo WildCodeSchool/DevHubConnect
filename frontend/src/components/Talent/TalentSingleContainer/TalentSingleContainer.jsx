@@ -78,7 +78,7 @@ function TalentSingleContainer() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <TalentSingleCard
-              avatar={user.user_image}
+              avatar={`../../../../../src/assets/user-img/${user.user_image}`}
               firstName={user.firstname}
               lastName={user.lastname}
               bio={user.biography}

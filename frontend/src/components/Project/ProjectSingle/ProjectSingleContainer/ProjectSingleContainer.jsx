@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import { format } from "date-fns";
 import ProjectSingleDescriptionContent from "./ProjectSingleDescription/ProjectSingleDescriptionContent/ProjectSingleDescriptionContent";
 import ProjectSingleHeader from "./ProjectSingleHeader/ProjectSingleHeader";
 
@@ -112,6 +110,7 @@ function ProjectSingleContainer() {
   const creatorEmail = creatorUser ? creatorUser.email : "";
   const creatorJob = "Product Owner";
   const creatorAbout = creatorUser ? creatorUser.about : "";
+  const creatorImage = creatorUser ? creatorUser.user_image : "";
   // Création d'un tableau de compétences pour chaque projet
   const skills = projectSingleSkillListing
     .filter(
@@ -152,6 +151,7 @@ function ProjectSingleContainer() {
         creatorAbout={creatorAbout}
         creatorEmail={creatorEmail}
         creatorJob={creatorJob}
+        creatorImage={creatorImage}
         skillName={skills}
         projectStartDate={projectSingleListing.project_start_date}
         projectEndDate={projectSingleListing.project_end_date}
