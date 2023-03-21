@@ -17,10 +17,18 @@ function SelectDatesProject({
     setSelectedEndDate(null);
   };
   return (
-    <>
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="flex-start"
+      spacing={{ xs: 1, sm: 2, md: 3 }}
+      sx={{ width: "100%" }}
+    >
       <Stack
         components={["DatePicker"]}
-        sx={{ width: 300, display: "flex", flexDirection: "row" }}
+        sx={{ width: "100%" }}
+        direction="row"
+        spacing={{ xs: 1, sm: 2, md: 4 }}
       >
         <DatePicker
           label="date de début"
@@ -35,7 +43,9 @@ function SelectDatesProject({
       </Stack>
       <Stack
         components={["DatePicker"]}
-        sx={{ width: 300, display: "flex", flexDirection: "row" }}
+        sx={{ width: "100%" }}
+        direction="row"
+        spacing={{ xs: 1, sm: 2, md: 4 }}
       >
         <DatePicker
           label="date de fin"
@@ -48,7 +58,7 @@ function SelectDatesProject({
           </Button>
         )}
       </Stack>
-    </>
+    </Stack>
   );
 }
 SelectDatesProject.propTypes = {

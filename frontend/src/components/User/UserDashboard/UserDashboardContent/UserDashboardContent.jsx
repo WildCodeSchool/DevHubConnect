@@ -24,7 +24,13 @@ export default function UserDashboardContent() {
             <Typography variant="UserDashboardTitle" gutterBottom>
               Vos infos
             </Typography>
-            <UserDashboardUserInfo />
+            <Link
+              href="/dashboard/my-setting"
+              underline="none"
+              sx={{ width: 1 }}
+            >
+              <UserDashboardUserInfo />
+            </Link>
             <Typography
               variant="UserDashboardTitle"
               gutterBottom

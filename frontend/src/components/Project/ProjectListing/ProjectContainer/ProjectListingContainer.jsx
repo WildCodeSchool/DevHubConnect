@@ -86,12 +86,12 @@ function ProjectListingContainer() {
   }, []);
 
   return (
-    <>
+    <Stack spacing={2}>
       <Stack
         direction={{ sm: "column", md: "row" }}
         spacing={{ sm: 1, md: 2 }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems="flex-start"
         sx={{
           width: "100%",
         }}
@@ -142,9 +142,10 @@ function ProjectListingContainer() {
         )
 
         .map((project) => {
-          const projectOwner = userListing.find(
-            (user) => user.id === project.owner_id
+          const creatorImage = userListing.find(
+            (user) => user.id === project.creator_id
           );
+          console.info("creatorImage : ", creatorImage);
 
           // Création d'un tableau de compétences pour chaque projet
           const skills = projectSkillListing
@@ -167,18 +168,16 @@ function ProjectListingContainer() {
               id={project.id}
               projectImage={project.project_image}
               projectName={project.project_name}
-              projectDescription={project.project_description}
-              firstname={projectOwner ? projectOwner.firstname : ""}
-              lastname={projectOwner ? projectOwner.lastname : ""}
-              jobId={projectOwner ? projectOwner.job : ""}
+              projectAbout={project.project_about}
               skillName={skills}
               projectStartDate={project.project_start_date}
               projectEndDate={project.project_end_date}
               regionName={regions}
+              userImage={userListing ? creatorImage.user_image : ""}
             />
           );
         })}
-    </>
+    </Stack>
   );
 }
 export default ProjectListingContainer;

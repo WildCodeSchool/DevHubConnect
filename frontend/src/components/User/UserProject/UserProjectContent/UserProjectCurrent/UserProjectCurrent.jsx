@@ -45,7 +45,7 @@ function UserProjectCurrent({ expanded, onClick }) {
                 <UserProjectCard
                   key={project.id}
                   projectName={project.project_name}
-                  projectDescription={project.project_description}
+                  projectDescription={project.project_about}
                   projectId={project.id}
                 />
               </Grid>

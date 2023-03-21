@@ -6,7 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
@@ -35,36 +34,34 @@ function SelectRegionsProject({
   };
 
   return (
-    <Stack>
-      <FormControl sx={{ width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
-        <Select
-          labelId="regions-select-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={selectedRegions}
-          onChange={handleChange}
-          input={<OutlinedInput label="Régions" />}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {regions.map((region) => (
-            <MenuItem
-              key={region.region_name}
-              value={region.region_name}
-              onClick={() => {
-                setSelectedRegionId(region.id);
-              }}
-            >
-              <Checkbox
-                checked={selectedRegions.indexOf(region.region_name) > -1}
-              />
-              <ListItemText primary={region.region_name} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Stack>
+    <FormControl sx={{ width: "100%" }}>
+      <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
+      <Select
+        labelId="regions-select-label"
+        id="demo-multiple-checkbox"
+        multiple
+        value={selectedRegions}
+        onChange={handleChange}
+        input={<OutlinedInput label="Régions" />}
+        renderValue={(selected) => selected.join(", ")}
+        MenuProps={MenuProps}
+      >
+        {regions.map((region) => (
+          <MenuItem
+            key={region.region_name}
+            value={region.region_name}
+            onClick={() => {
+              setSelectedRegionId(region.id);
+            }}
+          >
+            <Checkbox
+              checked={selectedRegions.indexOf(region.region_name) > -1}
+            />
+            <ListItemText primary={region.region_name} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
 
