@@ -10,6 +10,7 @@ import UserSettingField from "./UserSettingField/UserSettingField";
 import UserSettingSaveButton from "./UserSettingSaveButton/UserSettingSaveButton";
 import UserSettingJob from "./UserSettingJob/UserSettingJob";
 import UserSettingUpdatepassword from "./UserSettingUpdatepassword/UserSettingUpdatepassword";
+import UserSettingImage from "./UserSettingUploadImg/UserSettingUploadImg";
 
 function UserSettingContent() {
   const userId = parseInt(localStorage.getItem("userId"), 10);
@@ -22,6 +23,7 @@ function UserSettingContent() {
     password: "",
     job_id: "",
     id: "",
+    user_image: "",
   });
 
   const [userSkillsProp, setUserSkillsProp] = useState([]);
@@ -47,14 +49,9 @@ function UserSettingContent() {
 
   const updateUserAndSkills = async (dataToSend) => {
     try {
-      const response = await axios.put(
-        `http://localhost:5007/users/${userId}`,
-        dataToSend,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.info("User update response: ", response);
+      await axios.put(`http://localhost:5007/users/${userId}`, dataToSend, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     } catch (error) {
       console.error("Error updating user: ", error);
     }
@@ -84,6 +81,7 @@ function UserSettingContent() {
             <UserSettingField user={user} setUser={setUser} />
             <UserSettingBio user={user} setUser={setUser} />
             <UserSettingAbout user={user} setUser={setUser} />
+            <UserSettingImage user={user} setUser={setUser} />
             <UserSettingUpdatepassword />
           </Stack>
         </Grid>
@@ -119,5 +117,6 @@ UserSettingContent.propTypes = {
     email: PropTypes.string,
     biography: PropTypes.string,
     job_id: PropTypes.number,
+    user_image: PropTypes.string,
   }).isRequired,
 };

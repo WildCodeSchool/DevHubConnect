@@ -12,7 +12,7 @@ export default function UserProjectCard({
   projectDescription,
 }) {
   const handleMoreInfoClick = () => {
-    console.info("You clicked the Chip.");
+    // console.info("You clicked the Chip.");
   };
 
   return (

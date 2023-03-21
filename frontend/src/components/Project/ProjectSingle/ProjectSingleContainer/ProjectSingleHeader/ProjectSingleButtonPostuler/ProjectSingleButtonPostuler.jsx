@@ -1,28 +1,36 @@
+// Importations des dépendances nécessaires
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import axios from "axios";
 import { format } from "date-fns";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
+// Composant ProjectSingleButtonPostuler
 export default function ProjectSingleButtonPostuler() {
+  // État local pour gérer la boîte de dialogue, les motivations et les données des candidatures
   const [open, setOpen] = useState(false);
   const [motivation, setMotivation] = useState("");
   const [candidacy, setCandidacy] = useState([]);
   const [hasApplied, setHasApplied] = useState(false);
+  const [creatorId, setCreatorId] = useState(null);
 
-  // const [candidacyEnvoyee, setCandidacyEnvoyee] = useState(false);
-
+  // Récupération du token et de l'ID utilisateur depuis le stockage local
   const token = localStorage.getItem("token");
   const userId = parseInt(localStorage.getItem("userId"), 10);
+
+  // Récupération de l'ID du projet à partir de l'URL
   const { id } = useParams();
   const projectId = parseInt(id, 10);
 
+  // Nouvelle candidature
   const newCandidacy = {
     user_id: userId,
     project_id: projectId,
@@ -31,6 +39,7 @@ export default function ProjectSingleButtonPostuler() {
     user_motivation: motivation,
   };
 
+  // Récupérer les candidatures depuis l'API
   const getCandidacy = () => {
     axios
       .get("http://localhost:5007/candidacies", {
@@ -42,10 +51,27 @@ export default function ProjectSingleButtonPostuler() {
       })
       .catch((error) => console.error(error));
   };
+
+  // Récupérer les informations du projet depuis l'API
+  const getProject = () => {
+    axios
+      .get(`http://localhost:5007/projects/${projectId}`)
+      .then((response) => {
+        setCreatorId(response.data.creator_id);
+        console.info("response.data", response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  // Charger les données des candidatures et du projet
   useEffect(() => {
     getCandidacy();
+    getProject();
   }, []);
 
+  // Mettre à jour hasApplied en fonction des données des candidatures
   useEffect(() => {
     setHasApplied(
       candidacy.some(
@@ -54,14 +80,17 @@ export default function ProjectSingleButtonPostuler() {
     );
   }, [candidacy, projectId, userId]);
 
+  // Gérer l'ouverture de la boîte de dialogue
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  // Gérer la fermeture de la boîte de dialogue
   const handleClose = () => {
     setOpen(false);
   };
 
+  // Gérer la modification de la motivation
   const handleMotivationChange = (event) => {
     const text = event.target.value;
     if (text.length > 160) {
@@ -71,6 +100,7 @@ export default function ProjectSingleButtonPostuler() {
     }
   };
 
+  // Envoyer la candidature à l'API
   const postCandidacy = () => {
     axios
       .post(`http://localhost:5007/candidacies`, newCandidacy, {
@@ -84,19 +114,27 @@ export default function ProjectSingleButtonPostuler() {
       });
     handleClose();
   };
+  console.info("userId", userId);
+  console.info("creatorId", creatorId);
+
+  // Rendu du composant
   return (
     <>
-      {userId ? (
+      {userId && userId === projectId ? (
+        <Button
+          variant="outlined"
+          component={Link}
+          to={`/edit-project/${projectId}`}
+        >
+          Modifier le projet
+        </Button>
+      ) : (
         <Button
           variant="outlined"
           onClick={handleClickOpen}
-          disabled={hasApplied}
+          disabled={userId && hasApplied}
         >
-          {hasApplied ? "Vous avez déjà postulé" : "Postuler"}
-        </Button>
-      ) : (
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Postuler
+          {userId && hasApplied ? "Vous avez déjà postulé" : "Postuler"}
         </Button>
       )}
       <Dialog open={open} onClose={handleClose}>
@@ -127,7 +165,7 @@ export default function ProjectSingleButtonPostuler() {
             onClick={() => {
               postCandidacy();
             }}
-            disabled={motivation.length === 0 || motivation.length >= 160}
+            disabled={motivation.length === 0 || motivation.length > 160}
           >
             Valider
           </Button>

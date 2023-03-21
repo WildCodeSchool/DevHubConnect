@@ -39,6 +39,7 @@
     "@fullcalendar/core": "^6.1.4",
     "@fullcalendar/daygrid": "^6.1.4",
     "@fullcalendar/react": "^6.1.4",
+    "@mui/lab": "^5.0.0-alpha.123",
     "@mui/material": "^5.11.10",
     "@mui/styled-engine-sc": "^5.11.9",
     "bcryptjs": "^2.4.3",

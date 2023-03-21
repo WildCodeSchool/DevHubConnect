@@ -8,7 +8,6 @@ function TalentContainer() {
   const [currentSelectedJobs, setSelectedJobs] = useState([]);
   const [currentSelectedRegions, setSelectedRegions] = useState([]);
   const [selectedSkillIds, setSelectedSkillIds] = useState([]);
-  console.info(selectedSkillIds, "camembert");
   return (
     <div>
       <TalentListeningHeader />
