@@ -26,7 +26,7 @@ function UserSettingContent() {
     user_image: "",
   });
 
-  const [forceUpdate, setForceUpdate] = useState(false); // nouvel état forceUpdate
+  const [forceUpdate] = useState(false); // nouvel état forceUpdate
 
   const [userSkillsProp, setUserSkillsProp] = useState([]);
 
