@@ -49,6 +49,8 @@ router.get("/skills", skillControllers.browse);
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
 router.post("/user_skills", userSkillControllers.add);
+
+// ------envoi d'email------
 router.post("/contact", contactControllers.sendMail);
 
 // -----LOGIN-------

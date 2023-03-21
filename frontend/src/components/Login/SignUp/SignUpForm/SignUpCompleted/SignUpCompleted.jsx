@@ -6,10 +6,10 @@ export default function SignUpCompleted() {
   return (
     <Stack>
       <Typography variant="h2" align="center" sx={{ py: 4 }}>
-        Thank you!
+        Merci!
       </Typography>
       <Typography component="p" align="center">
-        You will get an email with further instructions
+        Vous recevrez un email avec des instructions supplémentaires.
       </Typography>
     </Stack>
   );

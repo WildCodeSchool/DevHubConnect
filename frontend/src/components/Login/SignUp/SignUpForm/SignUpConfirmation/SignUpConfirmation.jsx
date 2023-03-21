@@ -135,7 +135,7 @@ export default function SignUpConfirmation() {
               .post("http://localhost:5007/contact", {
                 email,
                 subject: "Confirmation d'inscription",
-                html: "<p>Merci de vous être inscrit sur notre site !</p>",
+                html: `<h1>${firstName} bienvenue dans la place de marché DevHub Connect!</h1><p>cliquez sur <a href="http://localhost:5173/login">ce lien</a> pour vous connecter.</p>`,
               })
               .catch((err) => {
                 console.info(err);

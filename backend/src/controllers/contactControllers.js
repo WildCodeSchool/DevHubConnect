@@ -4,7 +4,7 @@ exports.sendMail = async (req, res) => {
   const { email, subject, html } = req.body;
   try {
     await transporter.sendMail({
-      from: process.env.SMTP_USER,
+      from: "fannykaugumi@gmail.com",
       to: email,
       subject,
       html,
