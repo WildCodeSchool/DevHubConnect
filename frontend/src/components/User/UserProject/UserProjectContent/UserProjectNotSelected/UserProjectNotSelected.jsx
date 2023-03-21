@@ -1,6 +1,4 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/no-unused-prop-types */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -13,7 +11,6 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectNotSelected({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
-  const notselectedProjectsRef = useRef(null);
 
   const getNotSelectedProjects = () => {
     const token = localStorage.getItem("token");
@@ -31,16 +28,11 @@ function UserProjectNotSelected({ expanded, onClick }) {
     getNotSelectedProjects();
   }, []);
   return (
-    <Accordion
-      expanded={expanded}
-      onClick={onClick}
-      ref={notselectedProjectsRef}
-    >
+    <Accordion expanded={expanded} onClick={onClick}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
-        data-type="notselected"
       >
         <Typography variant="accordionTitle">Projets non retenus</Typography>
       </AccordionSummary>
@@ -68,6 +60,11 @@ function UserProjectNotSelected({ expanded, onClick }) {
 UserProjectNotSelected.propTypes = {
   expanded: PropTypes.string,
   onClick: PropTypes.string,
+};
+
+UserProjectNotSelected.defaultProps = {
+  expanded: "",
+  onClick: "",
 };
 
 export default UserProjectNotSelected;

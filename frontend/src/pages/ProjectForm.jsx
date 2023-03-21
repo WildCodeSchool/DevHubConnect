@@ -1,9 +1,11 @@
-import * as React from "react";
+import React from "react";
+import Stack from "@mui/material/Stack";
+import ProjectFormComponent from "../components/Project/ProjectForm/ProjectFormComponent";
 
 export default function ProjectForm() {
   return (
-    <div>
-      <h1>Project Form</h1>
-    </div>
+    <Stack>
+      <ProjectFormComponent />
+    </Stack>
   );
 }

@@ -26,6 +26,8 @@ function UserSettingContent() {
     user_image: "",
   });
 
+  const [forceUpdate, setForceUpdate] = useState(false); // nouvel état forceUpdate
+
   const [userSkillsProp, setUserSkillsProp] = useState([]);
 
   const token = localStorage.getItem("token");
@@ -45,7 +47,7 @@ function UserSettingContent() {
       }
     };
     getUser();
-  }, []);
+  }, [forceUpdate]);
 
   const updateUserAndSkills = async (dataToSend) => {
     try {
@@ -62,7 +64,7 @@ function UserSettingContent() {
     const dataToSend = {
       ...user,
       password: hashedPassword,
-      skillIds: userSkillsProp,
+      skillIds: userSkillsProp.filter((skillId) => skillId),
     };
 
     try {
@@ -72,7 +74,6 @@ function UserSettingContent() {
       console.error(error);
     }
   };
-
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
       <Grid container spacing={2}>
