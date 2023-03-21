@@ -38,7 +38,10 @@ function UserProjectCurrent({ expanded, onClick }) {
           },
         });
         const candidaciesFilter = response.data
-          .filter((candidacy) => candidacy.user_id === userId)
+          .filter(
+            (candidacy) =>
+              candidacy.user_id === userId && candidacy.user_status !== 3
+          )
           .map((candidacy) => candidacy);
         setCandidacies([...new Set(candidaciesFilter)]);
       } catch (error) {
