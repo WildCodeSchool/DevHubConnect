@@ -10,9 +10,9 @@ export default function linkToSignInPage() {
       alignItems="flex-end"
       spacing={2}
     >
-      <Typography variant="h5">Have an account?</Typography>
+      <Typography variant="h5">Vous avez déjà un compte?</Typography>
       <Button type="link" variant="contained" color="primary" href="/login">
-        Sign in
+        Connexion
       </Button>
     </Stack>
   );
