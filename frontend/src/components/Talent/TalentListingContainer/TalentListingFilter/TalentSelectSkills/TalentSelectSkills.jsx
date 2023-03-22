@@ -7,7 +7,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
@@ -44,48 +43,45 @@ function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSkills(typeof value === "string" ? value.split(",") : value);
-    console.info(selectedSkillIds, "coucou");
   };
 
   return (
-    <Stack>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-skill-label">Compétences</InputLabel>
-        <Select
-          labelId="demo-multiple-skill-label"
-          id="demo-multiple-skill"
-          multiple
-          value={userSkills}
-          onChange={handleChange}
-          input={<OutlinedInput label="Compétences" />}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {skills.map((skill, index) => (
-            <MenuItem
+    <FormControl sx={{ width: "100%" }}>
+      <InputLabel id="demo-multiple-skill-label">Compétences</InputLabel>
+      <Select
+        labelId="demo-multiple-skill-label"
+        id="demo-multiple-skill"
+        multiple
+        value={userSkills}
+        onChange={handleChange}
+        input={<OutlinedInput label="Compétences" />}
+        renderValue={(selected) => selected.join(", ")}
+        MenuProps={MenuProps}
+      >
+        {skills.map((skill, index) => (
+          <MenuItem
+            key={skill.id}
+            value={skill.skill_name}
+            onClick={() => {
+              if (selectedSkillIds.includes(skill.id)) {
+                setSelectedSkillIds((prevState) =>
+                  prevState.filter((id) => id !== skill.id)
+                );
+              } else {
+                setSelectedSkillIds((prevState) => [...prevState, skill.id]);
+              }
+            }}
+          >
+            <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
+            <ListItemText
               key={skill.id}
-              value={skill.skill_name}
-              onClick={() => {
-                if (selectedSkillIds.includes(skill.id)) {
-                  setSelectedSkillIds((prevState) =>
-                    prevState.filter((id) => id !== skill.id)
-                  );
-                } else {
-                  setSelectedSkillIds((prevState) => [...prevState, skill.id]);
-                }
-              }}
-            >
-              <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
-              <ListItemText
-                key={skill.id}
-                primary={skill.skill_name}
-                index={index}
-              />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Stack>
+              primary={skill.skill_name}
+              index={index}
+            />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
 

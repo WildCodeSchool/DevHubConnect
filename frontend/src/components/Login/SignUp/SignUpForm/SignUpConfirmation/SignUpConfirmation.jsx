@@ -16,7 +16,10 @@ import {
 import { Formik, Form } from "formik";
 import { object } from "yup";
 import * as Yup from "yup";
+// import transporter from "mvc-express/src/services/mailer";
 import SignUpContext from "../../../../../Contexts/SignUpContext";
+
+// const mailer = require('./backend/src/services/mailer.js');
 
 export default function SignUpConfirmation() {
   const {
@@ -124,9 +127,23 @@ export default function SignUpConfirmation() {
         };
 
         // requête POST pour créer un utilisateur dans l'API
-        axios.post("http://localhost:5007/users", newUser).catch((error) => {
-          console.error(error);
-        });
+        axios
+          .post("http://localhost:5007/users", newUser)
+          .then(() => {
+            // Si la requête POST réussit, envoi de l'e-mail de confirmation
+            axios
+              .post("http://localhost:5007/contact", {
+                email,
+                subject: "Confirmation d'inscription",
+                html: `<h1>${firstName} bienvenue dans la place de marché DevHub Connect!</h1><p>cliquez sur <a href="http://localhost:5173/login">ce lien</a> pour vous connecter.</p>`,
+              })
+              .catch((err) => {
+                console.info(err);
+              });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
         handleNext();
       }}

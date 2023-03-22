@@ -31,7 +31,6 @@ export default function UserDashboardUserInfo() {
           .then((response) => response.data)
           .then((userData) => {
             setUser(userData);
-            // console.info(userData);
           })
           .catch((error) => {
             console.error(error);
@@ -46,7 +45,6 @@ export default function UserDashboardUserInfo() {
           .then((response) => response.data)
           .then((jobData) => {
             setJob(jobData);
-            // console.info(jobData);
             setIsLoading(false);
           })
           .catch((error) => {
@@ -62,83 +60,81 @@ export default function UserDashboardUserInfo() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Link href="/dashboard/my-setting" underline="none">
-        <Paper
-          elevation={2}
-          sx={{
-            color: "UserDashboardCard.color",
-            backgroundColor: "UserDashboardCard.Background",
-            "&:hover": {
-              backgroundColor: "UserDashboardCard.Bghover",
-            },
-          }}
+      <Paper
+        elevation={2}
+        sx={{
+          color: "UserDashboardCard.color",
+          backgroundColor: "UserDashboardCard.Background",
+          "&:hover": {
+            backgroundColor: "UserDashboardCard.Bghover",
+          },
+        }}
+      >
+        <Stack
+          direction={{ sm: "column", md: "row" }}
+          spacing={{ sm: 1, md: 2 }}
+          justifyContent="flex-start"
+          alignItems="center"
+          p={2}
         >
+          <Avatar
+            alt="Remy Sharp"
+            src={`../../../../../../src/assets/user-img/${user.user_image}`}
+            sx={{
+              width: 100,
+              height: 100,
+              border: 4,
+              borderColor: "primary.main",
+            }}
+          />
           <Stack
-            direction={{ sm: "column", md: "row" }}
-            spacing={{ sm: 1, md: 2 }}
-            justifyContent="flex-start"
-            alignItems="center"
-            p={2}
+            direction="column"
+            justifyContent={{ sm: "center", md: "flex-start" }}
+            alignItems={{ xs: "center", sm: "center", md: "flex-start" }}
+            spacing={0.5}
+            sx={{ width: "100%" }}
           >
-            <Avatar
-              alt="Remy Sharp"
-              src={user.user_image}
-              sx={{
-                width: 100,
-                height: 100,
-                border: 4,
-                borderColor: "primary.main",
-              }}
-            />
-            <Stack
-              direction="column"
-              justifyContent={{ sm: "center", md: "flex-start" }}
-              alignItems={{ xs: "center", sm: "center", md: "flex-start" }}
-              spacing={0.5}
-              sx={{ width: "100%" }}
-            >
-              <Stack direction="row" spacing={0.5}>
-                {isLoading ? (
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: "UserDashboardCard.color",
-                    }}
-                    gutterBottom
-                  >
-                    Chargement...
-                  </Typography>
-                ) : (
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: "UserDashboardCard.color",
-                    }}
-                    gutterBottom
-                  >
-                    {job.find((j) => j.id === user.job_id)?.job_name}
-                  </Typography>
-                )}
-                <Link href="/dashboard/my-setting" variant="body2">
-                  <CreateOutlinedIcon fontSize="small" />
-                </Link>
-              </Stack>
-              <Typography
-                component="div"
-                variant="h2"
-                sx={{
-                  color: "UserDashboardCard.color",
-                }}
-              >
-                {user.firstname} {user.lastname}
-              </Typography>
-              <Typography variant="body1" gutterBottom fullWidth>
-                {user.biography}
-              </Typography>
+            <Stack direction="row" spacing={0.5}>
+              {isLoading ? (
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: "UserDashboardCard.color",
+                  }}
+                  gutterBottom
+                >
+                  Chargement...
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: "UserDashboardCard.color",
+                  }}
+                  gutterBottom
+                >
+                  {job.find((j) => j.id === user.job_id)?.job_name}
+                </Typography>
+              )}
+              <Link href="/dashboard/my-setting" variant="body2">
+                <CreateOutlinedIcon fontSize="small" />
+              </Link>
             </Stack>
+            <Typography
+              component="div"
+              variant="h2"
+              sx={{
+                color: "UserDashboardCard.color",
+              }}
+            >
+              {user.firstname} {user.lastname}
+            </Typography>
+            <Typography variant="body1" gutterBottom fullWidth>
+              {user.biography}
+            </Typography>
           </Stack>
-        </Paper>
-      </Link>
+        </Stack>
+      </Paper>
     </Box>
   );
 }

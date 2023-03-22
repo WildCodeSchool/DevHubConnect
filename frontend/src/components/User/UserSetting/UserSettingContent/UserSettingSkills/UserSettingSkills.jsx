@@ -35,7 +35,6 @@ export default function UserSettingSkills({ user, setUserSkillsProp }) {
   }, [user.id]);
 
   useEffect(() => {
-    console.info(user, "user");
     const fetchUserSkills = async () => {
       try {
         const response = await axios.get("http://localhost:5007/user_skills", {

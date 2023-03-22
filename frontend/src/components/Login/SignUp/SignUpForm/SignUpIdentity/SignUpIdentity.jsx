@@ -87,8 +87,8 @@ export default function SignUpidentity() {
             .string()
             .required("Veuillez entrer le mot de passe")
             .matches(
-              /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
-              "Le mot de passe doit contenir au moins un chiffre et une lettre majuscule, et doit comporter au moins 6 caractères"
+              /^(?=.*?[0-9]).{9,}$/,
+              "Le mot de passe doit contenir au moins un chiffre et  doit comporter au moins 9 caractères"
             ),
           confirmPassword: yup
             .string()

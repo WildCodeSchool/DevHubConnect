@@ -11,11 +11,15 @@ import UserProjectCard from "../UserProjectCard/UserProjectCard";
 
 function UserProjectNotSelected({ expanded, onClick }) {
   const [projects, setProjects] = useState([]);
+  const [candidacies, setCandidacies] = useState([]);
+
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("userId");
+  const userId = parseInt(id, 10);
 
   const getNotSelectedProjects = () => {
-    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5007/projects_notselected", {
+      .get("http://localhost:5007/projects_all", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => response.data)
@@ -25,8 +29,31 @@ function UserProjectNotSelected({ expanded, onClick }) {
   };
 
   useEffect(() => {
+    const getCandidacy = async () => {
+      try {
+        const response = await axios.get("http://localhost:5007/candidacies", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        const candidaciesFilter = response.data
+          .filter(
+            (candidacy) =>
+              candidacy.user_id === userId && candidacy.user_status === 3
+          )
+          .map((candidacy) => candidacy);
+        setCandidacies([...new Set(candidaciesFilter)]);
+      } catch (error) {
+        console.error("Failed to fetch candidacies: ", error);
+      }
+    };
+    getCandidacy();
+  }, [userId]);
+
+  useEffect(() => {
     getNotSelectedProjects();
   }, []);
+
   return (
     <Accordion expanded={expanded} onClick={onClick}>
       <AccordionSummary
@@ -39,17 +66,23 @@ function UserProjectNotSelected({ expanded, onClick }) {
       <AccordionDetails>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
-            {projects.map((project) => (
-              <Grid item xs={12} md={6}>
-                <UserProjectCard
-                  key={project.id}
-                  projectName={project.project_name}
-                  projectDescription={project.project_description}
-                  sx={{ marginLeft: "20px" }}
-                  projectId={project.id}
-                />
-              </Grid>
-            ))}
+            {projects
+              .filter((project) =>
+                candidacies
+                  .map((candidacy) => candidacy.project_id)
+                  .includes(project.id)
+              )
+              .map((project) => (
+                <Grid item xs={12} md={6}>
+                  <UserProjectCard
+                    key={project.id}
+                    projectName={project.project_name}
+                    projectDescription={project.project_about}
+                    sx={{ marginLeft: "20px" }}
+                    projectId={project.id}
+                  />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </AccordionDetails>

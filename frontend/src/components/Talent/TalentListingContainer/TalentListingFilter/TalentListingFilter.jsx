@@ -14,8 +14,6 @@ function TalentListingFilter({
   selectedSkillIds,
   setSelectedSkillIds,
 }) {
-  console.info(currentSelectedJobs, "japanJOB");
-  console.info(selectedSkillIds, "japan");
   return (
     <Box sx={{ mt: 2 }}>
       <Stack
@@ -23,13 +21,8 @@ function TalentListingFilter({
           sm: "column",
           md: "row",
         }}
-        justifyContent={{
-          xs: "center",
-          sm: "center",
-          md: "flex-start",
-        }}
-        spacing={{ xs: 1, sm: 2 }}
-        size={{ xs: "100%", sm: "33%", md: "20%" }}
+        spacing={2}
+        justifyContent="space-between"
       >
         <TalentSelectRegion
           selectedRegions={currentSelectedRegions}

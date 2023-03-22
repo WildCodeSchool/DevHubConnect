@@ -29,7 +29,6 @@ export default function UserDashboardCurrentProject() {
           .then((projectsData) => {
             // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
             setProjectListing(projectsData);
-            console.info(projectsData);
           });
       };
 
@@ -115,7 +114,7 @@ export default function UserDashboardCurrentProject() {
                           color: "UserDashboardCurrentProject.color",
                         }}
                       >
-                        {project.project_description}
+                        {project.project_about}
                       </Typography>
                     </Stack>
                     <AvatarGroup max={4}>

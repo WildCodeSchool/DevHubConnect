@@ -6,7 +6,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
@@ -37,20 +36,21 @@ function SelectSkillsProject({
   };
 
   return (
-    <Stack>
-      <FormControl sx={{ width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Compétences</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={selectedSkills}
-          onChange={handleChange}
-          input={<OutlinedInput label="Compétences" />}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {skillName.map((skill, index) => (
+    <FormControl sx={{ width: "100%" }}>
+      <InputLabel id="demo-multiple-checkbox-label">Compétences</InputLabel>
+      <Select
+        labelId="demo-multiple-checkbox-label"
+        id="demo-multiple-checkbox"
+        multiple
+        value={selectedSkills}
+        onChange={handleChange}
+        input={<OutlinedInput label="Compétences" />}
+        renderValue={(selected) => selected.join(", ")}
+        MenuProps={MenuProps}
+      >
+        {skillName
+          .sort((a, b) => a.skill_name.localeCompare(b.skill_name)) // tri par ordre alphabétique
+          .map((skill) => (
             <MenuItem
               key={skill.id}
               value={skill.skill_name}
@@ -67,34 +67,34 @@ function SelectSkillsProject({
               <Checkbox
                 checked={selectedSkills.indexOf(skill.skill_name) > -1}
               />
-
-              <ListItemText primary={skill.skill_name} index={index} />
+              <ListItemText primary={skill.skill_name} />
             </MenuItem>
           ))}
-        </Select>
-      </FormControl>
-    </Stack>
+      </Select>
+    </FormControl>
   );
 }
 
 SelectSkillsProject.propTypes = {
-  skillName: PropTypes.string,
-
-  selectedSkills: PropTypes.string,
-  setSelectedSkills: PropTypes.string,
-  selectedSkillId: PropTypes.string,
-  setSelectedSkillId: PropTypes.string,
-
+  skillName: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      skill_name: PropTypes.string.isRequired,
+    })
+  ),
+  selectedSkills: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkills: PropTypes.func,
+  selectedSkillId: PropTypes.arrayOf(PropTypes.string),
+  setSelectedSkillId: PropTypes.func,
   handleSkillsChange: PropTypes.func,
 };
 
 SelectSkillsProject.defaultProps = {
-  skillName: "",
-
-  selectedSkills: "",
-  setSelectedSkills: "",
-  selectedSkillId: "",
-  setSelectedSkillId: "",
+  skillName: [],
+  selectedSkills: [],
+  setSelectedSkills: () => {},
+  selectedSkillId: [],
+  setSelectedSkillId: () => {},
   handleSkillsChange: () => {},
 };
 

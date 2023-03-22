@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import { Grid } from "@mui/material/";
 import PropTypes from "prop-types";
 import TalentCard from "./TalentCard/TalentCard";
 
@@ -28,7 +27,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((usersData) => {
         setUsers(usersData);
-        console.info(usersData, "talents card-gallery");
       });
   };
 
@@ -40,7 +38,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);
-        console.info(jobsData, "métiers card-gallery");
       });
   };
 
@@ -52,7 +49,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((regionsData) => {
         setRegions(regionsData);
-        console.info(regionsData, "regions card-gallery");
       });
   };
 
@@ -64,7 +60,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((usersSkillsData) => {
         setUsersSkills(usersSkillsData);
-        console.info(usersSkillsData, "skills_user jointure");
       });
   };
   useEffect(() => {
@@ -93,7 +88,6 @@ function TalentCardGallery({
     const userIdsWithSelectedSkills = usersSkills
       .filter((userSkill) => selectedSkillIds.includes(userSkill.skill_id))
       .map((userSkill) => userSkill.user_id);
-    console.info(userIdsWithSelectedSkills, "premier filtre");
     return userIdsWithSelectedSkills.includes(user.id);
   };
 
@@ -101,22 +95,17 @@ function TalentCardGallery({
     setSelectedJobs(selectedJobsProp);
     setSelectedRegions(selectedRegionsProp);
   }, [selectedJobsProp, selectedRegionsProp]);
+
   return (
     <div>
-      <Box sx={{ mt: 2 }}>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          mt="2"
-          sx={{ flexWrap: "wrap", gap: 2 }}
-        >
-          {users
-            .filter(filterByJob)
-            .filter(filterByRegion)
-            .filter(filterBySkill)
-            .map((user) => {
-              return (
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        {users
+          .filter(filterByJob)
+          .filter(filterByRegion)
+          .filter(filterBySkill)
+          .map((user) => {
+            return (
+              <Grid item xs={12} sm={6} md={3}>
                 <TalentCard
                   key={user?.id}
                   id={user.id}
@@ -124,11 +113,12 @@ function TalentCardGallery({
                   lastname={user?.lastname}
                   jobName={jobs[user.job_id - 1]?.job_name}
                   biography={user?.biography}
+                  userImage={user?.user_image}
                 />
-              );
-            })}
-        </Stack>
-      </Box>
+              </Grid>
+            );
+          })}
+      </Grid>
     </div>
   );
 }

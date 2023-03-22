@@ -7,7 +7,6 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
@@ -49,33 +48,31 @@ function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
   };
 
   return (
-    <Stack>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
-        <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
-          multiple
-          value={userRegions}
-          onChange={handleChange}
-          input={<OutlinedInput label="Régions" />}
-          renderValue={(selected) => selected.join(", ")}
-          MenuProps={MenuProps}
-        >
-          {regions.map((region, index) => (
-            <MenuItem key={region.id} value={region.region_name}>
-              <Checkbox
-                checked={
-                  userRegions.indexOf(region.region_name) > -1 ||
-                  currentSelectedRegions.indexOf(region.region_name) > -1
-                }
-              />
-              <ListItemText primary={region.region_name} index={index} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Stack>
+    <FormControl sx={{ width: "100%" }}>
+      <InputLabel id="demo-multiple-checkbox-label">Régions</InputLabel>
+      <Select
+        labelId="demo-multiple-checkbox-label"
+        id="demo-multiple-checkbox"
+        multiple
+        value={userRegions}
+        onChange={handleChange}
+        input={<OutlinedInput label="Régions" />}
+        renderValue={(selected) => selected.join(", ")}
+        MenuProps={MenuProps}
+      >
+        {regions.map((region, index) => (
+          <MenuItem key={region.id} value={region.region_name}>
+            <Checkbox
+              checked={
+                userRegions.indexOf(region.region_name) > -1 ||
+                currentSelectedRegions.indexOf(region.region_name) > -1
+              }
+            />
+            <ListItemText primary={region.region_name} index={index} />
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 }
 
