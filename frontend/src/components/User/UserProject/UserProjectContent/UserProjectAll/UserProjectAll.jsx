@@ -57,7 +57,7 @@ function UserProjectAll({ expanded, onClick }) {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography variant="accordionTitle">Tous les projets</Typography>
+        <Typography variant="accordionTitle">Tous mes projets</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Box sx={{ flexGrow: 1 }}>
