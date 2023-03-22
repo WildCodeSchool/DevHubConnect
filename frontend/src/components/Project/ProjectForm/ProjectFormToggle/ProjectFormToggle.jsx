@@ -32,7 +32,7 @@ function ProjectFormToggle({ checked, setChecked }) {
 
 ProjectFormToggle.propTypes = {
   checked: PropTypes.bool,
-  setChecked: PropTypes.bool,
+  setChecked: PropTypes.func,
 };
 
 ProjectFormToggle.defaultProps = {

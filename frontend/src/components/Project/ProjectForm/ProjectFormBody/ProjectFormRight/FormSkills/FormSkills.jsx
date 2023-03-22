@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import {
   FormGroup,
@@ -10,9 +11,8 @@ import {
   Stack,
 } from "@mui/material";
 
-export default function FormSkills() {
+export default function FormSkills({ formSkills, setFormSkills }) {
   const [skillList, setSkillList] = useState([]);
-  const [formSkills, setFormSkills] = useState([]);
 
   // requête pour récupérer la liste de skills
   const getSkillList = () => {
@@ -82,3 +82,13 @@ export default function FormSkills() {
     </Paper>
   );
 }
+
+FormSkills.propTypes = {
+  formSkills: PropTypes.objectOf(PropTypes.number),
+  setFormSkills: PropTypes.func,
+};
+
+FormSkills.defaultProps = {
+  formSkills: {},
+  setFormSkills: "",
+};

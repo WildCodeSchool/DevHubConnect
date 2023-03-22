@@ -14,6 +14,9 @@ function ProjectFormRight({
   setEndDate,
   selectedRegion,
   setSelectedRegion,
+  formSkills,
+  setFormSkills,
+  handleSubmitSave,
 }) {
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
@@ -28,18 +31,21 @@ function ProjectFormRight({
         endDate={endDate}
         setEndDate={setEndDate}
       />
-      <FormSkills />
-      <FormSave />
+      <FormSkills formSkills={formSkills} setFormSkills={setFormSkills} />
+      <FormSave handleSubmitSave={handleSubmitSave} />
     </Stack>
   );
 }
 ProjectFormRight.propTypes = {
   startDate: PropTypes.instanceOf(Date),
-  setStartDate: PropTypes.instanceOf(Date),
+  setStartDate: PropTypes.func,
   endDate: PropTypes.instanceOf(Date),
-  setEndDate: PropTypes.instanceOf(Date),
+  setEndDate: PropTypes.func,
   selectedRegion: PropTypes.number,
-  setSelectedRegion: PropTypes.number,
+  setSelectedRegion: PropTypes.func,
+  formSkills: PropTypes.objectOf(PropTypes.number),
+  setFormSkills: PropTypes.func,
+  handleSubmitSave: PropTypes.func,
 };
 
 ProjectFormRight.defaultProps = {
@@ -49,5 +55,8 @@ ProjectFormRight.defaultProps = {
   setEndDate: "",
   selectedRegion: "",
   setSelectedRegion: "",
+  formSkills: {},
+  setFormSkills: "",
+  handleSubmitSave: "",
 };
 export default ProjectFormRight;

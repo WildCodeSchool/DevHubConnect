@@ -18,6 +18,9 @@ export default function ProjectFormBody({
   setEndDate,
   selectedRegion,
   setSelectedRegion,
+  formSkills,
+  setFormSkills,
+  handleSubmitSave,
 }) {
   return (
     <Stack direction={{ xs: "column", sm: "column", md: "row" }} spacing={2}>
@@ -42,6 +45,9 @@ export default function ProjectFormBody({
             setEndDate={setEndDate}
             selectedRegion={selectedRegion}
             setSelectedRegion={setSelectedRegion}
+            formSkills={formSkills}
+            setFormSkills={setFormSkills}
+            handleSubmitSave={handleSubmitSave}
           />
         </Stack>
       </Box>
@@ -51,17 +57,20 @@ export default function ProjectFormBody({
 
 ProjectFormBody.propTypes = {
   projectTitle: PropTypes.string,
-  setProjectTitle: PropTypes.string,
+  setProjectTitle: PropTypes.func,
   aboutProject: PropTypes.string,
-  setAboutProject: PropTypes.string,
+  setAboutProject: PropTypes.func,
   projectDescription: PropTypes.string,
-  setProjectDescription: PropTypes.string,
+  setProjectDescription: PropTypes.func,
   startDate: PropTypes.instanceOf(Date),
-  setStartDate: PropTypes.instanceOf(Date),
+  setStartDate: PropTypes.func,
   endDate: PropTypes.instanceOf(Date),
-  setEndDate: PropTypes.instanceOf(Date),
+  setEndDate: PropTypes.func,
   selectedRegion: PropTypes.number,
-  setSelectedRegion: PropTypes.number,
+  setSelectedRegion: PropTypes.func,
+  formSkills: PropTypes.objectOf(PropTypes.number),
+  setFormSkills: PropTypes.func,
+  handleSubmitSave: PropTypes.func,
 };
 
 ProjectFormBody.defaultProps = {
@@ -77,4 +86,7 @@ ProjectFormBody.defaultProps = {
   setEndDate: "",
   selectedRegion: "",
   setSelectedRegion: "",
+  formSkills: {},
+  setFormSkills: "",
+  handleSubmitSave: "",
 };
