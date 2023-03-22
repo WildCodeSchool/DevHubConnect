@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Stack from "@mui/material/Stack";
 import ProjectFormHeading from "./ProjectFormHeading/ProjectFormHeading";
 import ProjectFormBody from "./ProjectFormBody/ProjectFormBody";
@@ -14,33 +15,38 @@ export default function ProjectFormComponent() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [formSkills, setFormSkills] = useState([]);
-  const userId = localStorage.getItem("userId");
-  // const token = localStorage.getItem("token");
+  const userId = parseInt(localStorage.getItem("userId"), 10);
+
   const projectFormData = {
-    userId,
-    checked,
-    projectTitle,
-    aboutProject,
-    projectDescription,
-    selectedRegion,
-    startDate,
-    endDate,
-    formSkills,
+    project_name: projectTitle,
+    project_start_date: startDate,
+    project_end_date: endDate,
+    project_about: aboutProject,
+    project_description: projectDescription,
+    project_state: checked,
+    project_remote: "0",
+    project_image: "",
+    region_id: selectedRegion,
+    creator_id: userId,
+    skillIds: formSkills,
   };
 
   const handleSubmitSave = async (event) => {
     event.preventDefault();
-    console.info("Coucou");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios
+        .post("http://localhost:5007/projects/", projectFormData, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .catch((error) => {
+          // Traitement de l'erreur
+          console.info(error);
+        });
+    }
   };
 
-  // console.log(checked);
-  // console.log(projectTitle);
-  // console.log(aboutProject);
-  // console.log(projectDescription);
-  // console.log(selectedRegion);
-  // console.log(startDate);
-  // console.log(endDate);
-  // console.log(formSkills);
   console.info(projectFormData);
 
   return (
