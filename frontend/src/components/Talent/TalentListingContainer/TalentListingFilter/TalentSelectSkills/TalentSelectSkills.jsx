@@ -43,7 +43,6 @@ function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
   const handleChange = (event) => {
     const { value } = event.target;
     setUserSkills(typeof value === "string" ? value.split(",") : value);
-    console.info(selectedSkillIds, "coucou");
   };
 
   return (

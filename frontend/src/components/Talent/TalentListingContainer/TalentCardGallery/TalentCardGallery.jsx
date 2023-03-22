@@ -27,7 +27,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((usersData) => {
         setUsers(usersData);
-        console.info(usersData, "talents card-gallery");
       });
   };
 
@@ -39,7 +38,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((jobsData) => {
         setJobs(jobsData);
-        console.info(jobsData, "métiers card-gallery");
       });
   };
 
@@ -51,7 +49,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((regionsData) => {
         setRegions(regionsData);
-        console.info(regionsData, "regions card-gallery");
       });
   };
 
@@ -63,7 +60,6 @@ function TalentCardGallery({
       .then((response) => response.data)
       .then((usersSkillsData) => {
         setUsersSkills(usersSkillsData);
-        console.info(usersSkillsData, "skills_user jointure");
       });
   };
   useEffect(() => {
@@ -92,7 +88,6 @@ function TalentCardGallery({
     const userIdsWithSelectedSkills = usersSkills
       .filter((userSkill) => selectedSkillIds.includes(userSkill.skill_id))
       .map((userSkill) => userSkill.user_id);
-    console.info(userIdsWithSelectedSkills, "premier filtre");
     return userIdsWithSelectedSkills.includes(user.id);
   };
 

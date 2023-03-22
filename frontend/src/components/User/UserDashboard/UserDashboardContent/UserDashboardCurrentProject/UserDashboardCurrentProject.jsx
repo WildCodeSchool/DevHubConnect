@@ -29,7 +29,6 @@ export default function UserDashboardCurrentProject() {
           .then((projectsData) => {
             // Utilisation de setProjectListing pour mettre à jour le state projectListing avec les données de l'API
             setProjectListing(projectsData);
-            console.info(projectsData);
           });
       };
 

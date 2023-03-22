@@ -59,7 +59,7 @@ export default function Login() {
         })
         .catch((error) => {
           // Traitement de l'erreur
-          console.info(error);
+          console.error(error);
         });
     }
   }, []);

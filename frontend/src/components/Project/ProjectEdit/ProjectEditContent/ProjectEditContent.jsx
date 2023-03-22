@@ -184,17 +184,14 @@ function EditProjectForm() {
       project_end_date: mysqlFormattedEndDate,
     };
 
-    console.info("Data to send: ", dataToSendWithFormattedDates);
-
     try {
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:5007/projects/${id}`,
         dataToSendWithFormattedDates,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.info("Project update response: ", response);
       setSnackbarMessage("Projet mis à jour avec succès !");
       setSnackbarOpen(true);
     } catch (error) {
