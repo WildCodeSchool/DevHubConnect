@@ -49,6 +49,7 @@
     "formidable": "^2.1.1",
     "mui-image": "^1.0.7",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.1",
     "prop-types": "^15.8.1",
     "proptypes": "^1.1.0",
     "react-router": "^6.9.0",

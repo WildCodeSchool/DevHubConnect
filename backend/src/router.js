@@ -18,6 +18,7 @@ const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
 const skillControllers = require("./controllers/skillControllers");
 const userSkillControllers = require("./controllers/userSkillControllers");
+const contactControllers = require("./controllers/contactControllers");
 
 // Middleware CORS pour permettre les requêtes cross-origin
 router.use(cors());
@@ -63,6 +64,9 @@ router.get("/skills", skillControllers.browse);
 // -----REGISTER-------
 router.post("/users", hashPassword, userControllers.add);
 router.post("/user_skills", userSkillControllers.add);
+
+// ------envoi d'email------
+router.post("/contact", contactControllers.sendMail);
 
 // -----LOGIN-------
 router.post(
