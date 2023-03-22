@@ -27,6 +27,7 @@ export default function SignUpSkills() {
   const [skillList, setSkillList] = useState([]);
 
   // requête pour récupérer la liste de skills
+  // requête pour récupérer la liste de skills
   const getSkillList = () => {
     axios
       .get("http://localhost:5007/skills", {
@@ -36,7 +37,10 @@ export default function SignUpSkills() {
       })
       .then((response) => response.data)
       .then((skillsData) => {
-        setSkillList(skillsData);
+        const sortedSkills = skillsData.sort((a, b) =>
+          a.skill_name.localeCompare(b.skill_name)
+        );
+        setSkillList(sortedSkills);
       });
   };
 

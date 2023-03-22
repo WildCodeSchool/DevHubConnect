@@ -59,7 +59,8 @@ function UserSettingContent() {
     }
   };
 
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (event) => {
+    event.preventDefault(); // Ajoutez cette ligne
     const hashedPassword = await bcrypt.hash(user.password, 10);
     const dataToSend = {
       ...user,
@@ -69,11 +70,12 @@ function UserSettingContent() {
 
     try {
       await updateUserAndSkills(dataToSend);
-      console.info(dataToSend);
+      console.info("dataToSend", dataToSend);
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
       <Grid container spacing={2}>

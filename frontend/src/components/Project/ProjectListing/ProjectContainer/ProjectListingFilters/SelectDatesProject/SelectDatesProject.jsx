@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Button } from "@mui/material";
 import PropTypes from "prop-types";
 import { DatePicker } from "@mui/x-date-pickers";
-import { parseISO, format } from "date-fns";
+import { parseISO } from "date-fns";
 
 export default function SelectDatesProject({
   selectedStartDate, // date de début sélectionnée
@@ -26,12 +26,6 @@ export default function SelectDatesProject({
     startDate = parseISO(startDate);
   }
 
-  // Convertir les dates en chaînes de caractères dans le format approprié
-  const formattedStartDate = startDate ? format(startDate, "yyyy-MM-dd") : null;
-  const formattedEndDate = selectedEndDate
-    ? format(selectedEndDate, "yyyy-MM-dd")
-    : null;
-
   return (
     <Stack
       direction="row"
@@ -47,9 +41,10 @@ export default function SelectDatesProject({
       >
         <DatePicker
           label="date de début"
-          value={formattedStartDate}
+          value={startDate} // Utilisez startDate au lieu de formattedStartDate
           onChange={(newValue) => setSelectedStartDate(newValue)}
         />
+
         {startDate && (
           <Button onClick={handleClearStartDate} variant="outlined">
             X
@@ -63,7 +58,7 @@ export default function SelectDatesProject({
       >
         <DatePicker
           label="date de fin"
-          value={formattedEndDate}
+          value={selectedEndDate} // Utilisez selectedEndDate au lieu de formattedEndDate
           onChange={(newValue) => setSelectedEndDate(newValue)}
         />
         {selectedEndDate && (

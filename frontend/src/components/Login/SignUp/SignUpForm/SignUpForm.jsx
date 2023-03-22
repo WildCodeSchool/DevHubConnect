@@ -41,7 +41,7 @@ function StepForm() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         {/* affiche soit la page de confirmation soit le formulaire(stepper) */}
         {activeStep === labels.length ? (

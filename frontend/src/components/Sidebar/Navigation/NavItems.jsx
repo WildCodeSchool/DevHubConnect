@@ -8,7 +8,6 @@ import ListItemText from "@mui/material/ListItemText";
 
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
 import HomeIcon from "@mui/icons-material/Home";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
@@ -53,8 +52,7 @@ const itemsMenu = [
 ];
 
 const itemsMenuGost = [
-  { text: "login", icon: <PowerSettingsNewIcon />, url: "/login" },
-  { text: "Register", icon: <HowToRegIcon />, url: "/Register" },
+  { text: "Logout", icon: <PowerSettingsNewIcon />, url: "/login" },
 ];
 
 export default function NavItems() {
