@@ -58,28 +58,30 @@ function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
         renderValue={(selected) => selected.join(", ")}
         MenuProps={MenuProps}
       >
-        {skills.map((skill, index) => (
-          <MenuItem
-            key={skill.id}
-            value={skill.skill_name}
-            onClick={() => {
-              if (selectedSkillIds.includes(skill.id)) {
-                setSelectedSkillIds((prevState) =>
-                  prevState.filter((id) => id !== skill.id)
-                );
-              } else {
-                setSelectedSkillIds((prevState) => [...prevState, skill.id]);
-              }
-            }}
-          >
-            <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
-            <ListItemText
+        {skills
+          .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
+          .map((skill, index) => (
+            <MenuItem
               key={skill.id}
-              primary={skill.skill_name}
-              index={index}
-            />
-          </MenuItem>
-        ))}
+              value={skill.skill_name}
+              onClick={() => {
+                if (selectedSkillIds.includes(skill.id)) {
+                  setSelectedSkillIds((prevState) =>
+                    prevState.filter((id) => id !== skill.id)
+                  );
+                } else {
+                  setSelectedSkillIds((prevState) => [...prevState, skill.id]);
+                }
+              }}
+            >
+              <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
+              <ListItemText
+                key={skill.id}
+                primary={skill.skill_name}
+                index={index}
+              />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );

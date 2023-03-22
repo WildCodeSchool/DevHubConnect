@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
+import { Paper, Stack, Typography, Avatar } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 export default function UserSettingImage({ user, setUser }) {
@@ -53,7 +52,7 @@ export default function UserSettingImage({ user, setUser }) {
       // Mettre à jour l'image de l'utilisateur dans l'état du composant après le téléchargement
       setUser((prevUser) => ({
         ...prevUser,
-        userImage: response.data.user_image,
+        userImage: response.data.fileName,
       }));
     } catch (error) {
       console.error(error);
@@ -64,18 +63,33 @@ export default function UserSettingImage({ user, setUser }) {
   return (
     <Paper elevation={2} sx={{ p: 3 }}>
       {user ? (
-        <TextField
-          label="Image de profil"
-          name="user_image"
-          type="file"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            accept: "image/*",
-          }}
-          onChange={handleImageUpload}
-        />
+        <>
+          {/* Ajouter l'Avatar avec l'image de l'utilisateur ici */}
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={2}
+          >
+            <Avatar
+              src={`../../../../../../src/assets/user-img/${user.userImage}`}
+              alt="Avatar de l'utilisateur"
+              sx={{ width: 64, height: 64, marginBottom: 2 }}
+            />
+            <TextField
+              label="Image de profil"
+              name="user_image"
+              type="file"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              inputProps={{
+                accept: "image/*",
+              }}
+              onChange={handleImageUpload}
+            />
+          </Stack>
+        </>
       ) : (
         <Typography>Chargement...</Typography>
       )}

@@ -60,17 +60,19 @@ function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
         renderValue={(selected) => selected.join(", ")}
         MenuProps={MenuProps}
       >
-        {regions.map((region, index) => (
-          <MenuItem key={region.id} value={region.region_name}>
-            <Checkbox
-              checked={
-                userRegions.indexOf(region.region_name) > -1 ||
-                currentSelectedRegions.indexOf(region.region_name) > -1
-              }
-            />
-            <ListItemText primary={region.region_name} index={index} />
-          </MenuItem>
-        ))}
+        {regions
+          .sort((a, b) => a.region_name.localeCompare(b.region_name))
+          .map((region, index) => (
+            <MenuItem key={region.id} value={region.region_name}>
+              <Checkbox
+                checked={
+                  userRegions.indexOf(region.region_name) > -1 ||
+                  currentSelectedRegions.indexOf(region.region_name) > -1
+                }
+              />
+              <ListItemText primary={region.region_name} index={index} />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );

@@ -103,6 +103,7 @@ function ProjectSingleContainer() {
   const creatorUser = userSingleListing.find(
     (user) => user.id === projectSingleListing.creator_id
   );
+  const creatorId = creatorUser ? creatorUser.id : "";
   const creatorName = creatorUser
     ? `${creatorUser.firstname} ${creatorUser.lastname}`
     : "";
@@ -151,6 +152,7 @@ function ProjectSingleContainer() {
         creatorEmail={creatorEmail}
         creatorJob={creatorJob}
         creatorImage={creatorImage}
+        creatorId={creatorId}
         skillName={skills}
         projectStartDate={projectSingleListing.project_start_date}
         projectEndDate={projectSingleListing.project_end_date}

@@ -1,5 +1,7 @@
 const express = require("express");
 const formidable = require("formidable");
+const cors = require("cors");
+const path = require("path");
 
 const router = express.Router();
 
@@ -11,7 +13,6 @@ const {
   validateForm,
 } = require("./auth");
 
-// VERIFIE
 const userControllers = require("./controllers/userControllers");
 const regionControllers = require("./controllers/regionControllers");
 const jobControllers = require("./controllers/jobControllers");
@@ -19,25 +20,39 @@ const skillControllers = require("./controllers/skillControllers");
 const userSkillControllers = require("./controllers/userSkillControllers");
 const contactControllers = require("./controllers/contactControllers");
 
-// ------ Upload -------
+// Middleware CORS pour permettre les requêtes cross-origin
+router.use(cors());
 
-router.post("/upload", (req, res) => {
-  const form = new formidable.IncomingForm(); // Assurez-vous que cette ligne est présente et correcte
-  form.uploadDir = "../../frontend/src/assets/projects-img/";
+// Route pour gérer le téléchargement de l'image de l'utilisateur
+router.post("/users/:userId/upload", (req, res) => {
+  // Créer une nouvelle instance de formidable.IncomingForm
+  const form = new formidable.IncomingForm();
+
+  // Configurer le dossier de téléchargement
+  form.uploadDir = path.join(__dirname, "uploads");
+
+  // Conserver l'extension de fichier d'origine
   form.keepExtensions = true;
 
+  // Analyser la requête entrante
   form.parse(req, (err, fields, files) => {
     if (err) {
-      console.error("Error processing file upload:", err);
-      res.status(500).send("Error processing file upload.");
+      console.error(err);
+      res.status(500).send("Erreur lors du traitement du fichier");
       return;
     }
 
-    // Process uploaded file(s) and/or fields here
-    const uploadedFile = files.project_image; // Remplacez "image" par le nom de l'input côté client
-    const filename = uploadedFile.name; // Utilisez .name pour obtenir le nom du fichier
+    // Obtenir le chemin du fichier téléchargé
+    const uploadedFilePath = files.user_image.path;
 
-    res.status(200).json({ filename });
+    // Extraire le nom du fichier à partir du chemin
+    const fileName = path.basename(uploadedFilePath);
+
+    // Mettre à jour la base de données avec le nom du fichier (si nécessaire)
+    // ...
+
+    // Renvoyer le nom du fichier dans la réponse JSON
+    res.json({ fileName });
   });
 });
 

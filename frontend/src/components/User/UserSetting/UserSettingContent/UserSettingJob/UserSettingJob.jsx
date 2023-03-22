@@ -89,15 +89,17 @@ export default function UserSettingJob({ user, setUser }) {
           selectMenuProps={MenuProps} // remplacer MenuProps par selectMenuProps
           defaultValue={user?.job_id}
         >
-          {jobListing.map((job) => (
-            <option
-              key={job.id}
-              value={job.id}
-              style={getStyles(job.id, selectedJob, theme)}
-            >
-              {job.job_name}
-            </option>
-          ))}
+          {jobListing
+            .sort((a, b) => a.job_name.localeCompare(b.job_name))
+            .map((job) => (
+              <option
+                key={job.id}
+                value={job.id}
+                style={getStyles(job.id, selectedJob, theme)}
+              >
+                {job.job_name}
+              </option>
+            ))}
         </NativeSelect>
       </FormControl>
     </Paper>
