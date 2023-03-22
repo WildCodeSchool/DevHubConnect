@@ -128,7 +128,6 @@ function ProjectSingleContainer() {
       (projectRegion) => projectRegion.id === projectSingleListing.region_id
     )
     .map((projectRegion) => projectRegion.region_name);
-
   return (
     <>
       <ProjectSingleHeader

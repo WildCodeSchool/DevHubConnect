@@ -11,11 +11,13 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import UserDashboardUserInfo from "../../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
+import ProjectSingleSelectTalent from "./ProjectSingleSelectTalent/ProjectSingleSelectTalent";
 
 export default function ProjectSingleDescriptionContent({
   projectDescription,
   skillName,
   projectImage,
+  id,
 }) {
   const lignes = projectDescription.split("\n");
   const userId = parseInt(localStorage.getItem("userId"), 10);
@@ -124,6 +126,23 @@ export default function ProjectSingleDescriptionContent({
               image={`../../../../../src/assets/projects-img/${projectImage}`}
             />
           </Paper>
+          {userId && userId === id ? (
+            <Stack
+              direction="row"
+              display="flex"
+              justifyContent="center"
+              alignItems="flex-start"
+              spacing={2}
+              sx={{
+                p: 2,
+              }}
+              flexWrap="wrap"
+            >
+              <ProjectSingleSelectTalent />
+            </Stack>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
     </Box>
@@ -134,10 +153,12 @@ ProjectSingleDescriptionContent.propTypes = {
   projectDescription: PropTypes.string,
   skillName: PropTypes.string,
   projectImage: PropTypes.string,
+  id: PropTypes.number,
 };
 
 ProjectSingleDescriptionContent.defaultProps = {
   projectDescription: "",
   skillName: "",
   projectImage: "",
+  id: "",
 };
