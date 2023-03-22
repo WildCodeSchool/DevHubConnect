@@ -10,7 +10,7 @@ function ProjectListingHeader() {
           <Typography variant="h1">Projets</Typography>
           <Typography variant="subtitle1" gutterBottom>
             Découvrez des projets passionnants et innovants qui témoignent de
-            créativité et d'expertise dans divers domaines !"
+            créativité et d'expertise dans divers domaines !
           </Typography>
         </Stack>
       </Box>

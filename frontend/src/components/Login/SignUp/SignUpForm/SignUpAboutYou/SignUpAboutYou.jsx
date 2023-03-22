@@ -37,11 +37,12 @@ export default function SignUpAboutYou() {
       })
       .then((response) => response.data)
       .then((jobsData) => {
+        // Tri du tableau par ordre alphabétique de la propriété 'job_name'
+        jobsData.sort((a, b) => a.job_name.localeCompare(b.job_name));
         setJobList(jobsData);
       });
   };
-
-  // requête pour récupérer la liste de régions
+  // requête pour récupérer la liste des régions
   const getRegionList = () => {
     axios
       .get("http://localhost:5007/regions", {
@@ -51,6 +52,8 @@ export default function SignUpAboutYou() {
       })
       .then((response) => response.data)
       .then((regionsData) => {
+        // Tri du tableau par ordre alphabétique de la propriété 'region_name'
+        regionsData.sort((a, b) => a.region_name.localeCompare(b.region_name));
         setRegionList(regionsData);
       });
   };

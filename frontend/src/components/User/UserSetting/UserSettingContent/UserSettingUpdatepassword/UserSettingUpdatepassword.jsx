@@ -31,10 +31,7 @@ export default function UserSettingUpdatepassword() {
         <Typography>Modifier le mot de passe</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </Typography>
+        <Typography>Entrez votre nouveau mot de passe</Typography>
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 1, sm: 2, md: 4 }}
