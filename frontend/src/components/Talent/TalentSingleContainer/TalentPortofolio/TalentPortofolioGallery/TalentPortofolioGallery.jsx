@@ -36,7 +36,7 @@ function TalentPortofolioGallery({ id }) {
       .then((response) => response.data)
       .then((candidaciesData) => {
         const candidaciesFilter = candidaciesData
-          .filter((apply) => apply.user_status !== 3)
+          .filter((apply) => apply.user_status === 2)
           .map((apply) => apply);
         setCandidacy(candidaciesFilter);
       });
