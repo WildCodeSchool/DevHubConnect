@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import {
   FormGroup,
@@ -10,14 +11,14 @@ import {
   Stack,
 } from "@mui/material";
 
-export default function FormSkills() {
+export default function FormSkills({ formSkills, setFormSkills }) {
   const [skillList, setSkillList] = useState([]);
 
   // requête pour récupérer la liste de skills
   const getSkillList = () => {
     axios
       .get("http://localhost:5007/skills")
-      .then((response) => response.data)
+      .then((response) => response?.data)
       .then((skillsData) => {
         const sortedSkills = skillsData.sort((a, b) => {
           return a.skill_name.localeCompare(b.skill_name);
@@ -31,6 +32,17 @@ export default function FormSkills() {
     getSkillList();
   }, []);
 
+  const handleSkillChange = (event) => {
+    if (event.target.checked) {
+      formSkills.push(parseInt(event.target.value, 10));
+    } else {
+      const index = formSkills.indexOf(parseInt(event.target.value, 10));
+      if (index > -1) {
+        formSkills.splice(index, 1);
+      }
+    }
+    setFormSkills([...new Set(formSkills)]);
+  };
   return (
     <Paper elevation={2} sx={{ p: 2 }}>
       <FormControl component="fieldset" variant="standard">
@@ -49,11 +61,18 @@ export default function FormSkills() {
               return (
                 <FormControlLabel
                   sx={{ width: 113 }} // <-- C'est la Fanny
-                  control={<Checkbox />}
-                  value={skill.skill_name}
-                  label={skill.skill_name}
+                  control={
+                    <Checkbox
+                      checked={formSkills?.includes(skill.id)}
+                      onClick={handleSkillChange}
+                      value={skill?.id}
+                      name={skill?.skill_name}
+                    />
+                  }
+                  value={skill?.skill_name}
+                  label={skill?.skill_name}
                   index={index}
-                  key={skill.id}
+                  key={skill?.id}
                 />
               );
             })}
@@ -63,3 +82,13 @@ export default function FormSkills() {
     </Paper>
   );
 }
+
+FormSkills.propTypes = {
+  formSkills: PropTypes.objectOf(PropTypes.number),
+  setFormSkills: PropTypes.func,
+};
+
+FormSkills.defaultProps = {
+  formSkills: {},
+  setFormSkills: "",
+};

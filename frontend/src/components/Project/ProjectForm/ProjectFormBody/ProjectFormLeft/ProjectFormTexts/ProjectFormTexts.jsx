@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Paper, FormControl } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
-export default function ProjectFormTexts() {
-  const [projectTitle, setProjectTitle] = useState("");
-  const [aboutProject, setAboutProject] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-
+export default function ProjectFormTexts({
+  projectTitle,
+  setProjectTitle,
+  aboutProject,
+  setAboutProject,
+  projectDescription,
+  setProjectDescription,
+}) {
   const handleProjectTitleChange = (event) => {
     event.preventDefault();
     if (event.target.value.length <= 60) {
@@ -68,3 +72,21 @@ export default function ProjectFormTexts() {
     </FormControl>
   );
 }
+
+ProjectFormTexts.propTypes = {
+  projectTitle: PropTypes.string,
+  setProjectTitle: PropTypes.string,
+  aboutProject: PropTypes.string,
+  setAboutProject: PropTypes.string,
+  projectDescription: PropTypes.string,
+  setProjectDescription: PropTypes.string,
+};
+
+ProjectFormTexts.defaultProps = {
+  projectTitle: "",
+  setProjectTitle: "",
+  aboutProject: "",
+  setAboutProject: "",
+  projectDescription: "",
+  setProjectDescription: "",
+};
