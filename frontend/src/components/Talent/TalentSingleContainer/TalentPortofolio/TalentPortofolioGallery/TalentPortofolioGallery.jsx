@@ -47,21 +47,13 @@ function TalentPortofolioGallery({ id }) {
     getCandidacy();
   }, []);
 
-  const projects = candidacy
-    .filter((apply) => apply.user_id === id || apply.creator_id === id)
-    .map((List) => {
-      const skillItem = projectList.find(
-        (project) => project.id === List.project_id
-      );
-      return skillItem
-        ? {
-            id: skillItem.id,
-            projectName: skillItem.project_name,
-            about: skillItem.project_about,
-            image: skillItem.project_image,
-          }
-        : "";
-    });
+  const projects = projectList.filter((project) => {
+    const candidacyFilter = candidacy.find(
+      (apply) => apply.project_id === project.id && apply.user_id === id
+    );
+    return project.creator_id === id || candidacyFilter !== undefined;
+  });
+
   return (
     <Stack
       direction={{ xs: "column", sm: "row" }}
@@ -88,16 +80,16 @@ function TalentPortofolioGallery({ id }) {
               >
                 <CardMedia
                   component="img"
-                  alt={`image du projet ${project.projectName}`}
+                  alt={`image du projet ${project.project_name}`}
                   height="150"
-                  image={`../../../../../src/assets/projects-img/${project.image}`}
+                  image={`../../../../../src/assets/projects-img/${project.project_image}`}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {project.projectName}
+                    {project.project_name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {project.about}
+                    {project.project_about}
                   </Typography>
                 </CardContent>
               </Paper>
