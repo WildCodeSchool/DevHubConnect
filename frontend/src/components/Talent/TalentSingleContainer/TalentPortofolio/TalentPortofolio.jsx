@@ -18,6 +18,6 @@ TalentPortofolio.propTypes = {
 };
 
 TalentPortofolio.defaultProps = {
-  id: "",
+  id: null,
 };
 export default TalentPortofolio;

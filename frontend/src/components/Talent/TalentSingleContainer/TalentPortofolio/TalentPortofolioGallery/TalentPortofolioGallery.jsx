@@ -7,8 +7,6 @@ import {
   Card,
   Typography,
   Link,
-  CardActions,
-  Button,
 } from "@mui/material";
 import PropTypes from "prop-types";
 
@@ -49,7 +47,7 @@ function TalentPortofolioGallery({ id }) {
   }, []);
 
   const projects = candidacy
-    .filter((apply) => apply.user_id === id)
+    .filter((apply) => apply.user_id === id || apply.creator_id === id)
     .map((List) => {
       const skillItem = projectList.find(
         (project) => project.id === List.project_id
@@ -63,7 +61,6 @@ function TalentPortofolioGallery({ id }) {
           }
         : "";
     });
-
   return (
     <Stack
       direction={{ xs: "column", sm: "row" }}
@@ -74,11 +71,11 @@ function TalentPortofolioGallery({ id }) {
     >
       {projects.map((project, index) => {
         return (
-          <Card sx={{ maxWidth: "30%" }} index={index}>
+          <Card sx={{ maxWidth: "30%" }} index={index} key={project?.id}>
             <Link href={`/project/${project.id}`} underline="none">
               <CardMedia
                 component="img"
-                // alt= {}
+                alt={`image du projet ${project.projectName}`}
                 height="150"
                 image={`../../../../../src/assets/projects-img/${project.image}`}
               />
@@ -88,18 +85,8 @@ function TalentPortofolioGallery({ id }) {
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {project.about}
-                  description
                 </Typography>
               </CardContent>
-              <CardActions>
-                <Button
-                  size="small"
-                  color="primary"
-                  href={`/project/${project.id}`}
-                >
-                  Plus
-                </Button>
-              </CardActions>
             </Link>
           </Card>
         );
@@ -113,7 +100,7 @@ TalentPortofolioGallery.propTypes = {
 };
 
 TalentPortofolioGallery.defaultProps = {
-  id: "",
+  id: null,
 };
 
 export default TalentPortofolioGallery;
