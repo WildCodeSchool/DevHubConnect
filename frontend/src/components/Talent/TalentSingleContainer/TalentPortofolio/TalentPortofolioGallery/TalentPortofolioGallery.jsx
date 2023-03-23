@@ -7,6 +7,7 @@ import {
   Card,
   Typography,
   Link,
+  Paper,
 } from "@mui/material";
 import PropTypes from "prop-types";
 
@@ -73,20 +74,33 @@ function TalentPortofolioGallery({ id }) {
         return (
           <Card sx={{ maxWidth: "30%" }} index={index} key={project?.id}>
             <Link href={`/project/${project.id}`} underline="none">
-              <CardMedia
-                component="img"
-                alt={`image du projet ${project.projectName}`}
-                height="150"
-                image={`../../../../../src/assets/projects-img/${project.image}`}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {project.projectName}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {project.about}
-                </Typography>
-              </CardContent>
+              <Paper
+                elevation={2}
+                sx={{
+                  color: "UserDashboardCard.color",
+                  backgroundColor: "UserProjectCard.Background",
+                  "&:hover": {
+                    backgroundColor: "UserProjectCard.bghover",
+                  },
+                  borderLeft: 6,
+                  borderColor: "UserProjectCard.Completed",
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  alt={`image du projet ${project.projectName}`}
+                  height="150"
+                  image={`../../../../../src/assets/projects-img/${project.image}`}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {project.projectName}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {project.about}
+                  </Typography>
+                </CardContent>
+              </Paper>
             </Link>
           </Card>
         );
