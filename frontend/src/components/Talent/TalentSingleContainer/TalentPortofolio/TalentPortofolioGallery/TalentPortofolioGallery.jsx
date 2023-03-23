@@ -36,7 +36,10 @@ function TalentPortofolioGallery({ id }) {
       })
       .then((response) => response.data)
       .then((candidaciesData) => {
-        setCandidacy(candidaciesData);
+        const candidaciesFilter = candidaciesData
+          .filter((apply) => apply.user_status !== 3)
+          .map((apply) => apply);
+        setCandidacy(candidaciesFilter);
       });
   };
 
