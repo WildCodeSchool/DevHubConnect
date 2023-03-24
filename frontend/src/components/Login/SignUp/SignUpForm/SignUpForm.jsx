@@ -41,7 +41,7 @@ function StepForm() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="md">
         <CssBaseline />
         {/* affiche soit la page de confirmation soit le formulaire(stepper) */}
         {activeStep === labels.length ? (
@@ -62,7 +62,7 @@ function StepForm() {
             </Box>
             <Stepper
               activeStep={activeStep}
-              style={{ paddingTop: "2rem" }}
+              sx={{ mb: 3, mt: 5 }}
               alternativeLabel
             >
               {labels.map((label) => (

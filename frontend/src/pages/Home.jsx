@@ -31,7 +31,7 @@ export default function Home() {
         height={{ xs: "700px", sm: "500px" }}
       >
         <CssBaseline />
-        <Container Width="600px">
+        <Container width="600px">
           <Stack
             direction="column"
             justifyContent="center"
@@ -67,7 +67,7 @@ export default function Home() {
                 <Button variant="contained" href="/register">
                   S'inscrire
                 </Button>
-                <Button variant="outlined" href="/login">
+                <Button variant="contained" color="buttonHome" href="/login">
                   Se connecter
                 </Button>
               </Stack>
@@ -96,7 +96,7 @@ export default function Home() {
           <LogoConnect />
         </Stack>
         <Container
-          Width="600px"
+          width="600px"
           sx={{
             bgcolor: "background.paper",
             boxShadow: 1,
@@ -190,7 +190,7 @@ export default function Home() {
         </Container>
       </Paper>
       <Paper sx={{ borderRadius: 0 }}>
-        <Container Width="600px">
+        <Container width="600px">
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 4, sm: 6, md: 6 }}
@@ -223,7 +223,7 @@ export default function Home() {
         </Container>
       </Paper>
       <Paper sx={{ borderRadius: 0, background: "#eeeeee", pt: 4 }}>
-        <Container Width="600px">
+        <Container width="600px">
           <Typography variant="h2" component="div">
             Ils en parlent mieux que nous
           </Typography>
@@ -234,7 +234,7 @@ export default function Home() {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ minwidth: 275 }}>
               <CardContent>
                 <Typography variant="h5" component="div">
                   Adrien Sergent
@@ -254,7 +254,7 @@ export default function Home() {
                 </Typography>
               </CardContent>
             </Card>
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ minwidth: 275 }}>
               <CardContent>
                 <Typography variant="h5" component="div">
                   Wild Code School

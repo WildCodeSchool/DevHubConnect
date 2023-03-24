@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const menuprops = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -58,19 +58,21 @@ function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
         onChange={handleChange}
         input={<OutlinedInput label="Régions" />}
         renderValue={(selected) => selected.join(", ")}
-        MenuProps={MenuProps}
+        menuprops={menuprops}
       >
-        {regions.map((region, index) => (
-          <MenuItem key={region.id} value={region.region_name}>
-            <Checkbox
-              checked={
-                userRegions.indexOf(region.region_name) > -1 ||
-                currentSelectedRegions.indexOf(region.region_name) > -1
-              }
-            />
-            <ListItemText primary={region.region_name} index={index} />
-          </MenuItem>
-        ))}
+        {regions
+          .sort((a, b) => a.region_name.localeCompare(b.region_name))
+          .map((region, index) => (
+            <MenuItem key={region.id} value={region.region_name}>
+              <Checkbox
+                checked={
+                  userRegions.indexOf(region.region_name) > -1 ||
+                  currentSelectedRegions.indexOf(region.region_name) > -1
+                }
+              />
+              <ListItemText primary={region.region_name} index={index} />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );

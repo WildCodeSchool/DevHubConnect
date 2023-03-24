@@ -74,7 +74,7 @@ function TalentSingleSkills({ id }) {
         flexWrap="wrap"
       >
         {skills.map((skill, index) => {
-          return <Chip label={skill} index={index} size="Medium" />;
+          return <Chip label={skill} index={index} key={skill} size="Medium" />;
         })}
       </Stack>
     </Paper>
@@ -86,7 +86,7 @@ TalentSingleSkills.propTypes = {
 };
 
 TalentSingleSkills.defaultProps = {
-  id: "",
+  id: null,
 };
 
 export default TalentSingleSkills;

@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const menuprops = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -57,19 +57,21 @@ function TalentSelectJob({ currentSelectedJobs, setSelectedJobs }) {
         onChange={handleChange}
         input={<OutlinedInput label="Métiers" />}
         renderValue={(selected) => selected.join(", ")}
-        MenuProps={MenuProps}
+        menuprops={menuprops}
       >
-        {jobs.map((job, index) => (
-          <MenuItem key={job.id} value={job.job_name}>
-            <Checkbox
-              checked={
-                userJobs.indexOf(job.job_name) > -1 ||
-                currentSelectedJobs.indexOf(job.job_name) > -1
-              }
-            />
-            <ListItemText primary={job.job_name} index={index} />
-          </MenuItem>
-        ))}
+        {jobs
+          .sort((a, b) => a.job_name.localeCompare(b.job_name))
+          .map((job, index) => (
+            <MenuItem key={job.id} value={job.job_name}>
+              <Checkbox
+                checked={
+                  userJobs.indexOf(job.job_name) > -1 ||
+                  currentSelectedJobs.indexOf(job.job_name) > -1
+                }
+              />
+              <ListItemText primary={job.job_name} index={index} />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );

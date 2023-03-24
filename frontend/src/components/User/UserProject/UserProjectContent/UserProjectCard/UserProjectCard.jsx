@@ -8,6 +8,7 @@ export default function UserProjectCard({
   projectId,
   projectName,
   projectDescription,
+  projectImage,
 }) {
   const handleMoreInfoClick = () => {};
 
@@ -38,8 +39,8 @@ export default function UserProjectCard({
               }}
             >
               <Avatar
-                alt="Remy Sharp"
-                src="https://picsum.photos/200/200"
+                alt={projectName}
+                src={`../../../../../../src/assets/projects-img/${projectImage}`}
                 sx={{ width: 100, height: 100 }}
               />
             </Grid>
@@ -79,10 +80,12 @@ UserProjectCard.propTypes = {
   projectId: PropTypes.number,
   projectName: PropTypes.string,
   projectDescription: PropTypes.string,
+  projectImage: PropTypes.string,
 };
 
 UserProjectCard.defaultProps = {
   projectId: "",
   projectName: "",
   projectDescription: "",
+  projectImage: "",
 };

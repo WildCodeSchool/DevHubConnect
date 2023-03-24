@@ -16,9 +16,9 @@ export default function ProjectSingleDescriptionContent({
   projectDescription,
   skillName,
   projectImage,
+  creatorId,
 }) {
   const lignes = projectDescription.split("\n");
-  const userId = parseInt(localStorage.getItem("userId"), 10);
 
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
@@ -67,8 +67,12 @@ export default function ProjectSingleDescriptionContent({
               mb: 3,
             }}
           >
-            <Link href={`/talent/${userId}`} underline="none" sx={{ width: 1 }}>
-              <UserDashboardUserInfo />
+            <Link
+              href={`/talent/${creatorId}`}
+              underline="none"
+              sx={{ width: 1 }}
+            >
+              <UserDashboardUserInfo creatorId={creatorId} />
             </Link>
           </Box>
           <Paper
@@ -134,10 +138,12 @@ ProjectSingleDescriptionContent.propTypes = {
   projectDescription: PropTypes.string,
   skillName: PropTypes.string,
   projectImage: PropTypes.string,
+  creatorId: PropTypes.number,
 };
 
 ProjectSingleDescriptionContent.defaultProps = {
   projectDescription: "",
   skillName: "",
   projectImage: "",
+  creatorId: null,
 };

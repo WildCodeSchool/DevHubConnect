@@ -3,13 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
 
-export default function UserDashboardUserInfo() {
+export default function UserDashboardUserInfo({ creatorId }) {
   const [user, setUser] = useState({});
   const [job, setJob] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +17,7 @@ export default function UserDashboardUserInfo() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const userId = parseInt(localStorage.getItem("userId"), 10);
+    const userId = creatorId || parseInt(localStorage.getItem("userId"), 10);
 
     if (!token) {
       navigate("/login");
@@ -56,7 +55,7 @@ export default function UserDashboardUserInfo() {
       getUser();
       getJobs();
     }
-  }, []);
+  }, [creatorId]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -116,9 +115,6 @@ export default function UserDashboardUserInfo() {
                   {job.find((j) => j.id === user.job_id)?.job_name}
                 </Typography>
               )}
-              <Link href="/dashboard/my-setting" variant="body2">
-                <CreateOutlinedIcon fontSize="small" />
-              </Link>
             </Stack>
             <Typography
               component="div"
@@ -129,7 +125,7 @@ export default function UserDashboardUserInfo() {
             >
               {user.firstname} {user.lastname}
             </Typography>
-            <Typography variant="body1" gutterBottom fullWidth>
+            <Typography variant="body1" gutterBottom>
               {user.biography}
             </Typography>
           </Stack>
@@ -138,3 +134,11 @@ export default function UserDashboardUserInfo() {
     </Box>
   );
 }
+
+UserDashboardUserInfo.propTypes = {
+  creatorId: PropTypes.number,
+};
+
+UserDashboardUserInfo.defaultProps = {
+  creatorId: null,
+};

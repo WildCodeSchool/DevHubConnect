@@ -37,11 +37,12 @@ export default function SignUpAboutYou() {
       })
       .then((response) => response.data)
       .then((jobsData) => {
+        // Tri du tableau par ordre alphabétique de la propriété 'job_name'
+        jobsData.sort((a, b) => a.job_name.localeCompare(b.job_name));
         setJobList(jobsData);
       });
   };
-
-  // requête pour récupérer la liste de régions
+  // requête pour récupérer la liste des régions
   const getRegionList = () => {
     axios
       .get("http://localhost:5007/regions", {
@@ -51,6 +52,8 @@ export default function SignUpAboutYou() {
       })
       .then((response) => response.data)
       .then((regionsData) => {
+        // Tri du tableau par ordre alphabétique de la propriété 'region_name'
+        regionsData.sort((a, b) => a.region_name.localeCompare(b.region_name));
         setRegionList(regionsData);
       });
   };
@@ -151,10 +154,11 @@ export default function SignUpAboutYou() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="picture"
                   type="url"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Lien vers votre photo"
                   error={Boolean(errors.picture) && Boolean(touched.picture)}
@@ -164,12 +168,13 @@ export default function SignUpAboutYou() {
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <TextField
+                    fullWidth
                     select
                     required
                     name="job"
                     label="votre poste actuel"
                     value={job}
-                    variant="standard"
+                    variant="outlined"
                     color="primary"
                     // fonction appelée lors de la sélection d'une option dans la liste
                     // utilise setFieldValue de Formik pour MAJ les valeurs du champ dans le formulaire
@@ -204,10 +209,11 @@ export default function SignUpAboutYou() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="experience"
                   type="text"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="nombre d'années d'expérience"
                   required
@@ -225,7 +231,7 @@ export default function SignUpAboutYou() {
                     label="Région"
                     value={region}
                     required
-                    variant="standard"
+                    variant="outlined"
                     color="primary"
                     // fonction appelée lors de la sélection d'une option dans la liste
                     // utilise setFieldValue de Formik pour MAJ les valeurs du champ dans le formulaire
@@ -258,12 +264,15 @@ export default function SignUpAboutYou() {
                   </TextField>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <Field
+                  fullWidth
+                  multiline
+                  rows={2}
                   name="bio"
                   type="text"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="votre phrase d'accroche"
                   required
@@ -271,12 +280,15 @@ export default function SignUpAboutYou() {
                   helperText={Boolean(touched.bio) && errors.bio}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <Field
+                  fullWidth
+                  multiline
+                  rows={6}
                   name="about"
                   type="text"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="votre expérience en quelques mots"
                   required
@@ -286,10 +298,11 @@ export default function SignUpAboutYou() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="gitHub"
                   type="url"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Votre Lien GitHub"
                   error={Boolean(errors.gitHub) && Boolean(touched.gitHub)}
@@ -299,16 +312,19 @@ export default function SignUpAboutYou() {
             </Grid>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
+                variant="outlined"
+                color="primary"
+                sx={{ mt: 3, mr: 2 }}
                 onClick={() => {
                   handleBack(values);
                 }}
-                sx={{ mr: 1 }}
               >
                 Précédent
               </Button>
               <Button
                 variant="contained"
                 color="primary"
+                sx={{ mt: 3 }}
                 disabled={!isValid}
                 onClick={
                   isValid

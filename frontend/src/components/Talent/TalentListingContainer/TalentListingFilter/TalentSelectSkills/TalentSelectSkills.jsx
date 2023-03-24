@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const menuprops = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -56,30 +56,32 @@ function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
         onChange={handleChange}
         input={<OutlinedInput label="Compétences" />}
         renderValue={(selected) => selected.join(", ")}
-        MenuProps={MenuProps}
+        menuprops={menuprops}
       >
-        {skills.map((skill, index) => (
-          <MenuItem
-            key={skill.id}
-            value={skill.skill_name}
-            onClick={() => {
-              if (selectedSkillIds.includes(skill.id)) {
-                setSelectedSkillIds((prevState) =>
-                  prevState.filter((id) => id !== skill.id)
-                );
-              } else {
-                setSelectedSkillIds((prevState) => [...prevState, skill.id]);
-              }
-            }}
-          >
-            <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
-            <ListItemText
+        {skills
+          .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
+          .map((skill, index) => (
+            <MenuItem
               key={skill.id}
-              primary={skill.skill_name}
-              index={index}
-            />
-          </MenuItem>
-        ))}
+              value={skill.skill_name}
+              onClick={() => {
+                if (selectedSkillIds.includes(skill.id)) {
+                  setSelectedSkillIds((prevState) =>
+                    prevState.filter((id) => id !== skill.id)
+                  );
+                } else {
+                  setSelectedSkillIds((prevState) => [...prevState, skill.id]);
+                }
+              }}
+            >
+              <Checkbox checked={userSkills.indexOf(skill.skill_name) > -1} />
+              <ListItemText
+                key={skill.id}
+                primary={skill.skill_name}
+                index={index}
+              />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   );

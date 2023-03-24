@@ -19,6 +19,14 @@ const palette = {
   BgContent: { main: "#eaeff2", contrastText: "#000" },
   BgSidebar: { main: "#1C2536", contrastText: "#000" },
   NavLink: { main: "#E9F3FA", contrastText: "#000", Hover: "#FFF" },
+  buttonHome: {
+    main: "#E9F3FA60",
+    light: "#FFFFFF",
+    background: "#ffffff",
+    contrastText: "#FFF",
+    Hover: "#FFF",
+    border: "#FFF",
+  },
   bgCard: {
     main: "#FFF",
     BgColor: "#FFF",

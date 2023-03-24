@@ -51,13 +51,14 @@ function UserProjectContent() {
 
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={4} p={2}>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
         <Button
           variant="outlined"
-          size="small"
+          size="normal"
           href="#InProgress"
           sx={{
-            backgroundColor: currentProjectsExpanded ? "#1C2536" : "",
+            backgroundColor: currentProjectsExpanded ? "#0088CC" : "",
+            color: currentProjectsExpanded ? "#FFF" : "",
           }}
           onClick={() => handleProjectsClick("current")}
         >
@@ -68,7 +69,8 @@ function UserProjectContent() {
           size="small"
           href="#Pending"
           sx={{
-            backgroundColor: upcomingProjectsExpanded ? "#1C2536" : "",
+            backgroundColor: upcomingProjectsExpanded ? "#0088CC" : "",
+            color: upcomingProjectsExpanded ? "#FFF" : "",
           }}
           onClick={() => handleProjectsClick("upcoming")}
         >
@@ -79,7 +81,8 @@ function UserProjectContent() {
           size="small"
           href="#Abandoned"
           sx={{
-            backgroundColor: notselectedProjectsExpanded ? "#1C2536" : "",
+            backgroundColor: notselectedProjectsExpanded ? "#0088CC" : "",
+            color: notselectedProjectsExpanded ? "#FFF" : "",
           }}
           onClick={() => handleProjectsClick("notselected")}
         >
@@ -90,7 +93,8 @@ function UserProjectContent() {
           size="small"
           href="#All"
           sx={{
-            backgroundColor: allProjectsExpanded ? "#1C2536" : "",
+            backgroundColor: allProjectsExpanded ? "#0088CC" : "",
+            color: allProjectsExpanded ? "#FFF" : "",
           }}
           onClick={() => handleProjectsClick("all")}
         >

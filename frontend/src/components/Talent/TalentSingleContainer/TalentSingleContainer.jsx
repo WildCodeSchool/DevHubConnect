@@ -73,6 +73,7 @@ function TalentSingleContainer() {
         region={region.find((r) => r.id === user.region_id)?.region_name}
         mail={user.email}
         firstName={user.firstname}
+        gitHub={user.github_page}
       />
       <Box sx={{ flexGrow: 1, padding: 3 }}>
         <Grid container spacing={3}>
