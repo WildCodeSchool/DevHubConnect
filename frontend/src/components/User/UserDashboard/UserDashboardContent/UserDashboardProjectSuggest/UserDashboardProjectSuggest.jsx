@@ -96,9 +96,8 @@ export default function UserDashboardProjectSuggest() {
     <>
       {projectListing.slice(-4).map((project) => {
         return (
-          <Box sx={{ width: "100%" }}>
+          <Box key={project.id} sx={{ width: "100%" }}>
             <Paper
-              key={project.id}
               variant="UserDashboardProjectSuggest.background"
               sx={{
                 width: 1,

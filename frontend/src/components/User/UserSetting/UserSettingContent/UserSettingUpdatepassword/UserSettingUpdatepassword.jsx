@@ -1,26 +1,83 @@
 import * as React from "react";
-import Stack from "@mui/material/Stack";
+import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import TextField from "@mui/material/TextField";
+import { Grid, Button, Stack } from "@mui/material/";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import FilledInput from "@mui/material/FilledInput";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputLabel from "@mui/material/InputLabel";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export default function UserSettingUpdatepassword() {
   const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
+
+  const initialValues = {
+    password: "",
+    confirmPassword: "",
+  };
+
+  const validationSchema = Yup.object({
+    password: Yup.string().required("Le mot de passe est requis"),
+    confirmPassword: Yup.string()
+      .required("La confirmation du mot de passe est requise")
+      .oneOf(
+        [Yup.ref("password"), null],
+        "Les mots de passe doivent correspondre"
+      ),
+  });
+
+  const onSubmit = async (values) => {
+    const { password } = values;
+    const userId = parseInt(localStorage.getItem("userId"), 10);
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.put(
+        `http://localhost:5007/users/${userId}`,
+        {
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.info("Password updated successfully:", response.data);
+      setSnackbarOpen(true); // Ouvrir le Snackbar
+    } catch (error) {
+      console.error(
+        "Error updating password:",
+        error.response ? error.response.statusText : error
+      );
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit,
+  });
+
   return (
     <Accordion>
       <AccordionSummary
@@ -31,33 +88,87 @@ export default function UserSettingUpdatepassword() {
         <Typography>Modifier le mot de passe</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography>Entrez votre nouveau mot de passe</Typography>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-        >
-          <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">
-              Password
-            </InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-        </Stack>
+        <form onSubmit={formik.handleSubmit}>
+          <Typography>Entrez votre nouveau mot de passe</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                name="password"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                color="primary"
+                label="Mot de Passe"
+                required
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onMouseDown={() => setShowPassword(true)}
+                        onMouseUp={() => setShowPassword(false)}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                name="confirmPassword"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                color="primary"
+                label="Confirmez le Mot de Passe"
+                required
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onMouseDown={() => setShowPassword(true)}
+                        onMouseUp={() => setShowPassword(false)}
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+          </Grid>
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            spacing={2}
+            mt={2}
+          >
+            <Button variant="outlined" type="submit">
+              Changer le mot de passe
+            </Button>
+
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={6000}
+              onClose={handleSnackbarClose}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+              <Alert
+                onClose={handleSnackbarClose}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                Mot de passe mis à jour avec succès!
+              </Alert>
+            </Snackbar>
+          </Stack>
+        </form>
       </AccordionDetails>
     </Accordion>
   );

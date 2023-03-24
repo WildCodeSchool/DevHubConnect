@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const menuprops = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -31,12 +31,14 @@ function getStyles(jobId, selectedJob, theme) {
   };
 }
 
+// Composant pour afficher et sélectionner le métier de l'utilisateur
 export default function UserSettingJob({ user, setUser }) {
   const [jobListing, setJobListing] = useState([]);
   const [selectedJob, setSelectedJob] = useState(
     user.job_id ? Number(user.job_id) : 0
   );
 
+  // Récupérer la liste des métiers
   useEffect(() => {
     async function fetchJobs() {
       try {
@@ -53,11 +55,12 @@ export default function UserSettingJob({ user, setUser }) {
     fetchJobs();
   }, [user.id]);
 
-  // Nouvel effet pour mettre à jour selectedJob lorsque user.job_id est modifié
+  // Mettre à jour selectedJob lorsque user.job_id change
   useEffect(() => {
     setSelectedJob(user.job_id ? Number(user.job_id) : 0);
   }, [user.job_id]);
 
+  // Mettre à jour le métier sélectionné dans l'état de l'utilisateur
   const handleJobChange = (event) => {
     const newJob = Number(event.target.value);
     setSelectedJob(newJob);
@@ -81,13 +84,12 @@ export default function UserSettingJob({ user, setUser }) {
       <FormControl sx={{ m: 0, mt: 2, width: "100%" }}>
         <InputLabel id="multiple-job-label">Job</InputLabel>
         <NativeSelect
-          labelId="multiple-job-label"
+          labelid="multiple-job-label"
           id="multiple-job"
           value={selectedJob}
           onChange={handleJobChange}
           input={<OutlinedInput label="Choisir" />}
-          selectMenuProps={MenuProps} // remplacer MenuProps par selectMenuProps
-          defaultValue={user?.job_id}
+          menuprops={menuprops}
         >
           {jobListing
             .sort((a, b) => a.job_name.localeCompare(b.job_name))
