@@ -110,10 +110,11 @@ export default function SignUpidentity() {
                 } /* nombre de colonnes sur extra petit écran (12) et sur écrans petits à moyen (6) */
               >
                 <Field // fonction field de formik
+                  fullWidth
                   name="lastName" // nom du champ correspondant à la propriété de l'objet des valeurs de formulaire dans Formik
                   type="text" // spécifie le type de données que le champ doit accepter
                   as={TextField} // as: prop de Formik pour spécifier le rendu. textField composant de Material UI
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Nom" // label à afficher
                   required // champs obligatoire (MUi)
@@ -123,10 +124,11 @@ export default function SignUpidentity() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="firstName"
                   type="text"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Prénom"
                   required
@@ -138,10 +140,11 @@ export default function SignUpidentity() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="CP"
                   type="text"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Matricule"
                   required
@@ -151,10 +154,11 @@ export default function SignUpidentity() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="email"
                   type="email"
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   label="Email"
                   required
                   error={Boolean(errors.email) && Boolean(touched.email)}
@@ -163,10 +167,11 @@ export default function SignUpidentity() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="password"
                   type={showPassword ? "text" : "password"}
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Mot de Passe"
                   required
@@ -188,10 +193,11 @@ export default function SignUpidentity() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
+                  fullWidth
                   name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   as={TextField}
-                  variant="standard"
+                  variant="outlined"
                   color="primary"
                   label="Confirmez le Mot de Passe"
                   required
@@ -233,6 +239,7 @@ export default function SignUpidentity() {
                       }
                     : () => null
                 }
+                sx={{ mt: 3 }}
               >
                 Suivant
               </Button>

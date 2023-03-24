@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
 export default function linkToSignInPage() {
@@ -10,9 +10,8 @@ export default function linkToSignInPage() {
       alignItems="flex-end"
       spacing={2}
     >
-      <Typography variant="h5">Vous avez déjà un compte?</Typography>
-      <Button type="link" variant="contained" color="primary" href="/login">
-        Connexion
+      <Button type="link" variant="text" color="primary" href="/login">
+        Vous avez déjà un compte ?
       </Button>
     </Stack>
   );

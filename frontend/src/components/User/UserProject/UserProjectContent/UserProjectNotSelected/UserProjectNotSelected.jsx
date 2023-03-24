@@ -73,13 +73,14 @@ function UserProjectNotSelected({ expanded, onClick }) {
                   .includes(project.id)
               )
               .map((project) => (
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} key={project.id}>
                   <UserProjectCard
                     key={project.id}
                     projectName={project.project_name}
                     projectDescription={project.project_about}
                     sx={{ marginLeft: "20px" }}
                     projectId={project.id}
+                    projectImage={project.project_image}
                   />
                 </Grid>
               ))}
@@ -91,13 +92,13 @@ function UserProjectNotSelected({ expanded, onClick }) {
 }
 
 UserProjectNotSelected.propTypes = {
-  expanded: PropTypes.string,
-  onClick: PropTypes.string,
+  expanded: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 UserProjectNotSelected.defaultProps = {
-  expanded: "",
-  onClick: "",
+  expanded: false,
+  onClick: () => {},
 };
 
 export default UserProjectNotSelected;

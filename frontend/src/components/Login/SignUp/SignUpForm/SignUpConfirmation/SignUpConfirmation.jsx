@@ -91,7 +91,12 @@ export default function SignUpConfirmation() {
       secondary:
         skills.length > 0
           ? skills.map((skill) => (
-              <Chip key={skill} label={skill} size="small" />
+              <Chip
+                key={skill}
+                label={skill}
+                size="small"
+                sx={{ ml: 2, mt: 2, mr: 0 }}
+              />
             ))
           : "Not provided",
     },
@@ -150,16 +155,18 @@ export default function SignUpConfirmation() {
     >
       {({ errors, isValid, touched, values, setFieldValue, handleSubmit }) => (
         <Form onSubmit={(event) => handleSubmit(event)}>
-          <List disablePadding>
-            {items.map(({ primary, secondary }, index) => (
-              <React.Fragment index={index}>
-                <ListItem>
-                  <ListItemText primary={primary} secondary={secondary} />
-                </ListItem>
-                <Divider />
-              </React.Fragment>
-            ))}
-          </List>
+          <Box elevation={2} sx={{ p: 3, mb: 3, border: "1px dashed grey" }}>
+            <List disablePadding>
+              {items.map(({ primary, secondary }, index) => (
+                <React.Fragment index={index}>
+                  <ListItem>
+                    <ListItemText primary={primary} secondary={secondary} />
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              ))}
+            </List>
+          </Box>
           <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
             <FormControl>
               <FormControlLabel

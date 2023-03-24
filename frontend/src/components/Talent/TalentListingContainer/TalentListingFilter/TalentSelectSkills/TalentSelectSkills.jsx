@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const menuprops = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -56,7 +56,7 @@ function TalentSelectSkills({ selectedSkillIds, setSelectedSkillIds }) {
         onChange={handleChange}
         input={<OutlinedInput label="Compétences" />}
         renderValue={(selected) => selected.join(", ")}
-        MenuProps={MenuProps}
+        menuprops={menuprops}
       >
         {skills
           .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
