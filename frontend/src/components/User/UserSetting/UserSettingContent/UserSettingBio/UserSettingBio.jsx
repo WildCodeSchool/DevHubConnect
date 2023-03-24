@@ -5,9 +5,11 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
+// UserSettingBio est un composant qui permet de modifier la biographie d'un utilisateur.
 export default function UserSettingBio({ user, setUser }) {
   const [biography, setBiography] = useState("");
 
+  // Utilisez l'effet pour récupérer la biographie de l'utilisateur et la définir dans l'état local.
   useEffect(() => {
     async function fetchDataBio() {
       try {
@@ -27,6 +29,7 @@ export default function UserSettingBio({ user, setUser }) {
     fetchDataBio();
   }, [user.id]);
 
+  // Gère les changements dans le champ de la biographie et met à jour l'état local et l'objet utilisateur.
   const handleBioChange = (event) => {
     const newBio = event.target.value;
     setBiography(newBio);
@@ -57,10 +60,11 @@ export default function UserSettingBio({ user, setUser }) {
   );
 }
 
+// Mettez à jour les PropTypes pour accepter à la fois les chaînes de caractères et les nombres pour user.id
 UserSettingBio.propTypes = {
   user: PropTypes.shape({
     biography: PropTypes.string,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   }).isRequired,
   setUser: PropTypes.func.isRequired,
 };

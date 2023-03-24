@@ -55,15 +55,13 @@ export default function UserSettingSkills({ user, setUserSkillsProp }) {
   }, [user]);
 
   const handleSkillChange = (event) => {
+    const skillId = parseInt(event.target.value, 10);
     if (event.target.checked) {
-      userSkills.push(parseInt(event.target.value, 10));
+      setUserSkills((prevSkills) => [...prevSkills, skillId]);
     } else {
-      const index = userSkills.indexOf(event.target.value);
-      if (index > -1) {
-        userSkills.splice(index, 1);
-      }
+      setUserSkills((prevSkills) => prevSkills.filter((id) => id !== skillId));
     }
-    setUserSkillsProp([...new Set(userSkills)]);
+    setUserSkillsProp(userSkills);
   };
 
   return (

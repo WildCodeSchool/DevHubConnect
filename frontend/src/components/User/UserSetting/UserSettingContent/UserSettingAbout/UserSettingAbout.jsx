@@ -65,8 +65,15 @@ export default function UserSettingAbout({ user, setUser }) {
 
 UserSettingAbout.propTypes = {
   user: PropTypes.shape({
-    about: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-  }).isRequired,
+    about: PropTypes.string,
+    id: PropTypes.number,
+  }),
   setUser: PropTypes.func.isRequired,
+};
+
+UserSettingAbout.defaultProps = {
+  user: {
+    about: "",
+    id: null,
+  },
 };

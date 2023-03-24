@@ -24,13 +24,11 @@ export default function UserDashboardContent() {
             <Typography variant="UserDashboardTitle" gutterBottom>
               Vos infos
             </Typography>
-            <Link
-              href="/dashboard/my-setting"
-              underline="none"
-              sx={{ width: 1 }}
-            >
-              <UserDashboardUserInfo />
-            </Link>
+            <Box sx={{ width: 1 }}>
+              <Link href="/dashboard/my-setting" underline="none">
+                <UserDashboardUserInfo />
+              </Link>
+            </Box>
             <Typography
               variant="UserDashboardTitle"
               gutterBottom

@@ -88,65 +88,69 @@ export default function SignUpSkills() {
       >
         {({ errors, isValid, touched, values, setFieldValue }) => (
           <Form>
-            <FormControl component="fieldset" variant="standard">
-              <FormLabel component="legend">
-                Selectionnez vos Compétences
-              </FormLabel>
-              <FormGroup
-                sx={{ display: "flex", flexDirection: "row" }}
-                name="skills"
-                variant="standard"
-                color="primary"
-                onChange={(event) => {
-                  // vérifie que selectedSkills contient toujours un tableau, même si values.skills est null ou undefined
-                  const selectedSkills = values.skills || [];
-                  // si la case est cochée, stocke la valeur dans le tableau selectedSKills
-                  // sinon recherche l'index de la valeur dans le tableau, si son index <-1 la valeur est dans le tableau, retire cette valeur.
-                  if (event.target.checked) {
-                    selectedSkills.push(event.target.value);
-                  } else {
-                    const index = selectedSkills.indexOf(event.target.value);
-                    if (index > -1) {
-                      selectedSkills.splice(index, 1);
-                    }
-                  }
-                  setFieldValue("skills", selectedSkills);
-                  setFormValues({ ...formValues, skills: selectedSkills });
-                }}
-                error={Boolean(errors.skills) && Boolean(touched.skills)}
-                helperText={Boolean(touched.skills) && errors.skills}
-              >
-                {skillList.map((skill, index) => {
-                  return (
-                    <FormControlLabel
-                      control={
-                        <Checkbox checked={skills.includes(skill.skill_name)} />
+            <Box elevation={2} sx={{ p: 3, mb: 3, border: "1px dashed grey" }}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend" sx={{ mb: 2 }}>
+                  Selectionnez vos Compétences
+                </FormLabel>
+                <FormGroup
+                  sx={{ display: "flex", flexDirection: "row" }}
+                  name="skills"
+                  variant="standard"
+                  color="primary"
+                  onChange={(event) => {
+                    // vérifie que selectedSkills contient toujours un tableau, même si values.skills est null ou undefined
+                    const selectedSkills = values.skills || [];
+                    // si la case est cochée, stocke la valeur dans le tableau selectedSKills
+                    // sinon recherche l'index de la valeur dans le tableau, si son index <-1 la valeur est dans le tableau, retire cette valeur.
+                    if (event.target.checked) {
+                      selectedSkills.push(event.target.value);
+                    } else {
+                      const index = selectedSkills.indexOf(event.target.value);
+                      if (index > -1) {
+                        selectedSkills.splice(index, 1);
                       }
-                      value={skill.skill_name}
-                      label={skill.skill_name}
-                      index={index}
-                      key={skill.id}
-                      onClick={() => {
-                        if (selectedSkillId.includes(skill.id)) {
-                          setSelectedSkillId((prevState) =>
-                            prevState.filter((id) => id !== skill.id)
-                          );
-                        } else {
-                          setSelectedSkillId((prevState) => [
-                            ...prevState,
-                            skill.id,
-                          ]);
+                    }
+                    setFieldValue("skills", selectedSkills);
+                    setFormValues({ ...formValues, skills: selectedSkills });
+                  }}
+                  error={Boolean(errors.skills) && Boolean(touched.skills)}
+                  helperText={Boolean(touched.skills) && errors.skills}
+                >
+                  {skillList.map((skill, index) => {
+                    return (
+                      <FormControlLabel
+                        sx={{ width: 180 }}
+                        control={
+                          <Checkbox
+                            checked={skills.includes(skill.skill_name)}
+                          />
                         }
-                      }}
-                    />
-                  );
-                })}
-              </FormGroup>
-            </FormControl>
-            <FormHelperText error={errors.skills}>
-              {errors.skills}
-            </FormHelperText>
-
+                        value={skill.skill_name}
+                        label={skill.skill_name}
+                        index={index}
+                        key={skill.id}
+                        onClick={() => {
+                          if (selectedSkillId.includes(skill.id)) {
+                            setSelectedSkillId((prevState) =>
+                              prevState.filter((id) => id !== skill.id)
+                            );
+                          } else {
+                            setSelectedSkillId((prevState) => [
+                              ...prevState,
+                              skill.id,
+                            ]);
+                          }
+                        }}
+                      />
+                    );
+                  })}
+                </FormGroup>
+              </FormControl>
+              <FormHelperText error={errors.skills}>
+                {errors.skills}
+              </FormHelperText>
+            </Box>
             <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
                 onClick={() => {

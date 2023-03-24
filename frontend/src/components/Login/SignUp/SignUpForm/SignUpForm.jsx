@@ -62,7 +62,7 @@ function StepForm() {
             </Box>
             <Stepper
               activeStep={activeStep}
-              style={{ paddingTop: "2rem" }}
+              sx={{ mb: 3, mt: 5 }}
               alternativeLabel
             >
               {labels.map((label) => (

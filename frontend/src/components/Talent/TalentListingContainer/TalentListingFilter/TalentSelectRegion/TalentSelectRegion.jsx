@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+const menuprops = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -58,7 +58,7 @@ function TalentSelectRegion({ currentSelectedRegions, setSelectedRegions }) {
         onChange={handleChange}
         input={<OutlinedInput label="Régions" />}
         renderValue={(selected) => selected.join(", ")}
-        MenuProps={MenuProps}
+        menuprops={menuprops}
       >
         {regions
           .sort((a, b) => a.region_name.localeCompare(b.region_name))

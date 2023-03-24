@@ -1,10 +1,11 @@
 import * as React from "react";
+import { Box } from "@mui/material";
 import Terms from "../components/Policy/TermsAndCondition/TermsAndConditions";
 
 export default function TermsAndCondition() {
   return (
-    <div>
+    <Box sx={{ flexGrow: 1, padding: 3 }}>
       <Terms />
-    </div>
+    </Box>
   );
 }
