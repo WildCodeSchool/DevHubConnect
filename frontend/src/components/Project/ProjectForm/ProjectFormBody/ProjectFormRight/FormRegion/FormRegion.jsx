@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   Paper,
   FormControl,
@@ -8,10 +9,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-export default function FormRegion() {
+export default function FormRegion({ selectedRegion, setSelectedRegion }) {
   const [regionListing, setRegionListing] = useState([]);
-  const [selectedRegion, setSelectedRegion] = useState();
-
   useEffect(() => {
     async function fetchRegion() {
       try {
@@ -20,8 +19,11 @@ export default function FormRegion() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
-        console.info("response.data", response.data);
-        setRegionListing(response?.data);
+
+        const sortedRegions = response?.data.sort((a, b) => {
+          return a.region_name.localeCompare(b.region_name);
+        });
+        setRegionListing(["", ...sortedRegions]);
       } catch (error) {
         console.error(error);
       }
@@ -44,7 +46,7 @@ export default function FormRegion() {
           input={<OutlinedInput label="Choisir" />}
           defaultValue=""
         >
-          {regionListing?.map((region) => (
+          {regionListing.map((region) => (
             <option key={region.id} value={region.id}>
               {region.region_name}
             </option>
@@ -54,3 +56,13 @@ export default function FormRegion() {
     </Paper>
   );
 }
+
+FormRegion.propTypes = {
+  selectedRegion: PropTypes.number,
+  setSelectedRegion: PropTypes.number,
+};
+
+FormRegion.defaultProps = {
+  selectedRegion: "",
+  setSelectedRegion: "",
+};

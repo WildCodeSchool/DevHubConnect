@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   FormControlLabel,
   Stack,
@@ -7,10 +8,8 @@ import {
   Box,
 } from "@mui/material";
 
-function ProjectFormToggle() {
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = () => {
+function ProjectFormToggle({ checked, setChecked }) {
+  const handleChangeToggle = () => {
     setChecked((prev) => !prev);
   };
   return (
@@ -21,7 +20,7 @@ function ProjectFormToggle() {
           control={
             <Stack justifyContent="center" sx={{ ml: 4 }}>
               {/* penser à centrer le switch et supprimer le margin-left ml : 4 */}
-              <Switch checked={checked} onChange={handleChange} />
+              <Switch checked={checked} onChange={handleChangeToggle} />
             </Stack>
           }
         />
@@ -30,5 +29,15 @@ function ProjectFormToggle() {
     </Box>
   );
 }
+
+ProjectFormToggle.propTypes = {
+  checked: PropTypes.bool,
+  setChecked: PropTypes.func,
+};
+
+ProjectFormToggle.defaultProps = {
+  checked: false,
+  setChecked: false,
+};
 
 export default ProjectFormToggle;

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import {
   Box,
@@ -10,11 +9,13 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  Stack,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import PropTypes from "prop-types";
+import github from "../../../../assets/github.svg";
 
-function TalentSingleHeader({ job, region, firstName }) {
+function TalentSingleHeader({ job, region, firstName, gitHub }) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -24,6 +25,7 @@ function TalentSingleHeader({ job, region, firstName }) {
   const handleClose = () => {
     setOpen(false);
   };
+
   return (
     <>
       <Paper elevation={8} sx={{ mb: 2 }}>
@@ -39,7 +41,19 @@ function TalentSingleHeader({ job, region, firstName }) {
               <Typography variant="subtitle1" gutterBottom>
                 {region}
               </Typography>
-              <Box m={2} sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                spacing={2}
+              >
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  startIcon={<img src={github} alt="github" />}
+                  size="small"
+                  href={gitHub}
+                />
                 <Button
                   variant="contained"
                   startIcon={<SendIcon />}
@@ -47,7 +61,7 @@ function TalentSingleHeader({ job, region, firstName }) {
                 >
                   Contacter {firstName}
                 </Button>
-              </Box>
+              </Stack>
             </Stack>
           </Stack>
         </Box>
@@ -95,12 +109,14 @@ TalentSingleHeader.propTypes = {
   job: PropTypes.string,
   region: PropTypes.string,
   firstName: PropTypes.string,
+  gitHub: PropTypes.string,
 };
 
 TalentSingleHeader.defaultProps = {
   job: "",
   region: "",
   firstName: "",
+  gitHub: "",
 };
 
 export default TalentSingleHeader;
