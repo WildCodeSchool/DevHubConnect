@@ -10,7 +10,7 @@ import {
   Link,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import UserDashboardUserInfo from "../../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
+import UserDashboardUserInfo from "../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
 import ProjectSingleSelectTalent from "./ProjectSingleSelectTalent/ProjectSingleSelectTalent";
 
 export default function ProjectSingleDescriptionContent({
@@ -90,7 +90,7 @@ export default function ProjectSingleDescriptionContent({
             <Typography
               component="div"
               variant="Body2"
-              sx={{ pb: 2, textAlign: "center" }}
+              sx={{ color: "UserSetting.color", pb: 2, textAlign: "center" }}
             >
               COMPETENCES
             </Typography>
@@ -108,6 +108,7 @@ export default function ProjectSingleDescriptionContent({
               {skillName.map((skill, index) => {
                 return (
                   <Chip
+                    key={skill}
                     label={skill}
                     index={index}
                     size="small"
@@ -143,6 +144,13 @@ export default function ProjectSingleDescriptionContent({
               }}
               flexWrap="wrap"
             >
+              <Typography
+                component="div"
+                variant="Body2"
+                sx={{ pb: 2, textAlign: "center" }}
+              >
+                ILS ONT POSTULE
+              </Typography>
               <ProjectSingleSelectTalent />
             </Stack>
           ) : (
@@ -166,6 +174,6 @@ ProjectSingleDescriptionContent.defaultProps = {
   projectDescription: "",
   skillName: "",
   projectImage: "",
-  id: "",
+  id: null,
   creatorId: null,
 };

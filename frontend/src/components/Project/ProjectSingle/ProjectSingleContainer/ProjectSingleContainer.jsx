@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import ProjectSingleDescriptionContent from "./ProjectSingleDescription/ProjectSingleDescriptionContent/ProjectSingleDescriptionContent";
+import ProjectSingleDescriptionContent from "./ProjectSingleDescription/ProjectSingleDescriptionContent";
 import ProjectSingleHeader from "./ProjectSingleHeader/ProjectSingleHeader";
 
 function ProjectSingleContainer() {
