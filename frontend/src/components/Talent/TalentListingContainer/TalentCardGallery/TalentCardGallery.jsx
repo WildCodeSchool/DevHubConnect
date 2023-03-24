@@ -18,6 +18,10 @@ function TalentCardGallery({
   const [selectedRegions, setSelectedRegions] = useState([]);
   const [usersSkills, setUsersSkills] = useState([]);
 
+  const sortUsersByLastName = (talents) => {
+    return talents.sort((a, b) => a.lastname.localeCompare(b.lastname));
+  };
+
   const getTalents = () => {
     axios
       .get("http://localhost:5007/users", {
@@ -26,7 +30,7 @@ function TalentCardGallery({
 
       .then((response) => response.data)
       .then((usersData) => {
-        setUsers(usersData);
+        setUsers(sortUsersByLastName(usersData));
       });
   };
 
