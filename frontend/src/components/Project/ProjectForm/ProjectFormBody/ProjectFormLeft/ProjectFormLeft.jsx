@@ -24,11 +24,11 @@ export default function ProjectFormLeft({
 
 ProjectFormLeft.propTypes = {
   projectTitle: PropTypes.string,
-  setProjectTitle: PropTypes.string,
+  setProjectTitle: PropTypes.func,
   aboutProject: PropTypes.string,
-  setAboutProject: PropTypes.string,
+  setAboutProject: PropTypes.func,
   projectDescription: PropTypes.string,
-  setProjectDescription: PropTypes.string,
+  setProjectDescription: PropTypes.func,
 };
 
 ProjectFormLeft.defaultProps = {

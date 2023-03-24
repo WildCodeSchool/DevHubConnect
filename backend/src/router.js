@@ -8,8 +8,12 @@ const {
   verifyPassword,
   verifyToken,
   verifyId,
-  validateForm,
 } = require("./auth");
+
+const {
+  validateLoginForm,
+  validateProjectForm,
+} = require("./services/validator");
 
 // VERIFIE
 const userControllers = require("./controllers/userControllers");
@@ -56,7 +60,7 @@ router.post("/contact", contactControllers.sendMail);
 // -----LOGIN-------
 router.post(
   "/users/login",
-  validateForm,
+  validateLoginForm,
   userControllers.getUserByEmailWithPasswordAndPassToNext,
   verifyPassword
 );
@@ -110,7 +114,7 @@ router.get(
 );
 router.get("/projects_all", projectControllers.filterAllProject);
 router.put("/projects/:id", projectControllers.edit);
-router.post("/projects", projectControllers.add);
+router.post("/projects", validateProjectForm, projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
 // skills

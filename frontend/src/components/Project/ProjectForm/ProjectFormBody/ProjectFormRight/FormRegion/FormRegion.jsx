@@ -44,7 +44,6 @@ export default function FormRegion({ selectedRegion, setSelectedRegion }) {
           value={selectedRegion}
           onChange={handleRegionChange}
           input={<OutlinedInput label="Choisir" />}
-          defaultValue=""
         >
           {regionListing.map((region) => (
             <option key={region.id} value={region.id}>
@@ -58,8 +57,8 @@ export default function FormRegion({ selectedRegion, setSelectedRegion }) {
 }
 
 FormRegion.propTypes = {
-  selectedRegion: PropTypes.number,
-  setSelectedRegion: PropTypes.number,
+  selectedRegion: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  setSelectedRegion: PropTypes.func,
 };
 
 FormRegion.defaultProps = {
