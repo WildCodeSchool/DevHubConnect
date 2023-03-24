@@ -58,9 +58,6 @@ export default function ProjectFormComponent() {
         });
     }
   };
-  // if (erreur.length > 0) {
-  //   console.log(erreur);
-  // }
   return (
     <Stack spacing={2}>
       <ProjectFormHeading
@@ -68,6 +65,13 @@ export default function ProjectFormComponent() {
         aboutProject={aboutProject}
       />
       <ProjectFormToggle checked={checked} setChecked={setChecked} />
+      <Stack direction="row" justifyContent="center" spacing={2}>
+        {erreur && (
+          <p style={{ color: "red" }}>
+            Tous les champs doivent être renseignés
+          </p>
+        )}
+      </Stack>
       <ProjectFormBody
         projectTitle={projectTitle}
         setProjectTitle={setProjectTitle}
@@ -85,6 +89,13 @@ export default function ProjectFormComponent() {
         setFormSkills={setFormSkills}
         handleSubmitSave={handleSubmitSave}
       />
+      <Stack direction="row" justifyContent="center" spacing={2}>
+        {erreur && (
+          <p style={{ color: "red" }}>
+            Tous les champs doivent être renseignés
+          </p>
+        )}
+      </Stack>
     </Stack>
   );
 }
