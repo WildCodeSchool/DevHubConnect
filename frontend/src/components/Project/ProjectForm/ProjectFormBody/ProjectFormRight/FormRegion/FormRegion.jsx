@@ -45,8 +45,8 @@ export default function FormRegion({ selectedRegion, setSelectedRegion }) {
           onChange={handleRegionChange}
           input={<OutlinedInput label="Choisir" />}
         >
-          {regionListing.map((region, index) => (
-            <option key={index} value={region.id}>
+          {regionListing.map((region) => (
+            <option key={region.id} value={region.id}>
               {region.region_name}
             </option>
           ))}
