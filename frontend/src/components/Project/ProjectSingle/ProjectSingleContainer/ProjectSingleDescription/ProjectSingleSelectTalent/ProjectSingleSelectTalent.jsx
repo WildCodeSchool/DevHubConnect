@@ -19,6 +19,7 @@ function ProjectSingleSelectTalent() {
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [expanded, setExpanded] = React.useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -67,7 +68,7 @@ function ProjectSingleSelectTalent() {
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
 
   // Put de la candidature pour actualiser le user_status (1= en attente, 2= accepté, 3=non retenu).
   const updateCandidacy = async (candidacy, newStatus) => {
@@ -128,9 +129,13 @@ function ProjectSingleSelectTalent() {
                       return us.id === candidacy.user_id;
                     });
                     return (
-                      <Grid item xs={12} md={6} key={candidacy.id}>
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        key={`${user?.id}-${candidacy.id}`}
+                      >
                         <TalentCard
-                          key={user?.id}
                           userId={user?.id}
                           firstName={user?.firstname}
                           lastName={user?.lastname}
@@ -142,6 +147,8 @@ function ProjectSingleSelectTalent() {
                           status={candidacy?.user_status}
                           candidacy={candidacy}
                           updateCandidacy={updateCandidacy}
+                          refresh={refresh}
+                          setRefresh={setRefresh}
                         />
                       </Grid>
                     );
@@ -171,7 +178,12 @@ function ProjectSingleSelectTalent() {
                       return us.id === candidacy.user_id;
                     });
                     return (
-                      <Grid item xs={12} md={6} key={candidacy.id}>
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        key={`${user?.id}-${candidacy.id}`}
+                      >
                         <TalentCard
                           key={user?.id}
                           userId={user?.id}
@@ -184,6 +196,8 @@ function ProjectSingleSelectTalent() {
                           motivation={candidacy?.user_motivation}
                           candidacy={candidacy}
                           updateCandidacy={updateCandidacy}
+                          refresh={refresh}
+                          setRefresh={setRefresh}
                         />
                       </Grid>
                     );
@@ -213,7 +227,12 @@ function ProjectSingleSelectTalent() {
                       return us.id === candidacy.user_id;
                     });
                     return (
-                      <Grid item xs={12} md={6} key={candidacy.id}>
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        key={`${user?.id}-${candidacy.id}`}
+                      >
                         <TalentCard
                           key={user?.id}
                           userId={user?.id}
@@ -226,6 +245,8 @@ function ProjectSingleSelectTalent() {
                           motivation={candidacy?.user_motivation}
                           candidacy={candidacy}
                           updateCandidacy={updateCandidacy}
+                          refresh={refresh}
+                          setRefresh={setRefresh}
                         />
                       </Grid>
                     );

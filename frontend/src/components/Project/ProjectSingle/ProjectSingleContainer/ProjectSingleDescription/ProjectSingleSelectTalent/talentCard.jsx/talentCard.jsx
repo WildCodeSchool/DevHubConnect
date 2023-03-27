@@ -14,6 +14,8 @@ export default function TalentCard({
   status,
   candidacy,
   updateCandidacy,
+  refresh,
+  setRefresh,
 }) {
   return (
     <Paper
@@ -82,6 +84,7 @@ export default function TalentCard({
                   size="small"
                   onClick={() => {
                     updateCandidacy(candidacy, 2);
+                    setRefresh(!refresh);
                   }}
                 >
                   Validé
@@ -92,6 +95,7 @@ export default function TalentCard({
                   size="small"
                   onClick={() => {
                     updateCandidacy(candidacy, 3);
+                    setRefresh(!refresh);
                   }}
                 >
                   Non Retenu
@@ -117,6 +121,8 @@ TalentCard.propTypes = {
   status: PropTypes.number,
   candidacy: PropTypes.objectOf(PropTypes.number),
   updateCandidacy: PropTypes.func,
+  refresh: PropTypes.bool,
+  setRefresh: PropTypes.func,
 };
 
 TalentCard.defaultProps = {
@@ -129,4 +135,6 @@ TalentCard.defaultProps = {
   status: null,
   candidacy: {},
   updateCandidacy: () => {},
+  refresh: false,
+  setRefresh: () => {},
 };
