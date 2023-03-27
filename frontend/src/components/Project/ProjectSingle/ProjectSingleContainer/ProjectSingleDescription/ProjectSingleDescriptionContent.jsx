@@ -8,6 +8,8 @@ import {
   Grid,
   CardMedia,
   Link,
+  Modal,
+  Button,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import UserDashboardUserInfo from "../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
@@ -20,6 +22,9 @@ export default function ProjectSingleDescriptionContent({
   id,
   creatorId,
 }) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const lignes = projectDescription.split("\n");
   const userId = parseInt(localStorage.getItem("userId"), 10);
 
@@ -133,26 +138,55 @@ export default function ProjectSingleDescriptionContent({
             />
           </Paper>
           {userId && userId === id ? (
-            <Stack
-              direction="row"
-              display="flex"
-              justifyContent="center"
-              alignItems="flex-start"
-              spacing={2}
+            <Paper
+              elevation={2}
               sx={{
-                p: 2,
+                color: "UserSetting.color",
+                p: 3,
+                backgroundColor: "UserSetting.Background",
+                mb: 3,
               }}
-              flexWrap="wrap"
             >
-              <Typography
-                component="div"
-                variant="Body2"
-                sx={{ pb: 2, textAlign: "center" }}
+              <Stack
+                direction="row"
+                display="flex"
+                justifyContent="center"
+                alignItems="flex-start"
+                spacing={2}
+                sx={{
+                  p: 2,
+                }}
               >
-                ILS ONT POSTULE
-              </Typography>
-              <ProjectSingleSelectTalent />
-            </Stack>
+                <Button onClick={handleOpen}>VOTRE EQUIPE</Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  sx={{ overflow: "scroll" }}
+                >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: "65%",
+                      height: "70%",
+                      bgcolor: "background.paper",
+                      border: "2px solid #000",
+                      boxShadow: 24,
+                      pt: 2,
+                      px: 4,
+                      pb: 3,
+                    }}
+                  >
+                    <Button onClick={handleClose}>Close</Button>
+                    <ProjectSingleSelectTalent />
+                  </Box>
+                </Modal>
+              </Stack>
+            </Paper>
           ) : (
             ""
           )}
