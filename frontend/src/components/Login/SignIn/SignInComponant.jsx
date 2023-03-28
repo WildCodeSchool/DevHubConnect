@@ -67,6 +67,7 @@ export default function Login() {
   if (tokenIsValid) {
     if (toggle) {
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
     } else {
       navigate("/dashboard");
     }

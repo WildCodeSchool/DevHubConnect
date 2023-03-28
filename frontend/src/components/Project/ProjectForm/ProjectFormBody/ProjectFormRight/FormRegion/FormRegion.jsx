@@ -34,7 +34,6 @@ export default function FormRegion({ selectedRegion, setSelectedRegion }) {
   const handleRegionChange = (event) => {
     setSelectedRegion(event.target.value);
   };
-
   return (
     <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
       <FormControl sx={{ m: 0, mt: 2, width: "100%" }}>
@@ -44,10 +43,12 @@ export default function FormRegion({ selectedRegion, setSelectedRegion }) {
           value={selectedRegion}
           onChange={handleRegionChange}
           input={<OutlinedInput label="Choisir" />}
-          defaultValue=""
         >
           {regionListing.map((region) => (
-            <option key={region.id} value={region.id}>
+            <option
+              key={`${region.region_name}-${region.id}`}
+              value={region.id}
+            >
               {region.region_name}
             </option>
           ))}
@@ -58,8 +59,8 @@ export default function FormRegion({ selectedRegion, setSelectedRegion }) {
 }
 
 FormRegion.propTypes = {
-  selectedRegion: PropTypes.number,
-  setSelectedRegion: PropTypes.number,
+  selectedRegion: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  setSelectedRegion: PropTypes.func,
 };
 
 FormRegion.defaultProps = {
