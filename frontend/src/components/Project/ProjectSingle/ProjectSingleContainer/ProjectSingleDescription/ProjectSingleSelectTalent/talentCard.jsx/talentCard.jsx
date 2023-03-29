@@ -27,6 +27,7 @@ export default function TalentCard({
         },
         borderLeft: 6,
         borderColor: "UserProjectCard.Completed",
+        minHeight: "13rem",
       }}
     >
       <Box sx={{ flexGrow: 1 }}>
@@ -67,7 +68,11 @@ export default function TalentCard({
               <Typography component="div" variant="h2">
                 {firstName} {lastName}
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography
+                variant="body1"
+                gutterBottom
+                sx={{ minHeight: "5rem" }}
+              >
                 {motivation}
               </Typography>
             </Stack>

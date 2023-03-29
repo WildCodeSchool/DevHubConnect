@@ -47,7 +47,7 @@ function TalentSelectJob({ currentSelectedJobs, setSelectedJobs }) {
   };
 
   return (
-    <FormControl sx={{ width: "100%" }}>
+    <FormControl sx={{ width: "100%", mt: "1rem", mb: "1rem" }}>
       <InputLabel id="demo-multiple-checkbox-label">Métiers</InputLabel>
       <Select
         labelId="demo-multiple-checkbox-label"

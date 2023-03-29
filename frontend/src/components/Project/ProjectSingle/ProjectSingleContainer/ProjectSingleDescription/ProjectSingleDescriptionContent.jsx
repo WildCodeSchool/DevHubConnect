@@ -145,6 +145,7 @@ export default function ProjectSingleDescriptionContent({
                 p: 3,
                 backgroundColor: "UserSetting.Background",
                 mb: 3,
+                mt: 4,
               }}
             >
               <Stack
@@ -163,7 +164,6 @@ export default function ProjectSingleDescriptionContent({
                   onClose={handleClose}
                   aria-labelledby="modal-modal-title"
                   aria-describedby="modal-modal-description"
-                  sx={{ overflow: "scroll" }}
                 >
                   <Box
                     sx={{
@@ -179,6 +179,9 @@ export default function ProjectSingleDescriptionContent({
                       pt: 2,
                       px: 4,
                       pb: 3,
+                      msOverflowY: "auto",
+                      maxHeight: "80%",
+                      overflow: "scroll",
                     }}
                   >
                     <Button onClick={handleClose}>Close</Button>
