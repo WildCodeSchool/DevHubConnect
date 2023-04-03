@@ -19,7 +19,7 @@ export default function TalentCard({
         <CardContent>
           <Stack alignItems="center" direction="column">
             <Stack
-              direction={{ xs: "row", sm: "column", md: "column" }}
+              direction={{ xs: "column", sm: "column", md: "column" }}
               justifyContent="center"
               alignItems="center"
               spacing={2}
@@ -31,8 +31,8 @@ export default function TalentCard({
                 lastname={lastname}
                 id={id}
               />
+              <TalentCardDescription biography={biography} />
             </Stack>
-            <TalentCardDescription biography={biography} />
           </Stack>
         </CardContent>
       </Card>

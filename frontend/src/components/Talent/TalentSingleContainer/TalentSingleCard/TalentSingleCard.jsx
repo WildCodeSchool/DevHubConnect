@@ -38,8 +38,8 @@ function TalentSingleCard({ avatar, firstName, lastName, bio, job }) {
           />
           <Stack
             direction="column"
-            justifyContent="flex-start"
-            alignItems="flex-start"
+            justifyContent={{ xs: "center", sm: "center", md: "flex-start" }}
+            alignItems={{ xs: "center", sm: "center", md: "flex-start" }}
             spacing={0.5}
             sx={{ width: "100%" }}
           >

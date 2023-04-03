@@ -64,7 +64,11 @@ function TalentPortofolioGallery({ id }) {
     >
       {projects.map((project, index) => {
         return (
-          <Card sx={{ maxWidth: "30%" }} index={index} key={project?.id}>
+          <Card
+            sx={{ maxWidth: { xs: "100%", sm: "100%", md: "30%" } }}
+            index={index}
+            key={project?.id}
+          >
             <Link href={`/project/${project.id}`} underline="none">
               <Paper
                 elevation={2}

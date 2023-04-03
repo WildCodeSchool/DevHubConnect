@@ -27,7 +27,6 @@ export default function SignUpSkills() {
   const [skillList, setSkillList] = useState([]);
 
   // requête pour récupérer la liste de skills
-  // requête pour récupérer la liste de skills
   const getSkillList = () => {
     axios
       .get("http://localhost:5007/skills", {

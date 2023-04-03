@@ -4,7 +4,13 @@ import PropTypes from "prop-types";
 
 export default function TalentCardDescription({ biography }) {
   return (
-    <Typography gutterBottom variant="body1" color="text.secondary" width={200}>
+    <Typography
+      align="center"
+      gutterBottom
+      variant="body1"
+      color="text.secondary"
+      minHeight="3rem"
+    >
       {biography}
     </Typography>
   );

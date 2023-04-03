@@ -8,17 +8,25 @@ import {
   Grid,
   CardMedia,
   Link,
+  Modal,
+  Button,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import UserDashboardUserInfo from "../../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
+import UserDashboardUserInfo from "../../../../User/UserDashboard/UserDashboardContent/UserDashboardUserInfo/UserDashboardUserInfo";
+import ProjectSingleSelectTalent from "./ProjectSingleSelectTalent/ProjectSingleSelectTalent";
 
 export default function ProjectSingleDescriptionContent({
   projectDescription,
   skillName,
   projectImage,
+  id,
   creatorId,
 }) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const lignes = projectDescription.split("\n");
+  const userId = parseInt(localStorage.getItem("userId"), 10);
 
   return (
     <Box sx={{ flexGrow: 1, padding: 3 }}>
@@ -87,7 +95,7 @@ export default function ProjectSingleDescriptionContent({
             <Typography
               component="div"
               variant="Body2"
-              sx={{ pb: 2, textAlign: "center" }}
+              sx={{ color: "UserSetting.color", pb: 2, textAlign: "center" }}
             >
               COMPETENCES
             </Typography>
@@ -105,6 +113,7 @@ export default function ProjectSingleDescriptionContent({
               {skillName.map((skill, index) => {
                 return (
                   <Chip
+                    key={skill}
                     label={skill}
                     index={index}
                     size="small"
@@ -128,6 +137,62 @@ export default function ProjectSingleDescriptionContent({
               image={`../../../../../src/assets/projects-img/${projectImage}`}
             />
           </Paper>
+          {userId && userId === id ? (
+            <Paper
+              elevation={2}
+              sx={{
+                color: "UserSetting.color",
+                p: 3,
+                backgroundColor: "UserSetting.Background",
+                mb: 3,
+                mt: 4,
+              }}
+            >
+              <Stack
+                direction="row"
+                display="flex"
+                justifyContent="center"
+                alignItems="flex-start"
+                spacing={2}
+                sx={{
+                  p: 2,
+                }}
+              >
+                <Button onClick={handleOpen}>VOTRE EQUIPE</Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: "65%",
+                      height: "70%",
+                      bgcolor: "background.paper",
+                      border: "2px solid #000",
+                      boxShadow: 24,
+                      pt: 2,
+                      px: 4,
+                      pb: 3,
+                      msOverflowY: "auto",
+                      maxHeight: "80%",
+                      overflow: "scroll",
+                    }}
+                  >
+                    <Button onClick={handleClose}>Close</Button>
+                    <ProjectSingleSelectTalent />
+                  </Box>
+                </Modal>
+              </Stack>
+            </Paper>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
     </Box>
@@ -138,6 +203,7 @@ ProjectSingleDescriptionContent.propTypes = {
   projectDescription: PropTypes.string,
   skillName: PropTypes.string,
   projectImage: PropTypes.string,
+  id: PropTypes.number,
   creatorId: PropTypes.number,
 };
 
@@ -145,5 +211,6 @@ ProjectSingleDescriptionContent.defaultProps = {
   projectDescription: "",
   skillName: "",
   projectImage: "",
+  id: null,
   creatorId: null,
 };
