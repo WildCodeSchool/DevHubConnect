@@ -17,12 +17,16 @@ function ProjectFormRight({
   formSkills,
   setFormSkills,
   handleSubmitSave,
+  erreurForm,
+  setErreurForm,
 }) {
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       <FormRegion
         selectedRegion={selectedRegion}
         setSelectedRegion={setSelectedRegion}
+        erreurForm={erreurForm}
+        setErreurForm={setErreurForm}
       />
       <FormDownloads />
       <FormDates
@@ -30,9 +34,20 @@ function ProjectFormRight({
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
+        erreurForm={erreurForm}
+        setErreurForm={setErreurForm}
       />
-      <FormSkills formSkills={formSkills} setFormSkills={setFormSkills} />
-      <FormSave handleSubmitSave={handleSubmitSave} />
+      <FormSkills
+        formSkills={formSkills}
+        setFormSkills={setFormSkills}
+        erreurForm={erreurForm}
+        setErreurForm={setErreurForm}
+      />
+      <FormSave
+        handleSubmitSave={handleSubmitSave}
+        erreurForm={erreurForm}
+        setErreurForm={setErreurForm}
+      />
     </Stack>
   );
 }
@@ -49,6 +64,8 @@ ProjectFormRight.propTypes = {
   formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
   handleSubmitSave: PropTypes.func,
+  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.arrayOf(PropTypes.string),
 };
 
 ProjectFormRight.defaultProps = {
@@ -61,5 +78,7 @@ ProjectFormRight.defaultProps = {
   formSkills: {},
   setFormSkills: "",
   handleSubmitSave: "",
+  erreurForm: {},
+  setErreurForm: {},
 };
 export default ProjectFormRight;

@@ -9,6 +9,8 @@ export default function ProjectFormLeft({
   setAboutProject,
   projectDescription,
   setProjectDescription,
+  erreurForm,
+  setErreurForm,
 }) {
   return (
     <ProjectFormTexts
@@ -18,6 +20,8 @@ export default function ProjectFormLeft({
       setAboutProject={setAboutProject}
       projectDescription={projectDescription}
       setProjectDescription={setProjectDescription}
+      erreurForm={erreurForm}
+      setErreurForm={setErreurForm}
     />
   );
 }
@@ -29,6 +33,8 @@ ProjectFormLeft.propTypes = {
   setAboutProject: PropTypes.func,
   projectDescription: PropTypes.string,
   setProjectDescription: PropTypes.func,
+  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.arrayOf(PropTypes.string),
 };
 
 ProjectFormLeft.defaultProps = {
@@ -38,4 +44,6 @@ ProjectFormLeft.defaultProps = {
   setAboutProject: "",
   projectDescription: "",
   setProjectDescription: "",
+  erreurForm: {},
+  setErreurForm: {},
 };

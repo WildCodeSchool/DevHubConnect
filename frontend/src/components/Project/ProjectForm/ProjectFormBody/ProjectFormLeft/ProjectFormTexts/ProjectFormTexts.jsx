@@ -10,16 +10,20 @@ export default function ProjectFormTexts({
   setAboutProject,
   projectDescription,
   setProjectDescription,
+  erreurForm,
+  setErreurForm,
 }) {
   const handleProjectTitleChange = (event) => {
     event.preventDefault();
     if (event.target.value.length <= 60) {
+      setErreurForm([]);
       setProjectTitle(event.target.value);
     }
   };
   const handleAboutProjectChange = (event) => {
     event.preventDefault();
     if (event.target.value.length <= 150) {
+      setErreurForm([]);
       setAboutProject(event.target.value);
     }
   };
@@ -27,9 +31,17 @@ export default function ProjectFormTexts({
   const handleDescriptionProjecteChange = (event) => {
     event.preventDefault();
     if (event.target.value.length <= 2000) {
+      setErreurForm([]);
       setProjectDescription(event.target.value);
     }
   };
+
+  const erreurTitle = erreurForm.filter((obj) => obj.field === "project_name");
+  const erreurAbout = erreurForm.filter((obj) => obj.field === "project_about");
+  const erreurDescription = erreurForm.filter(
+    (obj) => obj.field === "project_description"
+  );
+
   return (
     <FormControl sx={{ m: 0, width: "100%" }}>
       <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
@@ -41,6 +53,9 @@ export default function ProjectFormTexts({
           value={projectTitle}
           onChange={handleProjectTitleChange}
           sx={{ mt: 2 }}
+          error={Boolean(erreurTitle[0]?.message)}
+          helperText={erreurTitle[0]?.message ? erreurTitle[0]?.message : ""}
+          style={{ color: erreurTitle[0]?.message ? "red" : "" }}
         />
       </Paper>
       <Paper elevation={2} sx={{ mt: 2, p: 2 }}>
@@ -54,6 +69,9 @@ export default function ProjectFormTexts({
           value={aboutProject}
           onChange={handleAboutProjectChange}
           sx={{ mt: 2 }}
+          error={Boolean(erreurAbout[0]?.message)}
+          helperText={erreurAbout[0]?.message ? erreurAbout[0]?.message : ""}
+          style={{ color: erreurAbout[0]?.message ? "red" : "" }}
         />
       </Paper>
       <Paper elevation={2} sx={{ mt: 2, p: 2 }}>
@@ -67,6 +85,11 @@ export default function ProjectFormTexts({
           value={projectDescription}
           onChange={handleDescriptionProjecteChange}
           sx={{ mt: 2 }}
+          error={Boolean(erreurDescription[0]?.message)}
+          helperText={
+            erreurDescription[0]?.message ? erreurDescription[0]?.message : ""
+          }
+          style={{ color: erreurDescription[0]?.message ? "red" : "" }}
         />
       </Paper>
     </FormControl>
@@ -80,6 +103,8 @@ ProjectFormTexts.propTypes = {
   setAboutProject: PropTypes.func,
   projectDescription: PropTypes.string,
   setProjectDescription: PropTypes.func,
+  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.arrayOf(PropTypes.string),
 };
 
 ProjectFormTexts.defaultProps = {
@@ -89,4 +114,6 @@ ProjectFormTexts.defaultProps = {
   setAboutProject: "",
   projectDescription: "",
   setProjectDescription: "",
+  erreurForm: {},
+  setErreurForm: {},
 };

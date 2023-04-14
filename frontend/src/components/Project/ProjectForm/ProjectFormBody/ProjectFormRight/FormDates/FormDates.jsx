@@ -5,17 +5,26 @@ import Stack from "@mui/material/Stack";
 import { Paper, FormControl } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-function FormDates({ setStartDate, setEndDate }) {
+function FormDates({ setStartDate, setEndDate, erreurForm, setErreurForm }) {
   const [startDateLocal, setStartDateLocal] = useState("");
   const [endDateLocal, setEndDateLocal] = useState("");
   const handleStartDate = (newDate) => {
+    setErreurForm([]);
     setStartDate(format(new Date(newDate), "yyyy-MM-dd HH:mm:ss"));
     setStartDateLocal(newDate);
   };
   const handleEndtDate = (newDate) => {
+    setErreurForm([]);
     setEndDate(format(new Date(newDate), "yyyy-MM-dd HH:mm:ss"));
     setEndDateLocal(newDate);
   };
+  const erreurStartDate = erreurForm.filter(
+    (obj) => obj.field === "project_start_date"
+  );
+  const erreurEndDate = erreurForm.filter(
+    (obj) => obj.field === "project_end_date"
+  );
+
   return (
     <FormControl>
       <Stack flexGrow={1} alignItems="center">
@@ -26,12 +35,24 @@ function FormDates({ setStartDate, setEndDate }) {
               format="dd/MM/yyyy"
               value={startDateLocal}
               onChange={handleStartDate}
+              slotProps={{
+                textField: {
+                  error: Boolean(erreurStartDate[0]?.message),
+                  helperText: erreurStartDate[0]?.message,
+                },
+              }}
             />
             <DatePicker
               label="Date de fin"
               format="dd/MM/yyyy"
               value={endDateLocal}
               onChange={handleEndtDate}
+              slotProps={{
+                textField: {
+                  error: Boolean(erreurEndDate[0]?.message),
+                  helperText: erreurEndDate[0]?.message,
+                },
+              }}
             />
           </Stack>
         </Paper>
@@ -40,17 +61,17 @@ function FormDates({ setStartDate, setEndDate }) {
   );
 }
 FormDates.propTypes = {
-  // startDate: PropTypes.instanceOf(Date),
   setStartDate: PropTypes.func,
-  // endDate: PropTypes.instanceOf(Date),
   setEndDate: PropTypes.func,
+  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.arrayOf(PropTypes.string),
 };
 
 FormDates.defaultProps = {
-  // startDate: "",
   setStartDate: "",
-  // endDate: "",
   setEndDate: "",
+  erreurForm: {},
+  setErreurForm: {},
 };
 
 export default FormDates;

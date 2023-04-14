@@ -21,6 +21,8 @@ export default function ProjectFormBody({
   formSkills,
   setFormSkills,
   handleSubmitSave,
+  erreurForm,
+  setErreurForm,
 }) {
   return (
     <Stack
@@ -37,6 +39,8 @@ export default function ProjectFormBody({
             setAboutProject={setAboutProject}
             projectDescription={projectDescription}
             setProjectDescription={setProjectDescription}
+            erreurForm={erreurForm}
+            setErreurForm={setErreurForm}
           />
         </Stack>
       </Box>
@@ -52,6 +56,8 @@ export default function ProjectFormBody({
             formSkills={formSkills}
             setFormSkills={setFormSkills}
             handleSubmitSave={handleSubmitSave}
+            erreurForm={erreurForm}
+            setErreurForm={setErreurForm}
           />
         </Stack>
       </Box>
@@ -78,6 +84,8 @@ ProjectFormBody.propTypes = {
   formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
   handleSubmitSave: PropTypes.func,
+  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.arrayOf(PropTypes.string),
 };
 
 ProjectFormBody.defaultProps = {
@@ -96,4 +104,6 @@ ProjectFormBody.defaultProps = {
   formSkills: {},
   setFormSkills: "",
   handleSubmitSave: "",
+  erreurForm: {},
+  setErreurForm: {},
 };

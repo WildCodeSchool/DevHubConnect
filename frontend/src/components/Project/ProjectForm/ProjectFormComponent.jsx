@@ -15,11 +15,11 @@ export default function ProjectFormComponent() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [formSkills, setFormSkills] = useState([]);
-  const [erreur, setErreur] = useState(null);
+  const [setErreur] = useState(null);
+  const [erreurForm, setErreurForm] = useState([]);
   const userId = parseInt(localStorage.getItem("userId"), 10);
 
   const navigate = useNavigate();
-
   const projectFormData = {
     project_name: projectTitle,
     project_start_date: startDate,
@@ -50,9 +50,9 @@ export default function ProjectFormComponent() {
         })
         .catch((error) => {
           // Traitement de l'erreur
-          setErreur(error.message);
-          console.info(erreur);
-          if (error.response && error.response.status === 401) {
+          setErreur(error?.message);
+          setErreurForm(error.response.data.validationErrors);
+          if (error.response && error.response?.status === 401) {
             navigate("/login"); // Redirection vers le login si status 401 pas d'autorisation
           }
         });
@@ -65,13 +65,6 @@ export default function ProjectFormComponent() {
         aboutProject={aboutProject}
       />
       <ProjectFormToggle checked={checked} setChecked={setChecked} />
-      <Stack direction="row" justifyContent="center" spacing={2}>
-        {erreur && (
-          <p style={{ color: "red" }}>
-            Tous les champs doivent être renseignés
-          </p>
-        )}
-      </Stack>
       <ProjectFormBody
         projectTitle={projectTitle}
         setProjectTitle={setProjectTitle}
@@ -88,14 +81,9 @@ export default function ProjectFormComponent() {
         formSkills={formSkills}
         setFormSkills={setFormSkills}
         handleSubmitSave={handleSubmitSave}
+        erreurForm={erreurForm}
+        setErreurForm={setErreurForm}
       />
-      <Stack direction="row" justifyContent="center" spacing={2}>
-        {erreur && (
-          <p style={{ color: "red" }}>
-            Tous les champs doivent être renseignés
-          </p>
-        )}
-      </Stack>
     </Stack>
   );
 }

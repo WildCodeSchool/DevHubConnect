@@ -34,10 +34,9 @@ const validateLoginForm = (req, res, next) => {
   }
 };
 // -------------------------------------------------------------------------
+// désactivation provisoire le camelcase de eslint pour traiter les tables mysql dans le middleware
 /* eslint-disable camelcase */
 const validateProjectForm = (req, res, next) => {
-  // désactivation provisoire le camelcase de eslint pour traiter les tables mysql dans le middleware
-
   const {
     project_name,
     project_start_date,
@@ -64,14 +63,22 @@ const validateProjectForm = (req, res, next) => {
     });
   }
   // project_start_date----------------------
-  if (!project_start_date?.length || project_start_date == null) {
+  if (
+    !project_start_date?.length ||
+    project_start_date == null ||
+    project_start_date === "1970-01-01 01:00:00"
+  ) {
     errors.push({
       field: "project_start_date",
       message: "Cette date est obligatoire",
     });
   }
   // project_end_date----------------------
-  if (!project_end_date?.length || project_end_date == null) {
+  if (
+    !project_end_date?.length ||
+    project_end_date == null ||
+    project_end_date === "1970-01-01 01:00:00"
+  ) {
     errors.push({
       field: "project_end_date",
       message: "Cette date est obligatoire",

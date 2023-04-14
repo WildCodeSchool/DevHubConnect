@@ -9,9 +9,15 @@ import {
   Checkbox,
   Paper,
   Stack,
+  FormHelperText,
 } from "@mui/material";
 
-export default function FormSkills({ formSkills, setFormSkills }) {
+export default function FormSkills({
+  formSkills,
+  setFormSkills,
+  erreurForm,
+  setErreurForm,
+}) {
   const [skillList, setSkillList] = useState([]);
 
   // requête pour récupérer la liste de skills
@@ -33,6 +39,7 @@ export default function FormSkills({ formSkills, setFormSkills }) {
   }, []);
 
   const handleSkillChange = (event) => {
+    setErreurForm([]);
     if (event.target.checked) {
       formSkills.push(parseInt(event.target.value, 10));
     } else {
@@ -43,9 +50,15 @@ export default function FormSkills({ formSkills, setFormSkills }) {
     }
     setFormSkills([...new Set(formSkills)]);
   };
+  const erreurSkill = erreurForm.filter((obj) => obj.field === "skillIds");
   return (
     <Paper elevation={2} sx={{ p: 2 }}>
-      <FormControl component="fieldset" variant="standard">
+      <FormControl
+        component="fieldset"
+        variant="standard"
+        // Contrôle de validation
+        error={Boolean(erreurSkill[0]?.message)}
+      >
         <Stack justifyContent="center" alignItems="center" spacing={2}>
           <FormLabel component="legend">Selectionnez vos Compétences</FormLabel>
           <FormGroup
@@ -78,6 +91,8 @@ export default function FormSkills({ formSkills, setFormSkills }) {
             })}
           </FormGroup>
         </Stack>
+        {/* Message d'erreur */}
+        <FormHelperText>{erreurSkill[0]?.message}</FormHelperText>
       </FormControl>
     </Paper>
   );
@@ -86,9 +101,13 @@ export default function FormSkills({ formSkills, setFormSkills }) {
 FormSkills.propTypes = {
   formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
+  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.arrayOf(PropTypes.string),
 };
 
 FormSkills.defaultProps = {
   formSkills: {},
   setFormSkills: "",
+  erreurForm: {},
+  setErreurForm: {},
 };
