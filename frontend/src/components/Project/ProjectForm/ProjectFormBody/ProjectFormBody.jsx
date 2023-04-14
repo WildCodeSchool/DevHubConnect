@@ -85,7 +85,7 @@ ProjectFormBody.propTypes = {
   setFormSkills: PropTypes.func,
   handleSubmitSave: PropTypes.func,
   erreurForm: PropTypes.arrayOf(PropTypes.string),
-  setErreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.func,
 };
 
 ProjectFormBody.defaultProps = {

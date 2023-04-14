@@ -64,7 +64,7 @@ FormDates.propTypes = {
   setStartDate: PropTypes.func,
   setEndDate: PropTypes.func,
   erreurForm: PropTypes.arrayOf(PropTypes.string),
-  setErreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.func,
 };
 
 FormDates.defaultProps = {

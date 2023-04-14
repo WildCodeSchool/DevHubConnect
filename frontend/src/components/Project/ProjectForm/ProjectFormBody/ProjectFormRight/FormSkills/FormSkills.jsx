@@ -102,7 +102,7 @@ FormSkills.propTypes = {
   formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
   erreurForm: PropTypes.arrayOf(PropTypes.string),
-  setErreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.func,
 };
 
 FormSkills.defaultProps = {

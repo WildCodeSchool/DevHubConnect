@@ -73,7 +73,7 @@ FormRegion.propTypes = {
   selectedRegion: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   setSelectedRegion: PropTypes.func,
   erreurForm: PropTypes.arrayOf(PropTypes.string),
-  setErreurForm: PropTypes.arrayOf(PropTypes.string),
+  setErreurForm: PropTypes.func,
 };
 
 FormRegion.defaultProps = {
