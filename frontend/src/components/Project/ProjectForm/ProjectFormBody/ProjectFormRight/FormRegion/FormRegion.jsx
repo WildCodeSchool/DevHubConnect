@@ -72,13 +72,13 @@ export default function FormRegion({
 FormRegion.propTypes = {
   selectedRegion: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   setSelectedRegion: PropTypes.func,
-  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
 };
 
 FormRegion.defaultProps = {
   selectedRegion: "",
   setSelectedRegion: "",
-  erreurForm: {},
-  setErreurForm: {},
+  erreurForm: [],
+  setErreurForm: "",
 };

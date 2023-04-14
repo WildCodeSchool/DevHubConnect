@@ -101,13 +101,13 @@ export default function FormSkills({
 FormSkills.propTypes = {
   formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
-  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
 };
 
 FormSkills.defaultProps = {
   formSkills: {},
   setFormSkills: "",
-  erreurForm: {},
-  setErreurForm: {},
+  erreurForm: [],
+  setErreurForm: "",
 };

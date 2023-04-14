@@ -64,7 +64,7 @@ ProjectFormRight.propTypes = {
   formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
   handleSubmitSave: PropTypes.func,
-  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
 };
 
@@ -78,7 +78,7 @@ ProjectFormRight.defaultProps = {
   formSkills: {},
   setFormSkills: "",
   handleSubmitSave: "",
-  erreurForm: {},
-  setErreurForm: {},
+  erreurForm: [],
+  setErreurForm: "",
 };
 export default ProjectFormRight;

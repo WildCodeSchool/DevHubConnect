@@ -103,7 +103,7 @@ ProjectFormTexts.propTypes = {
   setAboutProject: PropTypes.func,
   projectDescription: PropTypes.string,
   setProjectDescription: PropTypes.func,
-  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
 };
 
@@ -114,6 +114,6 @@ ProjectFormTexts.defaultProps = {
   setAboutProject: "",
   projectDescription: "",
   setProjectDescription: "",
-  erreurForm: {},
-  setErreurForm: {},
+  erreurForm: [],
+  setErreurForm: "",
 };

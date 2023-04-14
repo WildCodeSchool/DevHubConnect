@@ -15,7 +15,7 @@ export default function ProjectFormComponent() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [formSkills, setFormSkills] = useState([]);
-  const [setErreur] = useState(null);
+  const [erreur, setErreur] = useState(null);
   const [erreurForm, setErreurForm] = useState([]);
   const userId = parseInt(localStorage.getItem("userId"), 10);
 
@@ -50,7 +50,7 @@ export default function ProjectFormComponent() {
         })
         .catch((error) => {
           // Traitement de l'erreur
-          setErreur(error?.message);
+          setErreur(error.message);
           setErreurForm(error.response.data.validationErrors);
           if (error.response && error.response?.status === 401) {
             navigate("/login"); // Redirection vers le login si status 401 pas d'autorisation
@@ -80,6 +80,7 @@ export default function ProjectFormComponent() {
         setSelectedRegion={setSelectedRegion}
         formSkills={formSkills}
         setFormSkills={setFormSkills}
+        erreur={erreur}
         handleSubmitSave={handleSubmitSave}
         erreurForm={erreurForm}
         setErreurForm={setErreurForm}

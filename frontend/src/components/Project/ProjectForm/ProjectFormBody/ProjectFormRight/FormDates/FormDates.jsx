@@ -63,15 +63,15 @@ function FormDates({ setStartDate, setEndDate, erreurForm, setErreurForm }) {
 FormDates.propTypes = {
   setStartDate: PropTypes.func,
   setEndDate: PropTypes.func,
-  erreurForm: PropTypes.arrayOf(PropTypes.string),
+  erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
 };
 
 FormDates.defaultProps = {
   setStartDate: "",
   setEndDate: "",
-  erreurForm: {},
-  setErreurForm: {},
+  erreurForm: [],
+  setErreurForm: "",
 };
 
 export default FormDates;

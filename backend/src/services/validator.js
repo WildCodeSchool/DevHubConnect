@@ -130,7 +130,7 @@ const validateProjectForm = (req, res, next) => {
       message: "Le choix d'une compétence est obligatoire",
     });
   }
-  console.error(errors);
+  // console.error(errors);
   if (errors.length) {
     res.status(422).json({ validationErrors: errors });
   } else {
