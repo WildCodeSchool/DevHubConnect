@@ -133,6 +133,13 @@ router.put("/projects/:id", projectControllers.edit);
 router.post("/projects", validateProjectForm, projectControllers.add);
 router.delete("/projects/:id", projectControllers.destroy);
 
+// upload
+
+const multer = require("./services/multer-config");
+const fileUploaded = require("./services/nameFileUpload");
+
+router.post("/uploadImage/", multer, fileUploaded);
+
 // skills
 
 router.get("/skills/:id", skillControllers.read);

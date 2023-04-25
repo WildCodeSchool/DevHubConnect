@@ -19,6 +19,7 @@ function ProjectFormRight({
   handleSubmitSave,
   erreurForm,
   setErreurForm,
+  setProjectImg,
 }) {
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
@@ -28,7 +29,7 @@ function ProjectFormRight({
         erreurForm={erreurForm}
         setErreurForm={setErreurForm}
       />
-      <FormDownloads />
+      <FormDownloads setProjectImg={setProjectImg} />
       <FormDates
         startDate={startDate}
         setStartDate={setStartDate}
@@ -66,6 +67,8 @@ ProjectFormRight.propTypes = {
   handleSubmitSave: PropTypes.func,
   erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
+  setProjectImg: PropTypes.func,
+  // projectImg: PropTypes.string,
 };
 
 ProjectFormRight.defaultProps = {
@@ -80,5 +83,7 @@ ProjectFormRight.defaultProps = {
   handleSubmitSave: "",
   erreurForm: [],
   setErreurForm: "",
+  setProjectImg: "",
+  // projectImg: "",
 };
 export default ProjectFormRight;

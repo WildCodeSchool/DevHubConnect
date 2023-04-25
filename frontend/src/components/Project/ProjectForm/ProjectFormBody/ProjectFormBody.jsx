@@ -23,6 +23,7 @@ export default function ProjectFormBody({
   handleSubmitSave,
   erreurForm,
   setErreurForm,
+  setProjectImg,
 }) {
   return (
     <Stack
@@ -58,6 +59,7 @@ export default function ProjectFormBody({
             handleSubmitSave={handleSubmitSave}
             erreurForm={erreurForm}
             setErreurForm={setErreurForm}
+            setProjectImg={setProjectImg}
           />
         </Stack>
       </Box>
@@ -86,6 +88,7 @@ ProjectFormBody.propTypes = {
   handleSubmitSave: PropTypes.func,
   erreurForm: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
   setErreurForm: PropTypes.func,
+  setProjectImg: PropTypes.func,
 };
 
 ProjectFormBody.defaultProps = {
@@ -106,4 +109,5 @@ ProjectFormBody.defaultProps = {
   handleSubmitSave: "",
   erreurForm: [],
   setErreurForm: "",
+  setProjectImg: "",
 };

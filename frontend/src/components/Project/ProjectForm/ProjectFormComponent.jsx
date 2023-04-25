@@ -17,8 +17,8 @@ export default function ProjectFormComponent() {
   const [formSkills, setFormSkills] = useState([]);
   const [erreur, setErreur] = useState(null);
   const [erreurForm, setErreurForm] = useState([]);
+  const [projectImg, setProjectImg] = useState("yourProjectImg.jpg");
   const userId = parseInt(localStorage.getItem("userId"), 10);
-
   const navigate = useNavigate();
   const projectFormData = {
     project_name: projectTitle,
@@ -28,7 +28,7 @@ export default function ProjectFormComponent() {
     project_description: projectDescription,
     project_state: checked,
     project_remote: "0",
-    project_image: "",
+    project_image: projectImg,
     region_id: selectedRegion,
     creator_id: userId,
     skillIds: formSkills,
@@ -63,6 +63,7 @@ export default function ProjectFormComponent() {
       <ProjectFormHeading
         projectTitle={projectTitle}
         aboutProject={aboutProject}
+        projectImg={projectImg}
       />
       <ProjectFormToggle checked={checked} setChecked={setChecked} />
       <ProjectFormBody
@@ -84,6 +85,7 @@ export default function ProjectFormComponent() {
         handleSubmitSave={handleSubmitSave}
         erreurForm={erreurForm}
         setErreurForm={setErreurForm}
+        setProjectImg={setProjectImg}
       />
     </Stack>
   );
