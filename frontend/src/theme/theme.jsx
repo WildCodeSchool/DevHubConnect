@@ -107,20 +107,12 @@ const palette = {
 };
 
 const typography = {
-  // added missing curly bracket here.
-
   p: { fontSize: 14, color: "#353d42" },
-
   h1: { fontSize: 40, color: "#353d42", lineHeight: 1 },
-
   h2: { fontSize: 28, color: "#5d7280", fontWeight: 300 },
-
   h3: { fontSize: 20, color: "#353d42", fontWeight: 300 },
-
   h4: { fontSize: 18, color: "#A8B30A", fontWeight: 400 },
-
   h5: { fontSize: 18, color: "#027BB9", fontWeight: 400 },
-
   h6: { fontSize: 18, color: "#353d42", fontWeight: 400 },
 
   footer: { fontSize: 12, color: "#7CB7E2" },

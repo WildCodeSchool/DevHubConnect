@@ -180,7 +180,7 @@ function ProjectListingContainer() {
                   projectStartDate={project.project_start_date}
                   projectEndDate={project.project_end_date}
                   regionName={regions}
-                  userImage={userListing ? creatorImage.user_image : ""}
+                  userImage={creatorImage?.user_image || ""}
                 />
               );
             })}

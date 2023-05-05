@@ -43,16 +43,16 @@ export default function Home() {
             <Typography
               gutterBottom
               variant="h1"
-              component="div"
+              component="h1"
               sx={{ color: "#FFF" }}
             >
-              Trouvez votre développeur ou chef de projet parfait dès maintenant
-              !
+              Trouvez votre développeur ou chef de projet parfait dès
+              maintenant!
             </Typography>
             <Typography
               gutterBottom
               variant="body1"
-              component="div"
+              component="article"
               sx={{ color: "#FFF", fontSize: "1.2rem" }}
             >
               Nous savons à quel point il peut être difficile de trouver la
@@ -122,7 +122,7 @@ export default function Home() {
                 <Typography
                   gutterBottom
                   variant="h3"
-                  component="div"
+                  component="h3"
                   sx={{ color: "#B28011" }}
                 >
                   La meilleure façon de trouver votre équipe de développement
@@ -146,7 +146,7 @@ export default function Home() {
                 <Typography
                   gutterBottom
                   variant="h3"
-                  component="div"
+                  component="h3"
                   sx={{ color: "#B28011" }}
                 >
                   Connectez-vous avec les meilleurs talents en développement
@@ -170,7 +170,7 @@ export default function Home() {
                 <Typography
                   gutterBottom
                   variant="h3"
-                  component="div"
+                  component="h3"
                   sx={{ color: "#B28011" }}
                 >
                   Trouvez des développeurs et des chefs de projet de qualité
