@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 export default function TalentCardName({ firstname, lastname, jobName }) {
   return (
-    <Stack direction="column" textAlign={{ xs: "flex-start", md: "center" }}>
+    <Stack direction="column" textAlign="center">
       <Typography gutterBottom variant="body1" color="text.secondary">
         {jobName}
       </Typography>

@@ -18,9 +18,9 @@ function FormDates({ setStartDate, setEndDate }) {
   };
   return (
     <FormControl>
-      <Stack alignItems="center">
-        <Paper elevation={2} sx={{ p: 2 }}>
-          <Stack direction="row" spacing={2}>
+      <Stack flexGrow={1} alignItems="center">
+        <Paper elevation={2} sx={{ p: 2, width: "100%" }}>
+          <Stack direction="row" justifyContent="center" spacing={2}>
             <DatePicker
               label="Date de début"
               format="dd/MM/yyyy"
@@ -41,9 +41,9 @@ function FormDates({ setStartDate, setEndDate }) {
 }
 FormDates.propTypes = {
   // startDate: PropTypes.instanceOf(Date),
-  setStartDate: PropTypes.instanceOf(Date),
+  setStartDate: PropTypes.func,
   // endDate: PropTypes.instanceOf(Date),
-  setEndDate: PropTypes.instanceOf(Date),
+  setEndDate: PropTypes.func,
 };
 
 FormDates.defaultProps = {

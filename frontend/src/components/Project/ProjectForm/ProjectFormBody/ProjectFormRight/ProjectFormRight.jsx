@@ -37,13 +37,16 @@ function ProjectFormRight({
   );
 }
 ProjectFormRight.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]),
   setStartDate: PropTypes.func,
-  endDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   setEndDate: PropTypes.func,
-  selectedRegion: PropTypes.number,
+  selectedRegion: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   setSelectedRegion: PropTypes.func,
-  formSkills: PropTypes.objectOf(PropTypes.number),
+  formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
   handleSubmitSave: PropTypes.func,
 };

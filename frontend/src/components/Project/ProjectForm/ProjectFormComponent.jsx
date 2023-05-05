@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 import ProjectFormHeading from "./ProjectFormHeading/ProjectFormHeading";
 import ProjectFormBody from "./ProjectFormBody/ProjectFormBody";
 import ProjectFormToggle from "./ProjectFormToggle/ProjectFormToggle";
-// import { Info } from "@mui/icons-material";
 
 export default function ProjectFormComponent() {
   const [checked, setChecked] = useState(false);
@@ -15,7 +15,10 @@ export default function ProjectFormComponent() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [formSkills, setFormSkills] = useState([]);
+  const [erreur, setErreur] = useState(null);
   const userId = parseInt(localStorage.getItem("userId"), 10);
+
+  const navigate = useNavigate();
 
   const projectFormData = {
     project_name: projectTitle,
@@ -40,15 +43,21 @@ export default function ProjectFormComponent() {
         .post("http://localhost:5007/projects/", projectFormData, {
           headers: { Authorization: `Bearer ${token}` },
         })
+        .then((response) => {
+          if (response.request.status === 200) {
+            navigate(`/project/${response.data}`); // Redirection vers le projet créé si status 200 creation
+          }
+        })
         .catch((error) => {
           // Traitement de l'erreur
-          console.info(error);
+          setErreur(error.message);
+          console.info(erreur);
+          if (error.response && error.response.status === 401) {
+            navigate("/login"); // Redirection vers le login si status 401 pas d'autorisation
+          }
         });
     }
   };
-
-  console.info(projectFormData);
-
   return (
     <Stack spacing={2}>
       <ProjectFormHeading
@@ -56,6 +65,13 @@ export default function ProjectFormComponent() {
         aboutProject={aboutProject}
       />
       <ProjectFormToggle checked={checked} setChecked={setChecked} />
+      <Stack direction="row" justifyContent="center" spacing={2}>
+        {erreur && (
+          <p style={{ color: "red" }}>
+            Tous les champs doivent être renseignés
+          </p>
+        )}
+      </Stack>
       <ProjectFormBody
         projectTitle={projectTitle}
         setProjectTitle={setProjectTitle}
@@ -73,6 +89,13 @@ export default function ProjectFormComponent() {
         setFormSkills={setFormSkills}
         handleSubmitSave={handleSubmitSave}
       />
+      <Stack direction="row" justifyContent="center" spacing={2}>
+        {erreur && (
+          <p style={{ color: "red" }}>
+            Tous les champs doivent être renseignés
+          </p>
+        )}
+      </Stack>
     </Stack>
   );
 }

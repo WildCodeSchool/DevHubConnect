@@ -94,7 +94,8 @@ const add = (req, res) => {
       )
         .then(() => {
           // réponse HTTP 201 et route du nouveau projet
-          res.location(`/projects/${result.insertId}`).sendStatus(201);
+          // res.location(`/projects/${result.insertId}`).sendStatus(201); // commenté en attendant de pouvoir récupérer location
+          res.send(`${result.insertId}`).status(201);
         })
         .catch((err) => {
           console.error(err);

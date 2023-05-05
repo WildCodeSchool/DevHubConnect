@@ -23,7 +23,11 @@ export default function ProjectFormBody({
   handleSubmitSave,
 }) {
   return (
-    <Stack direction={{ xs: "column", sm: "column", md: "row" }} spacing={2}>
+    <Stack
+      direction={{ xs: "column", sm: "column", md: "row" }}
+      spacing={2}
+      sx={{ flexGrow: 1, px: 3, pb: 3 }}
+    >
       <Box sx={{ width: "100%" }}>
         <Stack alignItems="center">
           <ProjectFormLeft
@@ -62,13 +66,16 @@ ProjectFormBody.propTypes = {
   setAboutProject: PropTypes.func,
   projectDescription: PropTypes.string,
   setProjectDescription: PropTypes.func,
-  startDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.oneOfType([
+    PropTypes.instanceOf(Date),
+    PropTypes.string,
+  ]),
   setStartDate: PropTypes.func,
-  endDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.string]),
   setEndDate: PropTypes.func,
-  selectedRegion: PropTypes.number,
+  selectedRegion: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   setSelectedRegion: PropTypes.func,
-  formSkills: PropTypes.objectOf(PropTypes.number),
+  formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
   handleSubmitSave: PropTypes.func,
 };

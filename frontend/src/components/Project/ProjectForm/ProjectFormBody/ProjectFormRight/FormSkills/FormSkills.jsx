@@ -84,7 +84,7 @@ export default function FormSkills({ formSkills, setFormSkills }) {
 }
 
 FormSkills.propTypes = {
-  formSkills: PropTypes.objectOf(PropTypes.number),
+  formSkills: PropTypes.arrayOf(PropTypes.number),
   setFormSkills: PropTypes.func,
 };
 
